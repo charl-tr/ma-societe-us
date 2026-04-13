@@ -50,11 +50,11 @@ export function Hero() {
       {/* Bottom bar — states + secondary CTA */}
       <div className="relative z-10 border-t border-white/[0.08] bg-[#1A1408]/40 backdrop-blur-sm">
         <div className="px-6 lg:px-10 py-5 flex items-center justify-between">
-          <div className="flex items-center gap-10 text-[13px] text-[#FAFAF9]/40">
-            <span>Nouveau-Mexique</span>
-            <span className="hidden sm:inline">Colorado</span>
-            <span className="hidden sm:inline">Wyoming</span>
-            <span className="hidden md:inline">Delaware</span>
+          <div className="flex items-center gap-4 sm:gap-8 text-[12px] sm:text-[13px] text-[#FAFAF9]/40">
+            <span>NM</span>
+            <span>CO</span>
+            <span>WY</span>
+            <span>DE</span>
           </div>
           <a
             href="/services/pack-llc"

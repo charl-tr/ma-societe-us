@@ -3,9 +3,8 @@
 import { Hero } from "@/components/hero/Hero";
 import { CTASection } from "@/components/sections/CTASection";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
-import { motion } from "framer-motion";
 
-/* ─── Fade-in wrapper ─── */
+/* ─── Simple wrapper — no JS animation dependency ─── */
 function Reveal({
   children,
   className,
@@ -16,15 +15,9 @@ function Reveal({
   delay?: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
-      className={className}
-    >
+    <div className={className} style={delay > 0 ? { animationDelay: `${delay}s` } : undefined}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -73,8 +66,8 @@ export default function HomePage() {
 
       {/* ─── Social proof bar ─── */}
       <section className="bg-[#0F0E0D] border-t border-white/[0.04]">
-        <div className="px-6 lg:px-10 py-8 lg:py-10">
-          <div className="flex flex-wrap items-center justify-between gap-y-4 gap-x-8">
+        <div className="px-6 lg:px-10 py-6 lg:py-10">
+          <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between gap-y-4 gap-x-6">
             {STATS.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 0.08}>
                 <div className="flex items-baseline gap-3">
@@ -95,7 +88,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── Value props ─── */}
-      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[100px] lg:py-[140px]">
+      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-16 lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-4">
@@ -135,13 +128,13 @@ export default function HomePage() {
       </section>
 
       {/* ─── Teaser cards ─── */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-16 lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Reveal>
               <a
                 href="/creer-llc"
-                className="group relative border border-[#FAFAF9]/[0.06] rounded-2xl p-10 lg:p-14 hover:bg-[#FAFAF9]/[0.03] transition-all duration-300 block overflow-hidden"
+                className="group relative border border-[#FAFAF9]/[0.06] rounded-2xl p-7 lg:p-14 hover:bg-[#FAFAF9]/[0.03] transition-all duration-300 block overflow-hidden"
               >
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-4">
                   4 juridictions
@@ -178,7 +171,7 @@ export default function HomePage() {
             <Reveal delay={0.1}>
               <a
                 href="/services/pack-llc"
-                className="group relative border border-[#FAFAF9]/[0.06] rounded-2xl p-10 lg:p-14 hover:bg-[#FAFAF9]/[0.03] transition-all duration-300 block overflow-hidden"
+                className="group relative border border-[#FAFAF9]/[0.06] rounded-2xl p-7 lg:p-14 hover:bg-[#FAFAF9]/[0.03] transition-all duration-300 block overflow-hidden"
               >
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-4">
                   Pack tout inclus
@@ -216,7 +209,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── Testimonials — multiple, with roles ─── */}
-      <section className="bg-[#F2F1F0] text-[#0F0E0D] py-[100px] lg:py-[140px]">
+      <section className="bg-[#F2F1F0] text-[#0F0E0D] py-16 lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-16 text-center">
