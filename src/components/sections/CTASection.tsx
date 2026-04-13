@@ -20,27 +20,31 @@ export function CTASection() {
         <div className="absolute inset-0 bg-[#C4890A]/[0.06] mix-blend-overlay" />
 
         <div className="relative z-10 px-6 lg:px-10 py-[100px] max-w-2xl">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/30 mb-6">
+            Prêt ?
+          </p>
           <h2
-            className="text-[clamp(2rem,4.5vw,56px)] leading-[1.1] font-normal tracking-tight text-[#FAFAF9]"
+            className="text-[clamp(2rem,4.5vw,52px)] leading-[1.1] font-normal tracking-tight text-[#FAFAF9]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            N&apos;hésitez pas à nous
+            15 minutes pour changer
             <br />
-            contacter pour toutes
-            <br />
-            questions.
+            votre fiscalité.
           </h2>
           <p className="mt-6 text-[17px] text-[#FAFAF9]/50 leading-relaxed">
-            Réservez votre entretien découverte de 15 minutes. Nous évaluons
-            votre situation et vous orientons — sans engagement.
+            Entretien gratuit, sans engagement. On analyse votre situation
+            et on vous dit si une LLC fait sens pour vous — honnêtement.
           </p>
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
             <a
               href="/contact"
               className="inline-flex items-center bg-[#FAFAF9] text-[#1A1408] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
             >
-              Réservez votre entretien découverte
+              Réserver mon créneau gratuit
             </a>
+            <span className="text-[13px] text-[#FAFAF9]/30 self-center">
+              Réponse sous 24h
+            </span>
           </div>
         </div>
       </section>

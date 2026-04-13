@@ -25,12 +25,10 @@ export function Hero() {
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 lg:px-10 pb-24 lg:pb-32">
         {/* Headline */}
         <h1
-          className="text-[clamp(3rem,7vw,80px)] leading-[1.05] font-normal text-[#FAFAF9] max-w-3xl tracking-tight"
+          className="text-[clamp(2.8rem,6.5vw,72px)] leading-[1.05] font-normal text-[#FAFAF9] max-w-3xl tracking-tight whitespace-pre-line"
           style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.0175em" }}
         >
-          Créer une société
-          <br />
-          aux USA.
+          {HERO.headline}
         </h1>
 
         {/* Subtitle */}

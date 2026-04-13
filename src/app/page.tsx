@@ -99,15 +99,15 @@ export default function HomePage() {
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-4">
-              Pourquoi une LLC aux USA
+              Pourquoi passer à la LLC
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <h2
-              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.02em] max-w-xl mb-16"
+              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.02em] max-w-2xl mb-16"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              Tout ce que votre structure française ne peut pas vous offrir.
+              Ce que votre SARL ou SAS ne pourra jamais vous offrir.
             </h2>
           </Reveal>
 
@@ -144,22 +144,22 @@ export default function HomePage() {
                 className="group relative border border-[#FAFAF9]/[0.06] rounded-2xl p-10 lg:p-14 hover:bg-[#FAFAF9]/[0.03] transition-all duration-300 block overflow-hidden"
               >
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-4">
-                  Juridictions
+                  4 juridictions
                 </p>
                 <h3
                   className="text-[clamp(1.5rem,2.5vw,2rem)] font-normal tracking-tight mb-4"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
-                  Choisissez votre état
+                  Le bon état,
                   <br />
-                  d&apos;immatriculation.
+                  c&apos;est des milliers d&apos;euros de différence.
                 </h3>
                 <p className="text-[15px] leading-relaxed text-[#FAFAF9]/40 mb-8 max-w-md">
-                  Nouveau-Mexique, Colorado, Wyoming ou Delaware — explorez
-                  nos 4 juridictions et trouvez celle qui correspond à votre activité.
+                  Nouveau-Mexique, Colorado, Wyoming, Delaware — chaque juridiction
+                  a ses avantages. On vous montre laquelle maximise vos gains.
                 </p>
                 <span className="inline-flex items-center gap-2 text-[13px] text-[#FAFAF9]/50 group-hover:text-[#FAFAF9] transition-colors">
-                  Explorer la carte interactive
+                  Comparer les états
                   <svg
                     className="w-4 h-4 transition-transform group-hover:translate-x-1"
                     viewBox="0 0 24 24"
@@ -181,22 +181,22 @@ export default function HomePage() {
                 className="group relative border border-[#FAFAF9]/[0.06] rounded-2xl p-10 lg:p-14 hover:bg-[#FAFAF9]/[0.03] transition-all duration-300 block overflow-hidden"
               >
                 <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-4">
-                  Notre offre
+                  Pack tout inclus
                 </p>
                 <h3
                   className="text-[clamp(1.5rem,2.5vw,2rem)] font-normal tracking-tight mb-4"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
-                  Un accompagnement
+                  Vous signez.
                   <br />
-                  de A à Z.
+                  On fait le reste.
                 </h3>
                 <p className="text-[15px] leading-relaxed text-[#FAFAF9]/40 mb-8 max-w-md">
-                  Création de LLC, obtention de l&apos;EIN, ouverture de compte
-                  bancaire et suivi post-création — tout est inclus.
+                  LLC, EIN, compte bancaire US, documents légaux, suivi
+                  post-création — un seul interlocuteur, zéro prise de tête.
                 </p>
                 <span className="inline-flex items-center gap-2 text-[13px] text-[#FAFAF9]/50 group-hover:text-[#FAFAF9] transition-colors">
-                  Découvrir le Pack LLC
+                  Voir ce qui est inclus
                   <svg
                     className="w-4 h-4 transition-transform group-hover:translate-x-1"
                     viewBox="0 0 24 24"
@@ -220,7 +220,7 @@ export default function HomePage() {
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-16 text-center">
-              Ils nous font confiance
+              Ce qu&apos;ils en disent
             </p>
           </Reveal>
 

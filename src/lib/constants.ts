@@ -13,17 +13,17 @@ export const NAV_ITEMS = [
 ] as const;
 
 export const HERO = {
-  headline: "Créer une société\naux USA.",
+  headline: "Votre société américaine.\nJusqu'à 0% d'impôts.",
   subline:
-    "Nous vous accompagnons pour créer une société aux USA 100% légale, jusqu'à 0% d'imposition.",
-  cta: "Réservez votre entretien découverte",
-  ctaSecondary: "Découvrir notre offre",
+    "On crée votre LLC aux USA en 2 semaines. 100% légal, 100% à distance. Plus de 500 entrepreneurs nous font déjà confiance.",
+  cta: "Entretien gratuit — 15 min",
+  ctaSecondary: "Voir comment ça marche",
 };
 
 export const INTRO = {
   headline:
-    "Créer une société aux USA est LA solution pour optimiser son business.",
-  body: "Vous devriez songer à créer une société aux USA si les tâches administratives vous prennent tout votre temps, si vous avez l'impression d'étouffer sous une fiscalité qui pénalise votre activité, ou si vous aspirez à du changement mais que cela paraît trop compliqué.",
+    "Vous payez trop d'impôts. La LLC américaine change la donne.",
+  body: "Si la fiscalité française pénalise votre activité, si l'administratif vous étouffe, ou si vous sentez que votre structure actuelle vous freine — la LLC aux USA est la solution qu'utilisent déjà des milliers d'entrepreneurs européens.",
 };
 
 export const ADVANTAGES = [
@@ -93,43 +93,43 @@ export const TESTIMONIAL = {
 export const TESTIMONIALS = [
   {
     quote:
-      "Un grand merci à toute l'équipe ! Christophe et Mathieu ont été de très bons conseils et m'ont permis de faire des économies sur ma note fiscale.",
+      "J'économise plus de 30 000€ par an grâce à ma LLC. Christophe et son équipe ont tout géré — je n'ai eu qu'à signer.",
     author: "Antoine R.",
-    role: "Consultant indépendant",
+    role: "Consultant IT · LLC au Nouveau-Mexique",
   },
   {
     quote:
-      "Processus fluide et rapide. Ma LLC au Nouveau-Mexique a été créée en moins de deux semaines, compte bancaire inclus. Je recommande à 100%.",
+      "14 jours entre mon premier appel et ma première facture en dollars. Compte Mercury inclus. J'aurais dû le faire il y a 3 ans.",
     author: "Sophie M.",
-    role: "E-commerce",
+    role: "E-commerce · LLC au Colorado",
   },
   {
     quote:
-      "Enfin un cabinet qui parle français et qui comprend les enjeux des entrepreneurs européens aux USA. L'accompagnement post-création fait toute la différence.",
+      "Le seul cabinet qui parle français ET qui comprend la fiscalité des deux côtés de l'Atlantique. L'accompagnement post-création, c'est ce qui fait la différence.",
     author: "Thomas D.",
-    role: "Fondateur SaaS",
+    role: "Fondateur SaaS · LLC au Delaware",
   },
 ];
 
 export const VALUE_PROPS = [
   {
     icon: "percent",
-    title: "Jusqu'à 0% d'imposition",
-    description: "Optimisez légalement votre fiscalité grâce à la structure LLC américaine.",
+    title: "Jusqu'à 0% d'impôts",
+    description: "Là où la France vous prend 45%, une LLC au bon état peut descendre à zéro. Légalement.",
   },
   {
     icon: "shield",
-    title: "Anonymat garanti",
-    description: "Protection totale de vos informations personnelles selon l'état choisi.",
+    title: "Anonymat total",
+    description: "Votre nom n'apparaît nulle part dans les registres publics. Pas de trace, pas de risque.",
   },
   {
     icon: "clock",
-    title: "Création en 24h à 2 semaines",
-    description: "Du Colorado express au Nouveau-Mexique complet, selon vos besoins.",
+    title: "Opérationnel en 2 semaines",
+    description: "LLC créée, EIN obtenu, compte bancaire ouvert. Prêt à facturer en dollars.",
   },
   {
     icon: "globe",
-    title: "100% à distance",
-    description: "Pas besoin de résider aux USA ni de vous déplacer. Tout se fait en ligne.",
+    title: "Sans quitter votre canapé",
+    description: "Pas de visa, pas de billet d'avion, pas de déplacement. On gère tout à distance.",
   },
 ];
