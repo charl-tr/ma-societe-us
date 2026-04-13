@@ -19,7 +19,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#FAFAF9] shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+            ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(10,22,40,0.06)]"
             : ""
         }`}
       >
@@ -46,7 +46,7 @@ export function Navbar() {
                 href={item.href}
                 className={`text-[13px] tracking-wide transition-colors duration-300 ${
                   scrolled
-                    ? "text-[#141210]/60 hover:text-[#141210]"
+                    ? "text-[#0A1628]/60 hover:text-[#0A1628]"
                     : "text-[#FAFAF9]/90 hover:text-[#FAFAF9]"
                 }`}
               >
@@ -61,8 +61,8 @@ export function Navbar() {
               href="/contact"
               className={`inline-flex items-center px-5 py-2 rounded-full text-[13px] font-medium transition-all duration-300 ${
                 scrolled
-                  ? "bg-[#141210] text-[#FAFAF9] hover:bg-[#141210]/90"
-                  : "bg-[#FAFAF9] text-[#141210] hover:bg-[#FAFAF9]/90"
+                  ? "bg-[#002868] text-white hover:bg-[#002868]/90"
+                  : "bg-[#FAFAF9] text-[#0A1628] hover:bg-[#FAFAF9]/90"
               }`}
             >
               Prendre rendez-vous
@@ -77,12 +77,12 @@ export function Navbar() {
           >
             <span
               className={`block w-5 h-px transition-all duration-300 ${
-                menuOpen || scrolled ? "bg-[#141210]" : "bg-[#FAFAF9]"
+                menuOpen || scrolled ? "bg-[#0A1628]" : "bg-[#FAFAF9]"
               } ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`}
             />
             <span
               className={`block w-5 h-px transition-all duration-300 ${
-                menuOpen || scrolled ? "bg-[#141210]" : "bg-[#FAFAF9]"
+                menuOpen || scrolled ? "bg-[#0A1628]" : "bg-[#FAFAF9]"
               } ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`}
             />
           </button>
@@ -91,7 +91,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-40 bg-[#FAFAF9] flex flex-col justify-center items-center gap-8 transition-all duration-300 ${
+        className={`fixed inset-0 z-40 bg-white flex flex-col justify-center items-center gap-8 transition-all duration-300 ${
           menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
@@ -100,7 +100,7 @@ export function Navbar() {
             key={item.href}
             href={item.href}
             onClick={() => setMenuOpen(false)}
-            className="text-2xl text-[#141210]/80 hover:text-[#141210]"
+            className="text-2xl text-[#0A1628]/80 hover:text-[#0A1628]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             {item.label}
@@ -109,7 +109,7 @@ export function Navbar() {
         <a
           href="/contact"
           onClick={() => setMenuOpen(false)}
-          className="mt-6 bg-[#141210] text-[#FAFAF9] px-8 py-3 rounded-full text-sm font-medium"
+          className="mt-6 bg-[#002868] text-white px-8 py-3 rounded-full text-sm font-medium"
         >
           Prendre rendez-vous
         </a>
