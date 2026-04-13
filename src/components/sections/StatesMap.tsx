@@ -1,77 +1,26 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef, memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, memo } from "react";
 import { geoAlbersUsa, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
-
 import { STATES, type StateInfo } from "@/lib/states";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
-
 const HIGHLIGHT_FIPS = new Set(STATES.map((s) => s.fips));
 
-/* ─── Icons ─── */
-function StateIcon({ type }: { type: string }) {
-  const cn = "w-3.5 h-3.5";
-  switch (type) {
-    case "shield":
-      return (
-        <svg className={cn} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        </svg>
-      );
-    case "zap":
-      return (
-        <svg className={cn} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-      );
-    case "lock":
-      return (
-        <svg className={cn} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-          <path d="M7 11V7a5 5 0 0110 0v4" />
-        </svg>
-      );
-    case "building":
-      return (
-        <svg className={cn} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="4" y="2" width="16" height="20" rx="2" />
-          <path d="M9 22v-4h6v4" />
-          <path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
+const MAP_W = 800;
+const MAP_H = 500;
 
-/* ─── Centroid helper ─── */
-function getCentroid(pathData: string): [number, number] {
-  // Parse the SVG path to find approximate center using bounding box
-  const nums: number[] = [];
-  const matches = pathData.match(/[-+]?[0-9]*\.?[0-9]+/g);
-  if (!matches) return [0, 0];
-  matches.forEach((m) => nums.push(parseFloat(m)));
+/* Card positions relative to the map container (percentage-based) */
+const CARD_POSITIONS: Record<string, { top: string; left: string; anchor: "left" | "right" }> = {
+  "56": { top: "2%", left: "0%", anchor: "left" },       // Wyoming — top-left
+  "08": { top: "2%", left: "68%", anchor: "right" },      // Colorado — top-right
+  "35": { top: "62%", left: "0%", anchor: "left" },       // New Mexico — bottom-left
+  "10": { top: "62%", left: "68%", anchor: "right" },     // Delaware — bottom-right
+};
 
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  for (let i = 0; i < nums.length; i += 2) {
-    if (i + 1 < nums.length) {
-      const x = nums[i], y = nums[i + 1];
-      if (x < 1000 && y < 1000) { // filter out noise
-        minX = Math.min(minX, x);
-        maxX = Math.max(maxX, x);
-        minY = Math.min(minY, y);
-        maxY = Math.max(maxY, y);
-      }
-    }
-  }
-  return [(minX + maxX) / 2, (minY + maxY) / 2];
-}
-
-/* ─── US Map rendered with d3-geo ─── */
+/* ─── Map ─── */
 interface GeoFeature {
   type: "Feature";
   id: string;
@@ -79,19 +28,15 @@ interface GeoFeature {
   properties: Record<string, unknown>;
 }
 
-const MAP_W = 800;
-const MAP_H = 500;
-
 const USMap = memo(function USMap({
   activeFips,
-  onSelect,
+  centroids,
 }: {
-  activeFips: string;
-  onSelect: (fips: string) => void;
+  activeFips: string | null;
+  centroids: Map<string, [number, number]>;
 }) {
   const [features, setFeatures] = useState<GeoFeature[]>([]);
   const [paths, setPaths] = useState<Map<string, string>>(new Map());
-  const [centroids, setCentroids] = useState<Map<string, [number, number]>>(new Map());
 
   useEffect(() => {
     fetch(GEO_URL)
@@ -108,47 +53,34 @@ const USMap = memo(function USMap({
         const pathGen = geoPath(projection);
 
         const pathMap = new Map<string, string>();
-        const centroidMap = new Map<string, [number, number]>();
-
         feats.forEach((f) => {
           const d = pathGen(f.geometry);
           if (d) {
             pathMap.set(f.id, d);
             if (HIGHLIGHT_FIPS.has(f.id)) {
               const c = pathGen.centroid(f.geometry);
-              centroidMap.set(f.id, c as [number, number]);
+              centroids.set(f.id, c as [number, number]);
             }
           }
         });
-
         setPaths(pathMap);
-        setCentroids(centroidMap);
       });
-  }, []);
+  }, [centroids]);
 
   if (paths.size === 0) return <div className="w-full aspect-[8/5]" />;
 
   return (
     <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full h-auto">
-      {/* Glow filters */}
       <defs>
-        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+        <filter id="stateGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
           <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-        <filter id="glowSoft" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="blur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
       </defs>
 
-      {/* All states */}
       {features.map((f) => {
         const d = paths.get(f.id);
         if (!d) return null;
@@ -161,101 +93,75 @@ const USMap = memo(function USMap({
             d={d}
             fill={
               isActive
-                ? "rgba(250,250,249,0.22)"
+                ? "rgba(0, 80, 180, 0.35)"
                 : isHighlighted
-                  ? "rgba(250,250,249,0.09)"
-                  : "rgba(250,250,249,0.025)"
+                  ? "rgba(0, 80, 180, 0.18)"
+                  : "rgba(180, 200, 220, 0.25)"
             }
             stroke={
-              isActive
-                ? "rgba(250,250,249,0.55)"
-                : isHighlighted
-                  ? "rgba(250,250,249,0.18)"
-                  : "rgba(250,250,249,0.04)"
+              isHighlighted
+                ? "rgba(0, 80, 180, 0.3)"
+                : "rgba(180, 200, 220, 0.4)"
             }
-            strokeWidth={isActive ? 1.4 : isHighlighted ? 0.7 : 0.2}
-            filter={isActive ? "url(#glow)" : "none"}
-            cursor={isHighlighted ? "pointer" : "default"}
-            onMouseEnter={() => {
-              if (isHighlighted) onSelect(f.id);
-            }}
-            onClick={() => {
-              if (isHighlighted) onSelect(f.id);
-            }}
-            style={{ transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)" }}
+            strokeWidth={isHighlighted ? 0.8 : 0.3}
+            filter={isActive ? "url(#stateGlow)" : "none"}
+            style={{ transition: "all 0.5s ease" }}
           />
-        );
-      })}
-
-      {/* State abbreviation labels */}
-      {STATES.map((s) => {
-        const c = centroids.get(s.fips);
-        if (!c) return null;
-        const isActive = activeFips === s.fips;
-
-        return (
-          <text
-            key={s.fips}
-            x={c[0]}
-            y={c[1]}
-            textAnchor="middle"
-            dominantBaseline="central"
-            fill={isActive ? "rgba(250,250,249,0.95)" : "rgba(250,250,249,0.3)"}
-            fontSize={isActive ? 16 : 12}
-            fontWeight={isActive ? 600 : 400}
-            letterSpacing="0.1em"
-            fontFamily="var(--font-body), system-ui, sans-serif"
-            filter={isActive ? "url(#glowSoft)" : "none"}
-            style={{
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-              pointerEvents: "none",
-            }}
-          >
-            {s.abbr}
-          </text>
         );
       })}
     </svg>
   );
 });
 
-/* ─── Tab bar ─── */
-function StateTabs({
-  states,
-  activeIdx,
-  onSelect,
+/* ─── Glass Card ─── */
+function GlassCard({
+  state,
+  isActive,
+  onHover,
+  onClick,
+  position,
 }: {
-  states: StateInfo[];
-  activeIdx: number;
-  onSelect: (idx: number) => void;
+  state: StateInfo;
+  isActive: boolean;
+  onHover: () => void;
+  onClick: () => void;
+  position: { top: string; left: string; anchor: "left" | "right" };
 }) {
   return (
-    <div className="relative">
-      <div className="flex">
-        {states.map((s, idx) => (
-          <button
-            key={s.fips}
-            onClick={() => onSelect(idx)}
-            className={`relative flex-1 py-4 text-center text-[13px] tracking-wide font-light transition-colors duration-300 ${
-              activeIdx === idx
-                ? "text-[#FAFAF9]"
-                : "text-[#FAFAF9]/25 hover:text-[#FAFAF9]/50"
-            }`}
-          >
-            {s.abbr}
-          </button>
-        ))}
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#FAFAF9]/[0.06]" />
-      <motion.div
-        className="absolute bottom-0 h-[2px] bg-[#FAFAF9]"
-        initial={false}
-        animate={{
-          left: `${(activeIdx / states.length) * 100}%`,
-          width: `${100 / states.length}%`,
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 35 }}
-      />
+    <div
+      className="absolute z-10"
+      style={{
+        top: position.top,
+        left: position.anchor === "left" ? position.left : undefined,
+        right: position.anchor === "right" ? `calc(100% - ${position.left} - 30%)` : undefined,
+        width: "min(30%, 260px)",
+      }}
+    >
+      <button
+        onClick={onClick}
+        onMouseEnter={onHover}
+        className={`w-full text-left rounded-xl p-5 lg:p-6 transition-all duration-400 cursor-pointer border ${
+          isActive
+            ? "bg-white/80 backdrop-blur-xl border-white/90 shadow-[0_8px_32px_rgba(0,40,104,0.08)]"
+            : "bg-white/40 backdrop-blur-md border-white/50 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:bg-white/60 hover:shadow-[0_6px_24px_rgba(0,40,104,0.06)]"
+        }`}
+      >
+        <h3
+          className={`text-[clamp(0.95rem,1.5vw,1.15rem)] font-normal tracking-tight transition-colors duration-300 ${
+            isActive ? "text-[#0A1628]" : "text-[#0A1628]/60"
+          }`}
+          style={{ fontFamily: "var(--font-heading)" }}
+        >
+          {state.name}
+        </h3>
+        <p
+          className={`mt-1.5 text-[12px] lg:text-[13px] leading-relaxed transition-colors duration-300 ${
+            isActive ? "text-[#0A1628]/60" : "text-[#0A1628]/35"
+          }`}
+        >
+          {state.tagline}
+        </p>
+      </button>
     </div>
   );
 }
@@ -263,133 +169,86 @@ function StateTabs({
 /* ─── Main Component ─── */
 export function StatesMap() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [centroidsMap] = useState(() => new Map<string, [number, number]>());
   const activeState = STATES[activeIdx];
 
-  const handleMapSelect = useCallback((fips: string) => {
-    const idx = STATES.findIndex((s) => s.fips === fips);
-    if (idx !== -1) setActiveIdx(idx);
-  }, []);
-
   return (
-    <section
-      id="juridictions"
-      className="relative bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] overflow-hidden"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_30%,rgba(250,250,249,0.02),transparent)]" />
+    <section id="juridictions" className="relative py-16 lg:py-[120px] overflow-hidden">
+      {/* Misty light background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#EEF2F7] via-[#F4F7FA] to-[#EEF2F7]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(255,255,255,0.8),transparent)]" />
 
-      <div className="relative px-6 lg:px-10 max-w-[1400px] mx-auto">
+      <div className="relative px-6 lg:px-10 max-w-[1200px] mx-auto">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 lg:mb-20">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-5">
-            Juridictions
+        <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#0A1628]/30 mb-4">
+            4 juridictions
           </p>
           <h2
-            className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em]"
+            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.02em] text-[#0A1628]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Une maîtrise chirurgicale
+            Le bon état, c&apos;est des milliers
             <br />
-            de la carte fiscale.
+            d&apos;euros de différence.
           </h2>
         </div>
 
-        {/* Map + Detail panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          <div className="lg:col-span-7 relative">
-            <USMap activeFips={activeState.fips} onSelect={handleMapSelect} />
+        {/* Map + Glass Cards container */}
+        <div className="relative max-w-[900px] mx-auto">
+          {/* Glass cards — positioned around the map */}
+          {STATES.map((state, idx) => {
+            const pos = CARD_POSITIONS[state.fips];
+            if (!pos) return null;
+            return (
+              <GlassCard
+                key={state.fips}
+                state={state}
+                isActive={activeIdx === idx}
+                onHover={() => setActiveIdx(idx)}
+                onClick={() => setActiveIdx(idx)}
+                position={pos}
+              />
+            );
+          })}
+
+          {/* The map — centered, below cards in z-order */}
+          <div className="px-[12%] py-[8%]">
+            <USMap activeFips={activeState.fips} centroids={centroidsMap} />
           </div>
+        </div>
 
-          <div className="lg:col-span-5 lg:pt-2">
-            <StateTabs states={STATES} activeIdx={activeIdx} onSelect={setActiveIdx} />
-
-            <div className="border border-[#FAFAF9]/[0.06] border-t-0 rounded-b-2xl overflow-hidden bg-[#FAFAF9]/[0.015]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIdx}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                  className="p-8 lg:p-10"
+        {/* Detail section below */}
+        <div className="mt-12 lg:mt-16 max-w-2xl mx-auto text-center">
+          <div
+            key={activeIdx}
+            className="bg-white/60 backdrop-blur-xl border border-white/80 rounded-2xl p-8 lg:p-10 shadow-[0_8px_40px_rgba(0,40,104,0.06)]"
+          >
+            <div className="flex items-center justify-center gap-6 flex-wrap mb-6">
+              {activeState.pros.map((pro) => (
+                <span
+                  key={pro}
+                  className="inline-flex items-center gap-2 text-[13px] text-[#0A1628]/60"
                 >
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <span className="text-[#FAFAF9]/35">
-                      <StateIcon type={activeState.icon} />
-                    </span>
-                    <span className="text-[11px] uppercase tracking-[0.15em] text-[#FAFAF9]/35">
-                      {activeState.tagline}
-                    </span>
-                  </div>
-
-                  <h3
-                    className="text-[clamp(1.4rem,2.5vw,1.8rem)] font-normal tracking-[-0.01em] mb-8"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {activeState.name}
-                  </h3>
-
-                  <div className="mb-6">
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-[#FAFAF9]/20 mb-4">
-                      Avantages
-                    </p>
-                    <ul className="space-y-2.5">
-                      {activeState.pros.map((pro, i) => (
-                        <motion.li
-                          key={pro}
-                          initial={{ opacity: 0, x: 8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.2, delay: 0.04 * i }}
-                          className="flex items-start gap-2.5"
-                        >
-                          <span className="mt-[7px] h-1 w-1 rounded-full bg-[#FAFAF9]/40 flex-shrink-0" />
-                          <span className="text-[14px] leading-relaxed text-[#FAFAF9]/55">{pro}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mb-8">
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-[#FAFAF9]/20 mb-4">
-                      Points d&apos;attention
-                    </p>
-                    <ul className="space-y-2.5">
-                      {activeState.cons.map((con, i) => (
-                        <motion.li
-                          key={con}
-                          initial={{ opacity: 0, x: 8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.2, delay: 0.04 * (activeState.pros.length + i) }}
-                          className="flex items-start gap-2.5"
-                        >
-                          <span className="mt-[7px] h-1 w-1 rounded-full bg-[#FAFAF9]/15 flex-shrink-0" />
-                          <span className="text-[14px] leading-relaxed text-[#FAFAF9]/30">{con}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-2 border-t border-[#FAFAF9]/[0.04]">
-                    <a
-                      href={`/creer-llc/${activeState.slug}`}
-                      className="group inline-flex items-center gap-2 pt-5 text-[13px] tracking-wide text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors duration-300"
-                    >
-                      <span>Créer ma LLC au {activeState.name}</span>
-                      <svg
-                        className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  <span className="w-1 h-1 rounded-full bg-[#002868]/40" />
+                  {pro}
+                </span>
+              ))}
             </div>
+            {activeState.cons.length > 0 && (
+              <p className="text-[13px] text-[#0A1628]/30 mb-6">
+                À noter : {activeState.cons.join(". ")}
+              </p>
+            )}
+            <a
+              href={`/creer-llc/${activeState.slug}`}
+              className="inline-flex items-center gap-2 bg-[#002868] text-white px-6 py-3 rounded-full text-[14px] font-medium hover:bg-[#002868]/90 transition-colors"
+            >
+              Créer ma LLC au {activeState.name}
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>

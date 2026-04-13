@@ -6,8 +6,8 @@ import { STATS } from "@/lib/constants";
 export function CTASection() {
   return (
     <>
-      {/* Final CTA — with NYC building image */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+      {/* Final CTA — cinematic image (the one dark section) */}
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <Image
           src="/nyc-building.jpg"
           alt=""
@@ -15,57 +15,55 @@ export function CTASection() {
           className="object-cover"
           quality={85}
         />
-        {/* Warm cinematic overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1408]/90 via-[#1A1408]/80 to-[#1A1408]/50" />
-        <div className="absolute inset-0 bg-[#C4890A]/[0.06] mix-blend-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628]/90 via-[#0A1628]/80 to-[#0A1628]/50" />
 
-        <div className="relative z-10 px-6 lg:px-10 py-[100px] max-w-2xl">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/30 mb-6">
+        <div className="relative z-10 px-6 lg:px-10 py-[80px] max-w-2xl">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-white/40 mb-5">
             Prêt ?
           </p>
           <h2
-            className="text-[clamp(2rem,4.5vw,52px)] leading-[1.1] font-normal tracking-tight text-[#FAFAF9]"
+            className="text-[clamp(1.8rem,4vw,48px)] leading-[1.1] font-normal tracking-tight text-white"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             15 minutes pour changer
             <br />
             votre fiscalité.
           </h2>
-          <p className="mt-6 text-[17px] text-[#FAFAF9]/50 leading-relaxed">
+          <p className="mt-5 text-[16px] text-white/50 leading-relaxed">
             Entretien gratuit, sans engagement. On analyse votre situation
             et on vous dit si une LLC fait sens pour vous — honnêtement.
           </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row items-start gap-4">
             <a
               href="/contact"
-              className="inline-flex items-center bg-[#FAFAF9] text-[#1A1408] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
+              className="inline-flex items-center bg-white text-[#0A1628] px-7 py-3.5 rounded-full text-[14px] font-medium hover:bg-white/90 transition-colors"
             >
               Réserver mon créneau gratuit
             </a>
-            <span className="text-[13px] text-[#FAFAF9]/30 self-center">
+            <span className="text-[13px] text-white/30 self-center">
               Réponse sous 24h
             </span>
           </div>
         </div>
       </section>
 
-      {/* Stats bar — understated, institutional */}
-      <section className="bg-[#0F0E0D] border-t border-white/[0.06]">
+      {/* Stats bar — white, subtle */}
+      <section className="border-t border-[#0A1628]/[0.06]">
         <div className="px-6 lg:px-10">
-          <div className="flex flex-wrap items-center justify-between py-10 lg:py-12 gap-y-6">
+          <div className="flex flex-wrap items-center justify-between py-8 lg:py-10 gap-y-4">
             {STATS.map((stat, i) => (
               <div key={stat.label} className="flex items-baseline gap-3">
                 <span
-                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-normal tracking-tight text-[#FAFAF9]/80"
+                  className="text-[clamp(1.3rem,2.5vw,1.8rem)] font-normal tracking-tight text-[#002868]"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {stat.value}
                 </span>
-                <span className="text-[13px] text-[#FAFAF9]/25">
+                <span className="text-[13px] text-[#0A1628]/30">
                   {stat.label}
                 </span>
                 {i < STATS.length - 1 && (
-                  <span className="hidden lg:block w-px h-5 bg-[#FAFAF9]/[0.06] ml-6" />
+                  <span className="hidden lg:block w-px h-4 bg-[#0A1628]/[0.08] ml-6" />
                 )}
               </div>
             ))}
