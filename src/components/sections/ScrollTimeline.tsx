@@ -74,7 +74,7 @@ export function ScrollTimeline() {
   }, [handleScroll]);
 
   return (
-    <section className="relative bg-[#141210] text-[#FAFAF9] py-[120px] lg:py-[160px] overflow-hidden">
+    <section className="relative bg-[#002868] text-[#FAFAF9] py-[120px] lg:py-[160px] overflow-hidden">
       <div className="mx-auto max-w-5xl px-6 lg:px-10">
         {/* Header */}
         <div className="mb-24 text-center">

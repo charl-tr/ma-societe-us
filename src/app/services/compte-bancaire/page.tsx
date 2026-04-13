@@ -31,12 +31,12 @@ export default function CompteBancairePage() {
         subtitle="Ouverture d'un compte bancaire professionnel américain à distance."
       />
 
-      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[100px] lg:py-[140px]">
+      <section className="bg-[#FAFAF9] text-[#002868] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-4xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-5">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/30 mb-5">
             Comment ça marche
           </p>
-          <p className="text-[17px] leading-relaxed text-[#0F0E0D]/60 mb-16 max-w-2xl">
+          <p className="text-[17px] leading-relaxed text-[#002868]/60 mb-16 max-w-2xl">
             Nous vous assistons pour l&apos;ouverture d&apos;un compte bancaire
             professionnel américain associé à votre LLC, auprès de nos
             partenaires bancaires. Pas besoin de se déplacer.
@@ -49,7 +49,7 @@ export default function CompteBancairePage() {
                 className="flex gap-6 lg:gap-10"
               >
                 <span
-                  className="text-[clamp(2rem,4vw,3rem)] font-normal text-[#0F0E0D]/10 flex-shrink-0"
+                  className="text-[clamp(2rem,4vw,3rem)] font-normal text-[#002868]/10 flex-shrink-0"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {step.step}
@@ -61,7 +61,7 @@ export default function CompteBancairePage() {
                   >
                     {step.title}
                   </h3>
-                  <p className="text-[15px] leading-relaxed text-[#0F0E0D]/55">
+                  <p className="text-[15px] leading-relaxed text-[#002868]/55">
                     {step.description}
                   </p>
                 </div>
@@ -71,7 +71,7 @@ export default function CompteBancairePage() {
         </div>
       </section>
 
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px]">
+      <section className="bg-[#002868] text-[#FAFAF9] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-10"
@@ -81,7 +81,7 @@ export default function CompteBancairePage() {
           </h2>
           <a
             href="/contact"
-            className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
+            className="inline-flex items-center bg-[#FAFAF9] text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
           >
             Réservez votre entretien découverte
           </a>

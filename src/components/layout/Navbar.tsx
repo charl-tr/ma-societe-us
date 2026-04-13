@@ -46,7 +46,7 @@ export function Navbar() {
                 href={item.href}
                 className={`text-[13px] tracking-wide transition-colors duration-300 ${
                   scrolled
-                    ? "text-[#0A1628]/60 hover:text-[#0A1628]"
+                    ? "text-[#002868]/60 hover:text-[#002868]"
                     : "text-[#FAFAF9]/90 hover:text-[#FAFAF9]"
                 }`}
               >
@@ -62,7 +62,7 @@ export function Navbar() {
               className={`inline-flex items-center px-5 py-2 rounded-full text-[13px] font-medium transition-all duration-300 ${
                 scrolled
                   ? "bg-[#002868] text-white hover:bg-[#002868]/90"
-                  : "bg-[#FAFAF9] text-[#0A1628] hover:bg-[#FAFAF9]/90"
+                  : "bg-[#FAFAF9] text-[#002868] hover:bg-[#FAFAF9]/90"
               }`}
             >
               Prendre rendez-vous
@@ -77,12 +77,12 @@ export function Navbar() {
           >
             <span
               className={`block w-5 h-px transition-all duration-300 ${
-                menuOpen || scrolled ? "bg-[#0A1628]" : "bg-[#FAFAF9]"
+                menuOpen || scrolled ? "bg-[#002868]" : "bg-[#FAFAF9]"
               } ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`}
             />
             <span
               className={`block w-5 h-px transition-all duration-300 ${
-                menuOpen || scrolled ? "bg-[#0A1628]" : "bg-[#FAFAF9]"
+                menuOpen || scrolled ? "bg-[#002868]" : "bg-[#FAFAF9]"
               } ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`}
             />
           </button>
@@ -100,7 +100,7 @@ export function Navbar() {
             key={item.href}
             href={item.href}
             onClick={() => setMenuOpen(false)}
-            className="text-2xl text-[#0A1628]/80 hover:text-[#0A1628]"
+            className="text-2xl text-[#002868]/80 hover:text-[#002868]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             {item.label}

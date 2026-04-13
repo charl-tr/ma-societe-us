@@ -16,7 +16,7 @@ export function CTASection() {
           quality={85}
         />
         {/* Navy cinematic overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628]/92 via-[#0A1628]/80 to-[#0A1628]/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#002868]/92 via-[#002868]/80 to-[#002868]/50" />
         <div className="absolute inset-0 bg-[#002868]/[0.08] mix-blend-overlay" />
 
         <div className="relative z-10 px-6 lg:px-10 py-[100px] max-w-2xl">
@@ -38,7 +38,7 @@ export function CTASection() {
           <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
             <a
               href="/contact"
-              className="inline-flex items-center bg-white text-[#0A1628] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-white/90 transition-colors"
+              className="inline-flex items-center bg-white text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-white/90 transition-colors"
             >
               Réserver mon créneau gratuit
             </a>
@@ -50,7 +50,7 @@ export function CTASection() {
       </section>
 
       {/* Stats bar */}
-      <section className="bg-[#0A1628] border-t border-white/[0.06]">
+      <section className="bg-[#002868] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10">
           <div className="flex flex-wrap items-center justify-between py-10 lg:py-12 gap-y-6">
             {STATS.map((stat, i) => (

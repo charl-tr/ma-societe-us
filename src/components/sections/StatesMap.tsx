@@ -273,7 +273,7 @@ export function StatesMap() {
   return (
     <section
       id="juridictions"
-      className="relative bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] overflow-hidden"
+      className="relative bg-[#002868] text-[#FAFAF9] py-[100px] lg:py-[140px] overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_30%,rgba(250,250,249,0.02),transparent)]" />
 

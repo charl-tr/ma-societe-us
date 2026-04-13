@@ -7,12 +7,12 @@ export default function MentionsLegalesPage() {
     <main>
       <PageHeader title="Mentions légales." />
 
-      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[100px] lg:py-[140px]">
+      <section className="bg-[#FAFAF9] text-[#002868] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-3xl mx-auto prose-sm">
-          <div className="space-y-10 text-[15px] leading-relaxed text-[#0F0E0D]/60">
+          <div className="space-y-10 text-[15px] leading-relaxed text-[#002868]/60">
             <div>
               <h2
-                className="text-[20px] font-normal text-[#0F0E0D] mb-4"
+                className="text-[20px] font-normal text-[#002868] mb-4"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Éditeur du site
@@ -30,7 +30,7 @@ export default function MentionsLegalesPage() {
 
             <div>
               <h2
-                className="text-[20px] font-normal text-[#0F0E0D] mb-4"
+                className="text-[20px] font-normal text-[#002868] mb-4"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Hébergement
@@ -43,7 +43,7 @@ export default function MentionsLegalesPage() {
 
             <div>
               <h2
-                className="text-[20px] font-normal text-[#0F0E0D] mb-4"
+                className="text-[20px] font-normal text-[#002868] mb-4"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Profession réglementée

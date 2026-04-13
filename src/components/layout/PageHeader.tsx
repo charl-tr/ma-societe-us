@@ -9,7 +9,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle }: PageHeaderProps) {
   return (
-    <section className="relative bg-[#0F0E0D] pt-32 lg:pt-40 pb-16 lg:pb-24 overflow-hidden">
+    <section className="relative bg-[#002868] pt-32 lg:pt-40 pb-16 lg:pb-24 overflow-hidden">
       {/* NYC background image with heavy overlay */}
       <Image
         src="/hero-nyc.jpg"
@@ -17,7 +17,7 @@ export function PageHeader({ title, subtitle }: PageHeaderProps) {
         fill
         className="object-cover opacity-20"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0F0E0D]/60 to-[#0F0E0D]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#002868]/60 to-[#002868]" />
 
       <div className="relative z-10 px-6 lg:px-10">
         <h1

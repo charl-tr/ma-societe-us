@@ -65,7 +65,7 @@ export default function HomePage() {
       <Hero />
 
       {/* ─── Social proof bar ─── */}
-      <section className="bg-[#0A1628] border-t border-white/[0.06]">
+      <section className="bg-[#002868] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10 py-6 lg:py-10">
           <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between gap-y-4 gap-x-6">
             {STATS.map((stat, i) => (
@@ -88,7 +88,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── Value props ─── */}
-      <section className="bg-[#FAFAF7] text-[#0A1628] py-16 lg:py-[140px]">
+      <section className="bg-[#FAFAF7] text-[#002868] py-16 lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/40 mb-4">
@@ -97,7 +97,7 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.1}>
             <h2
-              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.02em] max-w-2xl mb-16 text-[#0A1628]"
+              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.02em] max-w-2xl mb-16 text-[#002868]"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Ce que votre SARL ou SAS ne pourra jamais vous offrir.
@@ -112,12 +112,12 @@ export default function HomePage() {
                     <PropIcon type={prop.icon} />
                   </div>
                   <h3
-                    className="text-[18px] font-normal mb-2 tracking-tight text-[#0A1628]"
+                    className="text-[18px] font-normal mb-2 tracking-tight text-[#002868]"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {prop.title}
                   </h3>
-                  <p className="text-[14px] leading-relaxed text-[#0A1628]/50">
+                  <p className="text-[14px] leading-relaxed text-[#002868]/50">
                     {prop.description}
                   </p>
                 </div>
@@ -128,7 +128,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── Teaser cards ─── */}
-      <section className="bg-[#0A1628] text-white py-16 lg:py-[140px]">
+      <section className="bg-[#002868] text-white py-16 lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Reveal>
@@ -193,10 +193,10 @@ export default function HomePage() {
       </section>
 
       {/* ─── Testimonials ─── */}
-      <section className="bg-[#F4F3F0] text-[#0A1628] py-16 lg:py-[140px]">
+      <section className="bg-[#F4F3F0] text-[#002868] py-16 lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           <Reveal>
-            <p className="text-[11px] uppercase tracking-[0.25em] text-[#0A1628]/30 mb-16 text-center">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/30 mb-16 text-center">
               Ce qu&apos;ils en disent
             </p>
           </Reveal>
@@ -206,16 +206,16 @@ export default function HomePage() {
               <Reveal key={t.author} delay={0.08 * i}>
                 <div className="flex flex-col h-full">
                   <blockquote
-                    className="text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.5] font-normal flex-1 text-[#0A1628]"
+                    className="text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.5] font-normal flex-1 text-[#002868]"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     &laquo;&nbsp;{t.quote}&nbsp;&raquo;
                   </blockquote>
-                  <div className="mt-8 pt-6 border-t border-[#0A1628]/[0.08]">
-                    <p className="text-[14px] font-medium text-[#0A1628]">
+                  <div className="mt-8 pt-6 border-t border-[#002868]/[0.08]">
+                    <p className="text-[14px] font-medium text-[#002868]">
                       {t.author}
                     </p>
-                    <p className="text-[13px] text-[#0A1628]/40 mt-0.5">
+                    <p className="text-[13px] text-[#002868]/40 mt-0.5">
                       {t.role}
                     </p>
                   </div>

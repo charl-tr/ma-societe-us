@@ -17,7 +17,7 @@ export function Hero() {
       />
 
       {/* Navy cinematic overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/92 via-[#0A1628]/55 to-[#0A1628]/65" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#002868]/92 via-[#002868]/55 to-[#002868]/65" />
       {/* Subtle cool tint */}
       <div className="absolute inset-0 bg-[#002868]/[0.10] mix-blend-overlay" />
 
@@ -37,7 +37,7 @@ export function Hero() {
         <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
           <a
             href="/contact"
-            className="inline-flex items-center bg-white text-[#0A1628] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-white/90 transition-colors"
+            className="inline-flex items-center bg-white text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-white/90 transition-colors"
           >
             {HERO.cta}
           </a>
@@ -45,7 +45,7 @@ export function Hero() {
       </div>
 
       {/* Bottom bar */}
-      <div className="relative z-10 border-t border-white/[0.08] bg-[#0A1628]/40 backdrop-blur-sm">
+      <div className="relative z-10 border-t border-white/[0.08] bg-[#002868]/40 backdrop-blur-sm">
         <div className="px-6 lg:px-10 py-5 flex items-center justify-between">
           <div className="flex items-center gap-4 sm:gap-8 text-[12px] sm:text-[13px] text-white/40">
             <span>NM</span>
