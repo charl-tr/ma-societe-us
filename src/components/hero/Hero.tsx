@@ -16,8 +16,8 @@ export function Hero() {
         quality={90}
       />
 
-      {/* Cinematic warm overlay — golden hour grade */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1408]/90 via-[#1A1408]/50 to-[#1A1408]/30" />
+      {/* Cinematic warm overlay — golden hour grade + strong top for nav readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1408]/90 via-[#1A1408]/50 to-[#1A1408]/60" />
       {/* Warm amber tint */}
       <div className="absolute inset-0 bg-[#C4890A]/[0.08] mix-blend-overlay" />
 

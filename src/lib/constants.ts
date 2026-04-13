@@ -89,3 +89,47 @@ export const TESTIMONIAL = {
     "Un grand merci à toute l'équipe ! Christophe et Mathieu ont été de très bons conseils et m'ont permis de faire des économies sur ma note fiscale. Je referai sans aucun doute appel à eux pour mes déclarations fiscales.",
   author: "Antoine R.",
 };
+
+export const TESTIMONIALS = [
+  {
+    quote:
+      "Un grand merci à toute l'équipe ! Christophe et Mathieu ont été de très bons conseils et m'ont permis de faire des économies sur ma note fiscale.",
+    author: "Antoine R.",
+    role: "Consultant indépendant",
+  },
+  {
+    quote:
+      "Processus fluide et rapide. Ma LLC au Nouveau-Mexique a été créée en moins de deux semaines, compte bancaire inclus. Je recommande à 100%.",
+    author: "Sophie M.",
+    role: "E-commerce",
+  },
+  {
+    quote:
+      "Enfin un cabinet qui parle français et qui comprend les enjeux des entrepreneurs européens aux USA. L'accompagnement post-création fait toute la différence.",
+    author: "Thomas D.",
+    role: "Fondateur SaaS",
+  },
+];
+
+export const VALUE_PROPS = [
+  {
+    icon: "percent",
+    title: "Jusqu'à 0% d'imposition",
+    description: "Optimisez légalement votre fiscalité grâce à la structure LLC américaine.",
+  },
+  {
+    icon: "shield",
+    title: "Anonymat garanti",
+    description: "Protection totale de vos informations personnelles selon l'état choisi.",
+  },
+  {
+    icon: "clock",
+    title: "Création en 24h à 2 semaines",
+    description: "Du Colorado express au Nouveau-Mexique complet, selon vos besoins.",
+  },
+  {
+    icon: "globe",
+    title: "100% à distance",
+    description: "Pas besoin de résider aux USA ni de vous déplacer. Tout se fait en ligne.",
+  },
+];

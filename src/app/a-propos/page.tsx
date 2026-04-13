@@ -88,21 +88,24 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-[#141210] text-[#FAFAF9] py-[80px] lg:py-[100px]">
+      {/* Stats bar — same style as homepage */}
+      <section className="bg-[#0F0E0D] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-            {STATS.map((stat) => (
-              <div key={stat.label}>
+          <div className="flex flex-wrap items-center justify-between py-10 lg:py-12 gap-y-6">
+            {STATS.map((stat, i) => (
+              <div key={stat.label} className="flex items-baseline gap-3">
                 <span
-                  className="text-[clamp(2.5rem,5vw,64px)] font-normal tracking-tight text-[#D4A528]"
+                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-normal tracking-tight text-[#FAFAF9]/80"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {stat.value}
                 </span>
-                <p className="mt-2 text-[14px] text-[#FAFAF9]/40">
+                <span className="text-[13px] text-[#FAFAF9]/25">
                   {stat.label}
-                </p>
+                </span>
+                {i < STATS.length - 1 && (
+                  <span className="hidden lg:block w-px h-5 bg-[#FAFAF9]/[0.06] ml-6" />
+                )}
               </div>
             ))}
           </div>

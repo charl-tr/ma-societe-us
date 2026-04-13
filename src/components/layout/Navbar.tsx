@@ -9,7 +9,7 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -20,48 +20,34 @@ export function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-[#FAFAF9] shadow-[0_1px_0_rgba(0,0,0,0.06)]"
-            : "bg-gradient-to-b from-[#0F0E0D]/70 via-[#0F0E0D]/30 to-transparent"
+            : ""
         }`}
       >
-        {/* Announcement bar */}
-        <div
-          className={`transition-all duration-500 overflow-hidden ${
-            scrolled ? "h-0 opacity-0" : "h-10 opacity-100"
-          }`}
-        >
-          <div className="flex items-center justify-center h-full border-b border-white/[0.06]">
-            <span className="text-[11px] tracking-[0.15em] uppercase text-[#FAFAF9]/40">
-              Experts comptables &amp; juridiques — Depuis 2014
-            </span>
-          </div>
-        </div>
-
-        {/* Main nav */}
-        <nav className="flex items-center justify-between px-6 lg:px-10 h-[60px] lg:h-[64px]">
+        <nav className="flex items-center justify-between px-6 lg:px-10 h-[56px] lg:h-[64px]">
           {/* Logo */}
           <a href="/" className="relative z-10 flex-shrink-0">
             <Image
               src="/logo.png"
               alt="MA SOCIETE US"
-              width={140}
-              height={84}
-              className={`h-10 w-auto transition-all duration-500 ${
+              width={120}
+              height={72}
+              className={`h-9 w-auto transition-all duration-500 ${
                 scrolled ? "" : "brightness-[10] saturate-0"
               }`}
               priority
             />
           </a>
 
-          {/* Desktop nav links — centered */}
-          <div className="hidden lg:flex items-center gap-7">
+          {/* Desktop nav links */}
+          <div className="hidden lg:flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-[13px] transition-colors duration-300 ${
+                className={`text-[13px] tracking-wide transition-colors duration-300 ${
                   scrolled
-                    ? "text-[#141210]/50 hover:text-[#141210]"
-                    : "text-[#FAFAF9]/70 hover:text-[#FAFAF9]"
+                    ? "text-[#141210]/60 hover:text-[#141210]"
+                    : "text-[#FAFAF9]/90 hover:text-[#FAFAF9]"
                 }`}
               >
                 {item.label}
