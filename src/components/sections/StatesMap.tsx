@@ -1,13 +1,10 @@
 "use client";
 
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, useEffect, useRef, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from "react-simple-maps";
+import { geoAlbersUsa, geoPath } from "d3-geo";
+import { feature } from "topojson-client";
+import type { Topology, GeometryCollection } from "topojson-specification";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -18,7 +15,6 @@ interface StateInfo {
   tagline: string;
   fips: string;
   icon: string;
-  coordinates: [number, number]; // [lng, lat] for marker placement
   pros: string[];
   cons: string[];
 }
@@ -30,7 +26,6 @@ const STATES: StateInfo[] = [
     tagline: "Obtention de l'EIN en 5 à 6 jours",
     fips: "35",
     icon: "shield",
-    coordinates: [-106.0, 34.4],
     pros: [
       "Anonymat total des actionnaires",
       "Aucune obligation comptable",
@@ -46,7 +41,6 @@ const STATES: StateInfo[] = [
     tagline: "Rapidité absolue — Création en 24h",
     fips: "08",
     icon: "zap",
-    coordinates: [-105.5, 39.0],
     pros: [
       "EIN obtenu le plus rapidement",
       "Écosystème startup-friendly",
@@ -60,7 +54,6 @@ const STATES: StateInfo[] = [
     tagline: "L'état de prédilection pour les structures Crypto",
     fips: "56",
     icon: "lock",
-    coordinates: [-107.5, 43.0],
     pros: [
       "Législation pro-blockchain",
       "Anonymat garanti",
@@ -74,7 +67,6 @@ const STATES: StateInfo[] = [
     tagline: "Le standard pour la valorisation et la levée de fonds",
     fips: "10",
     icon: "building",
-    coordinates: [-75.5, 39.0],
     pros: [
       "Court of Chancery spécialisée",
       "Idéal pour levée de fonds",
@@ -84,7 +76,6 @@ const STATES: StateInfo[] = [
   },
 ];
 
-const FIPS_MAP = new Map(STATES.map((s) => [s.fips, s]));
 const HIGHLIGHT_FIPS = new Set(STATES.map((s) => s.fips));
 
 /* ─── Icons ─── */
@@ -123,7 +114,40 @@ function StateIcon({ type }: { type: string }) {
   }
 }
 
-/* ─── Map with overlay markers ─── */
+/* ─── Centroid helper ─── */
+function getCentroid(pathData: string): [number, number] {
+  // Parse the SVG path to find approximate center using bounding box
+  const nums: number[] = [];
+  const matches = pathData.match(/[-+]?[0-9]*\.?[0-9]+/g);
+  if (!matches) return [0, 0];
+  matches.forEach((m) => nums.push(parseFloat(m)));
+
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (let i = 0; i < nums.length; i += 2) {
+    if (i + 1 < nums.length) {
+      const x = nums[i], y = nums[i + 1];
+      if (x < 1000 && y < 1000) { // filter out noise
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+      }
+    }
+  }
+  return [(minX + maxX) / 2, (minY + maxY) / 2];
+}
+
+/* ─── US Map rendered with d3-geo ─── */
+interface GeoFeature {
+  type: "Feature";
+  id: string;
+  geometry: GeoJSON.Geometry;
+  properties: Record<string, unknown>;
+}
+
+const MAP_W = 800;
+const MAP_H = 500;
+
 const USMap = memo(function USMap({
   activeFips,
   onSelect,
@@ -131,15 +155,48 @@ const USMap = memo(function USMap({
   activeFips: string;
   onSelect: (fips: string) => void;
 }) {
+  const [features, setFeatures] = useState<GeoFeature[]>([]);
+  const [paths, setPaths] = useState<Map<string, string>>(new Map());
+  const [centroids, setCentroids] = useState<Map<string, [number, number]>>(new Map());
+
+  useEffect(() => {
+    fetch(GEO_URL)
+      .then((r) => r.json())
+      .then((topology: Topology) => {
+        const geojson = feature(
+          topology,
+          topology.objects.states as GeometryCollection,
+        );
+        const feats = (geojson as GeoJSON.FeatureCollection).features as GeoFeature[];
+        setFeatures(feats);
+
+        const projection = geoAlbersUsa().fitSize([MAP_W, MAP_H], geojson as GeoJSON.FeatureCollection);
+        const pathGen = geoPath(projection);
+
+        const pathMap = new Map<string, string>();
+        const centroidMap = new Map<string, [number, number]>();
+
+        feats.forEach((f) => {
+          const d = pathGen(f.geometry);
+          if (d) {
+            pathMap.set(f.id, d);
+            if (HIGHLIGHT_FIPS.has(f.id)) {
+              const c = pathGen.centroid(f.geometry);
+              centroidMap.set(f.id, c as [number, number]);
+            }
+          }
+        });
+
+        setPaths(pathMap);
+        setCentroids(centroidMap);
+      });
+  }, []);
+
+  if (paths.size === 0) return <div className="w-full aspect-[8/5]" />;
+
   return (
-    <ComposableMap
-      projection="geoAlbersUsa"
-      projectionConfig={{ scale: 1000 }}
-      width={800}
-      height={500}
-      style={{ width: "100%", height: "auto" }}
-    >
-      {/* Glow filter for active state */}
+    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full h-auto">
+      {/* Glow filters */}
       <defs>
         <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur stdDeviation="6" result="coloredBlur" />
@@ -157,92 +214,74 @@ const USMap = memo(function USMap({
         </filter>
       </defs>
 
-      <Geographies geography={GEO_URL}>
-        {({ geographies }) =>
-          geographies.map((geo) => {
-            const fips = geo.id;
-            const isHighlighted = HIGHLIGHT_FIPS.has(fips);
-            const isActive = activeFips === fips;
+      {/* All states */}
+      {features.map((f) => {
+        const d = paths.get(f.id);
+        if (!d) return null;
+        const isHighlighted = HIGHLIGHT_FIPS.has(f.id);
+        const isActive = activeFips === f.id;
 
-            return (
-              <Geography
-                key={geo.rpiKey ?? geo.id}
-                geography={geo}
-                onMouseEnter={() => {
-                  if (isHighlighted) onSelect(fips);
-                }}
-                onClick={() => {
-                  if (isHighlighted) onSelect(fips);
-                }}
-                style={{
-                  default: {
-                    fill: isActive
-                      ? "rgba(250,250,249,0.22)"
-                      : isHighlighted
-                        ? "rgba(250,250,249,0.09)"
-                        : "rgba(250,250,249,0.025)",
-                    stroke: isActive
-                      ? "rgba(250,250,249,0.55)"
-                      : isHighlighted
-                        ? "rgba(250,250,249,0.18)"
-                        : "rgba(250,250,249,0.04)",
-                    strokeWidth: isActive ? 1.4 : isHighlighted ? 0.7 : 0.2,
-                    outline: "none",
-                    cursor: isHighlighted ? "pointer" : "default",
-                    filter: isActive ? "url(#glow)" : "none",
-                    transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                  },
-                  hover: {
-                    fill: isHighlighted
-                      ? "rgba(250,250,249,0.16)"
-                      : "rgba(250,250,249,0.035)",
-                    stroke: isHighlighted
-                      ? "rgba(250,250,249,0.35)"
-                      : "rgba(250,250,249,0.04)",
-                    strokeWidth: isHighlighted ? 1 : 0.2,
-                    outline: "none",
-                    cursor: isHighlighted ? "pointer" : "default",
-                    filter: isHighlighted ? "url(#glowSoft)" : "none",
-                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  },
-                  pressed: {
-                    fill: isHighlighted
-                      ? "rgba(250,250,249,0.22)"
-                      : "rgba(250,250,249,0.025)",
-                    outline: "none",
-                  },
-                }}
-              />
-            );
-          })
-        }
-      </Geographies>
+        return (
+          <path
+            key={f.id}
+            d={d}
+            fill={
+              isActive
+                ? "rgba(250,250,249,0.22)"
+                : isHighlighted
+                  ? "rgba(250,250,249,0.09)"
+                  : "rgba(250,250,249,0.025)"
+            }
+            stroke={
+              isActive
+                ? "rgba(250,250,249,0.55)"
+                : isHighlighted
+                  ? "rgba(250,250,249,0.18)"
+                  : "rgba(250,250,249,0.04)"
+            }
+            strokeWidth={isActive ? 1.4 : isHighlighted ? 0.7 : 0.2}
+            filter={isActive ? "url(#glow)" : "none"}
+            cursor={isHighlighted ? "pointer" : "default"}
+            onMouseEnter={() => {
+              if (isHighlighted) onSelect(f.id);
+            }}
+            onClick={() => {
+              if (isHighlighted) onSelect(f.id);
+            }}
+            style={{ transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)" }}
+          />
+        );
+      })}
 
       {/* State abbreviation labels */}
       {STATES.map((s) => {
+        const c = centroids.get(s.fips);
+        if (!c) return null;
         const isActive = activeFips === s.fips;
+
         return (
-          <Marker key={s.fips} coordinates={s.coordinates}>
-            <text
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill={isActive ? "rgba(250,250,249,0.95)" : "rgba(250,250,249,0.3)"}
-              fontSize={isActive ? 16 : 12}
-              fontWeight={isActive ? 600 : 400}
-              letterSpacing="0.1em"
-              fontFamily="var(--font-body), system-ui, sans-serif"
-              style={{
-                transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                pointerEvents: "none",
-                filter: isActive ? "url(#glowSoft)" : "none",
-              }}
-            >
-              {s.abbr}
-            </text>
-          </Marker>
+          <text
+            key={s.fips}
+            x={c[0]}
+            y={c[1]}
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill={isActive ? "rgba(250,250,249,0.95)" : "rgba(250,250,249,0.3)"}
+            fontSize={isActive ? 16 : 12}
+            fontWeight={isActive ? 600 : 400}
+            letterSpacing="0.1em"
+            fontFamily="var(--font-body), system-ui, sans-serif"
+            filter={isActive ? "url(#glowSoft)" : "none"}
+            style={{
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              pointerEvents: "none",
+            }}
+          >
+            {s.abbr}
+          </text>
         );
       })}
-    </ComposableMap>
+    </svg>
   );
 });
 
@@ -273,9 +312,7 @@ function StateTabs({
           </button>
         ))}
       </div>
-      {/* Background line */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-[#FAFAF9]/[0.06]" />
-      {/* Animated indicator */}
       <motion.div
         className="absolute bottom-0 h-[2px] bg-[#FAFAF9]"
         initial={false}
@@ -304,7 +341,6 @@ export function StatesMap() {
       id="juridictions"
       className="relative bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] overflow-hidden"
     >
-      {/* Subtle ambient glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_30%,rgba(250,250,249,0.02),transparent)]" />
 
       <div className="relative px-6 lg:px-10 max-w-[1400px] mx-auto">
@@ -323,23 +359,15 @@ export function StatesMap() {
           </h2>
         </div>
 
-        {/* Map + Detail panel side by side */}
+        {/* Map + Detail panel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Map */}
           <div className="lg:col-span-7 relative">
             <USMap activeFips={activeState.fips} onSelect={handleMapSelect} />
           </div>
 
-          {/* Detail panel */}
           <div className="lg:col-span-5 lg:pt-2">
-            {/* Tabs */}
-            <StateTabs
-              states={STATES}
-              activeIdx={activeIdx}
-              onSelect={setActiveIdx}
-            />
+            <StateTabs states={STATES} activeIdx={activeIdx} onSelect={setActiveIdx} />
 
-            {/* Content card */}
             <div className="border border-[#FAFAF9]/[0.06] border-t-0 rounded-b-2xl overflow-hidden bg-[#FAFAF9]/[0.015]">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -350,7 +378,6 @@ export function StatesMap() {
                   transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                   className="p-8 lg:p-10"
                 >
-                  {/* Tagline */}
                   <div className="flex items-center gap-2.5 mb-3">
                     <span className="text-[#FAFAF9]/35">
                       <StateIcon type={activeState.icon} />
@@ -360,7 +387,6 @@ export function StatesMap() {
                     </span>
                   </div>
 
-                  {/* Title */}
                   <h3
                     className="text-[clamp(1.4rem,2.5vw,1.8rem)] font-normal tracking-[-0.01em] mb-8"
                     style={{ fontFamily: "var(--font-heading)" }}
@@ -368,7 +394,6 @@ export function StatesMap() {
                     {activeState.name}
                   </h3>
 
-                  {/* Pros */}
                   <div className="mb-6">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-[#FAFAF9]/20 mb-4">
                       Avantages
@@ -383,15 +408,12 @@ export function StatesMap() {
                           className="flex items-start gap-2.5"
                         >
                           <span className="mt-[7px] h-1 w-1 rounded-full bg-[#FAFAF9]/40 flex-shrink-0" />
-                          <span className="text-[14px] leading-relaxed text-[#FAFAF9]/55">
-                            {pro}
-                          </span>
+                          <span className="text-[14px] leading-relaxed text-[#FAFAF9]/55">{pro}</span>
                         </motion.li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Cons */}
                   <div className="mb-8">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-[#FAFAF9]/20 mb-4">
                       Points d&apos;attention
@@ -406,15 +428,12 @@ export function StatesMap() {
                           className="flex items-start gap-2.5"
                         >
                           <span className="mt-[7px] h-1 w-1 rounded-full bg-[#FAFAF9]/15 flex-shrink-0" />
-                          <span className="text-[14px] leading-relaxed text-[#FAFAF9]/30">
-                            {con}
-                          </span>
+                          <span className="text-[14px] leading-relaxed text-[#FAFAF9]/30">{con}</span>
                         </motion.li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* CTA */}
                   <div className="pt-2 border-t border-[#FAFAF9]/[0.04]">
                     <a
                       href="#contact"
