@@ -26,7 +26,7 @@ export function CTASection() {
       </section>
 
       {/* Final CTA — with NYC building image */}
-      <section id="contact" className="relative min-h-[70vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         <Image
           src="/nyc-building.jpg"
           alt=""
@@ -55,7 +55,7 @@ export function CTASection() {
           </p>
           <div className="mt-10">
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center bg-[#FAFAF9] text-[#1A1408] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
             >
               Réservez votre entretien découverte

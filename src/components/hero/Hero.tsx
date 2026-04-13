@@ -41,7 +41,7 @@ export function Hero() {
         {/* CTA — Harvey pill style */}
         <div className="mt-10 flex flex-col sm:flex-row items-start gap-4">
           <a
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center bg-[#FAFAF9] text-[#1A1408] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
           >
             {HERO.cta}
@@ -59,7 +59,7 @@ export function Hero() {
             <span className="hidden md:inline">Delaware</span>
           </div>
           <a
-            href="#offre"
+            href="/services/pack-llc"
             className="text-[13px] text-[#FAFAF9]/60 hover:text-[#FAFAF9] border border-white/10 px-4 py-2 rounded-full transition-colors"
           >
             Découvrir notre offre

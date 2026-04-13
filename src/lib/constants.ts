@@ -5,11 +5,11 @@ export const SITE = {
 };
 
 export const NAV_ITEMS = [
-  { label: "Pack LLC", href: "#offre" },
-  { label: "Juridictions", href: "#juridictions" },
+  { label: "Créer une LLC", href: "/creer-llc" },
+  { label: "Services", href: "/services" },
   { label: "Tarifs", href: "/tarifs" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const HERO = {
@@ -65,13 +65,15 @@ export const STATS = [
 
 export const FOOTER_LINKS = {
   services: [
-    { label: "Pack LLC", href: "/pack-llc" },
+    { label: "Pack LLC", href: "/services/pack-llc" },
+    { label: "Comptabilité", href: "/services/comptabilite" },
+    { label: "Fiscalité", href: "/services/fiscalite" },
+    { label: "Compte bancaire", href: "/services/compte-bancaire" },
     { label: "Tarifs", href: "/tarifs" },
-    { label: "Déclaration LLC", href: "#" },
-    { label: "Compte bancaire", href: "#" },
   ],
   cabinet: [
-    { label: "Immigration US", href: "/immigration-us" },
+    { label: "À propos", href: "/a-propos" },
+    { label: "Créer une LLC", href: "/creer-llc" },
     { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],

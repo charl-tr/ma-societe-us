@@ -19,60 +19,49 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#FAFAF9]/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.04)]"
-            : ""
+            ? "bg-[#FAFAF9] shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+            : "bg-gradient-to-b from-[#0F0E0D]/70 via-[#0F0E0D]/30 to-transparent"
         }`}
       >
-        {/* Announcement bar — refined, compact */}
+        {/* Announcement bar */}
         <div
-          className={`flex items-center justify-center transition-all duration-500 overflow-hidden ${
-            scrolled
-              ? "h-0 opacity-0"
-              : "h-9 opacity-100"
+          className={`transition-all duration-500 overflow-hidden ${
+            scrolled ? "h-0 opacity-0" : "h-10 opacity-100"
           }`}
         >
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-[#FAFAF9]/10" />
-            <span className="text-[11px] tracking-[0.2em] uppercase text-[#FAFAF9]/35 font-light">
+          <div className="flex items-center justify-center h-full border-b border-white/[0.06]">
+            <span className="text-[11px] tracking-[0.15em] uppercase text-[#FAFAF9]/40">
               Experts comptables &amp; juridiques — Depuis 2014
             </span>
-            <span className="h-px w-6 bg-[#FAFAF9]/10" />
           </div>
         </div>
 
-        {/* Separator between banner and nav */}
-        <div
-          className={`transition-all duration-500 ${
-            scrolled ? "h-0 opacity-0" : "h-px opacity-100 bg-[#FAFAF9]/[0.06]"
-          }`}
-        />
-
-        {/* Main navigation */}
-        <nav className="flex items-center justify-between px-6 lg:px-10 h-16 lg:h-[68px]">
+        {/* Main nav */}
+        <nav className="flex items-center justify-between px-6 lg:px-10 h-[60px] lg:h-[64px]">
           {/* Logo */}
-          <a href="/" className="relative z-10">
+          <a href="/" className="relative z-10 flex-shrink-0">
             <Image
               src="/logo.png"
               alt="MA SOCIETE US"
               width={140}
               height={84}
-              className={`h-11 w-auto transition-all duration-500 ${
+              className={`h-10 w-auto transition-all duration-500 ${
                 scrolled ? "" : "brightness-[10] saturate-0"
               }`}
               priority
             />
           </a>
 
-          {/* Desktop nav links */}
-          <div className="hidden lg:flex items-center gap-8">
+          {/* Desktop nav links — centered */}
+          <div className="hidden lg:flex items-center gap-7">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-[13px] tracking-wide transition-colors duration-300 ${
+                className={`text-[13px] transition-colors duration-300 ${
                   scrolled
                     ? "text-[#141210]/50 hover:text-[#141210]"
-                    : "text-[#FAFAF9]/45 hover:text-[#FAFAF9]"
+                    : "text-[#FAFAF9]/70 hover:text-[#FAFAF9]"
                 }`}
               >
                 {item.label}
@@ -81,13 +70,13 @@ export function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center">
+          <div className="hidden lg:flex items-center flex-shrink-0">
             <a
-              href="#contact"
+              href="/contact"
               className={`inline-flex items-center px-5 py-2 rounded-full text-[13px] font-medium transition-all duration-300 ${
                 scrolled
                   ? "bg-[#141210] text-[#FAFAF9] hover:bg-[#141210]/90"
-                  : "bg-[#FAFAF9]/10 text-[#FAFAF9]/80 border border-[#FAFAF9]/15 hover:bg-[#FAFAF9]/15 hover:text-[#FAFAF9]"
+                  : "bg-[#FAFAF9] text-[#141210] hover:bg-[#FAFAF9]/90"
               }`}
             >
               Prendre rendez-vous
@@ -132,7 +121,7 @@ export function Navbar() {
           </a>
         ))}
         <a
-          href="#contact"
+          href="/contact"
           onClick={() => setMenuOpen(false)}
           className="mt-6 bg-[#141210] text-[#FAFAF9] px-8 py-3 rounded-full text-sm font-medium"
         >

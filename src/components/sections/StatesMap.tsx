@@ -6,75 +6,9 @@ import { geoAlbersUsa, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
 
+import { STATES, type StateInfo } from "@/lib/states";
+
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
-
-/* ─── State data ─── */
-interface StateInfo {
-  name: string;
-  abbr: string;
-  tagline: string;
-  fips: string;
-  icon: string;
-  pros: string[];
-  cons: string[];
-}
-
-const STATES: StateInfo[] = [
-  {
-    name: "Nouveau-Mexique",
-    abbr: "NM",
-    tagline: "Obtention de l'EIN en 5 à 6 jours",
-    fips: "35",
-    icon: "shield",
-    pros: [
-      "Anonymat total des actionnaires",
-      "Aucune obligation comptable",
-      "Fiscalité attractive (jusqu'à 0%)",
-      "Gestion simplifiée",
-      "Recommandé pour les entrepreneurs étrangers",
-    ],
-    cons: ["Délai légèrement plus long que le Colorado"],
-  },
-  {
-    name: "Colorado",
-    abbr: "CO",
-    tagline: "Rapidité absolue — Création en 24h",
-    fips: "08",
-    icon: "zap",
-    pros: [
-      "EIN obtenu le plus rapidement",
-      "Écosystème startup-friendly",
-      "Procédure simplifiée",
-    ],
-    cons: ["Annual Report obligatoire", "Moins d'anonymat"],
-  },
-  {
-    name: "Wyoming",
-    abbr: "WY",
-    tagline: "L'état de prédilection pour les structures Crypto",
-    fips: "56",
-    icon: "lock",
-    pros: [
-      "Législation pro-blockchain",
-      "Anonymat garanti",
-      "Pas d'impôt sur le revenu de l'État",
-    ],
-    cons: ["Moins adapté aux activités classiques"],
-  },
-  {
-    name: "Delaware",
-    abbr: "DE",
-    tagline: "Le standard pour la valorisation et la levée de fonds",
-    fips: "10",
-    icon: "building",
-    pros: [
-      "Court of Chancery spécialisée",
-      "Idéal pour levée de fonds",
-      "Prestige institutionnel maximum",
-    ],
-    cons: ["Franchise Tax annuelle", "Plus adapté aux C-Corps"],
-  },
-];
 
 const HIGHLIGHT_FIPS = new Set(STATES.map((s) => s.fips));
 
@@ -436,7 +370,7 @@ export function StatesMap() {
 
                   <div className="pt-2 border-t border-[#FAFAF9]/[0.04]">
                     <a
-                      href="#contact"
+                      href={`/creer-llc/${activeState.slug}`}
                       className="group inline-flex items-center gap-2 pt-5 text-[13px] tracking-wide text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors duration-300"
                     >
                       <span>Créer ma LLC au {activeState.name}</span>
