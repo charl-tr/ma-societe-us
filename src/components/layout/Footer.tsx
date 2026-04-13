@@ -4,7 +4,7 @@ import { SITE, NAV_ITEMS, FOOTER_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="bg-[#002868] border-t border-white/[0.06]">
+    <footer className="bg-[#141210] border-t border-white/[0.06]">
       <div className="px-6 lg:px-10 py-12">
         <div className="flex flex-col lg:flex-row justify-between gap-10">
           <div>

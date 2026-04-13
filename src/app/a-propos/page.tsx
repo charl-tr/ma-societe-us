@@ -13,11 +13,11 @@ export default function AProposPage() {
       />
 
       {/* About content */}
-      <section className="bg-[#FAFAF9] text-[#002868] py-[100px] lg:py-[140px]">
+      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/30 mb-5">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-5">
                 Notre histoire
               </p>
               <h2
@@ -26,7 +26,7 @@ export default function AProposPage() {
               >
                 Plus de 10 ans au service des entrepreneurs francophones aux USA.
               </h2>
-              <div className="space-y-5 text-[16px] leading-relaxed text-[#002868]/60">
+              <div className="space-y-5 text-[16px] leading-relaxed text-[#0F0E0D]/60">
                 <p>
                   MA SOCIETE US est un cabinet franco-américain spécialisé dans
                   la création et la gestion de sociétés américaines. Depuis 2014,
@@ -48,7 +48,7 @@ export default function AProposPage() {
             </div>
 
             <div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/30 mb-5">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-5">
                 Nos valeurs
               </p>
               <div className="space-y-8">
@@ -77,7 +77,7 @@ export default function AProposPage() {
                     >
                       {value.title}
                     </h3>
-                    <p className="text-[15px] leading-relaxed text-[#002868]/50">
+                    <p className="text-[15px] leading-relaxed text-[#0F0E0D]/50">
                       {value.desc}
                     </p>
                   </div>
@@ -89,7 +89,7 @@ export default function AProposPage() {
       </section>
 
       {/* Stats bar — same style as homepage */}
-      <section className="bg-[#002868] border-t border-white/[0.06]">
+      <section className="bg-[#0F0E0D] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10">
           <div className="flex flex-wrap items-center justify-between py-10 lg:py-12 gap-y-6">
             {STATS.map((stat, i) => (
@@ -116,7 +116,7 @@ export default function AProposPage() {
       <Testimonials />
 
       {/* CTA */}
-      <section className="bg-[#002868] text-[#FAFAF9] py-[100px] lg:py-[140px]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-10"
@@ -126,7 +126,7 @@ export default function AProposPage() {
           </h2>
           <a
             href="/contact"
-            className="inline-flex items-center bg-[#FAFAF9] text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
+            className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
           >
             Réservez votre entretien découverte
           </a>

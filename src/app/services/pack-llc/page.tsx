@@ -50,9 +50,9 @@ export default function PackLLCPage() {
       />
 
       {/* Offer details — light section */}
-      <section className="bg-[#FAFAF9] text-[#002868] py-[120px] lg:py-[180px]">
+      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[120px] lg:py-[180px]">
         <div className="px-6 lg:px-10">
-          <p className="text-[13px] uppercase tracking-[0.15em] text-[#002868]/40 mb-16">
+          <p className="text-[13px] uppercase tracking-[0.15em] text-[#0F0E0D]/40 mb-16">
             Ce qui est inclus
           </p>
 
@@ -66,13 +66,13 @@ export default function PackLLCPage() {
                   {item.title}
                 </h3>
                 <div>
-                  <p className="text-[16px] leading-relaxed text-[#002868]/60 mb-6">
+                  <p className="text-[16px] leading-relaxed text-[#0F0E0D]/60 mb-6">
                     {item.description}
                   </p>
                   <ul className="space-y-3">
                     {item.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-3 text-[15px] text-[#002868]/70">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#FAFAF9] border border-[#002868]/20 flex-shrink-0" />
+                      <li key={b} className="flex items-start gap-3 text-[15px] text-[#0F0E0D]/70">
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#FAFAF9] border border-[#0F0E0D]/20 flex-shrink-0" />
                         {b}
                       </li>
                     ))}
@@ -88,7 +88,7 @@ export default function PackLLCPage() {
       <ScrollTimeline />
 
       {/* CTA */}
-      <section className="bg-[#002868] text-[#FAFAF9] py-[120px] lg:py-[144px] border-t border-white/[0.06]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[120px] lg:py-[144px] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(2rem,4.5vw,48px)] leading-[1.1] font-normal tracking-tight"
@@ -97,7 +97,7 @@ export default function PackLLCPage() {
             N&apos;hésitez pas à nous contacter pour toutes questions.
           </h2>
           <div className="mt-10">
-            <a href="/contact" className="inline-flex items-center bg-[#FAFAF9] text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors">
+            <a href="/contact" className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors">
               Réservez votre entretien découverte
             </a>
           </div>

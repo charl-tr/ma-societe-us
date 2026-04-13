@@ -37,9 +37,9 @@ export default function BlogPage() {
         subtitle="Guides, analyses et actualités pour les entrepreneurs francophones aux États-Unis."
       />
 
-      <section className="bg-[#FAFAF9] text-[#002868] py-[120px] lg:py-[180px]">
+      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[120px] lg:py-[180px]">
         <div className="px-6 lg:px-10">
-          <div className="divide-y divide-[#002868]/[0.06]">
+          <div className="divide-y divide-[#0F0E0D]/[0.06]">
             {PLACEHOLDER_POSTS.map((post) => (
               <article
                 key={post.title}
@@ -48,19 +48,19 @@ export default function BlogPage() {
                 <a href="#" className="block">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
                     <div className="lg:col-span-2">
-                      <span className="text-[13px] text-[#002868]/30">{post.date}</span>
-                      <span className="block text-[12px] uppercase tracking-wider text-[#002868]/40 mt-1">
+                      <span className="text-[13px] text-[#0F0E0D]/30">{post.date}</span>
+                      <span className="block text-[12px] uppercase tracking-wider text-[#0F0E0D]/40 mt-1">
                         {post.category}
                       </span>
                     </div>
                     <div className="lg:col-span-10">
                       <h2
-                        className="text-[clamp(1.3rem,2.5vw,28px)] font-normal text-[#002868] group-hover:text-[#002868]/70 transition-colors duration-300 tracking-tight"
+                        className="text-[clamp(1.3rem,2.5vw,28px)] font-normal text-[#0F0E0D] group-hover:text-[#0F0E0D]/70 transition-colors duration-300 tracking-tight"
                         style={{ fontFamily: "var(--font-heading)" }}
                       >
                         {post.title}
                       </h2>
-                      <p className="mt-3 text-[15px] text-[#002868]/50 leading-relaxed max-w-2xl">
+                      <p className="mt-3 text-[15px] text-[#0F0E0D]/50 leading-relaxed max-w-2xl">
                         {post.excerpt}
                       </p>
                     </div>

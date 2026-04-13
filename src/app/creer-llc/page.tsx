@@ -16,7 +16,7 @@ export default function CreerLLCPage() {
       <Services />
 
       {/* Transition text */}
-      <section className="bg-[#002868] text-[#FAFAF9] py-[80px] lg:py-[100px] border-t border-white/[0.06]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[80px] lg:py-[100px] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10 max-w-3xl mx-auto text-center">
           <p className="text-[17px] lg:text-[19px] leading-relaxed text-[#FAFAF9]/50">
             Le choix de l&apos;état d&apos;immatriculation est déterminant pour votre
@@ -31,7 +31,7 @@ export default function CreerLLCPage() {
       <StatesMap />
 
       {/* CTA */}
-      <section className="bg-[#002868] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-5">
             Prêt à vous lancer ?
@@ -49,7 +49,7 @@ export default function CreerLLCPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="/contact"
-              className="inline-flex items-center bg-[#FAFAF9] text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
+              className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
             >
               Réservez votre entretien découverte
             </a>

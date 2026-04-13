@@ -4,9 +4,9 @@ import { TESTIMONIAL } from "@/lib/constants";
 
 export function Testimonials() {
   return (
-    <section className="bg-[#F2F1F0] text-[#002868] py-[100px] lg:py-[144px]">
+    <section className="bg-[#F2F1F0] text-[#0F0E0D] py-[100px] lg:py-[144px]">
       <div className="px-6 lg:px-10 max-w-4xl mx-auto text-center">
-        <p className="text-[13px] uppercase tracking-[0.15em] text-[#002868]/40 mb-12">
+        <p className="text-[13px] uppercase tracking-[0.15em] text-[#0F0E0D]/40 mb-12">
           Avis clients
         </p>
         <blockquote
@@ -15,7 +15,7 @@ export function Testimonials() {
         >
           &laquo;&nbsp;{TESTIMONIAL.quote}&nbsp;&raquo;
         </blockquote>
-        <p className="mt-8 text-[15px] text-[#002868]/50">
+        <p className="mt-8 text-[15px] text-[#0F0E0D]/50">
           {TESTIMONIAL.author}
         </p>
       </div>

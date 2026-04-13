@@ -31,12 +31,12 @@ export default function FiscalitePage() {
         subtitle="Optimisation fiscale légale de votre structure américaine."
       />
 
-      <section className="bg-[#FAFAF9] text-[#002868] py-[100px] lg:py-[140px]">
+      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-4xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/30 mb-5">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-5">
             Optimisation fiscale
           </p>
-          <p className="text-[17px] leading-relaxed text-[#002868]/60 mb-16 max-w-2xl">
+          <p className="text-[17px] leading-relaxed text-[#0F0E0D]/60 mb-16 max-w-2xl">
             La fiscalité d&apos;une LLC américaine détenue par un non-résident offre
             des opportunités d&apos;optimisation significatives. Nous vous aidons à
             structurer votre activité pour une imposition pouvant aller
@@ -47,7 +47,7 @@ export default function FiscalitePage() {
             {SERVICES.map((service) => (
               <div
                 key={service.title}
-                className="border border-[#002868]/[0.08] rounded-xl p-8 hover:border-[#002868]/[0.15] transition-colors"
+                className="border border-[#0F0E0D]/[0.08] rounded-xl p-8 hover:border-[#0F0E0D]/[0.15] transition-colors"
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <h3
@@ -56,11 +56,11 @@ export default function FiscalitePage() {
                   >
                     {service.title}
                   </h3>
-                  <span className="text-[14px] text-[#002868]/40 whitespace-nowrap">
+                  <span className="text-[14px] text-[#0F0E0D]/40 whitespace-nowrap">
                     {service.price}
                   </span>
                 </div>
-                <p className="text-[15px] leading-relaxed text-[#002868]/55">
+                <p className="text-[15px] leading-relaxed text-[#0F0E0D]/55">
                   {service.description}
                 </p>
               </div>
@@ -69,7 +69,7 @@ export default function FiscalitePage() {
         </div>
       </section>
 
-      <section className="bg-[#002868] text-[#FAFAF9] py-[100px] lg:py-[140px]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-10"
@@ -79,7 +79,7 @@ export default function FiscalitePage() {
           </h2>
           <a
             href="/contact"
-            className="inline-flex items-center bg-[#FAFAF9] text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
+            className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
           >
             Réservez votre entretien découverte
           </a>

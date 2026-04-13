@@ -38,11 +38,11 @@ export default async function StatePage({
       />
 
       {/* Description */}
-      <section className="bg-[#FAFAF9] text-[#002868] py-[100px] lg:py-[140px]">
+      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-[#002868]/30 mb-5">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#0F0E0D]/30 mb-5">
                 Pourquoi le {state.name}
               </p>
               <h2
@@ -51,7 +51,7 @@ export default async function StatePage({
               >
                 {state.tagline}
               </h2>
-              <p className="text-[16px] leading-relaxed text-[#002868]/60">
+              <p className="text-[16px] leading-relaxed text-[#0F0E0D]/60">
                 {state.description}
               </p>
             </div>
@@ -59,14 +59,14 @@ export default async function StatePage({
             <div className="space-y-10">
               {/* Pros */}
               <div>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[#002868]/30 mb-5">
+                <p className="text-[11px] uppercase tracking-[0.2em] text-[#0F0E0D]/30 mb-5">
                   Avantages
                 </p>
                 <ul className="space-y-3">
                   {state.pros.map((pro) => (
                     <li key={pro} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#002868]/20 flex-shrink-0" />
-                      <span className="text-[15px] text-[#002868]/70">{pro}</span>
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#0F0E0D]/20 flex-shrink-0" />
+                      <span className="text-[15px] text-[#0F0E0D]/70">{pro}</span>
                     </li>
                   ))}
                 </ul>
@@ -74,14 +74,14 @@ export default async function StatePage({
 
               {/* Cons */}
               <div>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[#002868]/30 mb-5">
+                <p className="text-[11px] uppercase tracking-[0.2em] text-[#0F0E0D]/30 mb-5">
                   Points d&apos;attention
                 </p>
                 <ul className="space-y-3">
                   {state.cons.map((con) => (
                     <li key={con} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#002868]/10 flex-shrink-0" />
-                      <span className="text-[15px] text-[#002868]/40">{con}</span>
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#0F0E0D]/10 flex-shrink-0" />
+                      <span className="text-[15px] text-[#0F0E0D]/40">{con}</span>
                     </li>
                   ))}
                 </ul>
@@ -92,7 +92,7 @@ export default async function StatePage({
       </section>
 
       {/* Other states */}
-      <section className="bg-[#002868] text-[#FAFAF9] py-[80px] lg:py-[100px] border-t border-white/[0.06]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[80px] lg:py-[100px] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10 max-w-4xl mx-auto">
           <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-8">
             Autres juridictions
@@ -123,7 +123,7 @@ export default async function StatePage({
       </section>
 
       {/* CTA */}
-      <section className="bg-[#002868] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
+      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-6"
@@ -137,7 +137,7 @@ export default async function StatePage({
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center bg-[#FAFAF9] text-[#002868] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
+            className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors"
           >
             Réservez votre entretien découverte
           </a>
