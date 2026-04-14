@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { HERO } from "@/lib/constants";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function Hero() {
   return (
