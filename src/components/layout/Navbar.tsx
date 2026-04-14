@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { NAV_ITEMS } from "@/lib/constants";
 
 export function Navbar() {
@@ -56,39 +57,83 @@ export function Navbar() {
           <div className="hidden lg:flex items-center flex-shrink-0">
             <a
               href="/contact"
-              className={`inline-flex items-center px-5 py-2 rounded-full text-[13px] font-medium transition-all duration-300 ${
-                scrolled
-                  ? "bg-[#002868] text-white hover:bg-[#002868]/90"
-                  : "bg-white text-[#0A1628] hover:bg-white/90"
-              }`}
+              className="inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-medium transition-all duration-300 bg-[#002868] text-white shadow-[0_4px_20px_rgba(0,40,104,0.25)] hover:bg-[#002868]/90"
             >
               Prendre rendez-vous
             </a>
           </div>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden relative z-10 w-8 h-8 flex flex-col justify-center items-center gap-1.5"
-            aria-label="Menu"
-          >
-            <span className={`block w-5 h-px transition-all duration-300 ${menuOpen || scrolled ? "bg-[#0A1628]" : "bg-white"} ${menuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-            <span className={`block w-5 h-px transition-all duration-300 ${menuOpen || scrolled ? "bg-[#0A1628]" : "bg-white"} ${menuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
-          </button>
+          {/* Mobile: CTA + hamburger */}
+          <div className="lg:hidden flex items-center gap-3 relative z-50">
+            <a
+              href="/contact"
+              className={`inline-flex items-center px-4 py-1.5 rounded-full text-[12px] font-medium transition-all duration-300 ${
+                menuOpen
+                  ? "bg-[#002868] text-white"
+                  : scrolled
+                    ? "bg-[#002868] text-white"
+                    : "bg-white/10 text-white border border-white/20"
+              }`}
+            >
+              RDV gratuit
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="w-8 h-8 flex flex-col justify-center items-center gap-1.5"
+              aria-label="Menu"
+            >
+              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white rotate-45 translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
+              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white -rotate-45 -translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
+            </button>
+          </div>
         </nav>
       </header>
 
-      <div className={`fixed inset-0 z-40 bg-white flex flex-col justify-center items-center gap-8 transition-all duration-300 ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-        {NAV_ITEMS.map((item) => (
-          <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}
-            className="text-2xl text-[#0A1628]/80 hover:text-[#0A1628]" style={{ fontFamily: "var(--font-heading)" }}>
-            {item.label}
-          </a>
-        ))}
-        <a href="/contact" onClick={() => setMenuOpen(false)}
-          className="mt-6 bg-[#002868] text-white px-8 py-3 rounded-full text-sm font-medium">
-          Prendre rendez-vous
-        </a>
-      </div>
+      {/* Mobile menu — dark, stagger-animated */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-[#0a1628] flex flex-col justify-center items-center gap-6"
+          >
+            {NAV_ITEMS.map((item, i) => (
+              <motion.a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 + i * 0.08, duration: 0.4 }}
+                className="text-2xl text-white/80 hover:text-white transition-colors"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {item.label}
+              </motion.a>
+            ))}
+            <motion.a
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 + NAV_ITEMS.length * 0.08, duration: 0.4 }}
+              className="mt-4 bg-[#002868] text-white px-8 py-3.5 rounded-full text-sm font-medium shadow-[0_4px_20px_rgba(0,40,104,0.3)]"
+            >
+              Prendre rendez-vous
+            </motion.a>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-[11px] text-white/25 mt-2"
+            >
+              Gratuit · Sans engagement
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

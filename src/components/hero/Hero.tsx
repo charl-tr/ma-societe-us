@@ -1,6 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { HERO } from "@/lib/constants";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   return (
@@ -49,27 +52,46 @@ export function Hero() {
       {/* Content — centered, conversion-first */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 lg:px-10">
         {/* Trust badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
-          <span className="text-[12px] text-white/50">500+ sociétés créées depuis 2014</span>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6, ease }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
+            <span className="text-[12px] text-white/50">500+ sociétés créées depuis 2014</span>
+          </div>
+        </motion.div>
 
-        <h1
-          className="text-[clamp(2.4rem,5.5vw,64px)] leading-[1.08] font-normal text-white max-w-4xl tracking-tight whitespace-pre-line"
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6, ease }}
+          className="text-[clamp(2.4rem,5.5vw,64px)] leading-[1.08] font-bold text-white max-w-4xl tracking-tight whitespace-pre-line"
           style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
         >
           {HERO.headline}
-        </h1>
+        </motion.h1>
 
-        <p className="mt-6 text-[15px] lg:text-[17px] leading-relaxed text-white/50 max-w-md">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6, ease }}
+          className="mt-6 text-[15px] lg:text-[17px] leading-relaxed text-white/50 max-w-md"
+        >
           {HERO.subline}
-        </p>
+        </motion.p>
 
         {/* Double CTA */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6, ease }}
+          className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+        >
           <a
             href="/contact"
-            className="inline-flex items-center px-8 py-4 rounded-full text-[15px] font-medium transition-all duration-300 bg-white text-[#0a1628] hover:bg-white/90 shadow-[0_4px_24px_rgba(255,255,255,0.15)]"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-[15px] font-medium transition-all duration-300 bg-gradient-to-r from-[#c0392b] to-[#a02020] text-white hover:shadow-[0_8px_32px_rgba(192,57,43,0.45)] shadow-[0_4px_24px_rgba(192,57,43,0.35)]"
           >
             {HERO.cta}
           </a>
@@ -79,29 +101,37 @@ export function Hero() {
           >
             {HERO.ctaSecondary}
           </a>
-        </div>
+        </motion.div>
 
         {/* Trust micro-copy */}
-        <p className="mt-5 text-[11px] text-white/25 tracking-wide">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
+          className="mt-5 text-[11px] text-white/25 tracking-wide"
+        >
           Gratuit · Sans engagement · Réponse sous 24h
-        </p>
+        </motion.p>
       </div>
 
-      {/* Bottom bar — glass, centered states */}
-      <div
-        className="relative z-10 border-t border-white/[0.06]"
-        style={{
-          background: "linear-gradient(180deg, rgba(10,22,40,0.3), rgba(220,228,240,0.6))",
-          backdropFilter: "blur(16px)",
-        }}
+      {/* Bottom bar — states with flags */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.5, ease }}
+        className="relative z-10 border-t border-white/[0.08] bg-[#0a1628]/80"
+        style={{ backdropFilter: "blur(16px)" }}
       >
-        <div className="px-6 lg:px-10 py-4 flex items-center justify-center gap-8 sm:gap-14 text-[12px] sm:text-[13px] text-[#1a2a40]/40">
-          <span>Nouveau-Mexique</span>
-          <span>Colorado</span>
-          <span>Wyoming</span>
-          <span>Delaware</span>
+        <div className="px-6 lg:px-10 py-4 flex items-center justify-center gap-6 sm:gap-12">
+          {["Nouveau-Mexique", "Colorado", "Wyoming", "Delaware"].map((state, i) => (
+            <div key={state} className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2a5090]" />
+              <span className="text-[12px] sm:text-[13px] font-medium text-white/60 tracking-wide">{state}</span>
+              {i < 3 && <span className="hidden sm:block w-px h-3 bg-white/10 ml-4" />}
+            </div>
+          ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Keyframe animations for orbs */}
       <style jsx>{`

@@ -1,10 +1,16 @@
 "use client";
 
 import { useState, useEffect, useCallback, memo } from "react";
+import { motion } from "framer-motion";
 import { geoAlbersUsa, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
 import { STATES, type StateInfo } from "@/lib/states";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 const HIGHLIGHT_FIPS = new Set(STATES.map((s) => s.fips));
@@ -231,7 +237,14 @@ export function StatesMap() {
   }, []);
 
   return (
-    <section id="juridictions" className="relative py-14 lg:py-[100px] overflow-hidden">
+    <motion.section
+      id="juridictions"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8 } } }}
+      className="relative py-10 lg:py-16 overflow-hidden"
+    >
       {/* Misty bg */}
       <div className="absolute inset-0 bg-[#EDF1F6]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_20%,rgba(255,255,255,0.85),transparent_70%)]" />
@@ -239,16 +252,16 @@ export function StatesMap() {
 
       <div className="relative px-6 lg:px-10 max-w-[1100px] mx-auto">
         {/* Header — centered, large */}
-        <div className="text-center mb-10 lg:mb-14">
+        <motion.div variants={fadeUp} className="text-center mb-10 lg:mb-14">
           <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.02em] text-[#1a2a40]"
+            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold leading-[1.1] tracking-[-0.02em] text-[#1a2a40]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Une Maîtrise Chirurgicale
+            Le bon état, c&apos;est
             <br />
-            de la Carte Fiscale
+            des milliers d&apos;euros d&apos;écart.
           </h2>
-        </div>
+        </motion.div>
 
         {/* 3-column layout: cards | map | cards */}
         <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr_180px] gap-4 lg:gap-5 items-center">
@@ -297,6 +310,6 @@ export function StatesMap() {
           </p>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
