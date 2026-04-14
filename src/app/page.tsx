@@ -1,6 +1,7 @@
 "use client";
 
 import { Hero } from "@/components/hero/Hero";
+import { StatesMap } from "@/components/sections/StatesMap";
 import { CTASection } from "@/components/sections/CTASection";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
 
@@ -141,6 +142,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── States Map — glassmorphism ─── */}
+      <StatesMap />
 
       {/* ─── Testimonials — glass cards on slightly deeper bg ─── */}
       <section
