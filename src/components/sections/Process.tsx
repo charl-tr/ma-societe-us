@@ -5,9 +5,9 @@ import { OFFER } from "@/lib/constants";
 export function Process() {
   return (
     // Section 4 — CaseStudy/Offer equivalent (dark bg like Harvey)
-    <section className="bg-[#141210] text-[#FAFAF9] py-[120px] lg:py-[180px]">
+    <section className="bg-[#E4EAF2] text-[#1a2a40] py-[120px] lg:py-[180px]">
       <div className="px-6 lg:px-10">
-        <p className="text-[13px] uppercase tracking-[0.15em] text-[#FAFAF9]/40 mb-6">
+        <p className="text-[13px] uppercase tracking-[0.15em] text-[#1a2a40]/40 mb-6">
           Notre offre exclusive
         </p>
         <h2
@@ -24,7 +24,7 @@ export function Process() {
           {OFFER.map((item) => (
             <div
               key={item.title}
-              className="bg-[#141210] p-8 lg:p-10 hover:bg-white/[0.02] transition-colors duration-300"
+              className="bg-[#E4EAF2] p-8 lg:p-10 hover:bg-white/[0.02] transition-colors duration-300"
             >
               <h3
                 className="text-[20px] font-normal mb-4"
@@ -32,7 +32,7 @@ export function Process() {
               >
                 {item.title}
               </h3>
-              <p className="text-[15px] leading-relaxed text-[#FAFAF9]/50">
+              <p className="text-[15px] leading-relaxed text-[#1a2a40]/50">
                 {item.description}
               </p>
             </div>

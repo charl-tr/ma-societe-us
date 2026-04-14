@@ -92,7 +92,7 @@ function PricingGroup({
         {items.map((item) => (
           <div
             key={item.title}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 py-8 group hover:bg-[#0F0E0D]/[0.02] -mx-4 px-4 transition-colors duration-300 rounded"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 py-8 group hover:bg-[#EDF1F6]/[0.02] -mx-4 px-4 transition-colors duration-300 rounded"
           >
             <div className="lg:col-span-4">
               <h3
@@ -144,7 +144,7 @@ export default function TarifsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[120px] lg:py-[144px]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[120px] lg:py-[144px]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(2rem,4.5vw,48px)] leading-[1.1] font-normal tracking-tight"
@@ -152,7 +152,7 @@ export default function TarifsPage() {
           >
             Un projet ? Parlons-en.
           </h2>
-          <p className="mt-6 text-[17px] text-[#FAFAF9]/50 leading-relaxed">
+          <p className="mt-6 text-[17px] text-[#1a2a40]/50 leading-relaxed">
             Réservez votre entretien découverte gratuit de 15 minutes.
           </p>
           <div className="mt-10">

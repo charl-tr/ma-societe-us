@@ -16,9 +16,9 @@ export default function CreerLLCPage() {
       <Services />
 
       {/* Transition text */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[80px] lg:py-[100px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[80px] lg:py-[100px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-3xl mx-auto text-center">
-          <p className="text-[17px] lg:text-[19px] leading-relaxed text-[#FAFAF9]/50">
+          <p className="text-[17px] lg:text-[19px] leading-relaxed text-[#1a2a40]/50">
             Le choix de l&apos;état d&apos;immatriculation est déterminant pour votre
             structure. Fiscalité, anonymat, rapidité de création — chaque
             juridiction présente des avantages spécifiques. Nous vous guidons
@@ -31,9 +31,9 @@ export default function CreerLLCPage() {
       <StatesMap />
 
       {/* CTA */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[100px] lg:py-[140px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-5">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#1a2a40]/25 mb-5">
             Prêt à vous lancer ?
           </p>
           <h2
@@ -42,7 +42,7 @@ export default function CreerLLCPage() {
           >
             Créer votre LLC en toute sérénité.
           </h2>
-          <p className="text-[17px] text-[#FAFAF9]/45 mb-10 leading-relaxed">
+          <p className="text-[17px] text-[#1a2a40]/45 mb-10 leading-relaxed">
             Réservez un entretien découverte de 15 minutes. Nous évaluons votre situation
             et vous orientons vers la meilleure juridiction — sans engagement.
           </p>
@@ -55,7 +55,7 @@ export default function CreerLLCPage() {
             </a>
             <a
               href="/services/pack-llc"
-              className="inline-flex items-center text-[#FAFAF9]/50 hover:text-[#FAFAF9] px-6 py-4 text-[15px] transition-colors"
+              className="inline-flex items-center text-[#1a2a40]/50 hover:text-[#1a2a40] px-6 py-4 text-[15px] transition-colors"
             >
               Voir notre offre
             </a>

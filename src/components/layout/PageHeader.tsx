@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 interface PageHeaderProps {
   title: string;
   subtitle?: string;
@@ -9,25 +7,20 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle }: PageHeaderProps) {
   return (
-    <section className="relative bg-[#0F0E0D] pt-32 lg:pt-40 pb-16 lg:pb-24 overflow-hidden">
-      {/* NYC background image with heavy overlay */}
-      <Image
-        src="/hero-nyc.jpg"
-        alt=""
-        fill
-        className="object-cover opacity-20"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0F0E0D]/60 to-[#0F0E0D]" />
+    <section className="relative pt-32 lg:pt-40 pb-16 lg:pb-20 overflow-hidden">
+      {/* Misty gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#DDE3EC] via-[#E8ECF2] to-[#EDF1F6]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,rgba(255,255,255,0.7),transparent)]" />
 
-      <div className="relative z-10 px-6 lg:px-10">
+      <div className="relative z-10 px-6 lg:px-10 max-w-[1200px] mx-auto">
         <h1
-          className="text-[clamp(2.2rem,5vw,56px)] leading-[1.1] font-normal text-[#FAFAF9] max-w-3xl tracking-tight"
+          className="text-[clamp(2rem,4.5vw,52px)] leading-[1.1] font-normal text-[#1a2a40] max-w-3xl tracking-tight"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-6 text-[17px] text-[#FAFAF9]/50 max-w-xl leading-relaxed">
+          <p className="mt-5 text-[16px] text-[#1a2a40]/45 max-w-xl leading-relaxed">
             {subtitle}
           </p>
         )}

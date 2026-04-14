@@ -74,11 +74,11 @@ export function ScrollTimeline() {
   }, [handleScroll]);
 
   return (
-    <section className="relative bg-[#141210] text-[#FAFAF9] py-[120px] lg:py-[160px] overflow-hidden">
+    <section className="relative bg-[#E4EAF2] text-[#1a2a40] py-[120px] lg:py-[160px] overflow-hidden">
       <div className="mx-auto max-w-5xl px-6 lg:px-10">
         {/* Header */}
         <div className="mb-24 text-center">
-          <p className="text-[13px] uppercase tracking-[0.15em] text-[#FAFAF9]/40 mb-6">
+          <p className="text-[13px] uppercase tracking-[0.15em] text-[#1a2a40]/40 mb-6">
             Le processus
           </p>
           <h2
@@ -148,7 +148,7 @@ export function ScrollTimeline() {
                   `}
                 >
                   <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-8 py-7 backdrop-blur-sm">
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-[#FAFAF9]/30 mb-3">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-[#1a2a40]/30 mb-3">
                       {step.label}
                     </p>
                     <h3
@@ -157,7 +157,7 @@ export function ScrollTimeline() {
                     >
                       {step.title}
                     </h3>
-                    <p className="text-[15px] leading-relaxed text-[#FAFAF9]/50">
+                    <p className="text-[15px] leading-relaxed text-[#1a2a40]/50">
                       {step.description}
                     </p>
                   </div>

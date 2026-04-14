@@ -89,18 +89,18 @@ export default function AProposPage() {
       </section>
 
       {/* Stats bar — same style as homepage */}
-      <section className="bg-[#0F0E0D] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10">
           <div className="flex flex-wrap items-center justify-between py-10 lg:py-12 gap-y-6">
             {STATS.map((stat, i) => (
               <div key={stat.label} className="flex items-baseline gap-3">
                 <span
-                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-normal tracking-tight text-[#FAFAF9]/80"
+                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-normal tracking-tight text-[#1a2a40]/80"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {stat.value}
                 </span>
-                <span className="text-[13px] text-[#FAFAF9]/25">
+                <span className="text-[13px] text-[#1a2a40]/25">
                   {stat.label}
                 </span>
                 {i < STATS.length - 1 && (
@@ -116,7 +116,7 @@ export default function AProposPage() {
       <Testimonials />
 
       {/* CTA */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-10"

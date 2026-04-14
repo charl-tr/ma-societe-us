@@ -65,7 +65,7 @@ export default async function StatePage({
                 <ul className="space-y-3">
                   {state.pros.map((pro) => (
                     <li key={pro} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#0F0E0D]/20 flex-shrink-0" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#EDF1F6]/20 flex-shrink-0" />
                       <span className="text-[15px] text-[#0F0E0D]/70">{pro}</span>
                     </li>
                   ))}
@@ -80,7 +80,7 @@ export default async function StatePage({
                 <ul className="space-y-3">
                   {state.cons.map((con) => (
                     <li key={con} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#0F0E0D]/10 flex-shrink-0" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#EDF1F6]/10 flex-shrink-0" />
                       <span className="text-[15px] text-[#0F0E0D]/40">{con}</span>
                     </li>
                   ))}
@@ -92,9 +92,9 @@ export default async function StatePage({
       </section>
 
       {/* Other states */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[80px] lg:py-[100px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[80px] lg:py-[100px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-4xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-8">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#1a2a40]/25 mb-8">
             Autres juridictions
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
@@ -104,7 +104,7 @@ export default async function StatePage({
                 href={`/creer-llc/${s.slug}`}
                 className="border border-[#FAFAF9]/[0.06] rounded-xl p-6 hover:bg-[#FAFAF9]/[0.03] transition-colors"
               >
-                <span className="text-[13px] tracking-wide text-[#FAFAF9]/40">
+                <span className="text-[13px] tracking-wide text-[#1a2a40]/40">
                   {s.abbr}
                 </span>
                 <h3
@@ -113,7 +113,7 @@ export default async function StatePage({
                 >
                   {s.name}
                 </h3>
-                <p className="text-[13px] text-[#FAFAF9]/35 mt-2 line-clamp-2">
+                <p className="text-[13px] text-[#1a2a40]/35 mt-2 line-clamp-2">
                   {s.tagline}
                 </p>
               </a>
@@ -123,7 +123,7 @@ export default async function StatePage({
       </section>
 
       {/* CTA */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[100px] lg:py-[140px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-6"
@@ -131,7 +131,7 @@ export default async function StatePage({
           >
             Créer votre LLC au {state.name}.
           </h2>
-          <p className="text-[17px] text-[#FAFAF9]/45 mb-10 leading-relaxed">
+          <p className="text-[17px] text-[#1a2a40]/45 mb-10 leading-relaxed">
             Réservez un entretien découverte gratuit. Nous évaluons votre
             situation et vous accompagnons dans la création — sans engagement.
           </p>

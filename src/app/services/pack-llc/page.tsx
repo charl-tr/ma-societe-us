@@ -88,7 +88,7 @@ export default function PackLLCPage() {
       <ScrollTimeline />
 
       {/* CTA */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[120px] lg:py-[144px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[120px] lg:py-[144px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(2rem,4.5vw,48px)] leading-[1.1] font-normal tracking-tight"

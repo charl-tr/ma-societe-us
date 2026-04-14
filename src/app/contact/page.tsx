@@ -40,7 +40,7 @@ export default function ContactPage() {
 
               <a
                 href="#"
-                className="inline-flex items-center bg-[#0F0E0D] text-[#FAFAF9] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#1a1918] transition-colors"
+                className="inline-flex items-center bg-[#EDF1F6] text-[#1a2a40] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#1a1918] transition-colors"
               >
                 Réserver votre entretien 100% gratuit
               </a>

@@ -46,9 +46,9 @@ export default function ServicesPage() {
       <Process />
 
       {/* Services grid */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[100px] lg:py-[140px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#FAFAF9]/25 mb-12">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#1a2a40]/25 mb-12">
             Tous nos services
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -64,10 +64,10 @@ export default function ServicesPage() {
                 >
                   {service.title}
                 </h3>
-                <p className="text-[15px] leading-relaxed text-[#FAFAF9]/45 mb-6">
+                <p className="text-[15px] leading-relaxed text-[#1a2a40]/45 mb-6">
                   {service.description}
                 </p>
-                <span className="inline-flex items-center gap-2 text-[13px] text-[#FAFAF9]/50 group-hover:text-[#FAFAF9] transition-colors">
+                <span className="inline-flex items-center gap-2 text-[13px] text-[#1a2a40]/50 group-hover:text-[#1a2a40] transition-colors">
                   {service.label}
                   <svg
                     className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
@@ -88,7 +88,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px] border-t border-white/[0.06]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[100px] lg:py-[140px] border-t border-[#1a2a40]/[0.06]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-6"
@@ -96,7 +96,7 @@ export default function ServicesPage() {
           >
             Un projet ? Parlons-en.
           </h2>
-          <p className="text-[17px] text-[#FAFAF9]/45 mb-10 leading-relaxed">
+          <p className="text-[17px] text-[#1a2a40]/45 mb-10 leading-relaxed">
             Réservez un entretien découverte gratuit de 15 minutes.
           </p>
           <a

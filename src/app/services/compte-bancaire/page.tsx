@@ -71,7 +71,7 @@ export default function CompteBancairePage() {
         </div>
       </section>
 
-      <section className="bg-[#0F0E0D] text-[#FAFAF9] py-[100px] lg:py-[140px]">
+      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[100px] lg:py-[140px]">
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
             className="text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] font-normal tracking-[-0.02em] mb-10"
