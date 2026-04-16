@@ -2,8 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { NAV_ITEMS } from "@/lib/constants";
+
+/* ─── Same nav items as ma-societe-us.com ─── */
+const NAV = [
+  { label: "Accueil", href: "/" },
+  { label: "Pack LLC", href: "/services/pack-llc" },
+  { label: "Tarifs", href: "/tarifs" },
+  { label: "Immigration US", href: "/immigration-us" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,120 +28,125 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(10,22,40,0.06)]"
+            ? "shadow-[0_1px_0_rgba(26,42,64,0.06)]"
             : ""
         }`}
+        style={{
+          background: scrolled
+            ? "rgba(255,255,255,0.7)"
+            : "rgba(232,236,242,0.5)",
+          backdropFilter: "blur(16px)",
+          borderBottom: scrolled ? "1px solid rgba(26,42,64,0.06)" : "1px solid rgba(255,255,255,0.3)",
+        }}
       >
-        <nav className="flex items-center justify-between px-6 lg:px-10 h-[56px] lg:h-[64px]">
-          <a href="/" className="relative z-10 flex-shrink-0">
+        {/* Chrome highlight bar */}
+        <div
+          className="h-[2px]"
+          style={{
+            background: "linear-gradient(90deg, rgba(180,190,210,0.1), rgba(255,255,255,0.6) 30%, rgba(200,210,225,0.3) 50%, rgba(255,255,255,0.6) 70%, rgba(180,190,210,0.1))",
+          }}
+        />
+
+        <nav className="flex items-center justify-between px-6 lg:px-10 h-[52px] lg:h-[56px] max-w-[1200px] mx-auto">
+          {/* Logo */}
+          <a href="/" className="flex-shrink-0">
             <Image
               src="/logo.png"
               alt="MA SOCIETE US"
-              width={120}
-              height={72}
-              className={`h-9 w-auto transition-all duration-500 ${
-                scrolled ? "" : "brightness-[10] saturate-0"
-              }`}
+              width={110}
+              height={66}
+              className="h-8 w-auto"
               priority
             />
           </a>
 
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => (
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-7">
+            {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-[13px] tracking-wide transition-colors duration-300 ${
-                  scrolled
-                    ? "text-[#0A1628]/60 hover:text-[#0A1628]"
-                    : "text-white/80 hover:text-white"
-                }`}
+                className="text-[12px] tracking-wide text-[#1a2a40]/50 hover:text-[#1a2a40] transition-colors"
               >
                 {item.label}
               </a>
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center flex-shrink-0">
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex items-center gap-3">
             <a
-              href="/contact"
-              className="inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-medium transition-all duration-300 bg-[#002868] text-white shadow-[0_4px_20px_rgba(0,40,104,0.25)] hover:bg-[#002868]/90"
+              href="https://app.ma-societe-us.com"
+              className="text-[12px] text-[#1a2a40]/40 hover:text-[#1a2a40] transition-colors"
+            >
+              Portail
+            </a>
+            <a
+              href="https://calendly.com/ypls/decouverte-site"
+              className="inline-flex items-center px-4 py-1.5 rounded-md text-[12px] font-medium text-[#1a2a40] transition-all"
+              style={{
+                background: "rgba(255,255,255,0.6)",
+                border: "1px solid rgba(255,255,255,0.8)",
+                backdropFilter: "blur(8px)",
+              }}
             >
               Prendre rendez-vous
             </a>
           </div>
 
-          {/* Mobile: CTA + hamburger */}
-          <div className="lg:hidden flex items-center gap-3 relative z-50">
+          {/* Mobile */}
+          <div className="lg:hidden flex items-center gap-3">
             <a
-              href="/contact"
-              className={`inline-flex items-center px-4 py-1.5 rounded-full text-[12px] font-medium transition-all duration-300 ${
-                menuOpen
-                  ? "bg-[#002868] text-white"
-                  : scrolled
-                    ? "bg-[#002868] text-white"
-                    : "bg-white/10 text-white border border-white/20"
-              }`}
+              href="https://calendly.com/ypls/decouverte-site"
+              className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-medium text-[#1a2a40]"
+              style={{
+                background: "rgba(255,255,255,0.5)",
+                border: "1px solid rgba(255,255,255,0.7)",
+              }}
             >
-              RDV gratuit
+              RDV
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="w-8 h-8 flex flex-col justify-center items-center gap-1.5"
-              aria-label="Menu"
             >
-              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white rotate-45 translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
-              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white -rotate-45 -translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
+              <span className={`block w-4 h-px bg-[#1a2a40]/50 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
+              <span className={`block w-4 h-px bg-[#1a2a40]/50 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
             </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile menu — dark, stagger-animated */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#0a1628] flex flex-col justify-center items-center gap-6"
-          >
-            {NAV_ITEMS.map((item, i) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 + i * 0.08, duration: 0.4 }}
-                className="text-2xl text-white/80 hover:text-white transition-colors"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                {item.label}
-              </motion.a>
-            ))}
-            <motion.a
-              href="/contact"
+      {/* Mobile menu — glass */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-40 flex flex-col justify-center items-center gap-6 pt-16"
+          style={{ background: "rgba(232,236,242,0.95)", backdropFilter: "blur(20px)" }}
+        >
+          {NAV.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
               onClick={() => setMenuOpen(false)}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 + NAV_ITEMS.length * 0.08, duration: 0.4 }}
-              className="mt-4 bg-[#002868] text-white px-8 py-3.5 rounded-full text-sm font-medium shadow-[0_4px_20px_rgba(0,40,104,0.3)]"
+              className="text-xl text-[#1a2a40]/70 hover:text-[#1a2a40] transition-colors"
+              style={{ fontFamily: "var(--font-heading)" }}
             >
-              Prendre rendez-vous
-            </motion.a>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-[11px] text-white/25 mt-2"
-            >
-              Gratuit · Sans engagement
-            </motion.p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="https://calendly.com/ypls/decouverte-site"
+            onClick={() => setMenuOpen(false)}
+            className="mt-4 px-6 py-3 rounded-lg text-[14px] font-medium text-[#1a2a40]"
+            style={{
+              background: "rgba(255,255,255,0.6)",
+              border: "1px solid rgba(255,255,255,0.8)",
+            }}
+          >
+            Prendre rendez-vous
+          </a>
+        </div>
+      )}
     </>
   );
 }
