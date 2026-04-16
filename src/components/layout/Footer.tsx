@@ -1,95 +1,69 @@
 "use client";
 
-const C = {
-  bg: "rgb(18, 20, 24)",
-  text: "rgb(242, 242, 242)",
-  muted: "rgba(242, 242, 242, 0.4)",
-  accent: "rgb(52, 211, 153)",
-  border: "rgba(255, 255, 255, 0.06)",
-};
+import { SITE, NAV_ITEMS, FOOTER_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer style={{ background: C.bg, borderTop: `1px solid ${C.border}` }}>
-      <div className="px-5 lg:px-10 py-12 max-w-[1100px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          {/* Col 1: Brand + CTA */}
-          <div className="lg:col-span-1">
-            <span className="text-[14px] font-bold tracking-wider uppercase" style={{ color: C.text }}>
-              MA SOCIETE US
-            </span>
-            <p className="mt-3 text-[13px] leading-relaxed" style={{ color: C.muted }}>
-              Profitez d&apos;un entretien découverte de 15 minutes pour découvrir notre offre et voir si elle est adaptée à votre activité.
-            </p>
-            <a
-              href="https://calendly.com/ypls/decouverte-site"
-              className="inline-flex items-center mt-4 px-5 py-2 rounded-full text-[13px] font-semibold"
-              style={{ background: C.accent, color: C.bg }}
+    <footer className="bg-[#0f1a2e]">
+      {/* Chrome separator */}
+      <div className="h-[2px]" style={{ background: "linear-gradient(90deg, rgba(200,210,225,0.1), rgba(255,255,255,0.4) 30%, rgba(220,230,245,0.3) 50%, rgba(255,255,255,0.4) 70%, rgba(200,210,225,0.1))" }} />
+      <div className="px-6 lg:px-10 py-12 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:flex-row justify-between gap-10">
+          <div>
+            <span
+              className="text-[14px] tracking-[0.2em] uppercase text-white/90"
+              style={{ fontFamily: "var(--font-heading)" }}
             >
-              Entretien découverte
-            </a>
+              {SITE.name}
+            </span>
+            <p className="mt-3 text-[13px] text-white/25 max-w-xs leading-relaxed">
+              Cabinet franco-américain spécialisé dans la création et la gestion de sociétés aux États-Unis. Marque déposée Yes Please LLC. Profession comptable et juridique réglementée.
+            </p>
           </div>
 
-          {/* Col 2: Pack LLC */}
-          <div>
-            <p className="text-[12px] uppercase tracking-wider font-bold mb-4" style={{ color: "rgba(242,242,242,0.25)" }}>Pack LLC</p>
-            <ul className="space-y-2.5">
-              {[
-                { label: "Notre offre", href: "/services/pack-llc" },
-                { label: "Banque", href: "/services/compte-bancaire" },
-                { label: "FAQ", href: "/creer-llc/faq" },
-                { label: "Formation gratuite", href: "https://formations.ma-societe-us.com/formation-gratuite-llc-site" },
-              ].map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} className="text-[13px] hover:text-white transition-colors" style={{ color: C.muted }}>{l.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3: Tarifs + pages */}
-          <div>
-            <p className="text-[12px] uppercase tracking-wider font-bold mb-4" style={{ color: "rgba(242,242,242,0.25)" }}>Services</p>
-            <ul className="space-y-2.5">
-              {[
-                { label: "Création LLC", href: "/tarifs" },
-                { label: "Déclaration LLC", href: "/services/declaration" },
-                { label: "Immigration US", href: "/immigration-us" },
-                { label: "Blog", href: "/blog" },
-                { label: "Contact", href: "/contact" },
-              ].map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} className="text-[13px] hover:text-white transition-colors" style={{ color: C.muted }}>{l.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 4: Réseaux + légal */}
-          <div>
-            <p className="text-[12px] uppercase tracking-wider font-bold mb-4" style={{ color: "rgba(242,242,242,0.25)" }}>Suivez-nous</p>
-            <div className="flex gap-4 mb-6">
-              <a href="https://www.youtube.com/channel/UCS51CrO8h73a3gaDmyWwmbA" className="text-[13px] hover:text-white transition-colors" style={{ color: C.muted }}>YouTube</a>
-              <a href="https://www.facebook.com/Justin.gentleman.des.affaires" className="text-[13px] hover:text-white transition-colors" style={{ color: C.muted }}>Facebook</a>
-              <a href="https://www.instagram.com/justin_gentleman_des_affaires/" className="text-[13px] hover:text-white transition-colors" style={{ color: C.muted }}>Instagram</a>
+          <div className="flex gap-16 flex-wrap">
+            <div>
+              <p className="text-[12px] uppercase tracking-[0.15em] text-white/25 mb-4">Services</p>
+              <ul className="space-y-3">
+                {FOOTER_LINKS.services.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href} className="text-[14px] text-white/40 hover:text-white transition-colors">{l.label}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p className="text-[12px] uppercase tracking-wider font-bold mb-3" style={{ color: "rgba(242,242,242,0.25)" }}>Légal</p>
-            <ul className="space-y-2">
-              {[
-                { label: "CGV", href: "/cgv" },
-                { label: "CGU", href: "/cgv" },
-                { label: "Confidentialité", href: "/confidentialite" },
-              ].map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} className="text-[12px] hover:text-white transition-colors" style={{ color: C.muted }}>{l.label}</a>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <p className="text-[12px] uppercase tracking-[0.15em] text-white/25 mb-4">Cabinet</p>
+              <ul className="space-y-3">
+                {FOOTER_LINKS.cabinet.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href} className="text-[14px] text-white/40 hover:text-white transition-colors">{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-[12px] uppercase tracking-[0.15em] text-white/25 mb-4">Légal</p>
+              <ul className="space-y-3">
+                {FOOTER_LINKS.legal.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href} className="text-[14px] text-white/40 hover:text-white transition-colors">{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-[12px] uppercase tracking-[0.15em] text-white/25 mb-4">Contact</p>
+              <ul className="space-y-3">
+                <li><a href={`tel:${SITE.phone}`} className="text-[14px] text-white/40 hover:text-white transition-colors">{SITE.phone}</a></li>
+                <li><a href={`mailto:${SITE.email}`} className="text-[14px] text-white/40 hover:text-white transition-colors">{SITE.email}</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 text-[12px]" style={{ borderTop: `1px solid ${C.border}`, color: "rgba(242,242,242,0.15)" }}>
-          Copyright © {new Date().getFullYear()} - YES PLEASE LLC. Tous droits réservés. Marque déposée. Profession comptable et juridique réglementée.
+        <div className="mt-12 pt-6 border-t border-[#1a2a40]/[0.06] text-[12px] text-white/15">
+          Copyright {new Date().getFullYear()} - YES PLEASE LLC. Tous droits réservés.
         </div>
       </div>
     </footer>
