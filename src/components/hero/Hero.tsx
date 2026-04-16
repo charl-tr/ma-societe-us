@@ -76,7 +76,7 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0e0d0b] to-transparent z-10 pointer-events-none" />
 
         <Image
-          src="/NYC_offices.jpg"
+          src="/NY_offices_2.jpg"
           alt="Cabinet New-York"
           fill
           className="object-cover object-center"
@@ -89,7 +89,7 @@ export function Hero() {
       <div className="lg:hidden absolute inset-0">
         <div className="absolute inset-0 bg-[#0e0d0b]/80 z-[1]" />
         <Image
-          src="/NYC_offices.jpg"
+          src="/NY_offices_2.jpg"
           alt="Cabinet New-York"
           fill
           className="object-cover object-center"

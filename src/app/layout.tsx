@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { DM_Serif_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
-const instrumentSerif = Instrument_Serif({
+const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${instrumentSerif.variable} ${inter.variable} h-full`}>
+    <html lang="fr" className={`${dmSerifDisplay.variable} ${inter.variable} h-full`}>
       <body className="min-h-full">
         <Navbar />
         {children}
