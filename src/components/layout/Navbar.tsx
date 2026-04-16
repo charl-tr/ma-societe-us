@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 const NAV = [
   { label: "Accueil", href: "/" },
@@ -26,27 +25,29 @@ export function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "shadow-[0_1px_20px_rgba(0,0,0,0.3)]" : ""
+          scrolled ? "shadow-[0_1px_30px_rgba(0,0,0,0.4)]" : ""
         }`}
         style={{
-          background: scrolled
-            ? "rgba(19,17,16,0.92)"
-            : "rgba(19,17,16,0.4)",
-          backdropFilter: "blur(16px)",
-          borderBottom: `1px solid rgba(200,160,80,${scrolled ? 0.12 : 0.06})`,
+          background: scrolled ? "rgba(14,13,11,0.96)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: `1px solid rgba(240,232,220,${scrolled ? 0.06 : 0})`,
         }}
       >
-        <nav className="flex items-center justify-between px-6 lg:px-10 h-[56px] lg:h-[60px] max-w-[1200px] mx-auto">
-          {/* Logo */}
-          <a href="/" className="flex-shrink-0">
-            <Image
-              src="/logo.png"
-              alt="MA SOCIETE US"
-              width={110}
-              height={66}
-              className="h-8 w-auto brightness-200"
-              priority
-            />
+        <nav className="flex items-center justify-between px-6 lg:px-10 h-[56px] lg:h-[64px] max-w-[1200px] mx-auto">
+          {/* Wordmark */}
+          <a href="/" className="flex-shrink-0 flex flex-col gap-[3px]">
+            <span
+              className="text-[11px] uppercase text-[#f0e8dc]/90 leading-none"
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 300, letterSpacing: "0.28em" }}
+            >
+              Ma Société US
+            </span>
+            <span
+              className="text-[9px] uppercase text-[#f0e8dc]/28 leading-none"
+              style={{ fontFamily: "var(--font-body)", letterSpacing: "0.18em" }}
+            >
+              Cabinet Franco-Américain
+            </span>
           </a>
 
           {/* Desktop nav */}
@@ -55,7 +56,7 @@ export function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-[12px] uppercase tracking-[0.15em] text-[#f0e8dc]/50 hover:text-[#c8a050] transition-colors duration-300"
+                className="text-[11px] uppercase tracking-[0.14em] text-[#f0e8dc]/40 hover:text-[#f0e8dc]/80 transition-colors duration-300"
               >
                 {item.label}
               </a>
@@ -63,30 +64,28 @@ export function Navbar() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-5">
             <a
               href="https://app.ma-societe-us.com"
-              className="text-[12px] text-[#f0e8dc]/35 hover:text-[#f0e8dc] transition-colors"
+              className="text-[11px] text-[#f0e8dc]/30 hover:text-[#f0e8dc]/60 transition-colors tracking-wide"
             >
-              Portail
+              Portail client
             </a>
             <a
               href="https://calendly.com/ypls/decouverte-site"
-              className="inline-flex items-center px-5 py-2 rounded text-[12px] uppercase tracking-[0.1em] font-medium text-[#131110] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(200,160,80,0.3)]"
-              style={{
-                background: "linear-gradient(135deg, #c8a050, #d4b060)",
-              }}
+              className="inline-flex items-center px-5 py-2 text-[11px] uppercase tracking-[0.12em] font-medium text-[#0e0d0b] transition-all duration-300 hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #b89550, #c8a456)" }}
             >
               Prendre rendez-vous
             </a>
           </div>
 
           {/* Mobile */}
-          <div className="lg:hidden flex items-center gap-3">
+          <div className="lg:hidden flex items-center gap-4">
             <a
               href="https://calendly.com/ypls/decouverte-site"
-              className="inline-flex items-center px-3 py-1.5 rounded text-[11px] uppercase tracking-wider font-medium text-[#131110]"
-              style={{ background: "linear-gradient(135deg, #c8a050, #d4b060)" }}
+              className="inline-flex items-center px-3.5 py-1.5 text-[10px] uppercase tracking-wider font-medium text-[#0e0d0b]"
+              style={{ background: "linear-gradient(135deg, #b89550, #c8a456)" }}
             >
               RDV
             </a>
@@ -94,8 +93,8 @@ export function Navbar() {
               onClick={() => setMenuOpen(!menuOpen)}
               className="w-8 h-8 flex flex-col justify-center items-center gap-1.5"
             >
-              <span className={`block w-5 h-px bg-[#f0e8dc]/60 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
-              <span className={`block w-5 h-px bg-[#f0e8dc]/60 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
+              <span className={`block w-5 h-px bg-[#f0e8dc]/50 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
+              <span className={`block w-5 h-px bg-[#f0e8dc]/50 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[3px]" : ""}`} />
             </button>
           </div>
         </nav>
@@ -104,16 +103,16 @@ export function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-40 flex flex-col justify-center items-center gap-7 pt-16"
-          style={{ background: "rgba(19,17,16,0.97)", backdropFilter: "blur(20px)" }}
+          className="fixed inset-0 z-40 flex flex-col justify-center items-center gap-8 pt-16"
+          style={{ background: "rgba(14,13,11,0.98)", backdropFilter: "blur(24px)" }}
         >
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={() => setMenuOpen(false)}
-              className="text-xl text-[#f0e8dc]/60 hover:text-[#c8a050] transition-colors"
-              style={{ fontFamily: "var(--font-heading)" }}
+              className="text-[20px] text-[#f0e8dc]/50 hover:text-[#f0e8dc]/90 transition-colors"
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 300, letterSpacing: "0.05em" }}
             >
               {item.label}
             </a>
@@ -121,8 +120,8 @@ export function Navbar() {
           <a
             href="https://calendly.com/ypls/decouverte-site"
             onClick={() => setMenuOpen(false)}
-            className="mt-4 px-7 py-3 rounded text-[14px] uppercase tracking-wider font-medium text-[#131110]"
-            style={{ background: "linear-gradient(135deg, #c8a050, #d4b060)" }}
+            className="mt-6 px-8 py-3.5 text-[12px] uppercase tracking-[0.12em] font-medium text-[#0e0d0b]"
+            style={{ background: "linear-gradient(135deg, #b89550, #c8a456)" }}
           >
             Prendre rendez-vous
           </a>
