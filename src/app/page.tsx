@@ -198,94 +198,66 @@ export default function HomePage() {
       {/* ─── Savings Estimator — conversion hook ─── */}
       <SavingsEstimator />
 
-      {/* ─── CTA Strip #1 — dark, conversion push ─── */}
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="py-6 lg:py-8"
-        style={{ background: "linear-gradient(135deg, #0a1628, #1a3050)" }}
-      >
-        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p
-            className="text-[15px] lg:text-[17px] text-white/80 text-center sm:text-left font-medium"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Prêt à diviser votre note fiscale ?
-          </p>
-          <a
-            href="/contact"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[14px] font-medium bg-white text-[#0a1628] shadow-[0_4px_16px_rgba(255,255,255,0.15)] hover:bg-white/90 transition-all"
-          >
-            Entretien gratuit — 15 min →
-          </a>
-        </div>
-      </motion.section>
-
-      {/* ─── Teaser cards — differentiated glass panels ─── */}
+      {/* ─── Teaser cards — tall editorial panels ─── */}
       <motion.section
         variants={stagger}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="py-8 lg:py-12"
+        viewport={{ once: true, margin: "-60px" }}
+        className="px-6 lg:px-10 py-10 lg:py-14 max-w-[1400px] mx-auto"
       >
-        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {/* Card 1 — light glass */}
-            <motion.a
-              href="/creer-llc"
-              variants={fadeUp}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group rounded-xl overflow-hidden transition-all duration-300"
-            >
-              <div className="h-[2px]" style={{ background: glass.chrome }} />
-              <div className={`p-5 lg:p-10 ${glass.card} border-t-0 rounded-t-none transition-all duration-300 ${glass.cardHover}`}>
-                <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/50 mb-4">
-                  4 juridictions
-                </p>
-                <h3
-                  className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold tracking-tight mb-3 text-[#1a2a40] whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {"Le bon état,\nc'est des milliers d'euros\nde différence."}
-                </h3>
-                <p className="text-[14px] leading-relaxed text-[#1a2a40]/40 mb-6">
-                  Nouveau-Mexique, Colorado, Wyoming, Delaware — on vous montre laquelle maximise vos gains.
-                </p>
-                <span className="inline-flex items-center gap-2 text-[14px] text-[#2a5090] font-semibold group-hover:gap-3 transition-all">
-                  Comparer les états →
-                </span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+          {/* Card 1 — light, editorial */}
+          <motion.a
+            href="/creer-llc"
+            variants={fadeUp}
+            className="group relative rounded-2xl overflow-hidden border border-[#1a2a40]/[0.08] bg-white hover:border-[#1a2a40]/[0.14] transition-all duration-500 flex flex-col min-h-[340px] lg:min-h-[420px]"
+          >
+            {/* Top accent */}
+            <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0a1628 0%, #2a5090 50%, transparent 100%)" }} />
+            <div className="flex-1 p-8 lg:p-12 flex flex-col">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-[#2a5090]/40 mb-6">4 juridictions</p>
+              <h3
+                className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold tracking-[-0.025em] leading-[1.1] text-[#0a1628] mb-5 max-w-xs"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Le bon état, c&rsquo;est des milliers d&rsquo;euros d&rsquo;écart.
+              </h3>
+              <p className="text-[14px] leading-relaxed text-[#1a2a40]/45 mb-auto">
+                NM · CO · WY · DE — on analyse votre situation et on vous indique l&rsquo;état qui maximise vos gains.
+              </p>
+              <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-[#0a1628] group-hover:gap-4 transition-all">
+                <span>Comparer les états</span>
+                <span className="text-[#2a5090]">→</span>
               </div>
-            </motion.a>
+            </div>
+          </motion.a>
 
-            {/* Card 2 — dark navy, stands out */}
-            <motion.a
-              href="/services/pack-llc"
-              variants={fadeUp}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group rounded-xl overflow-hidden transition-all duration-300"
-            >
-              <div className={`p-5 lg:p-10 bg-[#0a1628] rounded-xl transition-all duration-300 hover:bg-[#0f1e34]`}>
-                <p className="text-[11px] uppercase tracking-[0.25em] text-white/30 mb-4">
-                  Pack tout inclus
-                </p>
-                <h3
-                  className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold tracking-tight mb-3 text-white whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {"Vous signez.\nOn fait le reste."}
-                </h3>
-                <p className="text-[14px] leading-relaxed text-white/40 mb-6">
-                  LLC, EIN, compte bancaire US, documents légaux, suivi post-création — zéro prise de tête.
-                </p>
-                <span className="inline-flex items-center gap-2 text-[14px] text-white/70 font-semibold group-hover:gap-3 group-hover:text-white transition-all">
-                  Voir ce qui est inclus →
-                </span>
+          {/* Card 2 — dark navy, bold */}
+          <motion.a
+            href="/services/pack-llc"
+            variants={fadeUp}
+            className="group relative rounded-2xl overflow-hidden bg-[#060e1c] hover:bg-[#0c1830] transition-all duration-500 flex flex-col min-h-[340px] lg:min-h-[420px]"
+          >
+            {/* Red top accent */}
+            <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #c0392b 0%, #e84040 50%, transparent 100%)" }} />
+            <div className="flex-1 p-8 lg:p-12 flex flex-col">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-white/25 mb-6">Pack tout inclus</p>
+              <h3
+                className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold tracking-[-0.025em] leading-[1.1] text-white mb-5 max-w-xs"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Vous signez.<br />On fait le reste.
+              </h3>
+              <p className="text-[14px] leading-relaxed text-white/35 mb-auto">
+                LLC, EIN, compte Mercury, documents légaux, suivi post-création. Zéro déplacement, zéro prise de tête.
+              </p>
+              <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-white/60 group-hover:text-white group-hover:gap-4 transition-all">
+                <span>Voir ce qui est inclus</span>
+                <span className="text-[#e84040]">→</span>
               </div>
-            </motion.a>
-          </div>
+            </div>
+          </motion.a>
         </div>
       </motion.section>
 
@@ -295,90 +267,69 @@ export default function HomePage() {
       {/* ─── Process steps — scroll timeline ─── */}
       <ScrollTimeline />
 
-      {/* ─── CTA Strip #2 — credible, not fake urgency ─── */}
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="py-5 lg:py-6 border-y border-white/30"
-        style={{ background: "linear-gradient(180deg, rgba(225,232,242,0.6), rgba(237,241,246,0.3))" }}
-      >
-        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[14px] text-[#1a2a40]/60 text-center sm:text-left">
-            <span className="font-semibold text-[#1a2a40]">500+ entrepreneurs</span> nous ont déjà fait confiance. À votre tour ?
-          </p>
-          <a
-            href="/contact"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[14px] font-medium bg-[#0a1628] text-white hover:bg-[#1a2a40] transition-all shadow-[0_4px_16px_rgba(10,22,40,0.15)]"
+      {/* ─── Testimonials — dark, high contrast ─── */}
+      <section className="bg-[#060e1c] py-16 lg:py-24">
+        <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
+          {/* Header */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="mb-10 lg:mb-14"
           >
-            Parler à un expert →
-          </a>
-        </div>
-      </motion.section>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-white/20 mb-3">Témoignages</p>
+            <h2
+              className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.025em] leading-[1.05] text-white max-w-lg"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Ils ont créé leur LLC.<br />Ils ne regrettent pas.
+            </h2>
+          </motion.div>
 
-      {/* ─── Testimonials — glass cards ─── */}
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="py-10 lg:py-16"
-        style={{ background: "linear-gradient(180deg, rgba(220,228,240,0.4), rgba(237,241,246,0.2))" }}
-      >
-        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#1a2a40]/25 mb-2 text-center">
-            Ce qu&apos;ils en disent
-          </p>
-          <h2
-            className="text-[clamp(1.4rem,2.5vw,2rem)] font-semibold tracking-tight text-[#1a2a40] text-center mb-8"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Ils ont créé leur LLC avec nous.
-          </h2>
-
+          {/* Cards */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-5"
+            viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-4"
           >
-            {TESTIMONIALS.map((t) => (
+            {TESTIMONIALS.map((t, i) => (
               <motion.div
                 key={t.author}
                 variants={fadeUp}
-                className="rounded-xl overflow-hidden"
+                className={`rounded-2xl p-7 lg:p-8 flex flex-col ${
+                  i === 1
+                    ? "border border-white/[0.12] bg-white/[0.04]"
+                    : "border border-white/[0.05] bg-white/[0.02]"
+                }`}
               >
-                <div className="h-[2px]" style={{ background: glass.chrome }} />
-                <div className={`p-5 lg:p-7 ${glass.card} border-t-0 rounded-t-none h-full flex flex-col`}>
-                  {/* Star rating */}
-                  <div className="flex gap-0.5 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
+                {/* Stars */}
+                <div className="flex gap-1 mb-5">
+                  {[...Array(5)].map((_, si) => (
+                    <svg key={si} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <blockquote className="text-[14px] lg:text-[15px] leading-[1.7] text-white/60 flex-1 mb-6">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <div className="flex items-center gap-3 pt-5 border-t border-white/[0.07]">
+                  <div className="w-8 h-8 rounded-full bg-[#2a5090]/30 flex items-center justify-center text-[12px] font-bold text-white/70">
+                    {t.author.charAt(0)}
                   </div>
-                  <blockquote className="text-[14px] leading-[1.65] text-[#1a2a40]/65 flex-1">
-                    &laquo;&nbsp;{t.quote}&nbsp;&raquo;
-                  </blockquote>
-                  <div className="mt-5 pt-4 border-t border-[#1a2a40]/[0.06] flex items-center gap-3">
-                    {/* Avatar placeholder */}
-                    <div className="w-9 h-9 rounded-full bg-[#2a5090]/10 flex items-center justify-center text-[13px] font-semibold text-[#2a5090]">
-                      {t.author.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="text-[14px] font-medium text-[#1a2a40]">{t.author}</p>
-                      <p className="text-[12px] text-[#1a2a40]/35">{t.role}</p>
-                    </div>
+                  <div>
+                    <p className="text-[13px] font-semibold text-white/80">{t.author}</p>
+                    <p className="text-[11px] text-white/30">{t.role}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       <CTASection />
     </main>
