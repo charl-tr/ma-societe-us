@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
-const spaceGrotesk = Space_Grotesk({
+const cormorant = Cormorant_Garamond({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
-const dmSans = DM_Sans({
+const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${spaceGrotesk.variable} ${dmSans.variable} h-full`}>
+    <html lang="fr" className={`${cormorant.variable} ${inter.variable} h-full`}>
       <body className="min-h-full">
         <Navbar />
         {children}

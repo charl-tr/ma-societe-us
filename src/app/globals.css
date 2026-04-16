@@ -13,11 +13,11 @@ html {
 
 body {
   font-family: var(--font-body), system-ui, sans-serif;
-  color: #1a2a40;
-  background: #E8ECF2;
+  color: #f0e8dc;
+  background: #131110;
 }
 
 ::selection {
-  background-color: rgba(60,100,160,0.15);
-  color: #1a2a40;
+  background-color: rgba(200,160,80,0.25);
+  color: #f0e8dc;
 }
