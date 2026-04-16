@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme inline {
@@ -12,12 +13,12 @@ html {
 }
 
 body {
-  font-family: var(--font-body), system-ui, sans-serif;
-  color: #1a2a40;
-  background: #EDF1F6;
+  font-family: 'Poppins', var(--font-body), system-ui, sans-serif;
+  color: rgb(242, 242, 242);
+  background: rgb(22, 24, 29);
 }
 
 ::selection {
-  background-color: rgba(60,130,220,0.15);
-  color: #1a2a40;
+  background-color: rgba(52, 211, 153, 0.2);
+  color: rgb(242, 242, 242);
 }
