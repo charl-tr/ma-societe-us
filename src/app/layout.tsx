@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Inter } from "next/font/google";
+import { Bodoni_Moda, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
-const dmSerifDisplay = DM_Serif_Display({
+const bodoniModa = Bodoni_Moda({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
+  weight: ["400", "500", "600"],
+  style: ["normal"],
 });
 
 const inter = Inter({
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${dmSerifDisplay.variable} ${inter.variable} h-full`}>
+    <html lang="fr" className={`${bodoniModa.variable} ${inter.variable} h-full`}>
       <body className="min-h-full">
         <Navbar />
         {children}
