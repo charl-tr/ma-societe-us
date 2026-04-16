@@ -76,10 +76,11 @@ const USMap = memo(function USMap({
   return (
     <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full h-auto">
       <defs>
-        {/* Fog mask */}
-        <radialGradient id="fog" cx="50%" cy="48%" rx="46%" ry="44%">
+        {/* Fog mask — softer falloff for atmospheric depth */}
+        <radialGradient id="fog" cx="50%" cy="48%" rx="48%" ry="46%">
           <stop offset="0%" stopColor="white" />
-          <stop offset="65%" stopColor="white" />
+          <stop offset="55%" stopColor="white" />
+          <stop offset="80%" stopColor="rgba(255,255,255,0.4)" />
           <stop offset="100%" stopColor="black" />
         </radialGradient>
         <mask id="fogMask">
@@ -99,10 +100,10 @@ const USMap = memo(function USMap({
           </feMerge>
         </filter>
 
-        {/* Active glow — blue + hint of red */}
+        {/* Active glow — stronger blue aura */}
         <filter id="activeGlow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="6" result="glow" />
-          <feFlood floodColor="rgba(30,86,160,0.35)" result="blue" />
+          <feGaussianBlur stdDeviation="8" result="glow" />
+          <feFlood floodColor="rgba(25,70,150,0.45)" result="blue" />
           <feComposite in="blue" in2="glow" operator="in" result="blueGlow" />
           <feMerge>
             <feMergeNode in="blueGlow" />
@@ -110,11 +111,12 @@ const USMap = memo(function USMap({
           </feMerge>
         </filter>
 
-        {/* Shine gradient */}
+        {/* Shine gradient — stronger silver reflection */}
         <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="rgba(255,255,255,0.5)" />
-          <stop offset="40%" stopColor="rgba(255,255,255,0.05)" />
-          <stop offset="100%" stopColor="rgba(200,215,240,0.25)" />
+          <stop offset="0%" stopColor="rgba(255,255,255,0.65)" />
+          <stop offset="35%" stopColor="rgba(255,255,255,0.15)" />
+          <stop offset="60%" stopColor="rgba(200,220,245,0.1)" />
+          <stop offset="100%" stopColor="rgba(180,200,230,0.35)" />
         </linearGradient>
       </defs>
 
@@ -124,7 +126,7 @@ const USMap = memo(function USMap({
           const d = paths.get(f.id);
           if (!d || HIGHLIGHT_FIPS.has(f.id)) return null;
           return (
-            <path key={f.id} d={d} fill="rgba(195,210,230,0.3)" stroke="rgba(255,255,255,0.5)" strokeWidth={0.4} />
+            <path key={f.id} d={d} fill="rgba(170,195,225,0.35)" stroke="rgba(255,255,255,0.6)" strokeWidth={0.5} />
           );
         })}
 
@@ -142,8 +144,8 @@ const USMap = memo(function USMap({
               onMouseEnter={() => onStateHover(f.id)}
               onClick={() => onStateHover(f.id)}
             >
-              <path d={d} fill={isActive ? "rgba(20,60,140,0.5)" : "rgba(60,120,200,0.22)"} stroke="rgba(255,255,255,0.8)" strokeWidth={isActive ? 1.5 : 0.8} style={{ transition: "all 0.4s ease" }} />
-              <path d={d} fill="url(#shine)" opacity={isActive ? 0.7 : 0.35} style={{ transition: "opacity 0.4s ease" }} />
+              <path d={d} fill={isActive ? "rgba(15,50,130,0.55)" : "rgba(40,100,190,0.28)"} stroke="rgba(255,255,255,0.85)" strokeWidth={isActive ? 1.8 : 1} style={{ transition: "all 0.4s ease" }} />
+              <path d={d} fill="url(#shine)" opacity={isActive ? 0.8 : 0.4} style={{ transition: "opacity 0.4s ease" }} />
             </g>
           );
         })}
@@ -154,8 +156,8 @@ const USMap = memo(function USMap({
           const a = LINE_ANCHORS[s.fips];
           if (!c || !a) return null;
           const isActive = activeFips === s.fips;
-          const color = isActive ? "rgba(30,86,160,0.5)" : "rgba(160,175,200,0.3)";
-          const width = isActive ? 1 : 0.5;
+          const color = isActive ? "rgba(25,70,145,0.55)" : "rgba(140,165,195,0.4)";
+          const width = isActive ? 1.2 : 0.7;
 
           // L-shape: centroid → midpoint (horizontal) → card anchor (vertical)
           return (
@@ -177,7 +179,7 @@ const USMap = memo(function USMap({
   );
 });
 
-/* ─── Glass Card with chrome border ─── */
+/* ─── Glass Card with chrome border — Liquid Glass style ─── */
 function GlassCard({ state, isActive, onHover, onClick }: {
   state: StateInfo;
   isActive: boolean;
@@ -187,37 +189,42 @@ function GlassCard({ state, isActive, onHover, onClick }: {
   return (
     <button onClick={onClick} onMouseEnter={onHover} className="w-full text-left cursor-pointer">
       <div
-        className={`rounded-xl overflow-hidden transition-all duration-400 ${
+        className={`rounded-xl overflow-hidden transition-all duration-500 ${
           isActive
-            ? "shadow-[0_8px_32px_rgba(0,40,104,0.12)]"
-            : "shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_24px_rgba(0,40,104,0.08)]"
+            ? "shadow-[0_12px_40px_rgba(0,30,80,0.18),0_4px_12px_rgba(0,0,0,0.08)]"
+            : "shadow-[0_6px_24px_rgba(0,20,60,0.10),0_2px_8px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_36px_rgba(0,30,80,0.15)]"
         }`}
       >
-        {/* Chrome gradient border — top */}
+        {/* Chrome bar — thick, visible metallic reflection */}
         <div
-          className="h-[3px]"
+          className="h-[5px]"
           style={{
             background: isActive
-              ? "linear-gradient(90deg, rgba(30,86,160,0.3), rgba(255,255,255,0.9) 25%, rgba(192,57,43,0.3) 50%, rgba(255,255,255,0.9) 75%, rgba(30,86,160,0.3))"
-              : "linear-gradient(90deg, rgba(190,200,215,0.2), rgba(255,255,255,0.8) 30%, rgba(210,220,235,0.5) 50%, rgba(255,255,255,0.8) 70%, rgba(190,200,215,0.2))",
+              ? "linear-gradient(90deg, #8a9bb8 0%, #d4dce8 15%, #ffffff 30%, #e8edf4 45%, #c0cfe0 55%, #ffffff 70%, #d4dce8 85%, #8a9bb8 100%)"
+              : "linear-gradient(90deg, #a0afc4 0%, #c8d4e2 20%, #e8eef5 40%, #f4f7fa 50%, #e8eef5 60%, #c8d4e2 80%, #a0afc4 100%)",
           }}
         />
         <div
-          className={`p-4 lg:p-5 border border-t-0 rounded-b-xl transition-all duration-400 ${
+          className={`p-4 lg:p-5 border border-t-0 rounded-b-xl transition-all duration-500 ${
             isActive
-              ? "bg-white/85 backdrop-blur-xl border-white/80"
-              : "bg-white/45 backdrop-blur-md border-white/50 hover:bg-white/65"
+              ? "bg-white/92 backdrop-blur-xl border-[#c8d4e2]/60"
+              : "bg-white/75 backdrop-blur-lg border-[#d0d8e4]/40 hover:bg-white/85"
           }`}
+          style={{
+            backgroundImage: isActive
+              ? "linear-gradient(160deg, rgba(255,255,255,0.95), rgba(232,238,248,0.6))"
+              : "linear-gradient(160deg, rgba(255,255,255,0.8), rgba(238,242,250,0.4))",
+          }}
         >
           <h3
-            className={`text-[clamp(0.85rem,1.3vw,1rem)] font-normal tracking-tight transition-colors ${
-              isActive ? "text-[#1a2a40]" : "text-[#1a2a40]/50"
+            className={`text-[clamp(0.9rem,1.4vw,1.05rem)] font-medium tracking-tight transition-colors ${
+              isActive ? "text-[#1a2a40]" : "text-[#3a4a5a]/60"
             }`}
             style={{ fontFamily: "var(--font-heading)" }}
           >
             {state.name}
           </h3>
-          <p className={`mt-1 text-[11px] lg:text-[12px] leading-relaxed transition-colors ${isActive ? "text-[#1a2a40]/55" : "text-[#1a2a40]/30"}`}>
+          <p className={`mt-1.5 text-[11px] lg:text-[12px] leading-relaxed transition-colors ${isActive ? "text-[#1a2a40]/60" : "text-[#3a4a5a]/35"}`}>
             {state.tagline}
           </p>
         </div>
@@ -245,10 +252,11 @@ export function StatesMap() {
       variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8 } } }}
       className="relative py-10 lg:py-16 overflow-hidden"
     >
-      {/* Misty bg */}
-      <div className="absolute inset-0 bg-[#EDF1F6]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_20%,rgba(255,255,255,0.85),transparent_70%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_80%_60%,rgba(255,255,255,0.4),transparent_50%)]" />
+      {/* Misty bg — deeper atmospheric blue-grey */}
+      <div className="absolute inset-0 bg-[#dce4ee]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_90%_at_50%_30%,rgba(255,255,255,0.7),transparent_65%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_80%,rgba(200,215,235,0.5),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_85%_70%,rgba(190,208,230,0.4),transparent_45%)]" />
 
       <div className="relative px-6 lg:px-10 max-w-[1100px] mx-auto">
         {/* Header — centered, large */}
