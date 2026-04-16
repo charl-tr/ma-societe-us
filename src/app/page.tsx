@@ -89,88 +89,111 @@ export default function HomePage() {
     <main>
       <Hero />
 
-      {/* ─── Social proof bar — bold stats ─── */}
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
-        className="relative bg-[#0a1628]"
-      >
-        <div className="px-6 lg:px-10 py-5 lg:py-6">
-          <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between gap-y-4 gap-x-6 max-w-[1200px] mx-auto">
-            {STATS.map((stat, i) => {
-              const { target, suffix } = parseStat(stat.value);
-              return (
-                <div key={stat.label} className="flex items-baseline gap-3">
-                  <span className="text-[clamp(1.5rem,2.5vw,2.2rem)] font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-heading)" }}>
-                    <CountUp target={target} suffix={suffix} />
-                  </span>
-                  <span className="text-[13px] text-white/40">{stat.label}</span>
-                  {i < STATS.length - 1 && (
-                    <span className="hidden lg:block w-px h-5 bg-white/10 ml-6" />
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* ─── Value props — glass cards ─── */}
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="py-10 lg:py-16"
-      >
+      {/* ─── Stats bar — white, high contrast ─── */}
+      <section className="bg-white border-b border-[#1a2a40]/[0.07]">
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/50 mb-4">
-            Pourquoi passer à la LLC
-          </p>
-          <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-semibold leading-[1.1] tracking-[-0.02em] max-w-2xl mb-8 text-[#1a2a40]"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Ce que votre SARL ou SAS ne pourra jamais vous offrir.
-          </h2>
-
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            viewport={{ once: true, margin: "-20px" }}
+            className="grid grid-cols-2 lg:grid-cols-4"
           >
-            {VALUE_PROPS.map((prop) => (
+            {STATS.map((stat, i) => {
+              const { target, suffix } = parseStat(stat.value);
+              return (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeUp}
+                  className={`py-8 lg:py-10 flex flex-col gap-1 ${
+                    i < STATS.length - 1 ? "lg:border-r border-[#1a2a40]/[0.08]" : ""
+                  } ${i % 2 === 0 ? "lg:pr-10" : "pl-6 lg:px-10"} ${
+                    i >= 2 ? "border-t lg:border-t-0 border-[#1a2a40]/[0.07]" : ""
+                  }`}
+                >
+                  <span
+                    className="text-[clamp(2.4rem,5vw,3.6rem)] font-bold leading-none tracking-[-0.03em] text-[#0a1628]"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    <CountUp target={target} suffix={suffix} />
+                  </span>
+                  <span className="text-[12px] uppercase tracking-[0.18em] text-[#1a2a40]/40 font-medium">
+                    {stat.label}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── Value props — dark, numbered, high contrast ─── */}
+      <section className="bg-[#0a1628] py-16 lg:py-24">
+        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+          {/* Header row */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 lg:mb-16">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.25em] text-white/25 mb-4">
+                Pourquoi la LLC
+              </p>
+              <h2
+                className="text-[clamp(1.8rem,4vw,3.2rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white max-w-xl"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Ce que votre SARL ne pourra jamais vous offrir.
+              </h2>
+            </div>
+            <a
+              href="/creer-llc"
+              className="shrink-0 self-start inline-flex items-center gap-2 text-[13px] text-white/40 hover:text-white border border-white/10 hover:border-white/25 rounded-full px-5 py-2.5 transition-all"
+            >
+              En savoir plus →
+            </a>
+          </div>
+
+          {/* Grid */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06]"
+          >
+            {VALUE_PROPS.map((prop, i) => (
               <motion.div
                 key={prop.title}
                 variants={fadeUp}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`rounded-xl overflow-hidden transition-all duration-300 ${glass.cardHover}`}
+                className="bg-[#0a1628] p-7 lg:p-8 group hover:bg-[#0f1e34] transition-colors duration-300"
               >
-                {/* Chrome bar */}
-                <div className="h-[2px]" style={{ background: glass.chrome }} />
-                <div className={`p-5 lg:p-6 ${glass.card} border-t-0 rounded-t-none`}>
-                  <div className="w-9 h-9 rounded-full bg-[#2a5090]/[0.08] flex items-center justify-center text-[#2a5090]/50 mb-4">
-                    <PropIcon type={prop.icon} />
-                  </div>
-                  <h3
-                    className="text-[16px] font-semibold mb-2 tracking-tight text-[#1a2a40]"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {prop.title}
-                  </h3>
-                  <p className="text-[13px] leading-relaxed text-[#1a2a40]/45">
-                    {prop.description}
-                  </p>
+                {/* Number */}
+                <span
+                  className="block text-[clamp(3rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] mb-6"
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    color: "transparent",
+                    WebkitTextStroke: "1px rgba(255,255,255,0.15)",
+                  }}
+                >
+                  0{i + 1}
+                </span>
+                {/* Icon */}
+                <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-white/60 mb-5 group-hover:bg-white/[0.1] transition-colors">
+                  <PropIcon type={prop.icon} />
                 </div>
+                <h3
+                  className="text-[17px] font-semibold mb-2.5 tracking-tight text-white"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {prop.title}
+                </h3>
+                <p className="text-[13px] leading-relaxed text-white/40">
+                  {prop.description}
+                </p>
               </motion.div>
             ))}
           </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ─── Savings Estimator — conversion hook ─── */}
       <SavingsEstimator />
