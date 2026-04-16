@@ -201,7 +201,7 @@ export default function HomePage() {
           </h2>
           <div className="p-8 lg:p-10" style={{ background: d.card, border: `1px solid ${d.border}` }}>
             <blockquote
-              className="text-[17px] leading-relaxed text-center italic"
+              className="text-[17px] leading-relaxed text-center"
               style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.muted }}
             >
               &laquo;&nbsp;Un grand merci à toute l&apos;équipe ! Christophe et Mathieu ont été de très bons conseils et m&apos;ont permis de faire des économies sur ma note fiscale. Je referai sans aucun doute appel à eux pour mes déclarations fiscales.&nbsp;&raquo;

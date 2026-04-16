@@ -23,11 +23,11 @@ export function Hero() {
           <br />
           américaine.
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: "#b89550" }}>
+          <span style={{ color: "#b89550" }}>
             Jusqu&apos;à 0%
             <br />
             d&apos;imposition.
-          </em>
+          </span>
         </h1>
 
         <p
