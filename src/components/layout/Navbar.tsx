@@ -74,7 +74,7 @@ export function Navbar() {
             <a
               href="https://calendly.com/ypls/decouverte-site"
               className="inline-flex items-center px-5 py-2 text-[11px] uppercase tracking-[0.12em] font-medium text-[#0e0d0b] transition-all duration-300 hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #b89550, #c8a456)" }}
+              style={{ background: "#ede8e0", color: "#0e0d0b" }}
             >
               Prendre rendez-vous
             </a>
@@ -85,7 +85,7 @@ export function Navbar() {
             <a
               href="https://calendly.com/ypls/decouverte-site"
               className="inline-flex items-center px-3.5 py-1.5 text-[10px] uppercase tracking-wider font-medium text-[#0e0d0b]"
-              style={{ background: "linear-gradient(135deg, #b89550, #c8a456)" }}
+              style={{ background: "#ede8e0", color: "#0e0d0b" }}
             >
               RDV
             </a>
@@ -121,7 +121,7 @@ export function Navbar() {
             href="https://calendly.com/ypls/decouverte-site"
             onClick={() => setMenuOpen(false)}
             className="mt-6 px-8 py-3.5 text-[12px] uppercase tracking-[0.12em] font-medium text-[#0e0d0b]"
-            style={{ background: "linear-gradient(135deg, #b89550, #c8a456)" }}
+            style={{ background: "#ede8e0", color: "#0e0d0b" }}
           >
             Prendre rendez-vous
           </a>
