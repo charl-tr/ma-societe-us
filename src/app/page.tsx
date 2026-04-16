@@ -6,6 +6,7 @@ import { Hero } from "@/components/hero/Hero";
 import { StatesMap } from "@/components/sections/StatesMap";
 import { ScrollTimeline } from "@/components/sections/ScrollTimeline";
 import { CTASection } from "@/components/sections/CTASection";
+import { SavingsEstimator } from "@/components/sections/SavingsEstimator";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
 
 /* ─── Glass panel utility ─── */
@@ -170,6 +171,9 @@ export default function HomePage() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* ─── Savings Estimator — conversion hook ─── */}
+      <SavingsEstimator />
 
       {/* ─── CTA Strip #1 — dark, conversion push ─── */}
       <motion.section
