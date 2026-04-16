@@ -3,40 +3,97 @@
 import { Hero } from "@/components/hero/Hero";
 import { StatesMap } from "@/components/sections/StatesMap";
 
-const d = {
-  bg: "#0e0d0b",
-  card: "#141210",
-  border: "rgba(240,232,220,0.06)",
-  text: "#f0e8dc",
-  muted: "rgba(240,232,220,0.40)",
-  soft: "rgba(240,232,220,0.22)",
-  ghost: "rgba(240,232,220,0.10)",
-  cta: "linear-gradient(135deg, #b89550, #c8a456)",
+/* ─── Système de design unifié ─── */
+const t = {
+  bg:        "#0e0d0b",
+  card:      "#131210",
+  border:    "rgba(240,232,220,0.07)",
+  // 3 niveaux seulement
+  primary:   "#ede8e0",
+  secondary: "rgba(240,232,220,0.45)",
+  ghost:     "rgba(240,232,220,0.18)",
+  // Boutons
+  btnBg:     "#ede8e0",
+  btnText:   "#0e0d0b",
+  btnBorder: "rgba(240,232,220,0.12)",
 };
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[10px] uppercase tracking-[0.45em] mb-5 text-center"
+       style={{ color: t.ghost, fontFamily: "var(--font-body)" }}>
+      {children}
+    </p>
+  );
+}
+
+function Rule() {
+  return <div className="mx-auto my-8 w-8 h-px" style={{ background: t.border }} />;
+}
+
+function H2({ children, align = "center" }: { children: React.ReactNode; align?: "center" | "left" }) {
+  return (
+    <h2
+      className={`text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.1] ${align === "center" ? "text-center" : ""}`}
+      style={{ fontFamily: "var(--font-heading)", fontWeight: 400, color: t.primary, letterSpacing: "-0.01em" }}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function PrimaryBtn({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center px-8 py-3.5 text-[11px] uppercase tracking-[0.18em] font-medium transition-opacity hover:opacity-75"
+      style={{ background: t.btnBg, color: t.btnText }}
+    >
+      {children}
+    </a>
+  );
+}
+
+function GhostBtn({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center px-7 py-3.5 text-[11px] uppercase tracking-[0.15em] transition-opacity hover:opacity-75"
+      style={{ color: t.secondary, border: `1px solid ${t.btnBorder}` }}
+    >
+      {children}
+    </a>
+  );
+}
 
 export default function HomePage() {
   return (
-    <main style={{ background: d.bg }}>
+    <main style={{ background: t.bg }}>
       <Hero />
 
-      {/* ═══ Stats bar ═══ */}
-      <section className="border-y" style={{ borderColor: d.border }}>
-        <div className="px-6 lg:px-10 py-8 max-w-[1100px] mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0">
+      {/* ── Stats ── */}
+      <section style={{ borderBottom: `1px solid ${t.border}` }}>
+        <div className="px-6 lg:px-10 py-10 max-w-[1000px] mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
             {[
-              { val: "10+", label: "années d'expertise" },
+              { val: "10+",  label: "années d'expertise" },
               { val: "500+", label: "sociétés créées" },
-              { val: "11", label: "professionnels" },
-              { val: "4", label: "états de juridiction" },
+              { val: "11",   label: "professionnels" },
+              { val: "4",    label: "états de juridiction" },
             ].map((s, i) => (
-              <div key={s.label} className={`text-center ${i > 0 ? "lg:border-l" : ""}`} style={{ borderColor: d.border }}>
+              <div
+                key={s.label}
+                className="text-center py-6"
+                style={{ borderLeft: i > 0 ? `1px solid ${t.border}` : undefined }}
+              >
                 <div
-                  className="text-[clamp(1.6rem,3vw,2.4rem)] text-[#f0e8dc]/85"
-                  style={{ fontFamily: "var(--font-heading)", fontWeight: 300 }}
+                  className="text-[clamp(1.8rem,3vw,2.6rem)]"
+                  style={{ fontFamily: "var(--font-heading)", fontWeight: 400, color: t.primary }}
                 >
                   {s.val}
                 </div>
-                <div className="text-[11px] uppercase tracking-[0.12em] mt-1.5" style={{ color: d.soft }}>
+                <div className="text-[11px] uppercase tracking-[0.12em] mt-2"
+                     style={{ color: t.ghost, fontFamily: "var(--font-body)" }}>
                   {s.label}
                 </div>
               </div>
@@ -45,89 +102,78 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ SECTION : Intro ═══ */}
-      <section className="py-24 lg:py-32">
-        <div className="px-6 lg:px-10 max-w-[780px] mx-auto">
-          <p className="text-[10px] uppercase tracking-[0.35em] mb-6" style={{ color: d.soft }}>
-            Pourquoi nous choisir
-          </p>
-          <h2
-            className="text-[clamp(1.6rem,3.5vw,2.4rem)] leading-[1.15] mb-8"
-            style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.text }}
-          >
-            Créer une société aux USA<br />en quelques semaines.
-          </h2>
-          <p className="text-[15px] leading-relaxed mb-5" style={{ color: d.muted }}>
-            Vous devriez songer à créer une société aux USA si…
-          </p>
-          <ul className="space-y-4 text-[15px] leading-relaxed" style={{ color: d.muted }}>
+      {/* ── Intro ── */}
+      <section className="py-28 lg:py-36" style={{ borderBottom: `1px solid ${t.border}` }}>
+        <div className="px-6 lg:px-10 max-w-[720px] mx-auto">
+          <SectionLabel>Pourquoi nous choisir</SectionLabel>
+          <H2>Créer une société aux USA.<br />Simple. Légal. Efficace.</H2>
+          <Rule />
+          <ul className="space-y-5 mt-2">
             {[
               "Les tâches administratives vous prennent tout votre temps.",
-              "Vous avez l'impression d'étouffer sous une fiscalité qui pénalise votre activité.",
-              "Vous aspirez à du changement, mais cela paraît trop compliqué.",
+              "Vous étouffez sous une fiscalité qui pénalise votre activité.",
+              "Vous aspirez au changement — mais ça paraît trop compliqué.",
             ].map((item) => (
-              <li key={item} className="flex items-start gap-4">
-                <span className="mt-2.5 block w-4 h-px flex-shrink-0" style={{ background: d.soft }} />
-                {item}
+              <li key={item} className="flex items-start gap-5">
+                <span className="mt-2.5 block w-5 h-px flex-shrink-0" style={{ background: t.border }} />
+                <span className="text-[15px] leading-relaxed" style={{ color: t.secondary }}>{item}</span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* ═══ SECTION : Offshore ═══ */}
-      <section className="py-20 lg:py-24 border-t" style={{ borderColor: d.border }}>
-        <div className="px-6 lg:px-10 max-w-[780px] mx-auto">
-          <h2
-            className="text-[clamp(1.4rem,2.5vw,1.9rem)] text-center mb-10"
-            style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.text }}
-          >
-            Levons certains tabous sur les sociétés dites &quot;offshore&quot;.
-          </h2>
-          <div className="space-y-3">
+      {/* ── Tabous offshore ── */}
+      <section className="py-28 lg:py-36" style={{ borderBottom: `1px solid ${t.border}` }}>
+        <div className="px-6 lg:px-10 max-w-[720px] mx-auto">
+          <H2>Levons certains tabous<br />sur les sociétés offshore.</H2>
+          <Rule />
+          <div className="space-y-3 mt-2">
             {[
-              <>Détenir une société offshore tout en résidant fiscalement dans un autre état est <strong className="text-[#f0e8dc]/90 font-normal">tout-à-fait légal</strong>. De nombreuses confusions sont faites à ce sujet.</>,
-              <>Il est parfaitement légal de détenir un compte ou une société à l&apos;étranger. Il est par contre <strong className="text-[#f0e8dc]/90 font-normal">obligatoire de déclarer ces revenus</strong> dans votre pays de résidence.</>,
+              <>Détenir une société offshore tout en résidant dans un autre pays est <span style={{ color: t.primary }}>tout-à-fait légal</span>. De nombreuses confusions existent sur ce sujet.</>,
+              <>Il est légal de détenir un compte ou une société à l&apos;étranger. Il est par contre <span style={{ color: t.primary }}>obligatoire de déclarer ces revenus</span> dans votre pays de résidence.</>,
             ].map((content, i) => (
               <div
                 key={i}
-                className="p-6 lg:p-7 text-[15px] leading-relaxed"
-                style={{ background: d.card, border: `1px solid ${d.border}`, color: d.muted }}
+                className="p-7 text-[15px] leading-relaxed"
+                style={{ background: t.card, border: `1px solid ${t.border}`, color: t.secondary }}
               >
                 {content}
               </div>
             ))}
           </div>
-          <p className="text-center mt-8">
-            <a href="/creer-llc/faq" className="text-[12px] uppercase tracking-[0.12em] transition-colors duration-300" style={{ color: d.soft }}>
-              Des questions ? Lire la FAQ →
+          <p className="mt-8 text-center">
+            <a href="/creer-llc/faq"
+               className="text-[11px] uppercase tracking-[0.2em] transition-opacity hover:opacity-100"
+               style={{ color: t.ghost }}>
+              Lire la FAQ →
             </a>
           </p>
         </div>
       </section>
 
-      {/* ═══ SECTION : 9 Avantages ═══ */}
-      <section className="py-20 lg:py-24 border-t" style={{ borderColor: d.border }}>
-        <div className="px-6 lg:px-10 max-w-[900px] mx-auto">
-          <p className="text-[10px] uppercase tracking-[0.35em] mb-4 text-center" style={{ color: d.soft }}>
-            Les avantages
-          </p>
-          <h2
-            className="text-[clamp(1.4rem,2.5vw,1.9rem)] text-center mb-12"
-            style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.text }}
-          >
-            Pourquoi la LLC américaine change tout.
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      {/* ── Avantages ── */}
+      <section className="py-28 lg:py-36" style={{ borderBottom: `1px solid ${t.border}` }}>
+        <div className="px-6 lg:px-10 max-w-[860px] mx-auto">
+          <SectionLabel>Les avantages</SectionLabel>
+          <H2>Pourquoi la LLC américaine<br />change tout.</H2>
+          <Rule />
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
             {[
-              "0 % d'imposition aux USA", "Souplesse comptable", "Pas de capital minimum",
-              "Pas besoin de résider aux USA", "Rapidité de création", "Anonymat",
-              "Pas besoin de se déplacer", "Une solution économique", "Responsabilité limitée",
+              "0 % d'imposition aux USA",
+              "Souplesse comptable",
+              "Pas de capital minimum",
+              "Pas besoin de résider aux USA",
+              "Rapidité de création",
+              "Anonymat",
+              "Pas besoin de se déplacer",
+              "Solution économique",
+              "Responsabilité limitée",
             ].map((adv) => (
               <div
                 key={adv}
-                className="p-4 text-center text-[13px] transition-all duration-300"
-                style={{ background: d.card, border: `1px solid ${d.border}`, color: d.muted }}
+                className="p-5 text-center text-[13px] leading-snug"
+                style={{ background: t.card, border: `1px solid ${t.border}`, color: t.secondary }}
               >
                 {adv}
               </div>
@@ -136,102 +182,74 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ SECTION : Notre offre ═══ */}
-      <section className="py-20 lg:py-24 border-t" style={{ borderColor: d.border }}>
-        <div className="px-6 lg:px-10 max-w-[1000px] mx-auto">
-          <p className="text-[10px] uppercase tracking-[0.35em] mb-4 text-center" style={{ color: d.soft }}>
-            Notre offre
-          </p>
-          <h2
-            className="text-[clamp(1.4rem,2.5vw,1.9rem)] text-center mb-3"
-            style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.text }}
-          >
-            Un package complet pour votre société américaine.
-          </h2>
-          <p className="text-[14px] text-center mb-12 max-w-xl mx-auto" style={{ color: d.soft }}>
-            Transparent et sans surcoûts.
-          </p>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+      {/* ── Notre offre ── */}
+      <section className="py-28 lg:py-36" style={{ borderBottom: `1px solid ${t.border}` }}>
+        <div className="px-6 lg:px-10 max-w-[960px] mx-auto">
+          <SectionLabel>Notre offre</SectionLabel>
+          <H2>Un package complet pour<br />votre société américaine.</H2>
+          <Rule />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mt-2">
             {[
-              { title: "Création de votre LLC", desc: "Nous gérons pour vous de A à Z la création de votre LLC américaine avec la collaboration de notre partenaire local agréé par le Secretary of State." },
-              { title: "Un véritable accompagnement", desc: "En souscrivant à notre offre, vous bénéficierez d'un véritable accompagnement, nous serons à vos côtés tout au long du processus de création, et même après." },
-              { title: "Compte bancaire US", desc: "Nous vous assistons à l'ouverture d'un compte bancaire associé à une carte de crédit professionnelle auprès de nos partenaires bancaires." },
+              { title: "Création de votre LLC",       desc: "Nous gérons de A à Z la création de votre LLC américaine avec notre partenaire local agréé par le Secretary of State." },
+              { title: "Un véritable accompagnement", desc: "Nous serons à vos côtés tout au long du processus de création — et même après. Pas un formulaire en ligne, une relation." },
+              { title: "Compte bancaire US",           desc: "Nous vous assistons à l'ouverture d'un compte bancaire avec carte de crédit professionnelle auprès de nos partenaires." },
             ].map((card) => (
               <div
                 key={card.title}
-                className="p-6 lg:p-7"
-                style={{ background: d.card, border: `1px solid ${d.border}` }}
+                className="p-7"
+                style={{ background: t.card, border: `1px solid ${t.border}` }}
               >
                 <h3
-                  className="text-[16px] mb-3"
-                  style={{ fontFamily: "var(--font-heading)", fontWeight: 400, color: d.text }}
+                  className="text-[17px] mb-4"
+                  style={{ fontFamily: "var(--font-heading)", fontWeight: 400, color: t.primary }}
                 >
                   {card.title}
                 </h3>
-                <p className="text-[13px] leading-relaxed" style={{ color: d.muted }}>{card.desc}</p>
+                <p className="text-[13px] leading-relaxed" style={{ color: t.secondary }}>{card.desc}</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <a
-              href="/services/pack-llc"
-              className="inline-flex items-center px-7 py-3.5 text-[12px] uppercase tracking-[0.1em] font-medium text-[#0e0d0b] transition-all duration-300 hover:opacity-90"
-              style={{ background: d.cta }}
-            >
-              Découvrir notre offre →
-            </a>
+          <div className="text-center mt-12">
+            <PrimaryBtn href="/services/pack-llc">Découvrir notre offre</PrimaryBtn>
           </div>
         </div>
       </section>
 
-      {/* ═══ SECTION : States Map ═══ */}
+      {/* ── States Map ── */}
       <StatesMap />
 
-      {/* ═══ SECTION : Avis clients ═══ */}
-      <section className="py-20 lg:py-24 border-t" style={{ borderColor: d.border }}>
-        <div className="px-6 lg:px-10 max-w-[680px] mx-auto">
-          <p className="text-[10px] uppercase tracking-[0.35em] mb-4 text-center" style={{ color: d.soft }}>
-            Témoignages
-          </p>
-          <h2
-            className="text-[clamp(1.4rem,2.5vw,1.9rem)] text-center mb-10"
-            style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.text }}
-          >
-            Ils ont créé leur LLC avec nous.
-          </h2>
-          <div className="p-8 lg:p-10" style={{ background: d.card, border: `1px solid ${d.border}` }}>
+      {/* ── Témoignage ── */}
+      <section className="py-28 lg:py-36" style={{ borderBottom: `1px solid ${t.border}` }}>
+        <div className="px-6 lg:px-10 max-w-[620px] mx-auto text-center">
+          <SectionLabel>Témoignages</SectionLabel>
+          <div className="mt-6 p-10" style={{ border: `1px solid ${t.border}` }}>
             <blockquote
-              className="text-[17px] leading-relaxed text-center"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.muted }}
+              className="text-[20px] lg:text-[22px] leading-relaxed"
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 400, color: t.secondary }}
             >
-              &laquo;&nbsp;Un grand merci à toute l&apos;équipe ! Christophe et Mathieu ont été de très bons conseils et m&apos;ont permis de faire des économies sur ma note fiscale. Je referai sans aucun doute appel à eux pour mes déclarations fiscales.&nbsp;&raquo;
+              &ldquo;Christophe et Mathieu ont été de très bons conseils et m&apos;ont permis de faire des économies significatives sur ma note fiscale.&rdquo;
             </blockquote>
-            <p className="mt-6 text-center text-[13px]" style={{ color: "rgba(240,232,220,0.6)" }}>Antoine R.</p>
-            <p className="text-center text-[11px] mt-1" style={{ color: d.soft }}>Consultant IT · LLC au Nouveau-Mexique</p>
+            <div className="mt-8 w-6 h-px mx-auto" style={{ background: t.border }} />
+            <p className="mt-6 text-[13px] uppercase tracking-[0.2em]" style={{ color: t.ghost }}>
+              Antoine R. — Consultant IT · LLC au Nouveau-Mexique
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ═══ SECTION : Contact CTA ═══ */}
-      <section className="py-24 lg:py-32 border-t" style={{ borderColor: d.border }}>
+      {/* ── CTA Final ── */}
+      <section className="py-32 lg:py-40">
         <div className="px-6 lg:px-10 max-w-[560px] mx-auto text-center">
-          <h2
-            className="text-[clamp(1.7rem,3.5vw,2.4rem)] mb-4"
-            style={{ fontFamily: "var(--font-heading)", fontWeight: 300, color: d.text }}
-          >
-            Parlons de votre projet.
-          </h2>
-          <p className="text-[15px] leading-relaxed mb-10" style={{ color: d.muted }}>
-            15 minutes pour découvrir comment optimiser votre structure juridique et fiscale.
+          <H2>Parlons de<br />votre projet.</H2>
+          <Rule />
+          <p className="text-[15px] leading-relaxed mb-12" style={{ color: t.secondary }}>
+            15 minutes pour découvrir comment optimiser
+            votre structure juridique et fiscale.
           </p>
-          <a
-            href="https://calendly.com/ypls/decouverte-site"
-            className="inline-flex items-center px-9 py-4 text-[12px] uppercase tracking-[0.12em] font-medium text-[#0e0d0b] transition-all duration-300 hover:opacity-90"
-            style={{ background: d.cta }}
-          >
-            Réservez votre entretien
-          </a>
-          <p className="mt-5 text-[11px] uppercase tracking-[0.12em]" style={{ color: d.ghost }}>
+          <PrimaryBtn href="https://calendly.com/ypls/decouverte-site">
+            Réserver un entretien
+          </PrimaryBtn>
+          <p className="mt-6 text-[10px] uppercase tracking-[0.2em]" style={{ color: t.ghost }}>
             Gratuit · Sans engagement
           </p>
         </div>
