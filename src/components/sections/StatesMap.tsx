@@ -117,8 +117,7 @@ const USMap = memo(function USMap({
         </marker>
 
         {/* Line gradient — centroid (transparent) → edge (opaque) */}
-        <linearGradient id="lineGradLeft" x1="1" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse"
-          x1="0" y1="0" x2={MAP_W} y2="0">
+        <linearGradient id="lineGradLeft" x1="0" y1="0" x2={MAP_W} y2="0" gradientUnits="userSpaceOnUse">
           <stop offset="0%"  stopColor="rgba(42,80,144,0.85)" />
           <stop offset="100%" stopColor="rgba(42,80,144,0.10)" />
         </linearGradient>
