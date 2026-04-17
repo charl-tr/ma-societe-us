@@ -89,8 +89,8 @@ export default function HomePage() {
     <main>
       <Hero />
 
-      {/* ─── Stats bar — white, high contrast ─── */}
-      <section className="bg-white border-b border-[#1a2a40]/[0.07]">
+      {/* ─── Stats bar — misty glass, transition from hero ─── */}
+      <section className="border-b border-[#1a2a40]/[0.07]" style={{ background: "linear-gradient(180deg, #eef3f9 0%, #ffffff 100%)" }}>
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
           <motion.div
             variants={stagger}
@@ -217,9 +217,10 @@ export default function HomePage() {
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         className="px-6 lg:px-10 py-10 lg:py-14 max-w-[1400px] mx-auto"
+        style={{ background: "transparent" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-          {/* Card 1 — light, editorial */}
+          {/* Card 1 — light, provocateur */}
           <motion.a
             href="/creer-llc"
             variants={fadeUp}
@@ -228,45 +229,56 @@ export default function HomePage() {
             {/* Top accent */}
             <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0a1628 0%, #2a5090 50%, transparent 100%)" }} />
             <div className="flex-1 p-8 lg:p-12 flex flex-col">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#2a5090]/40 mb-6">4 juridictions</p>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-[#2a5090]/40 mb-6">Choisir le bon état</p>
               <h3
                 className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold tracking-[-0.025em] leading-[1.1] text-[#0a1628] mb-5 max-w-xs"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
-                Le bon état, c&rsquo;est des milliers d&rsquo;euros d&rsquo;écart.
+                Le mauvais état coûte jusqu&apos;à 12&nbsp;000€. Par an.
               </h3>
               <p className="text-[14px] leading-relaxed text-[#1a2a40]/45 mb-auto">
-                NM · CO · WY · DE — on analyse votre situation et on vous indique l&rsquo;état qui maximise vos gains.
+                Delaware, Wyoming, Colorado, Nouveau-Mexique — 4 juridictions, 4 profils types. On identifie la vôtre en 15 minutes.
               </p>
               <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-[#0a1628] group-hover:gap-4 transition-all">
-                <span>Comparer les états</span>
+                <span>Trouver mon état optimal</span>
                 <span className="text-[#2a5090]">→</span>
               </div>
             </div>
           </motion.a>
 
-          {/* Card 2 — dark navy, bold */}
+          {/* Card 2 — dark navy, bold — blue accent */}
           <motion.a
             href="/services/pack-llc"
             variants={fadeUp}
-            className="group relative rounded-2xl overflow-hidden bg-[#060e1c] hover:bg-[#0c1830] transition-all duration-500 flex flex-col min-h-[340px] lg:min-h-[420px]"
+            className="group relative rounded-2xl overflow-hidden flex flex-col min-h-[340px] lg:min-h-[420px] transition-all duration-500"
+            style={{
+              background: "linear-gradient(160deg, #0f1e38 0%, #1a3060 100%)",
+            }}
           >
-            {/* Red top accent */}
-            <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #c0392b 0%, #e84040 50%, transparent 100%)" }} />
+            {/* Chrome top — silver blue */}
+            <div
+              className="h-[1px]"
+              style={{
+                background: "linear-gradient(90deg, transparent, rgba(100,150,220,0.5) 30%, rgba(140,190,255,0.8) 50%, rgba(100,150,220,0.5) 70%, transparent)",
+              }}
+            />
+            {/* Blue top accent line */}
+            <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #2a5090 0%, #4a80b8 50%, transparent 100%)" }} />
             <div className="flex-1 p-8 lg:p-12 flex flex-col">
               <p className="text-[10px] uppercase tracking-[0.3em] text-white/25 mb-6">Pack tout inclus</p>
               <h3
                 className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold tracking-[-0.025em] leading-[1.1] text-white mb-5 max-w-xs"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
-                Vous signez.<br />On fait le reste.
+                Opérationnel en 14&nbsp;jours.<br />
+                <span style={{ color: "#6aabde" }}>Garanti.</span>
               </h3>
               <p className="text-[14px] leading-relaxed text-white/35 mb-auto">
-                LLC, EIN, compte Mercury, documents légaux, suivi post-création. Zéro déplacement, zéro prise de tête.
+                LLC créée, EIN obtenu, compte Mercury ouvert, carte VISA en main. Zéro déplacement — on gère de A à Z depuis les USA.
               </p>
-              <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-white/60 group-hover:text-white group-hover:gap-4 transition-all">
+              <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-white/50 group-hover:text-white group-hover:gap-4 transition-all">
                 <span>Voir ce qui est inclus</span>
-                <span className="text-[#e84040]">→</span>
+                <span style={{ color: "#6aabde" }}>→</span>
               </div>
             </div>
           </motion.a>
@@ -279,8 +291,8 @@ export default function HomePage() {
       {/* ─── Process steps — scroll timeline ─── */}
       <ScrollTimeline />
 
-      {/* ─── Testimonials — dark, high contrast ─── */}
-      <section className="bg-[#060e1c] py-16 lg:py-24">
+      {/* ─── Testimonials — light misty, high contrast ─── */}
+      <section className="py-16 lg:py-24" style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e8eef6 40%, #f2f6fb 100%)" }}>
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
           {/* Header */}
           <motion.div
@@ -290,16 +302,16 @@ export default function HomePage() {
             viewport={{ once: true, margin: "-60px" }}
             className="mb-10 lg:mb-14"
           >
-            <p className="text-[10px] uppercase tracking-[0.3em] text-white/20 mb-3">Témoignages</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#2a5090]/40 mb-3">Témoignages</p>
             <h2
-              className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.025em] leading-[1.05] text-white max-w-lg"
+              className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.025em] leading-[1.05] text-[#0e1e38] max-w-lg"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Ils ont créé leur LLC.<br />Ils ne regrettent pas.
             </h2>
           </motion.div>
 
-          {/* Cards */}
+          {/* Cards — liquid glass on light */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -311,30 +323,42 @@ export default function HomePage() {
               <motion.div
                 key={t.author}
                 variants={fadeUp}
-                className={`rounded-2xl p-7 lg:p-8 flex flex-col ${
-                  i === 1
-                    ? "border border-white/[0.12] bg-white/[0.04]"
-                    : "border border-white/[0.05] bg-white/[0.02]"
-                }`}
+                className="rounded-2xl p-7 lg:p-8 flex flex-col relative overflow-hidden"
+                style={{
+                  background: i === 1
+                    ? "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(235,244,255,0.75) 100%)"
+                    : "linear-gradient(160deg, rgba(255,255,255,0.75) 0%, rgba(235,242,255,0.55) 100%)",
+                  backdropFilter: "blur(20px) saturate(1.4)",
+                  WebkitBackdropFilter: "blur(20px) saturate(1.4)",
+                  border: "1px solid rgba(255,255,255,0.88)",
+                  boxShadow: i === 1
+                    ? "0 8px 32px rgba(80,120,180,0.12), 0 1px 0 rgba(255,255,255,0.95) inset"
+                    : "0 4px 20px rgba(80,120,180,0.07), 0 1px 0 rgba(255,255,255,0.85) inset",
+                }}
               >
+                {/* Chrome top */}
+                <div
+                  className="absolute inset-x-0 top-0 h-[1px]"
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 60%, transparent)" }}
+                />
                 {/* Stars */}
                 <div className="flex gap-1 mb-5">
                   {[...Array(5)].map((_, si) => (
-                    <svg key={si} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg key={si} className="w-3.5 h-3.5" fill="#4a80b8" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <blockquote className="text-[14px] lg:text-[15px] leading-[1.7] text-white/60 flex-1 mb-6">
+                <blockquote className="text-[14px] lg:text-[15px] leading-[1.7] text-[#0e1e38]/55 flex-1 mb-6">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <div className="flex items-center gap-3 pt-5 border-t border-white/[0.07]">
-                  <div className="w-8 h-8 rounded-full bg-[#2a5090]/30 flex items-center justify-center text-[12px] font-bold text-white/70">
+                <div className="flex items-center gap-3 pt-5" style={{ borderTop: "1px solid rgba(26,42,64,0.07)" }}>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-bold text-white" style={{ background: "linear-gradient(135deg, #2a5090, #4a80b8)" }}>
                     {t.author.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-[13px] font-semibold text-white/80">{t.author}</p>
-                    <p className="text-[11px] text-white/30">{t.role}</p>
+                    <p className="text-[13px] font-semibold text-[#0e1e38]">{t.author}</p>
+                    <p className="text-[11px] text-[#0e1e38]/35">{t.role}</p>
                   </div>
                 </div>
               </motion.div>

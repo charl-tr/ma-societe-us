@@ -18,11 +18,20 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(10,22,40,0.06)]"
-            : ""
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{
+          background: scrolled
+            ? "rgba(238,243,249,0.96)"
+            : "rgba(240,245,251,0.72)",
+          backdropFilter: "blur(20px) saturate(1.4)",
+          WebkitBackdropFilter: "blur(20px) saturate(1.4)",
+          borderBottom: scrolled
+            ? "1px solid rgba(26,42,64,0.08)"
+            : "1px solid rgba(255,255,255,0.6)",
+          boxShadow: scrolled
+            ? "0 2px 20px rgba(80,120,180,0.07)"
+            : "0 1px 0 rgba(255,255,255,0.7)",
+        }}
       >
         <nav className="flex items-center justify-between px-6 lg:px-10 h-[56px] lg:h-[64px]">
           <a href="/" className="relative z-10 flex-shrink-0">
@@ -31,9 +40,7 @@ export function Navbar() {
               alt="MA SOCIETE US"
               width={120}
               height={72}
-              className={`h-9 w-auto transition-all duration-500 ${
-                scrolled ? "" : "brightness-[10] saturate-0"
-              }`}
+              className="h-9 w-auto transition-all duration-500"
               priority
             />
           </a>
@@ -43,11 +50,7 @@ export function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-[13px] tracking-wide transition-colors duration-300 ${
-                  scrolled
-                    ? "text-[#0A1628]/60 hover:text-[#0A1628]"
-                    : "text-white/80 hover:text-white"
-                }`}
+                className="text-[13px] tracking-wide transition-colors duration-300 text-[#0e1e38]/50 hover:text-[#0e1e38]"
               >
                 {item.label}
               </a>
@@ -57,7 +60,11 @@ export function Navbar() {
           <div className="hidden lg:flex items-center flex-shrink-0">
             <a
               href="/contact"
-              className="inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-medium transition-all duration-300 bg-[#002868] text-white shadow-[0_4px_20px_rgba(0,40,104,0.25)] hover:bg-[#002868]/90"
+              className="inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-semibold text-white transition-all duration-300"
+              style={{
+                background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
+                boxShadow: "0 4px 16px rgba(42,80,144,0.25)",
+              }}
             >
               Prendre rendez-vous
             </a>
@@ -69,11 +76,13 @@ export function Navbar() {
               href="/contact"
               className={`inline-flex items-center px-4 py-1.5 rounded-full text-[12px] font-medium transition-all duration-300 ${
                 menuOpen
-                  ? "bg-[#002868] text-white"
-                  : scrolled
-                    ? "bg-[#002868] text-white"
-                    : "bg-white/10 text-white border border-white/20"
+                  ? "text-white"
+                  : "text-white"
               }`}
+              style={{
+                background: menuOpen ? "transparent" : "linear-gradient(135deg, #1a3a6a, #2a5090)",
+                boxShadow: menuOpen ? "none" : "0 2px 12px rgba(42,80,144,0.25)",
+              }}
             >
               RDV gratuit
             </a>
@@ -82,8 +91,8 @@ export function Navbar() {
               className="w-8 h-8 flex flex-col justify-center items-center gap-1.5"
               aria-label="Menu"
             >
-              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white rotate-45 translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
-              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white -rotate-45 -translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
+              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white rotate-45 translate-y-[3.5px]" : "bg-[#0e1e38]"}`} />
+              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white -rotate-45 -translate-y-[3.5px]" : "bg-[#0e1e38]"}`} />
             </button>
           </div>
         </nav>

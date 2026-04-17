@@ -11,16 +11,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #060e1c;
+      --navy:   #0f1e38;
       --navy2:  #0a1628;
       --blue:   #2a5090;
-      --blue-l: #4a7fd4;
-      --red:    #c0392b;
+      --blue-l: #4a80b8;
+      --amber:  #ca8a04;
       --white:  #ffffff;
-      --ink:    #1a2a40;
-      --muted:  #6b7a90;
-      --line:   rgba(26,42,64,0.09);
-      --bg:     #f5f7fa;
+      --ink:    #0e1e38;
+      --muted:  #5a6a80;
+      --line:   rgba(26,42,64,0.07);
+      --bg:     #eef3f9;
       --sidebar-w: 260px;
       --content-max: 820px;
     }
@@ -148,7 +148,7 @@
       max-width: 700px;
       margin-bottom: 20px;
     }
-    .cover h1 em { font-style: normal; color: var(--red); }
+    .cover h1 em { font-style: normal; color: var(--blue-l); }
     .cover-sub {
       font-size: 15px;
       color: rgba(255,255,255,0.4);
@@ -221,8 +221,8 @@
     .callout p { margin: 0; color: var(--ink); font-size: 13.5px; }
 
     .callout-red {
-      background: rgba(192,57,43,0.05);
-      border-left-color: var(--red);
+      background: rgba(202,138,4,0.05);
+      border-left-color: var(--amber);
     }
 
     /* ── Table ── */
@@ -259,7 +259,7 @@
     .pill-done   { background: rgba(34,197,94,0.1);  color: #16a34a; }
     .pill-wip    { background: rgba(234,179,8,0.1);   color: #ca8a04; }
     .pill-todo   { background: rgba(148,163,184,0.1); color: #64748b; }
-    .pill-crit   { background: rgba(192,57,43,0.1);   color: var(--red); }
+    .pill-crit   { background: rgba(202,138,4,0.1);   color: var(--amber); }
     .pill-nav    { background: rgba(42,80,144,0.08);  color: var(--blue); }
 
     /* ── Framework box ── */
@@ -304,11 +304,11 @@
       border: 1px solid transparent;
     }
     .lens-copy  { background: rgba(42,80,144,0.06);  border-color: rgba(42,80,144,0.12); }
-    .lens-visual{ background: rgba(192,57,43,0.05);   border-color: rgba(192,57,43,0.1); }
+    .lens-visual{ background: rgba(42,80,144,0.04);   border-color: rgba(42,80,144,0.09); }
     .lens-auth  { background: rgba(6,14,28,0.04);     border-color: rgba(6,14,28,0.08); }
     .lens-card .lens-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 10px; }
     .lens-copy  .lens-label { color: var(--blue); }
-    .lens-visual .lens-label { color: var(--red); }
+    .lens-visual .lens-label { color: var(--blue-l); }
     .lens-auth  .lens-label { color: var(--navy); }
     .lens-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
     .lens-card ul { padding-left: 14px; }
@@ -381,7 +381,7 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .funnel-step.highlight .funnel-num { background: var(--red); }
+    .funnel-step.highlight .funnel-num { background: var(--blue); }
     .funnel-body { flex: 1; }
     .funnel-title { font-size: 13px; font-weight: 600; color: var(--navy); }
     .funnel-desc  { font-size: 12px; color: var(--muted); }
@@ -408,7 +408,7 @@
       flex-shrink: 0;
     }
     .gr-ok  { background: rgba(34,197,94,0.1); }
-    .gr-no  { background: rgba(192,57,43,0.1); }
+    .gr-no  { background: rgba(100,115,135,0.1); }
     .gr-ctx { background: rgba(42,80,144,0.08); }
     .glass-rule .gr-content strong { font-size: 13px; color: var(--navy); display: block; margin-bottom: 2px; }
     .glass-rule .gr-content span   { font-size: 12px; color: var(--muted); }
@@ -489,7 +489,7 @@
 
   <div class="sidebar-meta">
     Mis à jour · Avril 2026<br>
-    Version 1.0 — Confidentiel
+    Version 2.0 — Confidentiel
   </div>
 </aside>
 
@@ -934,23 +934,23 @@
             <tr>
               <td><strong>Hero</strong></td>
               <td>Stopper, promettre, déclencher</td>
-              <td>Split layout + "0%" panel + CTA rouge</td>
-              <td>Ajouter ciblage persona + "100% légal"</td>
-              <td><span class="pill pill-wip">En cours</span></td>
+              <td>Split layout + "0%" glass panel + fond brumeux + CTA bleu</td>
+              <td>✓ Fond misty blue-gray · glass blanc chrome · "100% légal" visible</td>
+              <td><span class="pill pill-done">Fait</span></td>
             </tr>
             <tr>
               <td><strong>Stats bar</strong></td>
               <td>Valider la promesse en 5s</td>
-              <td>Chiffres géants sur blanc pur</td>
-              <td>"Experts franco-américains" + impact €</td>
-              <td><span class="pill pill-wip">En cours</span></td>
+              <td>Chiffres géants, transition depuis hero</td>
+              <td>✓ "15M€ économisés" · "500+ sociétés" · gradient misty</td>
+              <td><span class="pill pill-done">Fait</span></td>
             </tr>
             <tr>
               <td><strong>Value Props</strong></td>
               <td>Détruire l'alternative SARL</td>
-              <td>Ghost numbers + dark bg + tension copy</td>
-              <td>Ajouter "100% légal" · Plus de tension</td>
-              <td><span class="pill pill-wip">En cours</span></td>
+              <td>Ghost numbers + dark bg + tension copy + hover glass</td>
+              <td>✓ "Personne ne peut vous chercher" · "14 jours" · hover border bleu</td>
+              <td><span class="pill pill-done">Fait</span></td>
             </tr>
             <tr>
               <td><strong>Savings Estimator</strong></td>
@@ -1007,7 +1007,25 @@
       <p>Le glassmorphism n'est pas un style — c'est un outil narratif. Utilisé partout, il perd tout sens. Utilisé stratégiquement, il crée les moments premium de la page.</p>
 
       <div class="callout">
-        <p><strong>Règle d'or :</strong> Le glass n'existe que sur fond fort. Fond dark/gradient + glass = premium. Fond blanc/clair + glass = invisible.</p>
+        <p><strong>Doctrine révisée (v2) :</strong> Le glass fonctionne sur fond clair <em>uniquement avec</em> : chrome border visible, blur 24–32px, shadow layered. C'est le « Liquid Glass » Apple Vision Pro. Sur fond blanc uni plat sans texture = invisible. Le fond doit avoir une texture / couleur (brume bleue) pour que le verre soit visible.</p>
+      </div>
+
+      <h3>Design tokens — Palette officielle</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Token</th><th>Valeur</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td><strong>BG principal</strong></td><td><code>#eef3f9 → #f2f6fb</code></td><td>Hero, sections claires, PageHeader</td></tr>
+            <tr><td><strong>BG dark</strong></td><td><code>#0f1e38 / #0a1628</code></td><td>Value Props, Estimator, Timeline</td></tr>
+            <tr><td><strong>Text primary</strong></td><td><code>#0e1e38</code></td><td>Tous les titres + corps sur fond clair</td></tr>
+            <tr><td><strong>Text muted</strong></td><td><code>#0e1e38/50</code></td><td>Sous-titres, descriptions</td></tr>
+            <tr><td><strong>Accent deep</strong></td><td><code>#2a5090 / #1a3a6a</code></td><td>CTAs primaires, liens actifs</td></tr>
+            <tr><td><strong>Accent mid</strong></td><td><code>#4a80b8 / #6aabde</code></td><td>Icônes, badges, accents visuels</td></tr>
+            <tr><td><strong>Glass card (clair)</strong></td><td><code>rgba(255,255,255,0.78–0.92)</code></td><td>Cards sur fond brumeux</td></tr>
+            <tr><td><strong>Chrome border</strong></td><td><code>rgba(255,255,255,0.88–0.95)</code></td><td>1px top-shine sur toutes les glass cards</td></tr>
+            <tr><td><strong>Zéro rouge</strong></td><td><code>❌ #c0392b</code></td><td>Banni. Le rouge = direct response. On est premium.</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="glass-rule">
@@ -1105,74 +1123,124 @@
       <div class="section-tag">10 — Exécution</div>
       <h2>Roadmap</h2>
 
-      <h3>Homepage — chantiers actifs</h3>
+      <h3>Sprint 1 — Above the fold <span class="pill pill-done" style="margin-left:8px">Livré</span></h3>
       <div style="margin: 16px 0 32px;">
         <div class="roadmap-row">
           <div class="rr-left">
-            <div class="rr-name">Hero glassmorphism</div>
-            <span class="pill pill-wip">En cours</span>
+            <div class="rr-name">Hero redesign</div>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Panel "0%" en glass premium : blur 24px, chrome border animé, shadow layered. C'est le premier signal premium — priorité absolue.</div>
+          <div class="rr-desc">Pivot complet : fond brumeux bleu-gris (#eef3f9), glass blanc chrome sur fond clair, panel "0%" liquid glass, CTA bleu gradient. Zéro rouge.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">Stats bar copy</div>
-            <span class="pill pill-todo">À faire</span>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Remplacer "professionnels dédiés" → "experts franco-américains". Ajouter stat d'impact financier client.</div>
+          <div class="rr-desc">"15M€ d'économies générées" · "500+ sociétés créées" · transition gradient depuis hero.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">Value Props copy</div>
-            <span class="pill pill-todo">À faire</span>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Ajouter tension dans les sous-textes. "100% légal" visible dans la section. Copy actuel trop descriptif.</div>
+          <div class="rr-desc">Tension maximale : "Personne ne peut vous chercher" · "14 jours chrono" · "Mercury" nommé · hover glass border bleu.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
-            <div class="rr-name">Estimator bg</div>
-            <span class="pill pill-todo">À faire</span>
+            <div class="rr-name">Estimator dark + glass</div>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Remplacer le fond gris clair par un gradient dark → glass card avec blur 32px. Moment émotionnel premium.</div>
+          <div class="rr-desc">Fond dark #060e1c + glass card blur 32px + titre "Votre note fiscale France vs. votre LLC." + slider refait pour dark.</div>
         </div>
       </div>
 
-      <h3>Pages à construire</h3>
-      <div style="margin: 16px 0;">
+      <h3>Sprint 2 — Design pivot global <span class="pill pill-done" style="margin-left:8px">Livré</span></h3>
+      <div style="margin: 16px 0 32px;">
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">StatesMap refonte</div>
+            <span class="pill pill-done">Fait</span>
+          </div>
+          <div class="rr-desc">Calquée sur référence image : fond brumeux, états bleu profond type verre d'eau, cards centrées large state name, lignes droites fines.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Palette cohérente</div>
+            <span class="pill pill-done">Fait</span>
+          </div>
+          <div class="rr-desc">Zéro rouge sur tout le site. Accent : #2a5090 / #4a80b8. Testimonials → fond clair glass. Navbar toujours visible.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Teaser cards copy</div>
+            <span class="pill pill-done">Fait</span>
+          </div>
+          <div class="rr-desc">"Le mauvais état coûte jusqu'à 12 000€/an" · "Opérationnel en 14 jours. Garanti." · arrière navy gradient bleu.</div>
+        </div>
+      </div>
+
+      <h3>Sprint 3 — Pages internes <span class="pill pill-done" style="margin-left:8px">Livré</span></h3>
+      <div style="margin: 16px 0 32px;">
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">/creer-llc</div>
-            <span class="pill pill-todo">À faire</span>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Page éducative comparative — 4 états, processus, FAQ. Capture les chercheurs qualifiés.</div>
+          <div class="rr-desc">Hero dark → 6 avantages → comparatif 4 états glass → processus 4 étapes → FAQ accordion → CTA. Zéro rouge, palette cohérente.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">/tarifs</div>
-            <span class="pill pill-todo">À faire</span>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">3 offres, tableau comparatif, garanties, FAQ prix. Diminuer la friction financière.</div>
+          <div class="rr-desc">3 offres glass (Essentiel/Premium/Pilotée) · prestations complémentaires · garanties · CTA. Palette bleue cohérente.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">/contact</div>
-            <span class="pill pill-todo">À faire</span>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Formulaire court (3 champs max), réassurance, Calendly ou formulaire natif, confirmation immédiate.</div>
+          <div class="rr-desc">Hero strip dark · form 3 champs glass card · réassurance · info colonne · CTA téléphone. Zéro friction.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">/a-propos</div>
-            <span class="pill pill-todo">À faire</span>
+            <span class="pill pill-done">Fait</span>
           </div>
-          <div class="rr-desc">Christophe + équipe, histoire du cabinet, partenaires (Mercury, Relay, Secretary of State). Humaniser l'autorité.</div>
+          <div class="rr-desc">Hero dark · histoire + valeurs · stats glass · équipe + partenaires. Humanise l'autorité du cabinet.</div>
+        </div>
+      </div>
+
+      <h3>Sprint 4 — À venir</h3>
+      <div style="margin: 16px 0;">
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">StatesMap lignes</div>
+            <span class="pill pill-wip">En cours</span>
+          </div>
+          <div class="rr-desc">Lignes connecteurs état → carte plus visibles et élégantes. Version mobile du layout états.</div>
         </div>
         <div class="roadmap-row">
           <div class="rr-left">
             <div class="rr-name">/services/*</div>
             <span class="pill pill-todo">À faire</span>
           </div>
-          <div class="rr-desc">4 pages services : LLC, Comptabilité, Fiscalité, Compte bancaire. Contenu SEO + conversion.</div>
+          <div class="rr-desc">4 pages services : LLC, Comptabilité, Fiscalité, Compte bancaire. Contenu SEO + conversion. Migrer des Harvey colors vers nouvelle palette.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Blog</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Layout articles. SEO. Glass cards sur fond brumeux pour les previews.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Footer</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Vérifier cohérence palette. Lien vers la doc stratégique interne.</div>
         </div>
       </div>
     </div>

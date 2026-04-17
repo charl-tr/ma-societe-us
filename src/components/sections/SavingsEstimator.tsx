@@ -12,8 +12,6 @@ function computeSavings(revenue: number): {
   saved: number;
   rate: number;
 } {
-  // French effective rate: IR + charges sociales (TNS/freelance)
-  // Progressive approximation
   let frenchRate: number;
   if (revenue < 40_000) frenchRate = 0.30;
   else if (revenue < 80_000) frenchRate = 0.38;
@@ -21,7 +19,6 @@ function computeSavings(revenue: number): {
   else if (revenue < 300_000) frenchRate = 0.49;
   else frenchRate = 0.53;
 
-  // LLC effective cost: agent fee + accounting + CPA (~4-8% depending on size)
   const llcRate = revenue < 100_000 ? 0.07 : 0.05;
 
   const frenchTax = Math.round(revenue * frenchRate);
@@ -39,7 +36,7 @@ function fmt(n: number): string {
 const STEPS = [30_000, 50_000, 75_000, 100_000, 150_000, 200_000, 300_000, 500_000];
 
 export function SavingsEstimator() {
-  const [sliderIndex, setSliderIndex] = useState(3); // 100K default
+  const [sliderIndex, setSliderIndex] = useState(3);
   const sliderId = useId();
 
   const revenue = STEPS[sliderIndex];
@@ -49,22 +46,40 @@ export function SavingsEstimator() {
   const llcPct = Math.round((llcCost / revenue) * 100);
 
   return (
-    <section className="py-14 lg:py-20 relative overflow-hidden">
-      {/* Background */}
+    <section className="py-16 lg:py-24 relative overflow-hidden bg-[#060e1c]">
+      {/* Background layers */}
+      {/* Grid */}
       <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(160deg, #f0f4fa 0%, #e8eef6 40%, #edf1f6 100%)",
-        }}
-      />
-      {/* Subtle texture */}
-      <div
-        className="absolute inset-0 opacity-[0.025]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "radial-gradient(circle, #1a2a40 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+            "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
+      {/* Blue mid glow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: "700px",
+          height: "500px",
+          background: "radial-gradient(ellipse, rgba(30,70,160,0.18) 0%, transparent 70%)",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          filter: "blur(80px)",
+        }}
+      />
+      {/* Red bottom-right accent */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: "400px",
+          height: "400px",
+          background: "radial-gradient(circle, rgba(42,80,144,0.10) 0%, transparent 70%)",
+          bottom: "-100px",
+          right: "-80px",
+          filter: "blur(60px)",
         }}
       />
 
@@ -77,21 +92,30 @@ export function SavingsEstimator() {
           viewport={{ once: true, margin: "-60px" }}
           className="text-center mb-10 lg:mb-14"
         >
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/50 mb-4">
-            Simulateur
+          <p className="text-[11px] uppercase tracking-[0.25em] text-white/25 mb-4">
+            Simulateur fiscal
           </p>
           <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-[#1a2a40]"
+            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            Combien pourriez-vous économiser&nbsp;?
+            Votre note fiscale France vs.{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #4a7fd4 0%, #6a9fe4 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              votre LLC.
+            </span>
           </h2>
-          <p className="mt-3 text-[14px] lg:text-[15px] text-[#1a2a40]/45 max-w-md mx-auto leading-relaxed">
+          <p className="mt-3 text-[14px] lg:text-[15px] text-white/35 max-w-md mx-auto leading-relaxed">
             Glissez pour voir l&rsquo;écart entre votre charge fiscale actuelle et ce que vous paieriez avec une LLC.
           </p>
         </motion.div>
 
-        {/* Estimator card */}
+        {/* Estimator card — glassmorphism on dark */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,19 +125,37 @@ export function SavingsEstimator() {
         >
           {/* Chrome top border */}
           <div
-            className="h-[2px]"
+            className="h-[1px]"
             style={{
               background:
-                "linear-gradient(90deg, rgba(200,210,225,0.2), rgba(255,255,255,0.9) 30%, rgba(220,230,245,0.5) 50%, rgba(255,255,255,0.9) 70%, rgba(200,210,225,0.2))",
+                "linear-gradient(90deg, transparent, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 70%, transparent)",
             }}
           />
-          <div className="bg-white/60 backdrop-blur-2xl border border-white/70 border-t-0 rounded-b-2xl px-7 py-8 lg:px-10 lg:py-10 shadow-[0_8px_40px_rgba(0,40,104,0.07)]">
+          <div
+            className="rounded-b-2xl px-7 py-8 lg:px-10 lg:py-10"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)",
+              backdropFilter: "blur(32px)",
+              WebkitBackdropFilter: "blur(32px)",
+              border: "1px solid rgba(255,255,255,0.09)",
+              borderTop: "none",
+              boxShadow: "0 8px 48px rgba(0,0,0,0.4), 0 -1px 0 rgba(0,0,0,0.3) inset",
+            }}
+          >
+            {/* Inner top glow */}
+            <div
+              className="absolute inset-x-0 top-0 h-32 pointer-events-none rounded-t-2xl"
+              style={{
+                background: "radial-gradient(ellipse at 50% 0%, rgba(74,127,212,0.08) 0%, transparent 70%)",
+              }}
+            />
+
             {/* Revenue slider */}
-            <div className="mb-8">
+            <div className="relative mb-8">
               <div className="flex items-baseline justify-between mb-3">
                 <label
                   htmlFor={sliderId}
-                  className="text-[13px] font-medium text-[#1a2a40]/55 uppercase tracking-[0.15em]"
+                  className="text-[13px] font-medium text-white/40 uppercase tracking-[0.15em]"
                 >
                   Chiffre d&rsquo;affaires annuel
                 </label>
@@ -124,7 +166,7 @@ export function SavingsEstimator() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.2 }}
-                    className="text-[22px] lg:text-[26px] font-bold text-[#1a2a40] tabular-nums"
+                    className="text-[22px] lg:text-[26px] font-bold text-white tabular-nums"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {fmt(revenue)}&nbsp;€
@@ -144,7 +186,7 @@ export function SavingsEstimator() {
                   onChange={(e) => setSliderIndex(Number(e.target.value))}
                   className="w-full appearance-none h-1.5 rounded-full outline-none cursor-pointer"
                   style={{
-                    background: `linear-gradient(to right, #2a5090 0%, #2a5090 ${(sliderIndex / (STEPS.length - 1)) * 100}%, rgba(26,42,64,0.12) ${(sliderIndex / (STEPS.length - 1)) * 100}%, rgba(26,42,64,0.12) 100%)`,
+                    background: `linear-gradient(to right, #4a7fd4 0%, #4a7fd4 ${(sliderIndex / (STEPS.length - 1)) * 100}%, rgba(255,255,255,0.1) ${(sliderIndex / (STEPS.length - 1)) * 100}%, rgba(255,255,255,0.1) 100%)`,
                   }}
                 />
                 {/* Tick labels */}
@@ -155,8 +197,8 @@ export function SavingsEstimator() {
                       onClick={() => setSliderIndex(i)}
                       className={`text-[10px] cursor-pointer transition-colors ${
                         i === sliderIndex
-                          ? "text-[#2a5090] font-semibold"
-                          : "text-[#1a2a40]/25 hover:text-[#1a2a40]/50"
+                          ? "text-[#4a7fd4] font-semibold"
+                          : "text-white/20 hover:text-white/40"
                       }`}
                       style={{ minWidth: "1px" }}
                     >
@@ -172,7 +214,7 @@ export function SavingsEstimator() {
               {/* France */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[12px] text-[#1a2a40]/50 font-medium">
+                  <span className="text-[12px] text-white/40 font-medium">
                     Charge fiscale en France (IR + charges sociales)
                   </span>
                   <AnimatePresence mode="wait">
@@ -182,16 +224,16 @@ export function SavingsEstimator() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="text-[14px] font-semibold text-[#c0392b] tabular-nums"
+                      className="text-[14px] font-semibold text-[#7a5a50] tabular-nums"
                     >
                       −{fmt(frenchTax)}&nbsp;€ <span className="text-[11px] font-normal opacity-60">({frenchPct}%)</span>
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <div className="h-2 rounded-full bg-[#1a2a40]/[0.07] overflow-hidden">
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.07)" }}>
                   <motion.div
                     className="h-full rounded-full"
-                    style={{ background: "linear-gradient(90deg, #c0392b, #e05040)" }}
+                    style={{ background: "linear-gradient(90deg, #7a5a50, #9a7060)" }}
                     animate={{ width: `${frenchPct}%` }}
                     transition={{ duration: 0.5, ease }}
                   />
@@ -201,7 +243,7 @@ export function SavingsEstimator() {
               {/* LLC */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[12px] text-[#1a2a40]/50 font-medium">
+                  <span className="text-[12px] text-white/40 font-medium">
                     Coût total LLC américaine (frais + comptabilité)
                   </span>
                   <AnimatePresence mode="wait">
@@ -211,13 +253,13 @@ export function SavingsEstimator() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="text-[14px] font-semibold text-[#2a5090] tabular-nums"
+                      className="text-[14px] font-semibold text-[#4a7fd4] tabular-nums"
                     >
                       −{fmt(llcCost)}&nbsp;€ <span className="text-[11px] font-normal opacity-60">({llcPct}%)</span>
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <div className="h-2 rounded-full bg-[#1a2a40]/[0.07] overflow-hidden">
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.07)" }}>
                   <motion.div
                     className="h-full rounded-full"
                     style={{ background: "linear-gradient(90deg, #2a5090, #4a7fd4)" }}
@@ -228,17 +270,24 @@ export function SavingsEstimator() {
               </div>
             </div>
 
-            {/* Savings callout */}
+            {/* Savings callout — glass panel */}
             <div
-              className="rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
+              className="relative rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 overflow-hidden"
               style={{
-                background:
-                  "linear-gradient(135deg, rgba(42,80,144,0.06) 0%, rgba(42,80,144,0.03) 100%)",
-                border: "1px solid rgba(42,80,144,0.12)",
+                background: "linear-gradient(135deg, rgba(74,127,212,0.12) 0%, rgba(42,80,144,0.08) 100%)",
+                border: "1px solid rgba(74,127,212,0.2)",
+                boxShadow: "0 0 40px rgba(42,80,144,0.15) inset",
               }}
             >
+              {/* Glow top */}
+              <div
+                className="absolute inset-x-0 top-0 h-px"
+                style={{
+                  background: "linear-gradient(90deg, transparent, rgba(74,127,212,0.5) 40%, rgba(100,160,240,0.7) 50%, rgba(74,127,212,0.5) 60%, transparent)",
+                }}
+              />
               <div>
-                <p className="text-[12px] uppercase tracking-[0.2em] text-[#2a5090]/50 mb-0.5">
+                <p className="text-[12px] uppercase tracking-[0.2em] text-white/30 mb-0.5">
                   Économie estimée
                 </p>
                 <AnimatePresence mode="wait">
@@ -248,27 +297,41 @@ export function SavingsEstimator() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
                     transition={{ duration: 0.3, ease }}
-                    className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-[#1a2a40] tabular-nums leading-none"
-                    style={{ fontFamily: "var(--font-heading)" }}
+                    className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-white tabular-nums leading-none"
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      textShadow: "0 0 40px rgba(74,127,212,0.4)",
+                    }}
                   >
-                    +{fmt(saved)}&nbsp;€<span className="text-[16px] font-normal text-[#1a2a40]/35">/an</span>
+                    +{fmt(saved)}&nbsp;€<span className="text-[16px] font-normal text-white/35">/an</span>
                   </motion.p>
                 </AnimatePresence>
-                <p className="text-[12px] text-[#1a2a40]/35 mt-1">
+                <p className="text-[12px] text-white/30 mt-1">
                   soit {rate}% de votre CA réinvesti dans votre activité
                 </p>
               </div>
 
               <a
                 href="/contact"
-                className="shrink-0 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[13px] font-semibold bg-[#0a1628] text-white hover:bg-[#1a2a40] transition-all shadow-[0_4px_16px_rgba(10,22,40,0.18)] hover:shadow-[0_8px_24px_rgba(10,22,40,0.22)]"
+                className="shrink-0 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[13px] font-semibold text-white transition-all"
+                style={{
+                  background: "linear-gradient(135deg, #2a5090, #1a3a70)",
+                  border: "1px solid rgba(74,127,212,0.3)",
+                  boxShadow: "0 4px 20px rgba(42,80,144,0.4)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(42,80,144,0.6)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(42,80,144,0.4)";
+                }}
               >
                 Valider mon potentiel →
               </a>
             </div>
 
             {/* Disclaimer */}
-            <p className="mt-4 text-[10px] text-[#1a2a40]/25 text-center leading-relaxed">
+            <p className="mt-4 text-[10px] text-white/20 text-center leading-relaxed">
               Estimation indicative. Les économies réelles dépendent de votre situation personnelle, du pays de résidence
               et du mode d&rsquo;exercice. Consultez un expert pour une analyse précise.
             </p>
@@ -284,21 +347,21 @@ export function SavingsEstimator() {
           height: 20px;
           border-radius: 50%;
           background: #fff;
-          border: 2px solid #2a5090;
-          box-shadow: 0 2px 8px rgba(42,80,144,0.25);
+          border: 2px solid #4a7fd4;
+          box-shadow: 0 2px 8px rgba(74,127,212,0.4), 0 0 0 0 rgba(74,127,212,0);
           cursor: pointer;
           transition: box-shadow 0.2s;
         }
         input[type="range"]::-webkit-slider-thumb:hover {
-          box-shadow: 0 0 0 6px rgba(42,80,144,0.12), 0 2px 8px rgba(42,80,144,0.25);
+          box-shadow: 0 0 0 6px rgba(74,127,212,0.15), 0 2px 8px rgba(74,127,212,0.4);
         }
         input[type="range"]::-moz-range-thumb {
           width: 20px;
           height: 20px;
           border-radius: 50%;
           background: #fff;
-          border: 2px solid #2a5090;
-          box-shadow: 0 2px 8px rgba(42,80,144,0.25);
+          border: 2px solid #4a7fd4;
+          box-shadow: 0 2px 8px rgba(74,127,212,0.4);
           cursor: pointer;
         }
       `}</style>

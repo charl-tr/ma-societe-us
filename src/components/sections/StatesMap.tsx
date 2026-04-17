@@ -7,9 +7,10 @@ import { feature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
 import { STATES, type StateInfo } from "@/lib/states";
 
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
 };
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -18,13 +19,14 @@ const HIGHLIGHT_FIPS = new Set(STATES.map((s) => s.fips));
 const MAP_W = 800;
 const MAP_H = 500;
 
-/* ─── L-shaped line endpoints ─── */
-/* Each card has an anchor point (where line exits card) and a mid-point for the L-bend */
-const LINE_ANCHORS: Record<string, { cardX: number; cardY: number; midX: number; midY: number }> = {
-  "35": { cardX: 55, cardY: 230, midX: 200, midY: 230 },     // NM → top-left card
-  "08": { cardX: 745, cardY: 230, midX: 600, midY: 230 },    // CO → top-right card
-  "56": { cardX: 55, cardY: 380, midX: 200, midY: 380 },     // WY → bottom-left card
-  "10": { cardX: 745, cardY: 380, midX: 600, midY: 380 },    // DE → bottom-right card
+/* ─── Straight-line anchors from centroid → SVG edge ─── */
+/* The cards sit in HTML columns flanking the SVG.
+   Lines run from state centroid to the nearest horizontal SVG edge. */
+const LINE_ANCHORS: Record<string, { edgeX: number; edgeY: number }> = {
+  "35": { edgeX: 0,     edgeY: 355 }, // NM → left edge
+  "08": { edgeX: MAP_W, edgeY: 150 }, // CO → right edge
+  "56": { edgeX: 0,     edgeY: 130 }, // WY → left edge
+  "10": { edgeX: MAP_W, edgeY: 370 }, // DE → right edge
 };
 
 interface GeoFeature {
@@ -34,7 +36,7 @@ interface GeoFeature {
   properties: Record<string, unknown>;
 }
 
-/* ─── Map SVG ─── */
+/* ─── Map SVG — reference image aesthetic ─── */
 const USMap = memo(function USMap({
   activeFips,
   onStateHover,
@@ -71,66 +73,78 @@ const USMap = memo(function USMap({
       });
   }, []);
 
-  if (paths.size === 0) return <div className="w-full aspect-[8/5]" />;
+  if (paths.size === 0) return <div className="w-full" style={{ aspectRatio: `${MAP_W}/${MAP_H}` }} />;
 
   return (
-    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full h-auto">
+    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full h-auto overflow-visible">
       <defs>
-        {/* Fog mask — softer falloff for atmospheric depth */}
-        <radialGradient id="fog" cx="50%" cy="48%" rx="48%" ry="46%">
-          <stop offset="0%" stopColor="white" />
-          <stop offset="55%" stopColor="white" />
-          <stop offset="80%" stopColor="rgba(255,255,255,0.4)" />
-          <stop offset="100%" stopColor="black" />
+        {/* Atmospheric fog */}
+        <radialGradient id="fog2" cx="50%" cy="47%" rx="52%" ry="52%">
+          <stop offset="0%"   stopColor="white" stopOpacity="1" />
+          <stop offset="52%"  stopColor="white" stopOpacity="1" />
+          <stop offset="75%"  stopColor="white" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="white" stopOpacity="0" />
         </radialGradient>
-        <mask id="fogMask">
-          <rect width={MAP_W} height={MAP_H} fill="url(#fog)" />
+        <mask id="fogMask2">
+          <rect width={MAP_W} height={MAP_H} fill="url(#fog2)" />
         </mask>
 
-        {/* 3D bevel filter for highlighted states */}
-        <filter id="bevel" x="-5%" y="-5%" width="110%" height="110%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
-          <feSpecularLighting in="blur" surfaceScale="3" specularConstant="0.6" specularExponent="20" result="spec">
-            <fePointLight x="200" y="100" z="200" />
-          </feSpecularLighting>
-          <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn" />
+        {/* Active state glow */}
+        <filter id="glassGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feFlood floodColor="rgba(40,100,200,0.50)" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feGaussianBlur in="glow" stdDeviation="4" result="softGlow" />
           <feMerge>
-            <feMergeNode in="SourceGraphic" />
-            <feMergeNode in="specIn" />
-          </feMerge>
-        </filter>
-
-        {/* Active glow — stronger blue aura */}
-        <filter id="activeGlow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="8" result="glow" />
-          <feFlood floodColor="rgba(25,70,150,0.45)" result="blue" />
-          <feComposite in="blue" in2="glow" operator="in" result="blueGlow" />
-          <feMerge>
-            <feMergeNode in="blueGlow" />
+            <feMergeNode in="softGlow" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
 
-        {/* Shine gradient — stronger silver reflection */}
-        <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="rgba(255,255,255,0.65)" />
-          <stop offset="35%" stopColor="rgba(255,255,255,0.15)" />
-          <stop offset="60%" stopColor="rgba(200,220,245,0.1)" />
-          <stop offset="100%" stopColor="rgba(180,200,230,0.35)" />
+        {/* Shine for active state */}
+        <linearGradient id="stateShine" x1="0%" y1="0%" x2="80%" y2="100%">
+          <stop offset="0%"   stopColor="rgba(255,255,255,0.55)" />
+          <stop offset="40%"  stopColor="rgba(255,255,255,0.12)" />
+          <stop offset="100%" stopColor="rgba(180,210,250,0.08)" />
+        </linearGradient>
+
+        {/* Arrow markers — pointing toward the card (end of line) */}
+        <marker id="arrowActive" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="rgba(42,80,144,0.80)" />
+        </marker>
+        <marker id="arrowIdle" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <polygon points="0,0 6,3 0,6" fill="rgba(120,155,200,0.50)" />
+        </marker>
+
+        {/* Line gradient — centroid (transparent) → edge (opaque) */}
+        <linearGradient id="lineGradLeft" x1="1" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse"
+          x1="0" y1="0" x2={MAP_W} y2="0">
+          <stop offset="0%"  stopColor="rgba(42,80,144,0.85)" />
+          <stop offset="100%" stopColor="rgba(42,80,144,0.10)" />
+        </linearGradient>
+        <linearGradient id="lineGradRight" x1="0" y1="0" x2={MAP_W} y2="0">
+          <stop offset="0%"  stopColor="rgba(42,80,144,0.10)" />
+          <stop offset="100%" stopColor="rgba(42,80,144,0.85)" />
         </linearGradient>
       </defs>
 
-      <g mask="url(#fogMask)">
-        {/* Background states */}
+      <g mask="url(#fogMask2)">
+        {/* Background states — icy pale blue, white borders */}
         {features.map((f) => {
           const d = paths.get(f.id);
           if (!d || HIGHLIGHT_FIPS.has(f.id)) return null;
           return (
-            <path key={f.id} d={d} fill="rgba(170,195,225,0.35)" stroke="rgba(255,255,255,0.6)" strokeWidth={0.5} />
+            <path
+              key={f.id}
+              d={d}
+              fill="rgba(175,200,228,0.28)"
+              stroke="rgba(255,255,255,0.70)"
+              strokeWidth={0.6}
+            />
           );
         })}
 
-        {/* Highlighted states — 3D bevel */}
+        {/* Highlighted states — deep blue glass, reference style */}
         {features.map((f) => {
           const d = paths.get(f.id);
           if (!d || !HIGHLIGHT_FIPS.has(f.id)) return null;
@@ -139,38 +153,94 @@ const USMap = memo(function USMap({
           return (
             <g
               key={f.id}
-              filter={isActive ? "url(#activeGlow)" : "url(#bevel)"}
+              filter={isActive ? "url(#glassGlow)" : undefined}
               style={{ cursor: "pointer", transition: "filter 0.5s ease" }}
               onMouseEnter={() => onStateHover(f.id)}
               onClick={() => onStateHover(f.id)}
             >
-              <path d={d} fill={isActive ? "rgba(15,50,130,0.55)" : "rgba(40,100,190,0.28)"} stroke="rgba(255,255,255,0.85)" strokeWidth={isActive ? 1.8 : 1} style={{ transition: "all 0.4s ease" }} />
-              <path d={d} fill="url(#shine)" opacity={isActive ? 0.8 : 0.4} style={{ transition: "opacity 0.4s ease" }} />
+              {/* Base fill — deep blue glass */}
+              <path
+                d={d}
+                fill={isActive ? "rgba(35,90,185,0.62)" : "rgba(100,150,210,0.32)"}
+                stroke={isActive ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.60)"}
+                strokeWidth={isActive ? 1.5 : 0.8}
+                style={{ transition: "all 0.45s ease" }}
+              />
+              {/* Specular shine overlay — top-left highlight */}
+              <path
+                d={d}
+                fill="url(#stateShine)"
+                opacity={isActive ? 0.9 : 0.35}
+                style={{ transition: "opacity 0.45s ease" }}
+              />
             </g>
           );
         })}
 
-        {/* L-shaped connecting lines */}
+        {/* Connecting lines — elegant arrows from state centroid to card */}
         {STATES.map((s) => {
           const c = centroids.get(s.fips);
           const a = LINE_ANCHORS[s.fips];
           if (!c || !a) return null;
           const isActive = activeFips === s.fips;
-          const color = isActive ? "rgba(25,70,145,0.55)" : "rgba(140,165,195,0.4)";
-          const width = isActive ? 1.2 : 0.7;
+          const isLeft = a.edgeX === 0;
 
-          // L-shape: centroid → midpoint (horizontal) → card anchor (vertical)
           return (
             <g key={`line-${s.fips}`}>
-              <polyline
-                points={`${c[0]},${c[1]} ${a.midX},${c[1]} ${a.midX},${a.midY} ${a.cardX},${a.cardY}`}
-                fill="none"
-                stroke={color}
-                strokeWidth={width}
-                style={{ transition: "all 0.4s ease" }}
+              {/* Line track (faint full line always visible) */}
+              <line
+                x1={c[0]} y1={c[1]}
+                x2={a.edgeX} y2={a.edgeY}
+                stroke={isLeft ? "rgba(42,80,144,0.18)" : "rgba(42,80,144,0.18)"}
+                strokeWidth={1}
+                strokeDasharray="none"
+                style={{ transition: "all 0.45s ease" }}
               />
-              <circle cx={c[0]} cy={c[1]} r={isActive ? 3 : 2} fill={isActive ? "rgba(30,86,160,0.6)" : "rgba(160,175,200,0.4)"} style={{ transition: "all 0.4s ease" }} />
-              <circle cx={a.cardX} cy={a.cardY} r={1.5} fill={color} style={{ transition: "all 0.4s ease" }} />
+              {/* Active overlay line — thick, gradient-like */}
+              {isActive && (
+                <line
+                  x1={c[0]} y1={c[1]}
+                  x2={a.edgeX} y2={a.edgeY}
+                  stroke="rgba(42,80,144,0.70)"
+                  strokeWidth={2}
+                  markerEnd="url(#arrowActive)"
+                  style={{ transition: "all 0.45s ease" }}
+                />
+              )}
+              {/* Idle arrowhead on non-active lines */}
+              {!isActive && (
+                <line
+                  x1={c[0]} y1={c[1]}
+                  x2={a.edgeX} y2={a.edgeY}
+                  stroke="rgba(120,155,200,0.42)"
+                  strokeWidth={1.2}
+                  markerEnd="url(#arrowIdle)"
+                  style={{ transition: "all 0.45s ease" }}
+                />
+              )}
+              {/* State centroid anchor — small dot + outer ring */}
+              <circle
+                cx={c[0]} cy={c[1]}
+                r={isActive ? 5 : 3.5}
+                fill="none"
+                stroke={isActive ? "rgba(42,80,144,0.35)" : "rgba(120,155,200,0.25)"}
+                strokeWidth={isActive ? 1.5 : 1}
+                style={{ transition: "all 0.45s ease" }}
+              />
+              <circle
+                cx={c[0]} cy={c[1]}
+                r={isActive ? 3 : 2}
+                fill={isActive ? "rgba(42,80,144,0.80)" : "rgba(120,155,200,0.50)"}
+                style={{ transition: "all 0.45s ease" }}
+              />
+              {/* Card-side terminus — small diamond at edge */}
+              <circle
+                cx={a.edgeX === 0 ? a.edgeX + 4 : a.edgeX - 4}
+                cy={a.edgeY}
+                r={isActive ? 3 : 2}
+                fill={isActive ? "rgba(42,80,144,0.70)" : "rgba(120,155,200,0.35)"}
+                style={{ transition: "all 0.45s ease" }}
+              />
             </g>
           );
         })}
@@ -179,52 +249,78 @@ const USMap = memo(function USMap({
   );
 });
 
-/* ─── Glass Card with chrome border — Liquid Glass style ─── */
-function GlassCard({ state, isActive, onHover, onClick }: {
+/* ─── Glass Card — reference image style ─── */
+/* Large state name, centered text, chrome on all edges, minimal */
+function GlassCard({
+  state,
+  isActive,
+  onHover,
+  onClick,
+}: {
   state: StateInfo;
   isActive: boolean;
   onHover: () => void;
   onClick: () => void;
 }) {
   return (
-    <button onClick={onClick} onMouseEnter={onHover} className="w-full text-left cursor-pointer">
+    <button
+      onClick={onClick}
+      onMouseEnter={onHover}
+      className="w-full text-left cursor-pointer focus:outline-none"
+    >
       <div
-        className={`rounded-xl overflow-hidden transition-all duration-500 ${
-          isActive
-            ? "shadow-[0_12px_40px_rgba(0,30,80,0.18),0_4px_12px_rgba(0,0,0,0.08)]"
-            : "shadow-[0_6px_24px_rgba(0,20,60,0.10),0_2px_8px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_36px_rgba(0,30,80,0.15)]"
-        }`}
+        className="relative rounded-2xl overflow-hidden transition-all duration-500"
+        style={{
+          background: isActive
+            ? "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(230,240,255,0.78) 100%)"
+            : "linear-gradient(160deg, rgba(255,255,255,0.78) 0%, rgba(235,242,255,0.58) 100%)",
+          backdropFilter: "blur(28px) saturate(1.5)",
+          WebkitBackdropFilter: "blur(28px) saturate(1.5)",
+          border: "1px solid rgba(255,255,255,0.88)",
+          boxShadow: isActive
+            ? "0 12px 40px rgba(60,110,200,0.16), 0 2px 0 rgba(255,255,255,0.95) inset, 0 0 0 1px rgba(180,205,235,0.35)"
+            : "0 6px 24px rgba(80,120,180,0.09), 0 1px 0 rgba(255,255,255,0.85) inset, 0 0 0 1px rgba(180,205,235,0.18)",
+          transform: isActive ? "translateY(-2px)" : "translateY(0)",
+        }}
       >
-        {/* Chrome bar — thick, visible metallic reflection */}
+        {/* Chrome top shine — bright silver */}
         <div
-          className="h-[5px]"
+          className="absolute inset-x-0 top-0 h-[1px]"
           style={{
             background: isActive
-              ? "linear-gradient(90deg, #8a9bb8 0%, #d4dce8 15%, #ffffff 30%, #e8edf4 45%, #c0cfe0 55%, #ffffff 70%, #d4dce8 85%, #8a9bb8 100%)"
-              : "linear-gradient(90deg, #a0afc4 0%, #c8d4e2 20%, #e8eef5 40%, #f4f7fa 50%, #e8eef5 60%, #c8d4e2 80%, #a0afc4 100%)",
+              ? "linear-gradient(90deg, rgba(180,205,230,0.4), rgba(255,255,255,1) 25%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 75%, rgba(180,205,230,0.4))"
+              : "linear-gradient(90deg, rgba(180,205,230,0.2), rgba(255,255,255,0.9) 40%, rgba(255,255,255,0.9) 60%, rgba(180,205,230,0.2))",
           }}
         />
-        <div
-          className={`p-4 lg:p-5 border border-t-0 rounded-b-xl transition-all duration-500 ${
-            isActive
-              ? "bg-white/92 backdrop-blur-xl border-[#c8d4e2]/60"
-              : "bg-white/75 backdrop-blur-lg border-[#d0d8e4]/40 hover:bg-white/85"
-          }`}
-          style={{
-            backgroundImage: isActive
-              ? "linear-gradient(160deg, rgba(255,255,255,0.95), rgba(232,238,248,0.6))"
-              : "linear-gradient(160deg, rgba(255,255,255,0.8), rgba(238,242,250,0.4))",
-          }}
-        >
+        {/* Inner top glow when active */}
+        {isActive && (
+          <div
+            className="absolute inset-x-0 top-0 h-16 pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse at 50% 0%, rgba(80,130,220,0.07) 0%, transparent 70%)",
+            }}
+          />
+        )}
+
+        <div className="px-5 py-6 text-center">
           <h3
-            className={`text-[clamp(0.9rem,1.4vw,1.05rem)] font-medium tracking-tight transition-colors ${
-              isActive ? "text-[#1a2a40]" : "text-[#3a4a5a]/60"
-            }`}
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-bold leading-tight text-[#0e1e38] transition-colors duration-300"
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+              letterSpacing: "-0.02em",
+            }}
           >
             {state.name}
           </h3>
-          <p className={`mt-1.5 text-[11px] lg:text-[12px] leading-relaxed transition-colors ${isActive ? "text-[#1a2a40]/60" : "text-[#3a4a5a]/35"}`}>
+          <p
+            className="mt-2 leading-snug"
+            style={{
+              fontSize: "clamp(0.72rem, 1.2vw, 0.82rem)",
+              color: isActive ? "rgba(14,30,56,0.60)" : "rgba(14,30,56,0.38)",
+              transition: "color 0.3s ease",
+            }}
+          >
             {state.tagline}
           </p>
         </div>
@@ -248,35 +344,56 @@ export function StatesMap() {
       id="juridictions"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "-80px" }}
       variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.8 } } }}
-      className="relative py-10 lg:py-16 overflow-hidden"
+      className="relative py-12 lg:py-20 overflow-hidden"
     >
-      {/* Misty bg — deeper atmospheric blue-grey */}
-      <div className="absolute inset-0 bg-[#dce4ee]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_90%_at_50%_30%,rgba(255,255,255,0.7),transparent_65%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_80%,rgba(200,215,235,0.5),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_85%_70%,rgba(190,208,230,0.4),transparent_45%)]" />
+      {/* Background — matches reference image exactly */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(160deg, #eef3f9 0%, #e4ecf6 30%, #edf3f9 65%, #f3f6fb 100%)",
+        }}
+      />
+      {/* Center atmospheric depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 50% 60%, rgba(200,218,238,0.45) 0%, transparent 70%)",
+        }}
+      />
 
-      <div className="relative px-6 lg:px-10 max-w-[1100px] mx-auto">
-        {/* Header — centered, large */}
+      <div className="relative px-6 lg:px-10 max-w-[1200px] mx-auto">
+        {/* Header */}
         <motion.div variants={fadeUp} className="text-center mb-10 lg:mb-14">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/40 mb-4">
+            Juridictions disponibles
+          </p>
           <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold leading-[1.1] tracking-[-0.02em] text-[#1a2a40]"
+            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold leading-[1.1] tracking-[-0.02em] text-[#0e1e38]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Le bon état, c&apos;est
             <br />
             des milliers d&apos;euros d&apos;écart.
           </h2>
+          <p className="mt-3 text-[14px] text-[#0e1e38]/40 max-w-sm mx-auto leading-relaxed">
+            Survolez chaque état pour découvrir son profil. On vous guide vers le vôtre.
+          </p>
         </motion.div>
 
-        {/* 3-column layout: cards | map | cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr_180px] gap-4 lg:gap-5 items-center">
-          {/* Left: NM top, WY bottom */}
-          <div className="hidden lg:flex flex-col gap-[100px]">
-            {[STATES[0], STATES[2]].map((s) => (
-              <GlassCard key={s.fips} state={s} isActive={activeIdx === STATES.indexOf(s)} onHover={() => setActiveIdx(STATES.indexOf(s))} onClick={() => setActiveIdx(STATES.indexOf(s))} />
+        {/* 3-column layout — cards | map | cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_200px] gap-4 lg:gap-8 items-center">
+          {/* Left: WY top, NM bottom */}
+          <div className="hidden lg:flex flex-col gap-[90px]">
+            {[STATES[2], STATES[0]].map((s) => (
+              <GlassCard
+                key={s.fips}
+                state={s}
+                isActive={activeIdx === STATES.indexOf(s)}
+                onHover={() => setActiveIdx(STATES.indexOf(s))}
+                onClick={() => setActiveIdx(STATES.indexOf(s))}
+              />
             ))}
           </div>
 
@@ -284,28 +401,69 @@ export function StatesMap() {
           <USMap activeFips={activeState.fips} onStateHover={handleHover} />
 
           {/* Right: CO top, DE bottom */}
-          <div className="hidden lg:flex flex-col gap-[100px]">
+          <div className="hidden lg:flex flex-col gap-[90px]">
             {[STATES[1], STATES[3]].map((s) => (
-              <GlassCard key={s.fips} state={s} isActive={activeIdx === STATES.indexOf(s)} onHover={() => setActiveIdx(STATES.indexOf(s))} onClick={() => setActiveIdx(STATES.indexOf(s))} />
+              <GlassCard
+                key={s.fips}
+                state={s}
+                isActive={activeIdx === STATES.indexOf(s)}
+                onHover={() => setActiveIdx(STATES.indexOf(s))}
+                onClick={() => setActiveIdx(STATES.indexOf(s))}
+              />
             ))}
           </div>
         </div>
 
-        {/* Mobile: 2x2 grid */}
-        <div className="lg:hidden grid grid-cols-2 gap-3 mt-5">
-          {STATES.map((s, i) => (
-            <GlassCard key={s.fips} state={s} isActive={activeIdx === i} onHover={() => setActiveIdx(i)} onClick={() => setActiveIdx(i)} />
-          ))}
+        {/* Mobile: map first (reduced), then 2×2 cards below */}
+        <div className="lg:hidden">
+          {/* Mobile map — tap to select state */}
+          <div className="w-full mb-6">
+            <USMap activeFips={activeState.fips} onStateHover={handleHover} />
+            <p className="text-center text-[11px] text-[#0e1e38]/30 mt-2 tracking-wide">
+              Touchez un état pour le sélectionner
+            </p>
+          </div>
+          {/* 2×2 grid with active indicator */}
+          <div className="grid grid-cols-2 gap-3">
+            {STATES.map((s, i) => (
+              <div key={s.fips} className="flex flex-col gap-1">
+                {/* Active connector dot above card */}
+                <div className="flex justify-center h-4">
+                  {activeIdx === i && (
+                    <div className="flex flex-col items-center gap-0.5">
+                      <div className="w-px h-2 bg-[#2a5090]/50" />
+                      <div className="w-2 h-2 rounded-full bg-[#2a5090]/60" />
+                    </div>
+                  )}
+                </div>
+                <GlassCard
+                  state={s}
+                  isActive={activeIdx === i}
+                  onHover={() => setActiveIdx(i)}
+                  onClick={() => setActiveIdx(i)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* CTA below — red accent button for DR punch */}
-        <div className="mt-10 lg:mt-14 text-center">
+        {/* Active state detail — minimal, below map */}
+        <motion.div
+          key={activeState.fips}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease }}
+          className="mt-10 lg:mt-12 text-center"
+        >
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/40 mb-3">
+            {activeState.name} — en savoir plus
+          </p>
           <a
             href={`/creer-llc/${activeState.slug}`}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-[14px] font-medium text-white transition-all duration-300 hover:shadow-[0_8px_30px_rgba(192,57,43,0.2)]"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-[14px] font-semibold text-white transition-all"
             style={{
-              background: "linear-gradient(135deg, #1e56a0, #c0392b)",
-              boxShadow: "0 4px 20px rgba(30,86,160,0.2)",
+              background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
+              boxShadow: "0 4px 20px rgba(42,80,144,0.28)",
             }}
           >
             Créer ma LLC au {activeState.name}
@@ -313,10 +471,10 @@ export function StatesMap() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-          <p className="mt-3 text-[12px] text-[#1a2a40]/30">
+          <p className="mt-3 text-[11px] text-[#0e1e38]/30">
             {activeState.pros[0]} · {activeState.pros[1]}
           </p>
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

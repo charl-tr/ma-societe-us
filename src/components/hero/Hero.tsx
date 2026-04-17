@@ -7,42 +7,46 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function Hero() {
   return (
-    <section className="relative min-h-dvh min-h-[640px] max-h-[1000px] flex flex-col overflow-hidden bg-[#060e1c]">
+    <section className="relative min-h-dvh min-h-[640px] max-h-[1020px] flex flex-col overflow-hidden">
 
-      {/* ── Background layers ── */}
-      {/* Grid */}
+      {/* ── Background — misty blue-gray, like the map ── */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
+          background: "linear-gradient(160deg, #eef3f9 0%, #e4ecf6 30%, #eaf1f8 60%, #f2f6fb 100%)",
         }}
       />
-      {/* Red bottom-left glow */}
+      {/* Subtle dot texture */}
       <div
-        className="absolute rounded-full pointer-events-none"
+        className="absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage: "radial-gradient(circle, #2a4a70 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+      {/* Deep blue vignette — bottom center, atmospheric depth */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: "900px",
+          height: "600px",
+          background: "radial-gradient(ellipse, rgba(80,130,200,0.08) 0%, transparent 70%)",
+          bottom: "-200px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          filter: "blur(60px)",
+        }}
+      />
+      {/* Soft top-left warm mist */}
+      <div
+        className="absolute pointer-events-none"
         style={{
           width: "600px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(180,30,20,0.18) 0%, transparent 70%)",
-          bottom: "-100px",
+          height: "500px",
+          background: "radial-gradient(ellipse, rgba(220,230,245,0.6) 0%, transparent 70%)",
+          top: "-100px",
           left: "-100px",
-          filter: "blur(60px)",
-          animation: "floatA 22s ease-in-out infinite",
-        }}
-      />
-      {/* Blue top-right glow */}
-      <div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          width: "800px",
-          height: "800px",
-          background: "radial-gradient(circle, rgba(30,70,160,0.22) 0%, transparent 65%)",
-          top: "-200px",
-          right: "-200px",
           filter: "blur(80px)",
-          animation: "floatB 28s ease-in-out infinite",
         }}
       />
 
@@ -52,45 +56,51 @@ export function Hero() {
 
           {/* Left — copy */}
           <div>
-            {/* Trust pill */}
+            {/* Trust pill — chrome glass on light */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.55, ease }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.1] mb-8 lg:mb-10"
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full mb-8 lg:mb-10"
+              style={{
+                background: "rgba(255,255,255,0.65)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid rgba(255,255,255,0.85)",
+                boxShadow: "0 2px 12px rgba(80,120,180,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
+              }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="text-[12px] text-white/50 tracking-wide">500+ sociétés créées depuis 2014</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4a80b8]" />
+              <span className="text-[12px] text-[#0e1e38]/50 tracking-wide">500+ sociétés créées depuis 2014</span>
             </motion.div>
 
-            {/* Headline — huge, left-aligned */}
+            {/* Headline — refined, high contrast */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.65, ease }}
-              className="text-[clamp(2.8rem,7vw,88px)] leading-[0.97] font-bold tracking-[-0.03em] text-white"
+              className="text-[clamp(2.8rem,7vw,88px)] leading-[0.97] font-bold tracking-[-0.03em] text-[#0e1e38]"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Votre société<br />
               américaine.<br />
               <span
-                className="relative inline-block"
                 style={{
-                  background: "linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.75) 100%)",
+                  background: "linear-gradient(90deg, #0e1e38 0%, #1a3460 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                Jusqu&apos;à 0%&nbsp;
+                Jusqu&apos;à&nbsp;
               </span>
               <span
                 style={{
-                  background: "linear-gradient(90deg, #e84040 0%, #c02020 100%)",
+                  background: "linear-gradient(90deg, #3a6898 0%, #5a90c8 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                d&apos;impôts.
+                0%&nbsp;d&apos;impôts.
               </span>
             </motion.h1>
 
@@ -99,7 +109,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.55, ease }}
-              className="mt-6 text-[15px] lg:text-[17px] leading-relaxed text-white/45 max-w-lg"
+              className="mt-6 text-[15px] lg:text-[17px] leading-relaxed text-[#0e1e38]/50 max-w-lg"
             >
               {HERO.subline}
             </motion.p>
@@ -111,15 +121,34 @@ export function Hero() {
               transition={{ delay: 0.6, duration: 0.55, ease }}
               className="mt-9 flex flex-col sm:flex-row items-start gap-3"
             >
+              {/* Primary — solid dark-blue, premium */}
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center px-7 py-4 rounded-full text-[15px] font-semibold bg-[#c0392b] text-white hover:bg-[#a02020] transition-all shadow-[0_4px_28px_rgba(192,57,43,0.4)] hover:shadow-[0_8px_36px_rgba(192,57,43,0.5)]"
+                className="inline-flex items-center justify-center px-7 py-4 rounded-full text-[15px] font-semibold text-white transition-all"
+                style={{
+                  background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
+                  boxShadow: "0 4px 24px rgba(42,80,144,0.30), 0 1px 0 rgba(255,255,255,0.12) inset",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(42,80,144,0.42), 0 1px 0 rgba(255,255,255,0.12) inset";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(42,80,144,0.30), 0 1px 0 rgba(255,255,255,0.12) inset";
+                }}
               >
                 {HERO.cta}
               </a>
+              {/* Secondary — chrome glass on light */}
               <a
                 href="/services/pack-llc"
-                className="inline-flex items-center px-6 py-4 text-[14px] text-white/50 hover:text-white border border-white/[0.12] rounded-full hover:border-white/25 transition-all"
+                className="inline-flex items-center px-6 py-4 text-[14px] text-[#0e1e38]/50 hover:text-[#0e1e38] rounded-full transition-all"
+                style={{
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255,255,255,0.75)",
+                  boxShadow: "0 2px 12px rgba(80,120,180,0.07)",
+                }}
               >
                 {HERO.ctaSecondary} →
               </a>
@@ -130,60 +159,68 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.85, duration: 0.5 }}
-              className="mt-5 text-[11px] text-white/20 tracking-wide"
+              className="mt-5 text-[11px] text-[#0e1e38]/30 tracking-wide"
             >
               Gratuit · Sans engagement · Réponse sous 24h
             </motion.p>
           </div>
 
-          {/* Right — glassmorphism stat panel (desktop only) */}
+          {/* Right — Liquid glass stat panel (desktop only) */}
           <motion.div
             initial={{ opacity: 0, x: 40, scale: 0.97 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 0.5, duration: 0.8, ease }}
             className="hidden lg:flex flex-col gap-2 shrink-0"
           >
-            {/* Big "0%" — glass premium */}
+            {/* Big "0%" — liquid glass on light bg */}
             <div
               className="relative rounded-2xl text-center overflow-hidden"
               style={{
                 minWidth: "280px",
-                background: "linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 100%)",
-                backdropFilter: "blur(28px)",
-                WebkitBackdropFilter: "blur(28px)",
-                border: "1px solid rgba(255,255,255,0.13)",
-                boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.12) inset, 0 -1px 0 rgba(0,0,0,0.2) inset",
+                background: "linear-gradient(160deg, rgba(255,255,255,0.85) 0%, rgba(235,244,255,0.70) 100%)",
+                backdropFilter: "blur(32px) saturate(1.6)",
+                WebkitBackdropFilter: "blur(32px) saturate(1.6)",
+                border: "1px solid rgba(255,255,255,0.92)",
+                boxShadow: "0 12px 48px rgba(80,120,180,0.14), 0 2px 0 rgba(255,255,255,0.95) inset, 0 -1px 0 rgba(100,140,200,0.08) inset",
                 padding: "36px 40px 28px",
               }}
             >
-              {/* Chrome top shine */}
+              {/* Chrome top — sharp silver shine */}
               <div
-                className="absolute inset-x-0 top-0 h-px"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.4) 60%, transparent)" }}
+                className="absolute inset-x-0 top-0 h-[1px]"
+                style={{
+                  background: "linear-gradient(90deg, rgba(180,200,225,0.3), rgba(255,255,255,1) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 70%, rgba(180,200,225,0.3))",
+                }}
               />
-              {/* Subtle inner glow */}
+              {/* Inner top glow */}
               <div
                 className="absolute inset-0 rounded-2xl pointer-events-none"
-                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 60%)" }}
+                style={{
+                  background: "radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.6) 0%, transparent 55%)",
+                }}
               />
               <p
-                className="relative text-[88px] xl:text-[108px] font-bold leading-none tracking-[-0.05em] text-white"
+                className="relative text-[88px] xl:text-[108px] font-bold leading-none tracking-[-0.05em] text-[#0e1e38]"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                0<span style={{ color: "#4a80b8" }}>%</span>
+              </p>
+              <p className="relative text-[11px] text-[#0e1e38]/35 mt-3 tracking-[0.22em] uppercase">d&apos;impôts aux USA</p>
+              {/* Legal badge */}
+              <div
+                className="relative mt-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full"
                 style={{
-                  fontFamily: "var(--font-heading)",
-                  textShadow: "0 2px 20px rgba(255,255,255,0.1)",
+                  background: "rgba(255,255,255,0.55)",
+                  border: "1px solid rgba(255,255,255,0.8)",
+                  boxShadow: "0 1px 4px rgba(80,120,180,0.08)",
                 }}
               >
-                0<span style={{ color: "#e84040", textShadow: "0 4px 24px rgba(232,64,64,0.5)" }}>%</span>
-              </p>
-              <p className="relative text-[11px] text-white/40 mt-3 tracking-[0.22em] uppercase">d&apos;impôts aux USA</p>
-              {/* Legal badge */}
-              <div className="relative mt-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
-                <span className="text-[10px] text-white/35 tracking-wide">100% légal · Conforme OCDE</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4a80b8]/60" />
+                <span className="text-[10px] text-[#0e1e38]/40 tracking-wide">100% légal · Conforme OCDE</span>
               </div>
             </div>
 
-            {/* Micro stats — glass */}
+            {/* Micro stats — liquid glass on light */}
             <div className="grid grid-cols-2 gap-2">
               {[
                 { v: "2 sem.", l: "Création" },
@@ -195,15 +232,19 @@ export function Hero() {
                   key={l}
                   className="rounded-xl p-4 text-center relative overflow-hidden"
                   style={{
-                    background: "rgba(255,255,255,0.05)",
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.08) inset",
+                    background: "linear-gradient(160deg, rgba(255,255,255,0.75) 0%, rgba(235,244,255,0.55) 100%)",
+                    backdropFilter: "blur(20px) saturate(1.4)",
+                    WebkitBackdropFilter: "blur(20px) saturate(1.4)",
+                    border: "1px solid rgba(255,255,255,0.85)",
+                    boxShadow: "0 4px 20px rgba(80,120,180,0.09), 0 1px 0 rgba(255,255,255,0.95) inset",
                   }}
                 >
-                  <p className="text-[22px] font-bold text-white leading-none" style={{ fontFamily: "var(--font-heading)" }}>{v}</p>
-                  <p className="text-[10px] text-white/30 mt-1 uppercase tracking-[0.15em]">{l}</p>
+                  <div
+                    className="absolute inset-x-0 top-0 h-[1px]"
+                    style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1) 50%, transparent)" }}
+                  />
+                  <p className="text-[22px] font-bold text-[#0e1e38] leading-none" style={{ fontFamily: "var(--font-heading)" }}>{v}</p>
+                  <p className="text-[10px] text-[#0e1e38]/35 mt-1 uppercase tracking-[0.15em]">{l}</p>
                 </div>
               ))}
             </div>
@@ -217,35 +258,26 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.0, duration: 0.5 }}
-        className="relative z-10 border-t border-white/[0.06]"
+        className="relative z-10"
+        style={{ borderTop: "1px solid rgba(26,42,64,0.07)" }}
       >
-        <div className="px-6 lg:px-16 xl:px-20 py-4 max-w-[1400px] mx-auto flex items-center justify-between">
-          <span className="text-[11px] text-white/20 uppercase tracking-[0.2em]">Juridictions disponibles</span>
+        <div
+          className="px-6 lg:px-16 xl:px-20 py-4 max-w-[1400px] mx-auto flex items-center justify-between"
+          style={{ background: "rgba(255,255,255,0.35)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
+        >
+          <span className="text-[11px] text-[#0e1e38]/25 uppercase tracking-[0.2em]">Juridictions disponibles</span>
           <div className="flex items-center gap-6 sm:gap-10">
             {["Nouveau-Mexique", "Colorado", "Wyoming", "Delaware"].map((state, i) => (
               <div key={state} className="flex items-center gap-2">
-                <span className="w-1 h-1 rounded-full bg-[#2a5090]/60" />
-                <span className="text-[12px] font-medium text-white/50">{state}</span>
-                {i < 3 && <span className="hidden sm:block w-px h-3 bg-white/[0.08] ml-4" />}
+                <span className="w-1 h-1 rounded-full" style={{ background: "#6a9bc0" }} />
+                <span className="text-[12px] font-medium text-[#0e1e38]/45">{state}</span>
+                {i < 3 && <span className="hidden sm:block w-px h-3 ml-4" style={{ background: "rgba(26,42,64,0.08)" }} />}
               </div>
             ))}
           </div>
         </div>
       </motion.div>
 
-      {/* Keyframes */}
-      <style jsx>{`
-        @keyframes floatA {
-          0%,100% { transform: translate(0,0) scale(1); }
-          40% { transform: translate(40px,-30px) scale(1.08); }
-          70% { transform: translate(-20px,20px) scale(0.94); }
-        }
-        @keyframes floatB {
-          0%,100% { transform: translate(0,0) scale(1); }
-          35% { transform: translate(-50px,40px) scale(1.06); }
-          65% { transform: translate(30px,-25px) scale(0.96); }
-        }
-      `}</style>
     </section>
   );
 }
