@@ -163,21 +163,33 @@ export default function HomePage() {
               <motion.div
                 key={prop.title}
                 variants={fadeUp}
-                className="bg-[#0a1628] p-7 lg:p-8 group hover:bg-[#0f1e34] transition-colors duration-300"
+                className="relative p-7 lg:p-8 group transition-all duration-500 cursor-default"
+                style={{ background: "#0a1628" }}
+                whileHover={{ backgroundColor: "#0d1a2e" }}
               >
+                {/* Hover glass border — s'allume au survol */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-sm"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(74,127,212,0.08) 0%, rgba(42,80,144,0.04) 100%)",
+                    backdropFilter: "blur(4px)",
+                    border: "1px solid rgba(74,127,212,0.2)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+                  }}
+                />
                 {/* Number */}
                 <span
-                  className="block text-[clamp(3rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] mb-6"
+                  className="block text-[clamp(3rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] mb-6 transition-all duration-500"
                   style={{
                     fontFamily: "var(--font-heading)",
                     color: "transparent",
-                    WebkitTextStroke: "1px rgba(255,255,255,0.15)",
+                    WebkitTextStroke: "1px rgba(255,255,255,0.12)",
                   }}
                 >
                   0{i + 1}
                 </span>
                 {/* Icon */}
-                <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-white/60 mb-5 group-hover:bg-white/[0.1] transition-colors">
+                <div className="relative w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-white/50 mb-5 group-hover:border-[rgba(74,127,212,0.3)] group-hover:text-[#4a7fd4] transition-all duration-300">
                   <PropIcon type={prop.icon} />
                 </div>
                 <h3

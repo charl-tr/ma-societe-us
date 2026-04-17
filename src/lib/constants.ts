@@ -57,10 +57,10 @@ export const OFFER = [
 ];
 
 export const STATS = [
-  { value: "10+", label: "années d'expertise" },
+  { value: "10+", label: "ans d'expertise franco-américaine" },
   { value: "500+", label: "sociétés créées" },
-  { value: "11", label: "professionnels dédiés" },
-  { value: "4", label: "états de juridiction" },
+  { value: "15M€", label: "d'économies générées" },
+  { value: "4", label: "états fiscalement optimisés" },
 ];
 
 export const FOOTER_LINKS = {
@@ -115,21 +115,21 @@ export const VALUE_PROPS = [
   {
     icon: "percent",
     title: "Jusqu'à 0% d'impôts",
-    description: "Là où la France vous prend 45%, une LLC au bon état peut descendre à zéro. Légalement.",
+    description: "Là où la France vous prend 45%+, une LLC au bon état peut descendre à zéro. 100% légal, conforme OCDE, exercé depuis 2014.",
   },
   {
     icon: "shield",
-    title: "Anonymat total",
-    description: "Votre nom n'apparaît nulle part dans les registres publics. Pas de trace, pas de risque.",
+    title: "Personne ne peut vous chercher",
+    description: "Votre nom n'apparaît nulle part dans les registres publics. Pas de trace, pas d'exposition. Un anonymat que votre SARL ne peut pas vous offrir.",
   },
   {
     icon: "clock",
-    title: "Opérationnel en 2 semaines",
-    description: "LLC créée, EIN obtenu, compte bancaire ouvert. Prêt à facturer en dollars.",
+    title: "Opérationnel en 14 jours",
+    description: "LLC créée, EIN obtenu, compte Mercury ouvert. Vous facturez en dollars dans les 2 semaines — pas dans 6 mois.",
   },
   {
     icon: "globe",
-    title: "Sans quitter votre canapé",
-    description: "Pas de visa, pas de billet d'avion, pas de déplacement. On gère tout à distance.",
+    title: "Zéro déplacement, zéro visa",
+    description: "100% à distance. Pas de billet d'avion, pas de consulat, pas de déplacement. Vous signez — on fait le reste depuis les USA.",
   },
 ];
