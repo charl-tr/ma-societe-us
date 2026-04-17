@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MA-SOCIETE-US — Audit Site Live v1.0</title>
+<style>
+  :root {
+    --bg:       #eef3f9;
+    --bg2:      #e4ecf6;
+    --ink:      #0e1e38;
+    --ink-dim:  rgba(14,30,56,0.45);
+    --ink-faint:rgba(14,30,56,0.18);
+    --blue:     #2a5090;
+    --blue-l:   #4a80b8;
+    --blue-ll:  #7ab4e8;
+    --glass:    rgba(255,255,255,0.80);
+    --glass-b:  rgba(255,255,255,0.92);
+    --dark:     #060e1c;
+    --dark2:    #0a1628;
+    --amber:    #b45309;
+    --amber-bg: rgba(180,83,9,0.07);
+    --red:      #991b1b;
+    --red-bg:   rgba(153,27,27,0.07);
+    --green:    #166534;
+    --green-bg: rgba(22,101,52,0.07);
+    --line:     rgba(14,30,56,0.07);
+    --radius:   14px;
+    --font:     -apple-system, 'Inter', sans-serif;
+    --font-h:   'Georgia', 'Times New Roman', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    background: linear-gradient(140deg, var(--dark) 0%, var(--dark2) 60%, #0f2040 100%);
+    color: #fff;
+    padding: 80px 48px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .cover-glow {
+    position: absolute;
+    width: 600px; height: 500px;
+    background: radial-gradient(ellipse, rgba(42,80,144,0.30) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  .cover-inner { position: relative; max-width: 900px; margin: 0 auto; }
+  .cover-kicker {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-family: var(--font-h);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -.025em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .cover h1 em { font-style: normal; color: var(--blue-ll); }
+  .cover-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .cover-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.6);
+  }
+  .pill.blue { background: rgba(74,128,184,0.18); border-color: rgba(74,128,184,0.25); color: var(--blue-ll); }
+
+  /* ── Layout ── */
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-b);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 40px 0;
+    box-shadow: 0 4px 24px rgba(80,120,180,0.08);
+  }
+  .toc-title {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+  .toc ol {
+    padding-left: 20px;
+    column-count: 2;
+    column-gap: 32px;
+  }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; }
+  .toc a:hover { text-decoration: underline; }
+  @media (max-width: 600px) { .toc ol { column-count: 1; } }
+
+  /* ── Sections ── */
+  .section { padding: 56px 0 40px; border-top: 1px solid var(--line); }
+  .section:first-of-type { border-top: none; }
+
+  .section-kicker {
+    font-size: 10px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: .55;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: var(--font-h);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    line-height: 1.15;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 28px 0 10px;
+    letter-spacing: -.01em;
+  }
+  p { color: var(--ink-dim); margin-bottom: 14px; }
+  strong { color: var(--ink); font-weight: 600; }
+  em { font-style: normal; color: var(--blue); font-weight: 500; }
+
+  /* ── Glass cards ── */
+  .card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-b);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 16px rgba(80,120,180,0.06), 0 1px 0 rgba(255,255,255,0.95) inset;
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset-x: 0; top: 0;
+    height: 1px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 60%, transparent);
+  }
+
+  .card-dark {
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    border-color: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    box-shadow: none;
+  }
+
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+
+  /* ── Tables ── */
+  .table-wrap {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-b);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(80,120,180,0.06);
+    margin-bottom: 28px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead tr { background: rgba(42,80,144,0.06); }
+  th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-dim);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child, th:first-child { color: var(--ink); font-weight: 500; }
+  tr:hover td { background: rgba(42,80,144,0.02); }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-red   { background: var(--red-bg);   color: var(--red);   border: 1px solid rgba(153,27,27,0.15); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(180,83,9,0.15); }
+  .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(22,101,52,0.15); }
+  .badge-blue  { background: rgba(42,80,144,0.08); color: var(--blue); border: 1px solid rgba(42,80,144,0.15); }
+
+  /* ── Sitemap tree ── */
+  .tree {
+    background: var(--dark2);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    overflow-x: auto;
+  }
+  .tree pre {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.65);
+    white-space: pre;
+  }
+  .tree pre .hl   { color: var(--blue-ll); font-weight: 600; }
+  .tree pre .dim  { color: rgba(255,255,255,0.28); }
+  .tree pre .url  { color: rgba(122,180,232,0.65); }
+
+  /* ── Code / link blocks ── */
+  code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    background: rgba(42,80,144,0.08);
+    border: 1px solid rgba(42,80,144,0.12);
+    border-radius: 5px;
+    padding: 1px 6px;
+    color: var(--blue);
+  }
+
+  /* ── Funnel ── */
+  .funnel { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
+  .funnel-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--glass);
+    border: 1px solid var(--glass-b);
+    border-top: none;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;
+  }
+  .funnel-step:first-child { border-top: 1px solid var(--glass-b); border-radius: var(--radius) var(--radius) 0 0; }
+  .funnel-step:last-child  { border-radius: 0 0 var(--radius) var(--radius); }
+  .funnel-step.highlight { background: rgba(42,80,144,0.06); }
+  .funnel-num {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .funnel-body { flex: 1; }
+  .funnel-body strong { font-size: 13.5px; display: block; margin-bottom: 2px; color: var(--ink); }
+  .funnel-body span { font-size: 12.5px; color: var(--ink-dim); }
+  .funnel-arrow {
+    text-align: center;
+    font-size: 16px;
+    color: var(--blue);
+    opacity: .4;
+    padding: 2px 0;
+    line-height: 1;
+  }
+
+  /* ── Gap list ── */
+  .gap-list { display: flex; flex-direction: column; gap: 10px; }
+  .gap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.6);
+  }
+  .gap-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .gap-body strong { font-size: 13.5px; color: var(--ink); display: block; margin-bottom: 2px; }
+  .gap-body span { font-size: 12.5px; color: var(--ink-dim); }
+
+  /* ── Calendly block ── */
+  .cal-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(255,255,255,0.88);
+    box-shadow: 0 2px 12px rgba(80,120,180,0.05);
+    margin-bottom: 8px;
+  }
+  .cal-intent { font-size: 12px; color: var(--blue); font-weight: 600; letter-spacing: .06em; }
+  .cal-url { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11.5px; color: var(--ink-dim); word-break: break-all; }
+  .cal-pages { font-size: 11px; color: var(--ink-faint); margin-top: 2px; }
+
+  /* ── Price grid ── */
+  .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .price-card {
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    background: var(--glass);
+    border: 1px solid var(--glass-b);
+    box-shadow: 0 2px 16px rgba(80,120,180,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card::before {
+    content: '';
+    position: absolute;
+    inset-x: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,1) 50%, transparent);
+  }
+  .price-card.featured {
+    background: linear-gradient(160deg, #0d1e38 0%, #1a3060 100%);
+    border-color: rgba(100,150,220,0.3);
+  }
+  .price-name { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 8px; }
+  .price-card.featured .price-name { color: rgba(255,255,255,0.4); }
+  .price-amount { font-family: var(--font-h); font-size: 2rem; font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+  .price-card.featured .price-amount { color: #fff; }
+  .price-note { font-size: 12px; color: var(--ink-faint); }
+  .price-card.featured .price-note { color: rgba(255,255,255,0.3); }
+  .price-badge { position: absolute; top: 14px; right: 14px; }
+
+  /* ── Compare table (design vs live) ── */
+  .compare-row-ok   td:first-child::before { content: '✓ '; color: var(--green); }
+  .compare-row-warn td:first-child::before { content: '⚠ '; color: var(--amber); }
+  .compare-row-err  td:first-child::before { content: '✗ '; color: var(--red); }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    margin-top: 80px;
+    letter-spacing: .05em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .cover { padding: 56px 24px 48px; }
+    .wrap { padding: 0 16px; }
+    .section { padding: 40px 0 28px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-glow"></div>
+  <div class="cover-inner">
+    <p class="cover-kicker">MA-SOCIETE-US.COM · Audit site live</p>
+    <h1>Radiographie complète<br><em>du site actuel</em></h1>
+    <p class="cover-sub">Sitemap, navigation, sections, copywriting, offres, tarifs officiels, funnels, liens Calendly — tout ce qu'il faut pour qu'une IA comprenne l'état exact du site en production.</p>
+    <div class="cover-meta">
+      <span class="pill">Crawlé : avril 2026</span>
+      <span class="pill">Entité légale : YES PLEASE LLC</span>
+      <span class="pill">Fondateur : Christophe</span>
+      <span class="pill blue">CMS : WordPress + WooCommerce</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <p class="toc-title">Table des matières</p>
+    <ol>
+      <li><a href="#sitemap">Sitemap complet</a></li>
+      <li><a href="#navigation">Navigation & structure</a></li>
+      <li><a href="#pages">Pages — sections & copy</a></li>
+      <li><a href="#tarifs">Offres & tarifs officiels</a></li>
+      <li><a href="#calendly">Calendly — mapping intent</a></li>
+      <li><a href="#funnels">Funnels identifiés</a></li>
+      <li><a href="#blog">Blog & contenu SEO</a></li>
+      <li><a href="#social">Social & branding</a></li>
+      <li><a href="#gaps">Gaps critiques</a></li>
+      <li><a href="#design-delta">Delta live → redesign</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. SITEMAP -->
+  <section class="section" id="sitemap">
+    <p class="section-kicker">01 — Architecture</p>
+    <h2>Sitemap complet</h2>
+    <div class="tree">
+      <pre><span class="hl">ma-societe-us.com/</span>
+├── <span class="hl">/</span>                                  <span class="dim">Accueil — page principale</span>
+│
+├── Pack LLC <span class="dim">[dropdown nav]</span>
+│   ├── /creer-llc-offre/              <span class="dim">Notre offre — page de vente détaillée</span>
+│   ├── /ouvrir-compte-bancaire-usa-solution/  <span class="dim">Banque — service compte US</span>
+│   ├── /monter-societe-usa-pourquoi/  <span class="dim">FAQ — pourquoi une LLC</span>
+│   └── formations.ma-societe-us.com/dashboard/  <span class="dim">Formation (espace membre, login)</span>
+│
+├── Tarifs <span class="dim">[dropdown nav]</span>
+│   ├── /llc-usa/                      <span class="dim">PRIX Pack LLC + Pack Premium — achat direct</span>
+│   ├── /declaration-llc/              <span class="dim">Prix déclarations fiscales</span>
+│   └── /monter-societe-etats-unis-tarifs/  <span class="dim">Tarifs prestations additionnelles</span>
+│
+├── /visa-e2/                          <span class="dim">Immigration US — visa investisseur E2</span>
+├── /blog/                             <span class="dim">10 articles réels (2022–2024)</span>
+├── /creer-entreprise-etats-unis-contact/  <span class="dim">Contact (Calendly + adresse)</span>
+├── /panier/                           <span class="dim">WooCommerce — achat direct</span>
+│
+├── Sous-domaines
+│   ├── <span class="url">formations.ma-societe-us.com/formation-gratuite-llc-site</span>  <span class="dim">Lead magnet gratuit</span>
+│   ├── <span class="url">formations.ma-societe-us.com/pack-llc</span>                     <span class="dim">Achat Pack LLC en ligne</span>
+│   ├── <span class="url">formations.ma-societe-us.com/pack-premium</span>                 <span class="dim">Achat Pack Premium en ligne</span>
+│   └── <span class="url">app.ma-societe-us.com</span>                                    <span class="dim">Portail client existant</span>
+│
+└── Légal
+    ├── /cgv/
+    ├── /cgu/
+    └── /confidentialite/</pre>
+    </div>
+    <p style="margin-top:14px;font-size:13px;">Pages <strong>absentes</strong> : À propos, Équipe, Témoignages dédiée, Résultats/Case studies, Page de confirmation post-contact.</p>
+  </section>
+
+  <!-- 2. NAVIGATION -->
+  <section class="section" id="navigation">
+    <p class="section-kicker">02 — Navigation</p>
+    <h2>Structure du menu & logique d'intent</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item nav</th><th>Type</th><th>Intent cible</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Pack LLC → Notre offre</td><td>Dropdown</td><td>Prospect chaud : "comment ça marche ?"</td><td></td></tr>
+          <tr><td>Pack LLC → Banque</td><td>Dropdown</td><td>Post-création : "comment ouvrir un compte ?"</td><td></td></tr>
+          <tr><td>Pack LLC → FAQ</td><td>Dropdown</td><td>Prospect froid : "est-ce légal / pour moi ?"</td><td></td></tr>
+          <tr><td>Pack LLC → Formation</td><td>Dropdown</td><td>Lead magnet — capture email</td><td><span class="badge badge-amber">Renvoie vers login</span></td></tr>
+          <tr><td>Tarifs → Création LLC</td><td>Dropdown</td><td>Prospect en décision : veut le prix</td><td><span class="badge badge-green">Page clé</span></td></tr>
+          <tr><td>Tarifs → Déclaration LLC</td><td>Dropdown</td><td>Client existant ou prospect comptabilité</td><td></td></tr>
+          <tr><td>Tarifs → Prestations additionnelles</td><td>Dropdown</td><td>Upsell / client existant</td><td></td></tr>
+          <tr><td>Immigration US</td><td>Top-level</td><td>Entrepreneur voulant s'installer aux USA</td><td><span class="badge badge-amber">Audience distincte</span></td></tr>
+          <tr><td>Blog</td><td>Top-level</td><td>SEO / awareness</td><td>Contenu réel mais caduc (2022–2024)</td></tr>
+          <tr><td>Contact</td><td>Top-level</td><td>Conversion finale</td><td></td></tr>
+          <tr><td>Panier</td><td>Top-level</td><td>Achat direct WooCommerce</td><td></td></tr>
+          <tr><td>Portail</td><td>Top-level</td><td>Clients existants</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="gap-list">
+      <div class="gap-item">
+        <div class="gap-icon">⚠️</div>
+        <div class="gap-body">
+          <strong>Double funnel non résolu</strong>
+          <span>La nav expose simultanément du lead gen (entretien gratuit) ET de l'achat direct (Panier). Cela crée de l'ambiguïté sur le positionnement : cabinet conseil ou e-commerce ?</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">❌</div>
+        <div class="gap-body">
+          <strong>Aucune page "À propos" dans la nav</strong>
+          <span>Pour un cabinet qui vend de la confiance personnelle, Christophe et l'équipe sont invisibles dans la navigation.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PAGES -->
+  <section class="section" id="pages">
+    <p class="section-kicker">03 — Contenu</p>
+    <h2>Pages — sections, copy & CTAs</h2>
+
+    <h3>/ — Accueil</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Section</th><th>Headline verbatim</th><th>But</th><th>CTA</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Hero</td><td><em>"CRÉER UNE SOCIÉTÉ AUX USA JUSQU'À 0% D'IMPOSITION !"</em></td><td>Accrocher sur le bénéfice fiscal</td><td>Calendly discovery + Formation gratuite</td></tr>
+          <tr><td>2</td><td>Qualification</td><td><em>"CRÉER UNE SOCIÉTÉ AUX USA EN QUELQUES CLICS !"</em></td><td>Qualifier via 3 pain points</td><td>→ /blog</td></tr>
+          <tr><td>3</td><td>Définition offshore</td><td>Explique le concept légal</td><td>Lever objection "c'est illégal"</td><td>→ /monter-societe-usa-pourquoi/</td></tr>
+          <tr><td>4</td><td>9 Avantages</td><td><em>"AVANTAGES À CRÉER UNE SOCIÉTÉ AUX USA SOUS LA FORME D'UNE LLC"</em></td><td>Éduquer sur les bénéfices</td><td>Aucun</td></tr>
+          <tr><td>5</td><td>Offre exclusive (3 blocs)</td><td><em>"NOTRE OFFRE EXCLUSIVE POUR CRÉER UNE SOCIÉTÉ AUX USA"</em></td><td>Présenter les 3 composantes</td><td>→ /creer-llc-offre/, guide fiscal, banque</td></tr>
+          <tr><td>6</td><td>1 témoignage</td><td>Quote Antoine R.</td><td>Social proof</td><td>Aucun</td></tr>
+          <tr><td>7</td><td>Articles récents (3)</td><td>—</td><td>SEO / engagement</td><td>→ articles</td></tr>
+          <tr><td>8</td><td>Footer CTA</td><td>"Entretien découverte 15 min"</td><td>Conversion</td><td>Calendly decouverte-site</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Problèmes copy homepage :</strong> Caps lock massif (ton DR années 2010). Section "offshore" en position 3 — met le doute avant de le lever. CTA en position 2 renvoie vers le blog au lieu de convertir.</p>
+
+    <h3>/creer-llc-offre/ — Notre offre (page de vente)</h3>
+    <div class="card">
+      <p><strong>Sections :</strong> Hero "CRÉER UNE LLC AMÉRICAINE – NOTRE OFFRE COMPLÈTE" → 3 services (LLC / Accompagnement / Banque) → Process 4 étapes (Dossier → LLC 7j → EIN → Banque 7–10j)</p>
+      <p><strong>⚠️ Aucun prix sur cette page.</strong> Le visiteur doit naviguer vers /llc-usa/ pour voir les tarifs → friction de conversion.</p>
+      <p><strong>CTAs :</strong> Calendly discovery + Formation gratuite + Portail</p>
+    </div>
+
+    <h3>/llc-usa/ — Tarifs Création LLC (page de conversion clé)</h3>
+    <div class="card">
+      <p>Contient la <strong>grille tarifaire officielle</strong> et les liens d'achat direct. Voir section Offres & Tarifs ci-dessous.</p>
+      <p><strong>CTAs :</strong> Achat direct <code>formations.ma-societe-us.com/pack-llc</code> + Calendly creation + Calendly callback</p>
+    </div>
+
+    <h3>/declaration-llc/ — Déclarations fiscales</h3>
+    <div class="card">
+      <p><strong>Offre :</strong> Liasse fiscale US complète (Form 5472 etc.) + CPA agréé IRS + guide déclaration française. <strong>Dès $800</strong> (sur devis selon complexité).</p>
+      <p><strong>Angle :</strong> Alerte sur les "ghost preparers" non agréés et les pénalités IRS. Position d'expert.</p>
+      <p><strong>CTA Calendly :</strong> <code>calendly.com/yes-please/declarations-fiscales-us</code></p>
+    </div>
+
+    <h3>/ouvrir-compte-bancaire-usa-solution/ — Banque</h3>
+    <div class="card">
+      <p><strong>Structure :</strong> Problème (4 obstacles bancaires) → 2 solutions (fintech dès $600 / banque physique sur devis)</p>
+      <p><strong>Partenaires :</strong> non nommés publiquement.</p>
+      <p><strong>CTAs Calendly :</strong> <code>entretien-telephonique-compte-bancaire</code> + <code>decouverte-site</code></p>
+    </div>
+
+    <h3>/visa-e2/ — Immigration US (segment distinct)</h3>
+    <div class="card">
+      <p><strong>Service :</strong> Visa E2 investisseur — immigration par l'investissement dans une entreprise US.</p>
+      <p><strong>Package :</strong> Consultation avocat + entité US + compte bancaire + business plan + dossier consulat + préparation entretien.</p>
+      <p><strong>Crédibilité :</strong> Avocat diplômé droit FR + US, admis barreau de New York, 10 ans, ~100% succès.</p>
+      <p><strong>Prix :</strong> Non affiché. Sur devis. Probablement $3 000+.</p>
+      <p><strong>CTA :</strong> <code>calendly.com/ypls/entretien-telephonique-immigration</code></p>
+    </div>
+
+    <h3>/monter-societe-usa-pourquoi/ — FAQ</h3>
+    <div class="card">
+      <p><strong>Cible :</strong> Prospect froid qui se demande si c'est légal/adapté. <strong>Juridiction recommandée : Nouveau-Mexique</strong> (anonymat, 0 frais d'État, 0 compta obligatoire).</p>
+      <p><strong>Segments explicitement cités :</strong> e-commerce, Amazon FBA, dropshipping, cours en ligne, consulting, IP, trading.</p>
+    </div>
+
+    <h3>/creer-entreprise-etats-unis-contact/ — Contact</h3>
+    <div class="card">
+      <p><strong>Adresse :</strong> 120 Madeira Drive NE STE 220, 87108 Albuquerque, New Mexico, USA</p>
+      <p><strong>Délai réponse :</strong> sous 24h</p>
+      <p><strong>⚠️ Aucun formulaire visible, aucun téléphone, aucun email public.</strong> Le seul moyen de contact = Calendly.</p>
+      <p><strong>CTA unique :</strong> <code>calendly.com/ypls/decouverte-site</code></p>
+    </div>
+  </section>
+
+  <!-- 4. TARIFS -->
+  <section class="section" id="tarifs">
+    <p class="section-kicker">04 — Monétisation</p>
+    <h2>Offres & tarifs officiels</h2>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <p class="price-name">Pack LLC USA</p>
+        <p class="price-amount">$997</p>
+        <p class="price-note">Achat direct en ligne</p>
+        <p style="font-size:12px;color:var(--ink-dim);margin-top:10px;">LLC + EIN + documents légaux + 2 RDV/an + portail client</p>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge"><span class="badge" style="background:rgba(74,128,184,0.25);color:#7ab4e8;border-color:rgba(74,128,184,0.3);">Le plus populaire</span></div>
+        <p class="price-name">Pack Premium LLC + Banque</p>
+        <p class="price-amount">$1 597</p>
+        <p class="price-note">Achat direct en ligne</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:10px;">Pack LLC + compte bancaire US + VISA/Mastercard</p>
+      </div>
+      <div class="price-card">
+        <p class="price-name">Déclaration fiscale</p>
+        <p class="price-amount">$800+</p>
+        <p class="price-note">Sur devis — via Calendly</p>
+        <p style="font-size:12px;color:var(--ink-dim);margin-top:10px;">Liasse fiscale US + CPA IRS + guide FR</p>
+      </div>
+      <div class="price-card">
+        <p class="price-name">Compte bancaire seul</p>
+        <p class="price-amount">$600+</p>
+        <p class="price-note">Fintech — via Calendly</p>
+        <p style="font-size:12px;color:var(--ink-dim);margin-top:10px;">Partenaire non nommé. Banque physique sur devis.</p>
+      </div>
+    </div>
+
+    <h3>Prestations additionnelles (à la carte)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Prestation</th><th>Prix</th></tr></thead>
+        <tbody>
+          <tr><td>Operating Agreement</td><td>Dès $600</td></tr>
+          <tr><td>Annual Report (préparation + dépôt)</td><td>Dès $299</td></tr>
+          <tr><td>Banking Member Resolution</td><td>Dès $135</td></tr>
+          <tr><td>Certificate of Good Standing</td><td>Dès $100</td></tr>
+          <tr><td>Identification dépenses déductibles</td><td>Dès $400</td></tr>
+          <tr><td>Recherche déductibilités en cours d'exercice</td><td>Dès $800</td></tr>
+          <tr><td>Gestion pilotée LLC (1 an)</td><td>$399/an</td></tr>
+          <tr><td>Dissolution LLC</td><td>Dès $699</td></tr>
+          <tr><td>Cession de parts / modifications capitalistiques</td><td>Dès $1 100</td></tr>
+          <tr><td>CGV/CGU/Politique de confidentialité (RGPD)</td><td>~$1 200</td></tr>
+          <tr><td>Visa E2 (immigration)</td><td>Non affiché / sur devis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5. CALENDLY -->
+  <section class="section" id="calendly">
+    <p class="section-kicker">05 — Conversion</p>
+    <h2>Liens Calendly — mapping par intent</h2>
+    <p>6 Calendly distincts, chacun lié à un intent spécifique. La segmentation est correcte mais invisible graphiquement (même bouton, 6 URLs selon la page).</p>
+
+    <div class="cal-item">
+      <div class="cal-intent">🌐 Discovery générale (catch-all)</div>
+      <div class="cal-url">calendly.com/ypls/decouverte-site</div>
+      <div class="cal-pages">Présent sur : Accueil, /creer-llc-offre/, tarifs additionnels, /banque/, /contact/</div>
+    </div>
+    <div class="cal-item">
+      <div class="cal-intent">🏛️ LLC création — entretien découverte</div>
+      <div class="cal-url">calendly.com/ypls/entretien-decouverte-usa</div>
+      <div class="cal-pages">Présent sur : /llc-usa/ uniquement</div>
+    </div>
+    <div class="cal-item">
+      <div class="cal-intent">📞 LLC création — rappel téléphonique</div>
+      <div class="cal-url">calendly.com/ypls/entretien-telephonique-creation-llc</div>
+      <div class="cal-pages">Présent sur : /llc-usa/ uniquement</div>
+    </div>
+    <div class="cal-item">
+      <div class="cal-intent">🏦 Compte bancaire — rappel</div>
+      <div class="cal-url">calendly.com/ypls/entretien-telephonique-compte-bancaire</div>
+      <div class="cal-pages">Présent sur : /ouvrir-compte-bancaire-usa-solution/</div>
+    </div>
+    <div class="cal-item">
+      <div class="cal-intent">📊 Déclarations fiscales</div>
+      <div class="cal-url">calendly.com/yes-please/declarations-fiscales-us</div>
+      <div class="cal-pages">Présent sur : /declaration-llc/ (compte différent : yes-please)</div>
+    </div>
+    <div class="cal-item">
+      <div class="cal-intent">✈️ Immigration — Visa E2</div>
+      <div class="cal-url">calendly.com/ypls/entretien-telephonique-immigration</div>
+      <div class="cal-pages">Présent sur : /visa-e2/ uniquement</div>
+    </div>
+  </section>
+
+  <!-- 6. FUNNELS -->
+  <section class="section" id="funnels">
+    <p class="section-kicker">06 — Acquisition</p>
+    <h2>Funnels identifiés</h2>
+
+    <h3>Funnel A — Cold traffic SEO/blog</h3>
+    <div class="funnel">
+      <div class="funnel-step"><div class="funnel-num">1</div><div class="funnel-body"><strong>Article blog</strong><span>"LLC américaine pour consultant français", "0% impôts LLC", etc.</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step highlight"><div class="funnel-num">2</div><div class="funnel-body"><strong>CTA article → Formation gratuite OU Entretien 15 min</strong><span>Formation : capture email → nurturing. Entretien : Calendly decouverte-site</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step"><div class="funnel-num">3</div><div class="funnel-body"><strong>Call découverte 15 min → Qualification → Proposition</strong><span>Christophe ou équipe analyse la situation</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step highlight"><div class="funnel-num">4</div><div class="funnel-body"><strong>Vente : Pack LLC $997 ou Pack Premium $1 597</strong><span>Achat direct sur formations.ma-societe-us.com</span></div></div>
+    </div>
+
+    <h3>Funnel B — Intent direct prix ("créer LLC USA combien")</h3>
+    <div class="funnel">
+      <div class="funnel-step"><div class="funnel-num">1</div><div class="funnel-body"><strong>Google → /llc-usa/</strong><span>Page de pricing directe, accessible via nav Tarifs</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step highlight"><div class="funnel-num">2</div><div class="funnel-body"><strong>Achat direct $997/$1597 OU Calendly entretien-decouverte-usa</strong><span>Double sortie : self-serve ou assisté</span></div></div>
+    </div>
+
+    <h3>Funnel C — Intent banque</h3>
+    <div class="funnel">
+      <div class="funnel-step"><div class="funnel-num">1</div><div class="funnel-body"><strong>/ouvrir-compte-bancaire-usa-solution/</strong><span>Via nav Pack LLC → Banque</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step highlight"><div class="funnel-num">2</div><div class="funnel-body"><strong>Calendly entretien-telephonique-compte-bancaire</strong><span>Call → Vente $600+ compte seul OU upsell Pack Premium $1597</span></div></div>
+    </div>
+
+    <h3>Funnel D — Upsell client existant (comptabilité/fiscal)</h3>
+    <div class="funnel">
+      <div class="funnel-step"><div class="funnel-num">1</div><div class="funnel-body"><strong>app.ma-societe-us.com (portail)</strong><span>Client post-création, relance annuelle</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step highlight"><div class="funnel-num">2</div><div class="funnel-body"><strong>/declaration-llc/ ($800+) ou /monter-societe-etats-unis-tarifs/</strong><span>Calendly declarations-fiscales-us</span></div></div>
+    </div>
+
+    <h3>Funnel E — Immigration (segment premium distinct)</h3>
+    <div class="funnel">
+      <div class="funnel-step"><div class="funnel-num">1</div><div class="funnel-body"><strong>/visa-e2/ via nav Immigration US</strong><span>Audience : entrepreneur voulant s'installer physiquement aux USA</span></div></div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step highlight"><div class="funnel-num">2</div><div class="funnel-body"><strong>Calendly entretien-telephonique-immigration</strong><span>Prix non affiché — sur devis. Panier moyen probablement $3k+</span></div></div>
+    </div>
+  </section>
+
+  <!-- 7. BLOG -->
+  <section class="section" id="blog">
+    <p class="section-kicker">07 — SEO & contenu</p>
+    <h2>Blog — 10 articles réels</h2>
+    <p>Contenu réel (pas de placeholder). Fréquence en chute libre : 5 articles en 2022, 1 en 2023, 3 en 2024, <strong>0 en 2025–2026</strong>.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Titre</th><th>Date</th><th>Sujet</th></tr></thead>
+        <tbody>
+          <tr><td>Operating agreement, à quoi sert-il exactement ?</td><td>Mars 2024</td><td>Juridique</td></tr>
+          <tr><td>Dissolution LLC — toutes les étapes</td><td>Fév 2024</td><td>Juridique</td></tr>
+          <tr><td>BOI FinCEN — obligations société américaine</td><td>Jan 2024</td><td>Compliance</td></tr>
+          <tr><td>Déclarations fiscales aux USA : comment sera imposée votre LLC ?</td><td>Oct 2023</td><td>Fiscal</td></tr>
+          <tr><td>United Centurion a disparu, quid de votre LLC ?</td><td>Oct 2022</td><td>Actualité</td></tr>
+          <tr><td>Comptabilité LLC — comment l'organiser</td><td>Jul 2022</td><td>Comptabilité</td></tr>
+          <tr><td>Investissement immobilier USA : Pourquoi une LLC ?</td><td>Jun 2022</td><td>Immobilier</td></tr>
+          <tr><td>Offshore vs SAS française vs Ltd irlandaise vs LLC US</td><td>Avr 2022</td><td>Comparatif</td></tr>
+          <tr><td>Visa investisseur USA E2</td><td>Mar 2022</td><td>Immigration</td></tr>
+          <tr><td>C-Corporation vs LLC : laquelle choisir ?</td><td>Jan 2022</td><td>Juridique</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 8. SOCIAL -->
+  <section class="section" id="social">
+    <p class="section-kicker">08 — Présence externe</p>
+    <h2>Social media & branding</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3 style="margin-top:0">Marque secondaire active</h3>
+        <p><strong>"Justin Gentleman des Affaires"</strong><br>Brand content parallèle actif sur YouTube, Facebook et Instagram. Christophe utilise ce persona pour le contenu éducatif/viral.</p>
+        <p style="font-size:12px;">YouTube · <code>channel/UCS51CrO8h73a3gaDmyWwmbA</code><br>
+        Facebook · <code>Justin.gentleman.des.affaires</code><br>
+        Instagram · <code>justin_gentleman_des_affaires</code></p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Absences notables</h3>
+        <p>Aucun profil <strong>LinkedIn</strong> mentionné sur le site.<br>Aucune mention nominative de Christophe sur le site principal (seulement dans le témoignage d'Antoine R.).<br>Aucune page équipe visible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. GAPS -->
+  <section class="section" id="gaps">
+    <p class="section-kicker">09 — Diagnostic</p>
+    <h2>Gaps critiques du site actuel</h2>
+    <div class="gap-list">
+      <div class="gap-item">
+        <div class="gap-icon">🔴</div>
+        <div class="gap-body">
+          <strong>Caps lock omniprésent sur tous les titres</strong>
+          <span>Ton "direct response" années 2010, incompatible avec un positionnement de cabinet premium. Signal de site vieillissant.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🔴</div>
+        <div class="gap-body">
+          <strong>1 seul témoignage (Antoine R.) sans photo ni prénom complet</strong>
+          <span>Insuffisant pour justifier $997–$1597 et lever les objections de confiance. 500 clients → 1 témoignage visible.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🔴</div>
+        <div class="gap-body">
+          <strong>Aucun prix sur la page de vente principale (/creer-llc-offre/)</strong>
+          <span>Le visiteur qui arrive sur "Notre offre" doit naviguer vers une autre page pour voir le tarif. Friction de conversion directe.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🔴</div>
+        <div class="gap-body">
+          <strong>Contact sans formulaire, email, ni téléphone publics</strong>
+          <span>Seul moyen de contact = Calendly. Un prospect qui ne veut pas prendre RDV immédiatement n'a aucune autre option → perte de lead.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🟠</div>
+        <div class="gap-body">
+          <strong>Blog à l'arrêt depuis mars 2024 (0 article en 2025–2026)</strong>
+          <span>Perte de signal SEO, signal de site non maintenu. Pourtant le blog génère du trafic froid qualifié.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🟠</div>
+        <div class="gap-body">
+          <strong>Aucune page "À propos" / équipe dans la nav</strong>
+          <span>Christophe est le principal signal de confiance (fondateur depuis 2014, expert nommé par les clients). Il est invisible dans la navigation principale.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🟠</div>
+        <div class="gap-body">
+          <strong>Expérience fragmentée sur 3 domaines</strong>
+          <span>ma-societe-us.com / formations.ma-societe-us.com / app.ma-societe-us.com. Le visiteur change d'URL pour acheter, se former, ou accéder à son espace — sans cohérence visuelle.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🟠</div>
+        <div class="gap-body">
+          <strong>Visa E2 = service orphelin dans le funnel</strong>
+          <span>Audience, intent, ticket, processus de vente totalement distincts du cœur LLC. Mélanger les deux dilue le message principal.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🟡</div>
+        <div class="gap-body">
+          <strong>Section "offshore" en position 3 sur la homepage</strong>
+          <span>Introduit le doute ("c'est illégal de mettre de l'argent à l'étranger") avant de le lever. Réduire la friction cognitive : remonter la section avantages, reléger la définition offshore.</span>
+        </div>
+      </div>
+      <div class="gap-item">
+        <div class="gap-icon">🟡</div>
+        <div class="gap-body">
+          <strong>CTA "Formation gratuite" → renvoie vers un écran de login</strong>
+          <span>Un prospect non-client qui clique sur "Formation" arrive sur un formulaire de connexion. Friction maximale pour un lead froid.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. DELTA -->
+  <section class="section" id="design-delta">
+    <p class="section-kicker">10 — Redesign</p>
+    <h2>Delta site live → nouveau design</h2>
+    <p>Ce tableau liste les écarts entre l'état du site actuel et le redesign en cours. À corriger avant la mise en production.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Point</th><th>Live actuel</th><th>Redesign actuel</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr class="compare-row-err"><td>Prix Pack LLC</td><td>$997</td><td>$1 490 (Essentiel) / $1 990 (services page)</td><td><span class="badge badge-red">Incohérence critique</span></td></tr>
+          <tr class="compare-row-err"><td>Prix Pack Premium</td><td>$1 597</td><td>$2 490</td><td><span class="badge badge-red">Incohérence critique</span></td></tr>
+          <tr class="compare-row-err"><td>4 états (nav FAQ)</td><td>NM, CO, WY, DE</td><td>/a-propos mentionne "Florida"</td><td><span class="badge badge-red">Erreur factuelle</span></td></tr>
+          <tr class="compare-row-warn"><td>Formation gratuite (lead magnet)</td><td>Présent partout (hero, nav, footer)</td><td>Absent du redesign</td><td><span class="badge badge-amber">Gap acquisition</span></td></tr>
+          <tr class="compare-row-warn"><td>Portail client</td><td>app.ma-societe-us.com — dans la nav</td><td>Absent du redesign</td><td><span class="badge badge-amber">Oubli produit</span></td></tr>
+          <tr class="compare-row-warn"><td>Achat direct en ligne</td><td>WooCommerce / formations sous-domaine</td><td>Tous les CTAs → /contact (Calendly)</td><td><span class="badge badge-amber">Modèle à clarifier</span></td></tr>
+          <tr class="compare-row-warn"><td>Visa E2</td><td>Page dédiée dans la nav</td><td>Absent du redesign</td><td><span class="badge badge-amber">À décider : garder ?</span></td></tr>
+          <tr class="compare-row-ok"><td>CTA copy</td><td>Disparate (5+ formulations)</td><td>"Entretien gratuit — 15 min" unifié</td><td><span class="badge badge-green">Amélioré</span></td></tr>
+          <tr class="compare-row-ok"><td>Tone of voice</td><td>Caps lock, DR years 2010</td><td>Éditorial, premium, tension narrative</td><td><span class="badge badge-green">Amélioré</span></td></tr>
+          <tr class="compare-row-ok"><td>Témoignages</td><td>1 seul (Antoine R.)</td><td>3 témoignages avec rôle + état</td><td><span class="badge badge-green">Amélioré</span></td></tr>
+          <tr class="compare-row-ok"><td>Palette DA</td><td>Couleurs vieillissantes, rouge, CAPS</td><td>Misty blue-gray, glass, zero rouge</td><td><span class="badge badge-green">Amélioré</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  MA SOCIETE US · Audit site live v1.0 · Avril 2026 · YES PLEASE LLC · Albuquerque, New Mexico
+</footer>
+
+</body>
+</html>
