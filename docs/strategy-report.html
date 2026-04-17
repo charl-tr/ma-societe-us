@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MA SOCIETE US — Architecture Stratégique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #060e1c;
+      --navy2:  #0a1628;
+      --blue:   #2a5090;
+      --blue-l: #4a7fd4;
+      --red:    #c0392b;
+      --white:  #ffffff;
+      --ink:    #1a2a40;
+      --muted:  #6b7a90;
+      --line:   rgba(26,42,64,0.09);
+      --bg:     #f5f7fa;
+      --sidebar-w: 260px;
+      --content-max: 820px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--navy);
+      overflow-y: auto;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-logo-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 4px;
+    }
+    .sidebar-logo-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .sidebar-nav { padding: 20px 0 40px; flex: 1; }
+
+    .nav-group-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.2);
+      padding: 16px 24px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 24px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+      cursor: pointer;
+    }
+    .nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.04); }
+    .nav-item.active { color: #fff; background: rgba(255,255,255,0.07); }
+    .nav-item .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      flex-shrink: 0;
+    }
+    .nav-item.active .dot { background: var(--blue-l); }
+
+    .sidebar-meta {
+      padding: 20px 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── Main ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      background: var(--navy);
+      padding: 80px 64px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,80,144,0.2) 0%, transparent 70%);
+      top: -200px; right: -100px;
+      pointer-events: none;
+    }
+    .cover-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .cover-tag span { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; }
+    .cover h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+    .cover h1 em { font-style: normal; color: var(--red); }
+    .cover-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cover-meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .cover-meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.2); }
+    .cover-meta-value { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); }
+
+    /* ── Content ── */
+    .content {
+      padding: 0 64px 100px;
+      max-width: calc(var(--content-max) + 128px);
+    }
+
+    /* ── Section ── */
+    .section {
+      padding-top: 72px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 0;
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-tag {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--blue);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin: 28px 0 10px;
+    }
+
+    p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 14px; }
+    p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Callout ── */
+    .callout {
+      background: rgba(42,80,144,0.06);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin: 20px 0;
+    }
+    .callout p { margin: 0; color: var(--ink); font-size: 13.5px; }
+
+    .callout-red {
+      background: rgba(192,57,43,0.05);
+      border-left-color: var(--red);
+    }
+
+    /* ── Table ── */
+    .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: var(--navy); }
+    thead th {
+      text-align: left;
+      padding: 11px 16px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--line); transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(42,80,144,0.03); }
+    tbody td { padding: 11px 16px; color: var(--muted); vertical-align: top; }
+    tbody td:first-child { color: var(--ink); font-weight: 500; }
+    tbody td strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Pill ── */
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .pill-done   { background: rgba(34,197,94,0.1);  color: #16a34a; }
+    .pill-wip    { background: rgba(234,179,8,0.1);   color: #ca8a04; }
+    .pill-todo   { background: rgba(148,163,184,0.1); color: #64748b; }
+    .pill-crit   { background: rgba(192,57,43,0.1);   color: var(--red); }
+    .pill-nav    { background: rgba(42,80,144,0.08);  color: var(--blue); }
+
+    /* ── Framework box ── */
+    .framework {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .framework-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .framework-card .num {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+    .framework-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .framework-card p { font-size: 12.5px; margin: 0; color: var(--muted); line-height: 1.6; }
+
+    /* ── Lens cards ── */
+    .lenses {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .lens-card {
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid transparent;
+    }
+    .lens-copy  { background: rgba(42,80,144,0.06);  border-color: rgba(42,80,144,0.12); }
+    .lens-visual{ background: rgba(192,57,43,0.05);   border-color: rgba(192,57,43,0.1); }
+    .lens-auth  { background: rgba(6,14,28,0.04);     border-color: rgba(6,14,28,0.08); }
+    .lens-card .lens-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 10px; }
+    .lens-copy  .lens-label { color: var(--blue); }
+    .lens-visual .lens-label { color: var(--red); }
+    .lens-auth  .lens-label { color: var(--navy); }
+    .lens-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .lens-card ul { padding-left: 14px; }
+    .lens-card li { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* ── Page card ── */
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .page-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 22px;
+      position: relative;
+    }
+    .page-card.primary { border-color: rgba(42,80,144,0.2); background: rgba(42,80,144,0.02); }
+    .page-card .page-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 8px; }
+    .page-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .page-card p { font-size: 12px; color: var(--muted); margin: 0 0 12px; line-height: 1.6; }
+    .page-card .page-goal {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-card .page-goal::before { content: '→'; }
+
+    /* ── Funnel ── */
+    .funnel {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin: 24px 0;
+    }
+    .funnel-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+    .funnel-step::after {
+      content: '↓';
+      position: absolute;
+      bottom: -14px;
+      left: 28px;
+      font-size: 11px;
+      color: var(--muted);
+      z-index: 1;
+    }
+    .funnel-step:last-child::after { display: none; }
+    .funnel-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .funnel-step.highlight .funnel-num { background: var(--red); }
+    .funnel-body { flex: 1; }
+    .funnel-title { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .funnel-desc  { font-size: 12px; color: var(--muted); }
+    .funnel-kpi   { font-size: 11px; font-weight: 700; color: var(--blue); white-space: nowrap; }
+
+    /* ── Glass doctrine ── */
+    .glass-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+    .glass-rule .gr-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .gr-ok  { background: rgba(34,197,94,0.1); }
+    .gr-no  { background: rgba(192,57,43,0.1); }
+    .gr-ctx { background: rgba(42,80,144,0.08); }
+    .glass-rule .gr-content strong { font-size: 13px; color: var(--navy); display: block; margin-bottom: 2px; }
+    .glass-rule .gr-content span   { font-size: 12px; color: var(--muted); }
+
+    /* ── Roadmap ── */
+    .roadmap-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .roadmap-row:last-child { border-bottom: none; }
+    .roadmap-row .rr-left { width: 160px; flex-shrink: 0; }
+    .roadmap-row .rr-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .roadmap-row .rr-scope { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .roadmap-row .rr-desc { font-size: 12.5px; color: var(--muted); flex: 1; line-height: 1.65; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--line); margin: 0; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .content { padding: 0 24px 80px; }
+      .cover { padding: 48px 24px; }
+      .framework, .lenses, .page-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Scroll indicator ── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: var(--sidebar-w); right: 0;
+      height: 2px;
+      background: rgba(42,80,144,0.15);
+      z-index: 200;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--blue-l));
+      width: 0%;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-label">Document stratégique</div>
+    <div class="sidebar-logo-name">MA SOCIETE US</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-group-label">Vue d'ensemble</div>
+    <a class="nav-item active" href="#context"><span class="dot"></span>Contexte & objectifs</a>
+    <a class="nav-item" href="#audience"><span class="dot"></span>Audience cible</a>
+    <a class="nav-item" href="#architecture"><span class="dot"></span>Architecture site</a>
+
+    <div class="nav-group-label">Conversion</div>
+    <a class="nav-item" href="#funnels"><span class="dot"></span>Parcours & funnels</a>
+    <a class="nav-item" href="#cta-hierarchy"><span class="dot"></span>Hiérarchie des CTAs</a>
+
+    <div class="nav-group-label">Méthodologie</div>
+    <a class="nav-item" href="#framework"><span class="dot"></span>Framework 3Q × 3L</a>
+    <a class="nav-item" href="#sections"><span class="dot"></span>Analyse par section</a>
+    <a class="nav-item" href="#glassmorphism"><span class="dot"></span>Doctrine glassmorphism</a>
+    <a class="nav-item" href="#copy"><span class="dot"></span>Principes copy</a>
+
+    <div class="nav-group-label">Exécution</div>
+    <a class="nav-item" href="#roadmap"><span class="dot"></span>Roadmap</a>
+  </nav>
+
+  <div class="sidebar-meta">
+    Mis à jour · Avril 2026<br>
+    Version 1.0 — Confidentiel
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-tag"><span></span>Architecture stratégique</div>
+    <h1>Convertir l'autorité en <em>revenus.</em></h1>
+    <p class="cover-sub">
+      Ce document définit l'architecture complète du site MA SOCIETE US —
+      structure, conversion, copywriting, design system. Chaque décision répond
+      à un objectif business mesurable.
+    </p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Projet</span>
+        <span class="cover-meta-value">MA SOCIETE US — Refonte</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Couche</span>
+        <span class="cover-meta-value">Vitrine (Layer 1/3)</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Budget</span>
+        <span class="cover-meta-value">30–35K€</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Stack</span>
+        <span class="cover-meta-value">Next.js · Tailwind · Framer Motion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ── CONTEXT ── -->
+    <div class="section" id="context">
+      <div class="section-tag">01 — Contexte</div>
+      <h2>Pourquoi ce site existe</h2>
+
+      <p>
+        MA SOCIETE US est un cabinet franco-américain spécialisé dans la création
+        et la gestion de sociétés américaines (LLC). Fondé en 2014, il opère sous
+        la marque déposée <strong>Yes Please LLC</strong> et accompagne les entrepreneurs
+        européens dans l'optimisation fiscale légale via des structures américaines.
+      </p>
+
+      <div class="callout">
+        <p><strong>Objectif business n°1 :</strong> Générer des appels de consultation gratuits (15 min)
+        qualifiés. Tout le site doit converger vers ce micro-engagement unique.</p>
+      </div>
+
+      <h3>Les 3 couches de la stratégie digitale</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Couche</th>
+              <th>Nom</th>
+              <th>Rôle</th>
+              <th>Traffic</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Layer 1</td>
+              <td><strong>La Vitrine</strong></td>
+              <td>Autorité, crédibilité, SEO, référence de marque</td>
+              <td>Organique, direct, bouche-à-oreille</td>
+              <td><span class="pill pill-wip">En cours</span></td>
+            </tr>
+            <tr>
+              <td>Layer 2</td>
+              <td><strong>L'Acquisition</strong></td>
+              <td>Landing pages dédiées pour le trafic payant (Google Ads, Meta)</td>
+              <td>Paid — NE JAMAIS croiser avec Layer 1</td>
+              <td><span class="pill pill-todo">À venir</span></td>
+            </tr>
+            <tr>
+              <td>Layer 3</td>
+              <td><strong>Le CRM</strong></td>
+              <td>Espace client, suivi, upsell, fidélisation</td>
+              <td>Interne — clients existants</td>
+              <td><span class="pill pill-todo">À venir</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-red">
+        <p><strong>Règle absolue :</strong> Le trafic payant n'atterrit jamais sur la vitrine.
+        Les campagnes ont leurs propres landing pages optimisées pour la conversion directe.
+        La vitrine sert l'image et le SEO — pas la performance publicitaire.</p>
+      </div>
+    </div>
+
+    <!-- ── AUDIENCE ── -->
+    <div class="section" id="audience">
+      <div class="section-tag">02 — Audience</div>
+      <h2>À qui on parle</h2>
+
+      <p>La précision de l'audience définit tout : le copy, le design, les arguments, le ton.
+      Un site qui parle à tout le monde ne parle à personne.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>Profil</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Âge</td><td>32–52 ans</td></tr>
+            <tr><td>Revenus</td><td>CA 80K–500K€/an</td></tr>
+            <tr><td>Statut</td><td>Consultant, freelance, fondateur SaaS, e-commerce, créateur de contenu</td></tr>
+            <tr><td>Géographie</td><td>France principalement, Belgique, Suisse, Monaco</td></tr>
+            <tr><td>Douleur</td><td>Charge fiscale perçue comme disproportionnée et bloquante pour leur croissance</td></tr>
+            <tr><td>Niveau d'info</td><td>A entendu parler de la LLC, connaît vaguement le principe, cherche la preuve que c'est viable</td></tr>
+            <tr><td>Méfiance</td><td>Forte — c'est du légal/fiscal. La légitimité doit être prouvée, pas affirmée.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Les 3 objections à détruire</h3>
+
+      <div class="glass-rule">
+        <div class="gr-icon gr-no">⚖️</div>
+        <div class="gr-content">
+          <strong>Objection #1 — "C'est légal ?"</strong>
+          <span>La plus bloquante. Doit être adressée dans le Hero et dans les Value Props. Réponse : "100% légal · Conforme OCDE · Exercé depuis 2014."</span>
+        </div>
+      </div>
+
+      <div class="glass-rule">
+        <div class="gr-icon gr-no">🤔</div>
+        <div class="gr-content">
+          <strong>Objection #2 — "Est-ce que ces gens sont vraiment compétents ?"</strong>
+          <span>Réponse par la spécificité : chiffres précis, noms d'états, délais exacts, partenaires nommés (Mercury, Relay, Secretary of State).</span>
+        </div>
+      </div>
+
+      <div class="glass-rule">
+        <div class="gr-icon gr-no">💡</div>
+        <div class="gr-content">
+          <strong>Objection #3 — "Est-ce que ça vaut le coup pour MOI ?"</strong>
+          <span>Réponse par la personnalisation : le Savings Estimator transforme "0% d'impôts" en "+39 000€/an pour toi". L'ancrage chiffré déclenche la conversion.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ARCHITECTURE ── -->
+    <div class="section" id="architecture">
+      <div class="section-tag">03 — Architecture</div>
+      <h2>Structure complète du site</h2>
+
+      <p>Chaque page a un rôle unique dans le parcours. Pas de pages orphelines, pas de contenu sans objectif.</p>
+
+      <h3>Pages primaires — conversion directe</h3>
+      <div class="page-grid">
+        <div class="page-card primary">
+          <div class="page-tag">Homepage</div>
+          <h4>/</h4>
+          <p>Porte d'entrée. Capte l'attention, pose l'autorité, qualifie le visiteur, déclenche le premier clic.</p>
+          <div class="page-goal">Déclencher l'appel gratuit</div>
+        </div>
+        <div class="page-card primary">
+          <div class="page-tag">Contact</div>
+          <h4>/contact</h4>
+          <p>Page de conversion finale. Formulaire court, réassurance, disponibilité, zéro friction.</p>
+          <div class="page-goal">Obtenir le formulaire rempli</div>
+        </div>
+        <div class="page-card primary">
+          <div class="page-tag">Créer une LLC</div>
+          <h4>/creer-llc</h4>
+          <p>Page éducative + comparative. Compare les 4 états, explique le processus, pousse vers le contact.</p>
+          <div class="page-goal">Qualifier l'intention → Contact</div>
+        </div>
+        <div class="page-card primary">
+          <div class="page-tag">Tarifs</div>
+          <h4>/tarifs</h4>
+          <p>Page de décision. Présente les offres de façon claire. Diminue la friction financière.</p>
+          <div class="page-goal">Lever l'objection prix → Contact</div>
+        </div>
+      </div>
+
+      <h3>Pages secondaires — autorité & SEO</h3>
+      <div class="page-grid">
+        <div class="page-card">
+          <div class="page-tag">Services</div>
+          <h4>/services/*</h4>
+          <p>Pack LLC · Comptabilité · Fiscalité · Compte bancaire. Détail de l'offre, preuve d'expertise.</p>
+          <div class="page-goal">Renforcer la crédibilité</div>
+        </div>
+        <div class="page-card">
+          <div class="page-tag">À propos</div>
+          <h4>/a-propos</h4>
+          <p>L'équipe, l'histoire, les partenaires. Humanise le cabinet. Répond à "qui sont ces gens ?"</p>
+          <div class="page-goal">Construire la confiance humaine</div>
+        </div>
+        <div class="page-card">
+          <div class="page-tag">Blog</div>
+          <h4>/blog</h4>
+          <p>Contenu SEO long-terme. Capture les recherches informatives. Nourrit l'autorité organique.</p>
+          <div class="page-goal">Trafic SEO + autorité thématique</div>
+        </div>
+        <div class="page-card">
+          <div class="page-tag">Légal</div>
+          <h4>/mentions-legales · /cgv · /confidentialite</h4>
+          <p>Conformité RGPD et légale. Signal de sérieux. Pas de design fancy nécessaire.</p>
+          <div class="page-goal">Conformité + réassurance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FUNNELS ── -->
+    <div class="section" id="funnels">
+      <div class="section-tag">04 — Conversion</div>
+      <h2>Parcours & funnels</h2>
+
+      <p>Trois types de visiteurs arrivent sur le site. Trois parcours différents. Un seul objectif final.</p>
+
+      <h3>Parcours 1 — Le décideur rapide (20% des visiteurs)</h3>
+      <p>Connaît déjà la LLC, cherche le prestataire. Veut être rassuré rapidement et agir.</p>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="funnel-num">1</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Hero — lecture du headline</div>
+            <div class="funnel-desc">Valide que c'est bien de la LLC française → continue</div>
+          </div>
+          <div class="funnel-kpi">&lt; 5 sec</div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-num">2</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Stats bar — scan des chiffres</div>
+            <div class="funnel-desc">10 ans d'expertise, 500+ clients → signal de crédibilité suffisant</div>
+          </div>
+          <div class="funnel-kpi">10 sec</div>
+        </div>
+        <div class="funnel-step highlight">
+          <div class="funnel-num">3</div>
+          <div class="funnel-body">
+            <div class="funnel-title">CTA Hero — clic direct</div>
+            <div class="funnel-desc">Entretien gratuit 15 min → formulaire contact</div>
+          </div>
+          <div class="funnel-kpi">Conversion</div>
+        </div>
+      </div>
+
+      <h3>Parcours 2 — Le chercheur qualifié (50% des visiteurs)</h3>
+      <p>Intéressé mais pas encore convaincu. Doit être éduqué et personnalisé.</p>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="funnel-num">1</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Hero → Value Props</div>
+            <div class="funnel-desc">Comprend les avantages de la LLC vs SARL</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-num">2</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Savings Estimator</div>
+            <div class="funnel-desc">Personnalise l'économie potentielle (+39K€/an pour lui) → moment émotionnel</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-num">3</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Teaser cards → /creer-llc</div>
+            <div class="funnel-desc">Explore les juridictions et le processus</div>
+          </div>
+        </div>
+        <div class="funnel-step highlight">
+          <div class="funnel-num">4</div>
+          <div class="funnel-body">
+            <div class="funnel-title">CTA Final ou Testimonials → Contact</div>
+            <div class="funnel-desc">Convaincu par les preuves sociales + processus clair</div>
+          </div>
+          <div class="funnel-kpi">Conversion</div>
+        </div>
+      </div>
+
+      <h3>Parcours 3 — Le sceptique informé (30% des visiteurs)</h3>
+      <p>A des doutes légaux ou fiscaux. Doit être rassuré par la légitimité et l'expertise.</p>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="funnel-num">1</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Homepage → /a-propos</div>
+            <div class="funnel-desc">Cherche qui est derrière le cabinet, depuis combien de temps</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-num">2</div>
+          <div class="funnel-body">
+            <div class="funnel-title">/blog → Articles thématiques</div>
+            <div class="funnel-desc">Valide l'expertise sur des sujets fiscaux précis</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-num">3</div>
+          <div class="funnel-body">
+            <div class="funnel-title">Testimonials (spécifiques)</div>
+            <div class="funnel-desc">Pairs dans la même situation = preuve irréfutable</div>
+          </div>
+        </div>
+        <div class="funnel-step highlight">
+          <div class="funnel-num">4</div>
+          <div class="funnel-body">
+            <div class="funnel-title">/contact direct</div>
+            <div class="funnel-desc">Enfin convaincu de la légitimité → appel pour validation</div>
+          </div>
+          <div class="funnel-kpi">Conversion</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CTA HIERARCHY ── -->
+    <div class="section" id="cta-hierarchy">
+      <div class="section-tag">05 — CTAs</div>
+      <h2>Hiérarchie des appels à l'action</h2>
+
+      <p>Chaque page ne peut avoir qu'un seul CTA primaire. Les CTAs secondaires accompagnent, ils ne distraient pas.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Niveau</th><th>Label</th><th>Usage</th><th>Style</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pill pill-crit">Primaire</span></td>
+              <td><strong>Entretien gratuit — 15 min</strong></td>
+              <td>Hero, CTA Final — une seule fois par page max</td>
+              <td>Rouge solid, pleine largeur mobile</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-nav">Secondaire</span></td>
+              <td><strong>Voir comment ça marche →</strong></td>
+              <td>Accompagne le CTA primaire pour les hésitants</td>
+              <td>Ghost/transparent, border subtil</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-nav">Tertiaire</span></td>
+              <td><strong>Comparer les états →</strong></td>
+              <td>Navigation vers pages de contenu</td>
+              <td>Lien texte avec arrow</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-done">Nav</span></td>
+              <td><strong>Prendre rendez-vous</strong></td>
+              <td>Header — toujours visible</td>
+              <td>Navy solid, header uniquement</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p><strong>Règle :</strong> Ne jamais avoir deux CTAs primaires sur la même page au même niveau de scroll. Le visiteur doit toujours savoir quoi faire — pas choisir entre deux actions.</p>
+      </div>
+    </div>
+
+    <!-- ── FRAMEWORK ── -->
+    <div class="section" id="framework">
+      <div class="section-tag">06 — Méthodologie</div>
+      <h2>Framework 3 Questions × 3 Lentilles</h2>
+
+      <p>Avant de toucher le code d'une section ou d'une page, répondre aux 3 questions. Ensuite passer la réponse dans les 3 lentilles. Sans ce filtre : on fait du design. Avec ce filtre : on fait de la performance.</p>
+
+      <h3>Les 3 questions</h3>
+      <div class="framework">
+        <div class="framework-card">
+          <div class="num">01 — Objectif</div>
+          <h4>Que veut-on obtenir ?</h4>
+          <p>Quelle action précise le visiteur doit-il prendre à cet endroit de la page ? Une seule réponse possible.</p>
+        </div>
+        <div class="framework-card">
+          <div class="num">02 — Pourquoi</div>
+          <h4>Pourquoi c'est critique ici ?</h4>
+          <p>À quel stade du parcours se trouve-t-il ? Quelle objection est active dans son esprit en ce moment ?</p>
+        </div>
+        <div class="framework-card">
+          <div class="num">03 — Comment</div>
+          <h4>Par quel mécanisme ?</h4>
+          <p>Quel levier précis (émotionnel, rationnel, social) active la décision ? Pas "une belle section" — un mécanisme.</p>
+        </div>
+      </div>
+
+      <h3>Les 3 lentilles d'exécution</h3>
+      <div class="lenses">
+        <div class="lens-card lens-copy">
+          <div class="lens-label">Lentille 1</div>
+          <h4>Copywriting</h4>
+          <ul>
+            <li>La promesse est-elle chiffrée et spécifique ?</li>
+            <li>Le visiteur se reconnaît-il en 3 secondes ?</li>
+            <li>Les objections implicites sont-elles adressées ?</li>
+            <li>Le CTA est-il possessif et actionnable ?</li>
+            <li>Y a-t-il de la tension dans chaque headline ?</li>
+          </ul>
+        </div>
+        <div class="lens-card lens-visual">
+          <div class="lens-label">Lentille 2</div>
+          <h4>Visual Narrative</h4>
+          <ul>
+            <li>L'œil est-il guidé vers l'action ?</li>
+            <li>La section crée-t-elle un moment émotionnel distinct ?</li>
+            <li>Le contraste inter-sections maintient-il l'attention ?</li>
+            <li>Les animations servent-elles la narration ?</li>
+            <li>Le visiteur sait-il intuitivement où regarder ensuite ?</li>
+          </ul>
+        </div>
+        <div class="lens-card lens-auth">
+          <div class="lens-label">Lentille 3</div>
+          <h4>Autorité High-End</h4>
+          <ul>
+            <li>Chiffres précis (≠ chiffres ronds = marketing)</li>
+            <li>Noms réels, références vérifiables</li>
+            <li>Craft : spacing, typographie, micro-détails</li>
+            <li>Absence de promesses non sourcées</li>
+            <li>Sobriété comme signal de confiance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTIONS ── -->
+    <div class="section" id="sections">
+      <div class="section-tag">07 — Analyse homepage</div>
+      <h2>Chaque section sous le microscope</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Section</th><th>Objectif</th><th>Mécanisme clé</th><th>Action copy</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Hero</strong></td>
+              <td>Stopper, promettre, déclencher</td>
+              <td>Split layout + "0%" panel + CTA rouge</td>
+              <td>Ajouter ciblage persona + "100% légal"</td>
+              <td><span class="pill pill-wip">En cours</span></td>
+            </tr>
+            <tr>
+              <td><strong>Stats bar</strong></td>
+              <td>Valider la promesse en 5s</td>
+              <td>Chiffres géants sur blanc pur</td>
+              <td>"Experts franco-américains" + impact €</td>
+              <td><span class="pill pill-wip">En cours</span></td>
+            </tr>
+            <tr>
+              <td><strong>Value Props</strong></td>
+              <td>Détruire l'alternative SARL</td>
+              <td>Ghost numbers + dark bg + tension copy</td>
+              <td>Ajouter "100% légal" · Plus de tension</td>
+              <td><span class="pill pill-wip">En cours</span></td>
+            </tr>
+            <tr>
+              <td><strong>Savings Estimator</strong></td>
+              <td>Personnaliser la promesse</td>
+              <td>Chiffre personnel = ancrage émotionnel</td>
+              <td>Titre → "Votre note fiscale vs votre LLC"</td>
+              <td><span class="pill pill-done">Fait</span></td>
+            </tr>
+            <tr>
+              <td><strong>Teaser Cards</strong></td>
+              <td>Capturer 2 profils d'acheteurs</td>
+              <td>Card recherche + Card achat — contraste fort</td>
+              <td>Card 1 plus provocateur sur le coût du mauvais choix</td>
+              <td><span class="pill pill-done">Fait</span></td>
+            </tr>
+            <tr>
+              <td><strong>States Map</strong></td>
+              <td>Démontrer l'expertise geo</td>
+              <td>Interactivité + spécificité par état</td>
+              <td>Nommer les avantages uniques (NM=anonymat, WY=crypto)</td>
+              <td><span class="pill pill-done">Fait</span></td>
+            </tr>
+            <tr>
+              <td><strong>Process (4 étapes)</strong></td>
+              <td>Désarmer "comment ça marche"</td>
+              <td>Timeline animée + délais précis</td>
+              <td>Copy actuel solide</td>
+              <td><span class="pill pill-done">Fait</span></td>
+            </tr>
+            <tr>
+              <td><strong>Testimonials</strong></td>
+              <td>Proof sociale chiffrée</td>
+              <td>Pairs + montants + contexte métier</td>
+              <td>Ajouter contexte TNS/statut + avant/après</td>
+              <td><span class="pill pill-done">Fait</span></td>
+            </tr>
+            <tr>
+              <td><strong>CTA Final</strong></td>
+              <td>Dernier filet de conversion</td>
+              <td>Photo forte + faible engagement</td>
+              <td>Copy actuel solide</td>
+              <td><span class="pill pill-done">Fait</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── GLASSMORPHISM ── -->
+    <div class="section" id="glassmorphism">
+      <div class="section-tag">08 — Design System</div>
+      <h2>Doctrine glassmorphism</h2>
+
+      <p>Le glassmorphism n'est pas un style — c'est un outil narratif. Utilisé partout, il perd tout sens. Utilisé stratégiquement, il crée les moments premium de la page.</p>
+
+      <div class="callout">
+        <p><strong>Règle d'or :</strong> Le glass n'existe que sur fond fort. Fond dark/gradient + glass = premium. Fond blanc/clair + glass = invisible.</p>
+      </div>
+
+      <div class="glass-rule">
+        <div class="gr-icon gr-ok">✓</div>
+        <div class="gr-content">
+          <strong>Hero "0%" panel</strong>
+          <span>backdrop-blur 24px · bg white/8% · border chrome animé · shadow layered profonde. C'est le premier signal premium — doit être impeccable.</span>
+        </div>
+      </div>
+      <div class="glass-rule">
+        <div class="gr-icon gr-ok">✓</div>
+        <div class="gr-content">
+          <strong>Savings Estimator card</strong>
+          <span>backdrop-blur 32px sur gradient bg · border lumineux · LE moment glassmorphism de la page. Ici le visiteur reçoit son chiffre personnel.</span>
+        </div>
+      </div>
+      <div class="glass-rule">
+        <div class="gr-icon gr-ctx">◐</div>
+        <div class="gr-content">
+          <strong>Value Props — hover uniquement</strong>
+          <span>Au hover, border bleu s'allume. Pas de glass permanent — les cartes dark doivent avoir de la solidité.</span>
+        </div>
+      </div>
+      <div class="glass-rule">
+        <div class="gr-icon gr-ctx">◐</div>
+        <div class="gr-content">
+          <strong>States Map cards</strong>
+          <span>Glass existant sur fond clair — renforcer le chrome border et augmenter le blur pour plus de définition.</span>
+        </div>
+      </div>
+      <div class="glass-rule">
+        <div class="gr-icon gr-no">✗</div>
+        <div class="gr-content">
+          <strong>Boutons CTA — jamais de glass</strong>
+          <span>Les éléments d'action doivent être solides et sans ambiguïté. Glass = hésitation. Bouton = certitude.</span>
+        </div>
+      </div>
+      <div class="glass-rule">
+        <div class="gr-icon gr-no">✗</div>
+        <div class="gr-content">
+          <strong>Stats bar — garder blanc pur</strong>
+          <span>Le contraste blanc/chiffres navy est sa force. Ne pas glassmorphiser — casser ce contraste serait une erreur.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COPY ── -->
+    <div class="section" id="copy">
+      <div class="section-tag">09 — Copy</div>
+      <h2>Principes de copywriting</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Principe</th><th>Règle</th><th>Anti-pattern</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Spécificité</strong></td>
+              <td>Chiffres précis : "14 jours", "39 000€/an", "11 experts"</td>
+              <td>"Rapide", "économique", "de qualité"</td>
+            </tr>
+            <tr>
+              <td><strong>Tension</strong></td>
+              <td>Chaque headline doit avoir un enjeu ou une douleur latente</td>
+              <td>"Nos services", "Notre approche", "Découvrez"</td>
+            </tr>
+            <tr>
+              <td><strong>Ciblage</strong></td>
+              <td>Le visiteur doit se reconnaître en 3 secondes</td>
+              <td>Copy générique qui parle à tout le monde</td>
+            </tr>
+            <tr>
+              <td><strong>Possessif</strong></td>
+              <td>CTAs possessifs : "mon", "ma", "votre"</td>
+              <td>"En savoir plus", "Cliquez ici", "Contactez-nous"</td>
+            </tr>
+            <tr>
+              <td><strong>Preuve</strong></td>
+              <td>Chaque claim doit être étayé (chiffre, témoignage, partenaire)</td>
+              <td>"Leader", "Meilleur", "Expert" sans preuve</td>
+            </tr>
+            <tr>
+              <td><strong>Légalité</strong></td>
+              <td>"100% légal · Conforme OCDE · Depuis 2014" visible en above-the-fold</td>
+              <td>Promettre l'optimisation sans adresser la légitimité</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── ROADMAP ── -->
+    <div class="section" id="roadmap">
+      <div class="section-tag">10 — Exécution</div>
+      <h2>Roadmap</h2>
+
+      <h3>Homepage — chantiers actifs</h3>
+      <div style="margin: 16px 0 32px;">
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Hero glassmorphism</div>
+            <span class="pill pill-wip">En cours</span>
+          </div>
+          <div class="rr-desc">Panel "0%" en glass premium : blur 24px, chrome border animé, shadow layered. C'est le premier signal premium — priorité absolue.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Stats bar copy</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Remplacer "professionnels dédiés" → "experts franco-américains". Ajouter stat d'impact financier client.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Value Props copy</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Ajouter tension dans les sous-textes. "100% légal" visible dans la section. Copy actuel trop descriptif.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">Estimator bg</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Remplacer le fond gris clair par un gradient dark → glass card avec blur 32px. Moment émotionnel premium.</div>
+        </div>
+      </div>
+
+      <h3>Pages à construire</h3>
+      <div style="margin: 16px 0;">
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">/creer-llc</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Page éducative comparative — 4 états, processus, FAQ. Capture les chercheurs qualifiés.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">/tarifs</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">3 offres, tableau comparatif, garanties, FAQ prix. Diminuer la friction financière.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">/contact</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Formulaire court (3 champs max), réassurance, Calendly ou formulaire natif, confirmation immédiate.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">/a-propos</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">Christophe + équipe, histoire du cabinet, partenaires (Mercury, Relay, Secretary of State). Humaniser l'autorité.</div>
+        </div>
+        <div class="roadmap-row">
+          <div class="rr-left">
+            <div class="rr-name">/services/*</div>
+            <span class="pill pill-todo">À faire</span>
+          </div>
+          <div class="rr-desc">4 pages services : LLC, Comptabilité, Fiscalité, Compte bancaire. Contenu SEO + conversion.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+
+  // Active nav item
+  const sections = document.querySelectorAll('.section[id]');
+  const navItems = document.querySelectorAll('.nav-item[href^="#"]');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
