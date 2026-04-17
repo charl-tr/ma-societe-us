@@ -136,4 +136,10 @@ Ce site est la **Couche 1 — La Vitrine** (rapport autopsie Benjamin).
 
 ---
 
-*Dernière mise à jour : 16 avril 2026*
+---
+
+## Compléments méthodologiques
+
+→ [`performance-framework.md`](performance-framework.md) — Segmentation par section, 3 objectifs × 3 lentilles (Copywriting / Visual Narrative / Autorité), doctrine glassmorphism.
+
+*Dernière mise à jour : 17 avril 2026*
