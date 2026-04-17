@@ -136,41 +136,74 @@ export function Hero() {
             </motion.p>
           </div>
 
-          {/* Right — big stat panel (desktop only) */}
+          {/* Right — glassmorphism stat panel (desktop only) */}
           <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.7, ease }}
-            className="hidden lg:flex flex-col gap-1 shrink-0"
+            initial={{ opacity: 0, x: 40, scale: 0.97 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.8, ease }}
+            className="hidden lg:flex flex-col gap-2 shrink-0"
           >
-            {/* Big "0%" callout */}
+            {/* Big "0%" — glass premium */}
             <div
-              className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-8 xl:p-10 text-center"
-              style={{ minWidth: "260px" }}
+              className="relative rounded-2xl text-center overflow-hidden"
+              style={{
+                minWidth: "280px",
+                background: "linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 100%)",
+                backdropFilter: "blur(28px)",
+                WebkitBackdropFilter: "blur(28px)",
+                border: "1px solid rgba(255,255,255,0.13)",
+                boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.12) inset, 0 -1px 0 rgba(0,0,0,0.2) inset",
+                padding: "36px 40px 28px",
+              }}
             >
+              {/* Chrome top shine */}
+              <div
+                className="absolute inset-x-0 top-0 h-px"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.4) 60%, transparent)" }}
+              />
+              {/* Subtle inner glow */}
+              <div
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 60%)" }}
+              />
               <p
-                className="text-[80px] xl:text-[100px] font-bold leading-none tracking-[-0.05em] text-white"
-                style={{ fontFamily: "var(--font-heading)" }}
+                className="relative text-[88px] xl:text-[108px] font-bold leading-none tracking-[-0.05em] text-white"
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  textShadow: "0 2px 20px rgba(255,255,255,0.1)",
+                }}
               >
-                0<span className="text-[#e84040]">%</span>
+                0<span style={{ color: "#e84040", textShadow: "0 4px 24px rgba(232,64,64,0.5)" }}>%</span>
               </p>
-              <p className="text-[13px] text-white/35 mt-2 tracking-wide uppercase">d&apos;impôts aux USA</p>
+              <p className="relative text-[11px] text-white/40 mt-3 tracking-[0.22em] uppercase">d&apos;impôts aux USA</p>
+              {/* Legal badge */}
+              <div className="relative mt-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
+                <span className="text-[10px] text-white/35 tracking-wide">100% légal · Conforme OCDE</span>
+              </div>
             </div>
 
-            {/* Micro stats */}
-            <div className="grid grid-cols-2 gap-1 mt-1">
+            {/* Micro stats — glass */}
+            <div className="grid grid-cols-2 gap-2">
               {[
                 { v: "2 sem.", l: "Création" },
                 { v: "4", l: "Juridictions" },
                 { v: "500+", l: "Clients" },
-                { v: "100%", l: "Légal" },
+                { v: "10 ans", l: "Expertise" },
               ].map(({ v, l }) => (
                 <div
                   key={l}
-                  className="rounded-xl border border-white/[0.05] bg-white/[0.025] p-4 text-center"
+                  className="rounded-xl p-4 text-center relative overflow-hidden"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.08) inset",
+                  }}
                 >
                   <p className="text-[22px] font-bold text-white leading-none" style={{ fontFamily: "var(--font-heading)" }}>{v}</p>
-                  <p className="text-[10px] text-white/25 mt-1 uppercase tracking-[0.15em]">{l}</p>
+                  <p className="text-[10px] text-white/30 mt-1 uppercase tracking-[0.15em]">{l}</p>
                 </div>
               ))}
             </div>
