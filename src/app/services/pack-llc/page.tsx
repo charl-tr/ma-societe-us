@@ -50,29 +50,39 @@ export default function PackLLCPage() {
       />
 
       {/* Offer details — light section */}
-      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[120px] lg:py-[180px]">
-        <div className="px-6 lg:px-10">
-          <p className="text-[13px] uppercase tracking-[0.15em] text-[#0F0E0D]/40 mb-16">
+      <section className="py-[120px] lg:py-[180px] text-[#0e1e38]" style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e8eef6 40%, #f2f6fb 100%)" }}>
+        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+          <p className="text-[13px] uppercase tracking-[0.15em] text-[#0e1e38]/35 mb-16">
             Ce qui est inclus
           </p>
 
-          <div className="space-y-20">
+          <div className="space-y-16">
             {OFFER_DETAILS.map((item) => (
-              <div key={item.title} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
+              <div
+                key={item.title}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 rounded-2xl p-8 lg:p-10"
+                style={{
+                  background: "rgba(255,255,255,0.72)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255,255,255,0.88)",
+                  boxShadow: "0 4px 24px rgba(80,120,180,0.07)",
+                }}
+              >
                 <h3
-                  className="text-[clamp(1.6rem,3vw,36px)] font-normal leading-tight tracking-tight"
+                  className="text-[clamp(1.6rem,3vw,36px)] font-semibold leading-tight tracking-[-0.02em] text-[#0e1e38]"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {item.title}
                 </h3>
                 <div>
-                  <p className="text-[16px] leading-relaxed text-[#0F0E0D]/60 mb-6">
+                  <p className="text-[16px] leading-relaxed text-[#0e1e38]/55 mb-6">
                     {item.description}
                   </p>
                   <ul className="space-y-3">
                     {item.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-3 text-[15px] text-[#0F0E0D]/70">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#FAFAF9] border border-[#0F0E0D]/20 flex-shrink-0" />
+                      <li key={b} className="flex items-start gap-3 text-[15px] text-[#0e1e38]/65">
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#2a5090] flex-shrink-0" />
                         {b}
                       </li>
                     ))}
@@ -88,16 +98,23 @@ export default function PackLLCPage() {
       <ScrollTimeline />
 
       {/* CTA */}
-      <section className="bg-[#EDF1F6] text-[#1a2a40] py-[120px] lg:py-[144px] border-t border-[#1a2a40]/[0.06]">
+      <section className="py-[120px] lg:py-[144px] border-t border-[#0e1e38]/[0.06]" style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e4ecf6 40%, #f2f6fb 100%)" }}>
         <div className="px-6 lg:px-10 max-w-2xl mx-auto text-center">
           <h2
-            className="text-[clamp(2rem,4.5vw,48px)] leading-[1.1] font-normal tracking-tight"
+            className="text-[clamp(2rem,4.5vw,48px)] leading-[1.1] font-semibold tracking-[-0.025em] text-[#0e1e38]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             N&apos;hésitez pas à nous contacter pour toutes questions.
           </h2>
           <div className="mt-10">
-            <a href="/contact" className="inline-flex items-center bg-[#FAFAF9] text-[#0F0E0D] px-8 py-4 rounded-full text-[15px] font-medium hover:bg-[#F2F1F0] transition-colors">
+            <a
+              href="/contact"
+              className="inline-flex items-center px-8 py-4 rounded-full text-[15px] font-semibold text-white transition-all"
+              style={{
+                background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
+                boxShadow: "0 4px 20px rgba(42,80,144,0.30)",
+              }}
+            >
               Réservez votre entretien découverte
             </a>
           </div>

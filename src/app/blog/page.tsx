@@ -37,9 +37,9 @@ export default function BlogPage() {
         subtitle="Guides, analyses et actualités pour les entrepreneurs francophones aux États-Unis."
       />
 
-      <section className="bg-[#FAFAF9] text-[#0F0E0D] py-[120px] lg:py-[180px]">
-        <div className="px-6 lg:px-10">
-          <div className="divide-y divide-[#0F0E0D]/[0.06]">
+      <section className="py-[120px] lg:py-[180px] text-[#0e1e38]" style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e8eef6 40%, #f2f6fb 100%)" }}>
+        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+          <div className="divide-y divide-[#0e1e38]/[0.06]">
             {PLACEHOLDER_POSTS.map((post) => (
               <article
                 key={post.title}
@@ -48,19 +48,19 @@ export default function BlogPage() {
                 <a href="#" className="block">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
                     <div className="lg:col-span-2">
-                      <span className="text-[13px] text-[#0F0E0D]/30">{post.date}</span>
-                      <span className="block text-[12px] uppercase tracking-wider text-[#0F0E0D]/40 mt-1">
+                      <span className="text-[13px] text-[#0e1e38]/35">{post.date}</span>
+                      <span className="block text-[12px] uppercase tracking-wider text-[#2a5090]/60 font-medium mt-1">
                         {post.category}
                       </span>
                     </div>
                     <div className="lg:col-span-10">
                       <h2
-                        className="text-[clamp(1.3rem,2.5vw,28px)] font-normal text-[#0F0E0D] group-hover:text-[#0F0E0D]/70 transition-colors duration-300 tracking-tight"
+                        className="text-[clamp(1.3rem,2.5vw,28px)] font-semibold text-[#0e1e38] group-hover:text-[#2a5090] transition-colors duration-300 tracking-[-0.02em]"
                         style={{ fontFamily: "var(--font-heading)" }}
                       >
                         {post.title}
                       </h2>
-                      <p className="mt-3 text-[15px] text-[#0F0E0D]/50 leading-relaxed max-w-2xl">
+                      <p className="mt-3 text-[15px] text-[#0e1e38]/50 leading-relaxed max-w-2xl">
                         {post.excerpt}
                       </p>
                     </div>
