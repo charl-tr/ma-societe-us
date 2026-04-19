@@ -607,45 +607,40 @@ body { min-height: 100vh; }
 .de-badge { fill: #ebd4e0; stroke: #fff; stroke-width: 1.5; rx: 8; }
 .de-badge-txt { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 800; fill: #9a3a58; pointer-events: none; text-anchor: middle; }
 
-/* ── HOMEPAGE MAP — dark theme overrides ── */
+/* ── HOMEPAGE MAP — light elegant theme ── */
 .hp-map-wrap {
-  border-radius: 18px; overflow: hidden;
-  box-shadow: 0 24px 72px rgba(10,18,36,.45), 0 2px 0 rgba(255,255,255,.15) inset;
-  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 12px 48px rgba(42,80,144,.10), 0 2px 0 rgba(255,255,255,.9) inset;
+  border: 1px solid rgba(180,210,235,.35);
+  background: #eef4fb;
   position: relative;
 }
-/* Non-key states */
-#us-map-hp .s {
-  fill: #1e3252; stroke: #0e1c32; stroke-width: 0.9;
-  transition: opacity .28s;
-}
-/* Key states default */
+#us-map-hp { display: block; width: 100%; }
+/* US silhouette — pointer events off */
+#us-map-hp #us-sil { pointer-events: none; }
+/* Internal grid lines */
+#us-map-hp .gl { pointer-events: none; }
+/* Key states */
 #us-map-hp .key {
-  stroke: rgba(255,255,255,.28); stroke-width: 1.8;
   cursor: pointer; transform-box: fill-box; transform-origin: center;
-  transition: fill .25s ease, filter .25s ease, opacity .28s ease, transform .3s cubic-bezier(.34,1.4,.64,1), stroke-opacity .25s;
+  transition: fill .25s ease, filter .25s ease, opacity .28s ease, transform .32s cubic-bezier(.34,1.4,.64,1);
 }
-#us-map-hp .key:hover { stroke-opacity: 0.7; }
-/* has-hover state: dim others */
-#us-map-hp.has-hover .s { opacity: 0.35; }
-#us-map-hp.has-hover .key { opacity: 0.22; transform: scale(0.98); }
+#us-map-hp.has-hover .key { opacity: 0.28; transform: scale(0.98); }
 #us-map-hp.has-hover .key.active {
-  opacity: 1 !important; transform: scale(1.08);
-  stroke: rgba(255,255,255,.7) !important; stroke-width: 2.2 !important;
+  opacity: 1 !important; transform: scale(1.07);
 }
 /* Key state fills */
-#us-map-hp .wy { fill: #5a3490; }
-#us-map-hp .wy.active { fill: #9258d8; filter: drop-shadow(0 0 18px rgba(146,88,216,.8)); }
-#us-map-hp .co { fill: #186840; }
-#us-map-hp .co.active { fill: #28c270; filter: drop-shadow(0 0 18px rgba(40,194,112,.7)); }
-#us-map-hp .nm { fill: #1a3e90; }
-#us-map-hp .nm.active { fill: #3870e8; filter: drop-shadow(0 0 18px rgba(56,112,232,.8)); }
-#us-map-hp .de { fill: #822040; }
-#us-map-hp .de.active { fill: #d84478; filter: drop-shadow(0 0 18px rgba(216,68,120,.7)); }
-/* Labels on dark background */
-#us-map-hp .map-key-lbl { fill: rgba(255,255,255,.55); font-size: 11px; }
-#us-map-hp.has-hover .map-key-lbl { opacity: .15; }
-#us-map-hp .de-line { stroke: rgba(216,68,120,.55); }
+#us-map-hp .wy { fill: rgba(114,76,172,.32); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
+#us-map-hp .wy.active { fill: #7a50b8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(114,76,172,.45)); }
+#us-map-hp .co { fill: rgba(24,108,60,.28); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
+#us-map-hp .co.active { fill: #1a8a50; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(24,138,80,.42)); }
+#us-map-hp .nm { fill: rgba(38,72,158,.28); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
+#us-map-hp .nm.active { fill: #2a5cc8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(42,92,200,.42)); }
+#us-map-hp .de { fill: rgba(130,34,60,.28); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
+#us-map-hp .de.active { fill: #aa3058; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(160,48,80,.42)); }
+/* Key labels */
+#us-map-hp .kl { font-family: 'Space Grotesk',sans-serif; font-size: 11px; font-weight: 800; text-anchor: middle; pointer-events: none; }
+#us-map-hp.has-hover .kl { opacity: .12; }
 
 /* Detail panel — card popup feel */
 .hp-detail {
@@ -1292,53 +1287,100 @@ body { min-height: 100vh; }
           <!-- LEFT: MAP -->
           <div class="hp-map-col">
             <div class="hp-map-wrap">
-              <svg class="us-map" id="us-map-hp" viewBox="0 0 760 480" onmouseleave="hpMapLeave()">
-                <rect width="760" height="480" fill="#0e1c32" rx="0"/>
-                <polygon class="s" points="0,28 93,28 93,85 5,85"/>
-                <polygon class="s" points="0,85 93,85 97,150 0,150"/>
-                <polygon class="s" points="0,150 97,150 118,207 108,315 75,320 58,380 0,380"/>
-                <polygon class="s" points="97,118 173,92 176,278 118,207"/>
-                <polygon class="s" points="93,28 173,28 173,92 156,126 93,150"/>
-                <rect class="s" x="109" y="0" width="158" height="92"/>
-                <rect class="s key wy" id="wy-hp" x="173" y="92" width="94" height="74" onmouseenter="hpHover('wy')" onclick="hpSelect('wy')"/>
-                <rect class="s" x="134" y="150" width="66" height="90"/>
-                <polygon class="s" points="134,240 222,240 222,348 175,382 134,382"/>
-                <rect class="s key co" id="co-hp" x="200" y="166" width="93" height="74" onmouseenter="hpHover('co')" onclick="hpSelect('co')"/>
-                <rect class="s key nm" id="nm-hp" x="200" y="240" width="82" height="108" onmouseenter="hpHover('nm')" onclick="hpSelect('nm')"/>
-                <rect class="s" x="267" y="0" width="108" height="72"/>
-                <rect class="s" x="267" y="72" width="108" height="68"/>
-                <rect class="s" x="267" y="140" width="122" height="66"/>
-                <rect class="s" x="267" y="206" width="130" height="66"/>
-                <rect class="s" x="267" y="272" width="152" height="68"/>
-                <polygon class="s" points="267,340 422,340 440,382 420,452 308,462 268,422 258,382"/>
-                <polygon class="s" points="375,0 470,0 472,46 460,96 415,100 375,100"/>
-                <rect class="s" x="375" y="100" width="89" height="66"/>
-                <rect class="s" x="375" y="166" width="93" height="86"/>
-                <rect class="s" x="380" y="252" width="90" height="72"/>
-                <polygon class="s" points="380,324 470,324 475,362 450,402 410,422 380,402"/>
-                <rect class="s" x="457" y="8" width="82" height="106"/>
-                <rect class="s" x="457" y="114" width="66" height="114"/>
-                <rect class="s" x="457" y="252" width="65" height="96"/>
-                <polygon class="s" points="462,230 590,196 594,214 580,230 462,250"/>
-                <rect class="s" x="462" y="250" width="128" height="54"/>
-                <rect class="s" x="522" y="114" width="58" height="100"/>
-                <polygon class="s" points="522,66 598,66 600,78 582,102 580,114 522,114"/>
-                <rect class="s" x="580" y="80" width="78" height="100"/>
-                <rect class="s" x="520" y="284" width="66" height="92"/>
-                <rect class="s" x="584" y="258" width="80" height="100"/>
-                <polygon class="s" points="584,220 664,220 672,262 632,282 584,258"/>
-                <polygon class="s" points="580,192 696,184 704,212 672,262 584,220"/>
-                <polygon class="s" points="578,142 666,142 680,152 696,184 584,192 560,188 558,166"/>
-                <polygon class="s" points="520,376 662,358 665,392 648,432 622,462 580,472 560,462 532,442 520,422"/>
-                <polygon class="s" points="627,62 760,0 760,162 665,162 627,142"/>
-                <polygon class="s" points="627,142 665,142 666,192 648,202 644,190 627,186"/>
-                <rect class="s key de" id="de-hp" x="648" y="156" width="18" height="30" onmouseenter="hpHover('de')" onclick="hpSelect('de')"/>
-                <line class="de-line" x1="666" y1="163" x2="708" y2="128"/>
-                <rect style="fill:#822040;stroke:rgba(255,255,255,.3);stroke-width:1.5" x="696" y="112" width="54" height="28" rx="8"/>
-                <text class="de-badge-txt" style="fill:rgba(255,255,255,.9)" x="723" y="131">DE ★</text>
-                <text class="map-key-lbl" x="220" y="136">WY</text>
-                <text class="map-key-lbl" x="246" y="212">CO</text>
-                <text class="map-key-lbl" x="241" y="300">NM</text>
+              <svg id="us-map-hp" viewBox="0 0 760 500" onmouseleave="hpMapLeave()" style="display:block;width:100%">
+                <!-- Background -->
+                <rect width="760" height="500" fill="#eef4fb"/>
+
+                <!-- ═══ US SILHOUETTE — proper geographic outline ═══ -->
+                <path id="us-sil" fill="#cfdff0" stroke="#b8cfe6" stroke-width="1.2" stroke-linejoin="round" d="
+                  M 38,80
+                  L 492,80 L 492,60 L 510,60 L 510,80
+                  L 608,80 Q 655,82 688,95 L 720,110 L 738,126
+                  Q 742,148 740,172 L 738,192
+                  Q 732,210 736,230 Q 738,256 730,280
+                  Q 721,305 716,330 L 716,360
+                  Q 718,378 722,393 L 714,397
+                  Q 706,412 700,430 Q 696,448 694,462
+                  Q 685,455 678,440 Q 670,420 663,402 L 647,397
+                  L 620,399 Q 594,402 570,410
+                  Q 544,416 520,416 Q 498,420 478,430
+                  Q 454,442 432,450 Q 408,456 386,448
+                  L 358,432
+                  Q 328,424 295,418 Q 260,412 232,402
+                  Q 202,390 178,372
+                  Q 148,344 114,308 Q 86,268 64,228
+                  Q 50,188 48,148 Q 48,108 52,90
+                  Z
+                "/>
+
+                <!-- Subtle internal state lines for texture -->
+                <g class="gl" stroke="#b8cfe6" stroke-width="0.6" fill="none" opacity="0.7">
+                  <!-- 104°W meridian (WY/SD, CO/KS divide) -->
+                  <line x1="290" y1="80" x2="290" y2="267"/>
+                  <!-- 111°W meridian (ID/WY, UT/AZ) -->
+                  <line x1="206" y1="80" x2="206" y2="345"/>
+                  <!-- 109°W meridian (WY-CO-NM west) -->
+                  <line x1="230" y1="80" x2="230" y2="345"/>
+                  <!-- WY/CO border 41°N -->
+                  <line x1="206" y1="205" x2="315" y2="205"/>
+                  <!-- CO/NM border 37°N -->
+                  <line x1="230" y1="267" x2="315" y2="267"/>
+                  <!-- NM south ~32°N -->
+                  <line x1="230" y1="345" x2="302" y2="345"/>
+                  <!-- MT east / ND-SD border vertical -->
+                  <line x1="354" y1="80" x2="354" y2="205"/>
+                  <!-- ND/SD border ~45.9°N -->
+                  <line x1="290" y1="141" x2="492" y2="141"/>
+                  <!-- SD/NE border ~43°N -->
+                  <line x1="290" y1="188" x2="458" y2="188"/>
+                  <!-- NE/KS border ~40°N -->
+                  <line x1="315" y1="219" x2="458" y2="219"/>
+                  <!-- KS/OK and some central lines -->
+                  <line x1="315" y1="254" x2="458" y2="254"/>
+                  <!-- Midwest vertical -->
+                  <line x1="492" y1="80" x2="492" y2="290"/>
+                  <line x1="558" y1="80" x2="558" y2="290"/>
+                  <line x1="612" y1="80" x2="612" y2="290"/>
+                  <line x1="648" y1="88" x2="648" y2="290"/>
+                  <!-- Some horizontal eastern -->
+                  <line x1="492" y1="141" x2="648" y2="141"/>
+                  <line x1="492" y1="205" x2="648" y2="205"/>
+                  <line x1="492" y1="254" x2="634" y2="254"/>
+                  <line x1="492" y1="290" x2="620" y2="290"/>
+                  <line x1="492" y1="330" x2="660" y2="330"/>
+                  <!-- TX rough east border -->
+                  <line x1="408" y1="254" x2="400" y2="345"/>
+                  <line x1="400" y1="345" x2="390" y2="390"/>
+                </g>
+
+                <!-- ═══ KEY STATE: Wyoming ═══ -->
+                <!-- WY: 104-111°W, 41-45°N → x=206–290, y=142–205 -->
+                <rect class="key wy" id="wy-hp" x="206" y="142" width="84" height="63"
+                      rx="3" onmouseenter="hpHover('wy')" onclick="hpSelect('wy')"/>
+
+                <!-- ═══ KEY STATE: Colorado ═══ -->
+                <!-- CO: 102-109°W, 37-41°N → x=230–315, y=205–267 -->
+                <rect class="key co" id="co-hp" x="230" y="205" width="85" height="62"
+                      rx="3" onmouseenter="hpHover('co')" onclick="hpSelect('co')"/>
+
+                <!-- ═══ KEY STATE: New Mexico ═══ -->
+                <!-- NM: 103-109°W, 32-37°N → x=230–302, y=267–345 -->
+                <rect class="key nm" id="nm-hp" x="230" y="267" width="72" height="78"
+                      rx="3" onmouseenter="hpHover('nm')" onclick="hpSelect('nm')"/>
+
+                <!-- ═══ KEY STATE: Delaware ═══ -->
+                <!-- DE: ~75.6°W, 38.5-39.8°N → x≈630, y=222–244 -->
+                <rect class="key de" id="de-hp" x="629" y="220" width="13" height="24"
+                      rx="2" onmouseenter="hpHover('de')" onclick="hpSelect('de')"/>
+                <!-- DE callout line + badge (since it's tiny) -->
+                <line x1="642" y1="228" x2="672" y2="195" stroke="rgba(160,48,88,.35)" stroke-width="1" stroke-dasharray="3,2"/>
+                <rect x="660" y="178" width="48" height="22" rx="8" fill="rgba(255,255,255,.85)" stroke="rgba(160,48,88,.25)" stroke-width="1"/>
+                <text font-family="Space Grotesk,sans-serif" font-size="10" font-weight="800" fill="#aa3058" text-anchor="middle" x="684" y="193">DE ★</text>
+
+                <!-- State abbreviation labels -->
+                <text class="kl" x="248" y="178" fill="rgba(100,60,160,.75)">WY</text>
+                <text class="kl" x="272" y="240" fill="rgba(20,110,60,.75)">CO</text>
+                <text class="kl" x="266" y="310" fill="rgba(30,60,160,.75)">NM</text>
               </svg>
             </div>
           </div>
