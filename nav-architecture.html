@@ -607,6 +607,64 @@ body { min-height: 100vh; }
 .de-badge { fill: #ebd4e0; stroke: #fff; stroke-width: 1.5; rx: 8; }
 .de-badge-txt { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 800; fill: #9a3a58; pointer-events: none; text-anchor: middle; }
 
+/* ── HOMEPAGE MAP — dark theme overrides ── */
+.hp-map-wrap {
+  border-radius: 18px; overflow: hidden;
+  box-shadow: 0 24px 72px rgba(10,18,36,.45), 0 2px 0 rgba(255,255,255,.15) inset;
+  border: 1px solid rgba(255,255,255,.12);
+  position: relative;
+}
+/* Non-key states */
+#us-map-hp .s {
+  fill: #1e3252; stroke: #0e1c32; stroke-width: 0.9;
+  transition: opacity .28s;
+}
+/* Key states default */
+#us-map-hp .key {
+  stroke: rgba(255,255,255,.28); stroke-width: 1.8;
+  cursor: pointer; transform-box: fill-box; transform-origin: center;
+  transition: fill .25s ease, filter .25s ease, opacity .28s ease, transform .3s cubic-bezier(.34,1.4,.64,1), stroke-opacity .25s;
+}
+#us-map-hp .key:hover { stroke-opacity: 0.7; }
+/* has-hover state: dim others */
+#us-map-hp.has-hover .s { opacity: 0.35; }
+#us-map-hp.has-hover .key { opacity: 0.22; transform: scale(0.98); }
+#us-map-hp.has-hover .key.active {
+  opacity: 1 !important; transform: scale(1.08);
+  stroke: rgba(255,255,255,.7) !important; stroke-width: 2.2 !important;
+}
+/* Key state fills */
+#us-map-hp .wy { fill: #5a3490; }
+#us-map-hp .wy.active { fill: #9258d8; filter: drop-shadow(0 0 18px rgba(146,88,216,.8)); }
+#us-map-hp .co { fill: #186840; }
+#us-map-hp .co.active { fill: #28c270; filter: drop-shadow(0 0 18px rgba(40,194,112,.7)); }
+#us-map-hp .nm { fill: #1a3e90; }
+#us-map-hp .nm.active { fill: #3870e8; filter: drop-shadow(0 0 18px rgba(56,112,232,.8)); }
+#us-map-hp .de { fill: #822040; }
+#us-map-hp .de.active { fill: #d84478; filter: drop-shadow(0 0 18px rgba(216,68,120,.7)); }
+/* Labels on dark background */
+#us-map-hp .map-key-lbl { fill: rgba(255,255,255,.55); font-size: 11px; }
+#us-map-hp.has-hover .map-key-lbl { opacity: .15; }
+#us-map-hp .de-line { stroke: rgba(216,68,120,.55); }
+
+/* Detail panel — card popup feel */
+.hp-detail {
+  background: linear-gradient(160deg, rgba(255,255,255,.97), rgba(238,246,255,.92)) !important;
+  transform-origin: left top;
+}
+@keyframes detailIn {
+  0%   { opacity: 0; transform: scale(.96) translateY(8px); }
+  65%  { opacity: 1; transform: scale(1.01) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes contentFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hd-inner { transition: opacity .15s ease, transform .15s ease; }
+.hd-inner.fade { opacity: 0; transform: translateY(5px); }
+.hd-inner.in { animation: contentFadeIn .22s ease forwards; }
+
 .map-detail {
   flex: 1; min-height: 320px;
   background: linear-gradient(160deg, rgba(255,255,255,.92) 0%, rgba(235,244,255,.75) 100%);
@@ -1234,8 +1292,8 @@ body { min-height: 100vh; }
           <!-- LEFT: MAP -->
           <div class="hp-map-col">
             <div class="hp-map-wrap">
-              <svg class="us-map" id="us-map-hp" viewBox="0 0 760 480">
-                <rect width="760" height="480" fill="#e4edf6" rx="14"/>
+              <svg class="us-map" id="us-map-hp" viewBox="0 0 760 480" onmouseleave="hpMapLeave()">
+                <rect width="760" height="480" fill="#0e1c32" rx="0"/>
                 <polygon class="s" points="0,28 93,28 93,85 5,85"/>
                 <polygon class="s" points="0,85 93,85 97,150 0,150"/>
                 <polygon class="s" points="0,150 97,150 118,207 108,315 75,320 58,380 0,380"/>
@@ -1276,11 +1334,11 @@ body { min-height: 100vh; }
                 <polygon class="s" points="627,142 665,142 666,192 648,202 644,190 627,186"/>
                 <rect class="s key de" id="de-hp" x="648" y="156" width="18" height="30" onmouseenter="hpHover('de')" onclick="hpSelect('de')"/>
                 <line class="de-line" x1="666" y1="163" x2="708" y2="128"/>
-                <rect style="fill:#d8c4d4;stroke:#fff;stroke-width:1.5" x="696" y="112" width="54" height="28" rx="8"/>
-                <text class="de-badge-txt" x="723" y="131">DE ★</text>
-                <text class="map-key-lbl" x="220" y="136" style="fill:#4a8fc8">WY</text>
-                <text class="map-key-lbl" x="246" y="212" style="fill:#1e9a60">CO</text>
-                <text class="map-key-lbl" x="241" y="300" style="fill:#2a4aaa">NM</text>
+                <rect style="fill:#822040;stroke:rgba(255,255,255,.3);stroke-width:1.5" x="696" y="112" width="54" height="28" rx="8"/>
+                <text class="de-badge-txt" style="fill:rgba(255,255,255,.9)" x="723" y="131">DE ★</text>
+                <text class="map-key-lbl" x="220" y="136">WY</text>
+                <text class="map-key-lbl" x="246" y="212">CO</text>
+                <text class="map-key-lbl" x="241" y="300">NM</text>
               </svg>
             </div>
           </div>
@@ -1971,31 +2029,27 @@ const HP_STATES = {
 };
 
 let activeHpState = 'nm';
+let hpPanelTimer = null;
 
-function hpSelect(key) {
-  if (!HP_STATES[key]) return;
-  activeHpState = key;
-  const d = HP_STATES[key];
-
-  // Update map
+function _hpMapActivate(key) {
   const map = document.getElementById('us-map-hp');
-  if (map) {
-    map.classList.add('has-hover');
-    map.querySelectorAll('.key').forEach(el => el.classList.remove('active'));
-    const el = document.getElementById(key + '-hp');
-    if (el) el.classList.add('active');
-  }
+  if (!map) return;
+  map.classList.add('has-hover');
+  map.querySelectorAll('.key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-hp');
+  if (el) el.classList.add('active');
+}
 
-  // Update tabs
+function _hpPanelUpdate(key, animate) {
+  if (!HP_STATES[key]) return;
+  const d = HP_STATES[key];
+  // Tabs
   document.querySelectorAll('.hp-stab').forEach(t => t.classList.remove('sel'));
   const tab = document.getElementById('stab-' + key);
   if (tab) tab.classList.add('sel');
-
-  // Animate detail panel
   const inner = document.getElementById('hd-inner');
   if (!inner) return;
-  inner.classList.add('fade');
-  setTimeout(() => {
+  const doUpdate = () => {
     document.getElementById('hd-abbr').textContent = d.abbr;
     document.getElementById('hd-abbr').style.background = d.colorBg;
     document.getElementById('hd-abbr').style.color = d.color;
@@ -2004,20 +2058,50 @@ function hpSelect(key) {
     document.getElementById('hd-pitch').textContent = d.pitch;
     document.getElementById('hd-highlight').textContent = d.highlight;
     document.getElementById('hd-highlight').style.color = d.color;
-    const perksEl = document.getElementById('hd-perks');
-    perksEl.innerHTML = d.perks.map(p =>
+    document.getElementById('hd-perks').innerHTML = d.perks.map(p =>
       `<div class="hd-perk"><span class="hd-perk-check" style="background:${d.color}">✓</span>${p}</div>`
     ).join('');
     const cta = document.getElementById('hd-cta');
-    cta.style.background = `linear-gradient(135deg, ${d.color}cc, ${d.color})`;
+    cta.style.background = `linear-gradient(135deg, ${d.color}dd, ${d.color})`;
     cta.textContent = `Créer ma LLC au ${d.name} →`;
     cta.onclick = () => go(d.page);
     inner.classList.remove('fade');
-  }, 140);
+    inner.classList.add('in');
+    setTimeout(() => inner.classList.remove('in'), 250);
+  };
+  if (animate) {
+    inner.classList.add('fade');
+    clearTimeout(hpPanelTimer);
+    hpPanelTimer = setTimeout(doUpdate, 130);
+  } else {
+    doUpdate();
+  }
 }
 
-function hpHover(key) { hpSelect(key); }
-function hpLeave() { /* keep selection active */ }
+/* Hover: highlight map only (quick preview) */
+function hpHover(key) {
+  _hpMapActivate(key);
+}
+
+/* Click (or tab click): lock selection + update panel */
+function hpSelect(key) {
+  if (!HP_STATES[key]) return;
+  const changed = activeHpState !== key;
+  activeHpState = key;
+  _hpMapActivate(key);
+  _hpPanelUpdate(key, changed);
+}
+
+/* Mouse leaves map area: restore locked selection */
+function hpMapLeave() {
+  if (activeHpState) {
+    _hpMapActivate(activeHpState);
+  } else {
+    const map = document.getElementById('us-map-hp');
+    if (map) { map.classList.remove('has-hover'); map.querySelectorAll('.key').forEach(el => el.classList.remove('active')); }
+  }
+}
+function hpLeave() { /* individual state leave — handled by map container */ }
 
 function toggleDD(id) {
   openDD === id ? closeAll() : openDD_(id);
@@ -2113,8 +2197,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const detail = document.getElementById('map-detail');
     if (detail) detail.innerHTML = '<div class="md-placeholder"><div class="md-icon">🗺</div><div>Survolez un État sur la carte<br>pour voir ses atouts</div></div>';
   });
-  // Pre-select NM on homepage map
-  hpSelect('nm');
+  // Pre-select NM on homepage map (no transition on load)
+  _hpMapActivate('nm');
+  _hpPanelUpdate('nm', false);
 });
 
 const stateDetails = {
