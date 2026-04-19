@@ -857,6 +857,11 @@ body { min-height: 100vh; }
 .tl-h { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.2; }
 .tl-p { font-size: 12px; color: rgba(14,30,56,.48); line-height: 1.5; }
 .tl-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; background: rgba(42,80,144,.08); color: var(--blue); }
+/* Desktop: tl-body is invisible to flex layout */
+.tl-body { display: contents; }
+/* Mobile beam elements (injected by JS) */
+.tl-beam-track { position: absolute; left: 22px; top: 23px; width: 2px; border-radius: 2px; background: rgba(42,80,144,.10); pointer-events: none; }
+.tl-beam-fill { position: absolute; left: 22px; top: 23px; width: 2px; height: 0; border-radius: 2px; background: linear-gradient(180deg, #1a3a6a 0%, #4a80b8 100%); pointer-events: none; z-index: 1; transition: height .12s ease-out; }
 
 /* ── OFFERS PREVIEW ── */
 .offers-section { padding: 64px 72px; background: linear-gradient(160deg, #e8f0f9, #e4ecf6); border-top: 1px solid rgba(14,30,56,.06); }
@@ -925,13 +930,29 @@ body { min-height: 100vh; }
   /* Section pages — generic */
   .section { padding: 48px 20px; }
 
-  /* Timeline */
+  /* Timeline mobile — vertical scroll beam */
   .timeline-section { padding: 52px 20px 44px; }
-  .timeline-wrap { grid-template-columns: 1fr; gap: 0; }
+  .timeline-wrap {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative; margin-top: 40px;
+  }
   .timeline-wrap::before { display: none; }
-  .tl-step { flex-direction: row; text-align: left; padding: 20px 0; border-bottom: 1px solid rgba(42,80,144,.07); align-items: flex-start; gap: 20px; }
-  .tl-step:last-child { border-bottom: none; }
-  .tl-num { flex-shrink: 0; }
+  .tl-step {
+    display: flex; flex-direction: row;
+    align-items: flex-start; gap: 20px;
+    text-align: left; padding: 0 0 36px 0;
+    opacity: 0; transform: translateX(18px);
+    transition: opacity .45s ease, transform .45s cubic-bezier(.34,1.2,.64,1);
+  }
+  .tl-step:last-child { padding-bottom: 0; }
+  .tl-step.tl-visible { opacity: 1; transform: translateX(0); }
+  .tl-num { flex-shrink: 0; position: relative; z-index: 2; }
+  .tl-body { display: flex; flex-direction: column; flex: 1; padding-top: 10px; }
+  .tl-beam-track { height: calc(100% - 46px); }
+  /* stagger each step slightly */
+  .tl-step:nth-child(3) { transition-delay: .05s; }
+  .tl-step:nth-child(4) { transition-delay: .10s; }
+  .tl-step:nth-child(5) { transition-delay: .15s; }
 
   /* Section with 72px padding */
   .hp-map-section { padding: 52px 20px 44px; }
@@ -1209,30 +1230,38 @@ body { min-height: 100vh; }
           <h2 class="section-h2">De zéro à LLC opérationnelle<br>en 4 étapes.</h2>
           <p class="section-sub" style="margin:0 auto 0;max-width:480px">Un processus rodé depuis 2014. Vous n'avez rien à gérer — on s'occupe de tout.</p>
         </div>
-        <div class="timeline-wrap">
+        <div class="timeline-wrap" id="tl-wrap">
           <div class="tl-step done">
             <div class="tl-num">1</div>
-            <div class="tl-tag">Gratuit · 15 min</div>
-            <div class="tl-h">Entretien découverte</div>
-            <p class="tl-p">Un expert vous pose les bonnes questions pour définir la structure idéale.</p>
+            <div class="tl-body">
+              <div class="tl-tag">Gratuit · 15 min</div>
+              <div class="tl-h">Entretien découverte</div>
+              <p class="tl-p">Un expert vous pose les bonnes questions pour définir la structure idéale.</p>
+            </div>
           </div>
           <div class="tl-step">
             <div class="tl-num">2</div>
-            <div class="tl-tag">NM · CO · WY · DE</div>
-            <div class="tl-h">Choix de l'État</div>
-            <p class="tl-p">On recommande l'État en fonction de votre activité, anonymat et fiscalité.</p>
+            <div class="tl-body">
+              <div class="tl-tag">NM · CO · WY · DE</div>
+              <div class="tl-h">Choix de l'État</div>
+              <p class="tl-p">On recommande l'État en fonction de votre activité, anonymat et fiscalité.</p>
+            </div>
           </div>
           <div class="tl-step">
             <div class="tl-num">3</div>
-            <div class="tl-tag">Sous 2 semaines</div>
-            <div class="tl-h">Immatriculation + EIN</div>
-            <p class="tl-p">LLC créée, EIN obtenu, documents légaux livrés dans votre portail client.</p>
+            <div class="tl-body">
+              <div class="tl-tag">Sous 2 semaines</div>
+              <div class="tl-h">Immatriculation + EIN</div>
+              <p class="tl-p">LLC créée, EIN obtenu, documents légaux livrés dans votre portail client.</p>
+            </div>
           </div>
           <div class="tl-step">
             <div class="tl-num">4</div>
-            <div class="tl-tag">Optionnel · dès $600</div>
-            <div class="tl-h">Compte bancaire US</div>
-            <p class="tl-p">Mercury, Relay ou banque physique — 100% à distance, carte Visa incluse.</p>
+            <div class="tl-body">
+              <div class="tl-tag">Optionnel · dès $600</div>
+              <div class="tl-h">Compte bancaire US</div>
+              <p class="tl-p">Mercury, Relay ou banque physique — 100% à distance, carte Visa incluse.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -2234,6 +2263,38 @@ function msTab(el, goAnalysis) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
 
+function initTimelineMobile() {
+  if (window.innerWidth > 768) return;
+  const wrap = document.getElementById('tl-wrap');
+  if (!wrap) return;
+
+  // Inject beam elements
+  const track = document.createElement('div');
+  track.className = 'tl-beam-track';
+  const fill = document.createElement('div');
+  fill.className = 'tl-beam-fill';
+  wrap.appendChild(track); wrap.appendChild(fill);
+
+  const steps = Array.from(wrap.querySelectorAll('.tl-step'));
+
+  // IntersectionObserver — fade+slide each step in
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('tl-visible'); });
+  }, { threshold: 0.25 });
+  steps.forEach(s => obs.observe(s));
+
+  // Scroll — smoothly draw the beam
+  function updateBeam() {
+    const wrapRect = wrap.getBoundingClientRect();
+    const trigger = window.innerHeight * 0.70;
+    const progress = Math.min(1, Math.max(0, (trigger - wrapRect.top) / wrapRect.height));
+    const totalH = wrapRect.height - 46;
+    fill.style.height = Math.max(0, progress * totalH) + 'px';
+  }
+  window.addEventListener('scroll', updateBeam, { passive: true });
+  updateBeam();
+}
+
 async function buildUSMap() {
   const W = 760, H = 480;
   const FIPS_MAP = {'35':'nm','08':'co','56':'wy','10':'de'};
@@ -2333,6 +2394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (detail) detail.innerHTML = '<div class="md-placeholder"><div class="md-icon">🗺</div><div>Survolez un État sur la carte<br>pour voir ses atouts</div></div>';
   });
   buildUSMap();
+  initTimelineMobile();
 });
 
 const stateDetails = {
