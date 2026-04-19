@@ -114,7 +114,7 @@ const faqs = [
   },
   {
     q: "Combien ça coûte réellement ?",
-    a: "À partir de 1 490$ tout inclus. Voir notre page tarifs.",
+    a: "À partir de $997 tout inclus. Voir notre page services.",
   },
   {
     q: "Quel délai pour être opérationnel ?",
@@ -295,7 +295,9 @@ export default function CreerLLCPage() {
               className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
             >
               <a
-                href="/contact"
+                href="https://calendly.com/ma-societe-us/entretien-gratuit"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white rounded-full font-semibold px-8 py-4 text-[15px] transition-all inline-flex items-center"
                 style={{
                   background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
@@ -305,10 +307,10 @@ export default function CreerLLCPage() {
                 Entretien gratuit — 15 min
               </a>
               <a
-                href="/tarifs"
+                href="/services"
                 className="inline-flex items-center text-white/50 hover:text-white px-2 py-4 text-[15px] transition-colors"
               >
-                Voir les tarifs →
+                Voir nos offres →
               </a>
             </motion.div>
           </motion.div>
@@ -554,10 +556,10 @@ export default function CreerLLCPage() {
               Entretien gratuit — 15 min
             </a>
             <a
-              href="/tarifs"
+              href="/services"
               className="inline-flex items-center text-white/50 hover:text-white px-2 py-4 text-[15px] transition-colors"
             >
-              Voir les tarifs →
+              Voir nos offres →
             </a>
           </motion.div>
         </motion.div>

@@ -86,21 +86,12 @@ export function Hero() {
               américaine.<br />
               <span
                 style={{
-                  background: "linear-gradient(90deg, #0e1e38 0%, #1a3460 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Jusqu&apos;à&nbsp;
-              </span>
-              <span
-                style={{
                   background: "linear-gradient(90deg, #3a6898 0%, #5a90c8 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                0%&nbsp;d&apos;impôts.
+                Créée en 14 jours.
               </span>
             </motion.h1>
 
@@ -109,7 +100,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.55, ease }}
-              className="mt-6 text-[15px] lg:text-[17px] leading-relaxed text-[#0e1e38]/50 max-w-lg"
+              className="mt-6 text-[15px] lg:text-[17px] leading-relaxed text-[#0e1e38]/65 max-w-lg"
             >
               {HERO.subline}
             </motion.p>
@@ -123,7 +114,9 @@ export function Hero() {
             >
               {/* Primary — solid dark-blue, premium */}
               <a
-                href="/contact"
+                href="https://calendly.com/ma-societe-us/entretien-gratuit"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-7 py-4 rounded-full text-[15px] font-semibold text-white transition-all"
                 style={{
                   background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
@@ -138,19 +131,13 @@ export function Hero() {
               >
                 {HERO.cta}
               </a>
-              {/* Secondary — chrome glass on light */}
+              {/* Secondary — text link, no box */}
               <a
                 href="/services/pack-llc"
-                className="inline-flex items-center px-6 py-4 text-[14px] text-[#0e1e38]/50 hover:text-[#0e1e38] rounded-full transition-all"
-                style={{
-                  background: "rgba(255,255,255,0.55)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255,255,255,0.75)",
-                  boxShadow: "0 2px 12px rgba(80,120,180,0.07)",
-                }}
+                className="inline-flex items-center gap-1.5 py-4 text-[14px] font-medium text-[#0e1e38]/45 hover:text-[#2a5090] transition-colors duration-200"
               >
-                {HERO.ctaSecondary} →
+                {HERO.ctaSecondary}
+                <span className="text-[12px]">→</span>
               </a>
             </motion.div>
 
@@ -159,7 +146,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.85, duration: 0.5 }}
-              className="mt-5 text-[11px] text-[#0e1e38]/30 tracking-wide"
+              className="mt-5 text-[12px] text-[#0e1e38]/45 tracking-wide"
             >
               Gratuit · Sans engagement · Réponse sous 24h
             </motion.p>
@@ -205,7 +192,7 @@ export function Hero() {
               >
                 0<span style={{ color: "#4a80b8" }}>%</span>
               </p>
-              <p className="relative text-[11px] text-[#0e1e38]/35 mt-3 tracking-[0.22em] uppercase">d&apos;impôts aux USA</p>
+              <p className="relative text-[11px] text-[#0e1e38]/55 mt-3 tracking-[0.18em] uppercase">d&apos;impôts aux USA</p>
               {/* Legal badge */}
               <div
                 className="relative mt-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full"
@@ -244,7 +231,7 @@ export function Hero() {
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1) 50%, transparent)" }}
                   />
                   <p className="text-[22px] font-bold text-[#0e1e38] leading-none" style={{ fontFamily: "var(--font-heading)" }}>{v}</p>
-                  <p className="text-[10px] text-[#0e1e38]/35 mt-1 uppercase tracking-[0.15em]">{l}</p>
+                  <p className="text-[10px] text-[#0e1e38]/50 mt-1 uppercase tracking-[0.15em]">{l}</p>
                 </div>
               ))}
             </div>

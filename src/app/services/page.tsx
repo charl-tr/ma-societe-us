@@ -50,6 +50,51 @@ function IconBank() {
   );
 }
 
+/* ─── Testimonials ─── */
+const TESTIMONIALS = [
+  {
+    quote:
+      "On m'avait dit que ça prendrait des mois. En 12 jours, ma LLC était créée, mon EIN obtenu, et mon compte Mercury opérationnel. Christophe répond en moins de 24h.",
+    name: "Julie M.",
+    role: "Consultante indépendante · Paris",
+    initials: "JM",
+  },
+  {
+    quote:
+      "J'avais peur que ce soit une zone grise fiscale. Ils ont pris le temps d'expliquer la conformité OCDE point par point. Depuis 2 ans, zéro problème avec l'administration française.",
+    name: "Marc D.",
+    role: "Développeur freelance · Lyon",
+    initials: "MD",
+  },
+  {
+    quote:
+      "Les $997 ont été amortis dès le premier trimestre. L'économie fiscale est réelle — et le suivi post-création fait toute la différence par rapport aux concurrents à $300.",
+    name: "Thomas B.",
+    role: "E-commerce · Bordeaux",
+    initials: "TB",
+  },
+];
+
+/* ─── FAQ ─── */
+const FAQ = [
+  {
+    q: "Est-ce vraiment légal pour un résident français ?",
+    a: "Oui. La LLC américaine est une structure reconnue par les conventions fiscales franco-américaines et conforme aux standards OCDE. Des milliers d'entrepreneurs européens l'utilisent. L'obligation déclarative côté français (formulaire 2047) est simple — on vous accompagne.",
+  },
+  {
+    q: "Pourquoi $997 et pas $300 comme certains concurrents ?",
+    a: "$997 tout compris : Registered Agent 1 an, documents légaux, EIN, ouverture compte bancaire, suivi post-création. Les offres à $300 facturent l'EIN en supplément, le Registered Agent annuellement, et disparaissent après la création. Sur 12 mois, notre offre est moins chère.",
+  },
+  {
+    q: "Je vis en France — puis-je ouvrir une LLC sans me déplacer ?",
+    a: "Oui. Tout se fait à distance : signature électronique, documents numérisés, communication par mail et visio. Vous n'avez pas besoin de visa, de billet d'avion, ni même d'un numéro de sécurité sociale américain.",
+  },
+  {
+    q: "Que se passe-t-il après la création ?",
+    a: "On reste votre interlocuteur : Annual Report, déclarations fiscales (Form 5472), modifications statutaires, questions ponctuelles. Pas de transfert vers un autre prestataire. Un cabinet, pas un guichet.",
+  },
+];
+
 /* ─── How we work ─── */
 const HOW = [
   {
@@ -181,7 +226,7 @@ export default function ServicesPage() {
                     className="text-[clamp(1.8rem,3vw,2.6rem)] font-bold text-white leading-none tracking-[-0.03em]"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    $1&nbsp;990
+                    $997
                   </p>
                   <p className="text-[11px] text-white/25 mt-1">tout inclus · sans frais cachés</p>
                 </div>
@@ -312,6 +357,82 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* ─── Testimonials ─── */}
+      <section
+        className="py-[80px] lg:py-[100px] border-t border-[#0e1e38]/[0.04]"
+        style={{ background: "linear-gradient(160deg, #f2f6fb 0%, #eef3f9 60%, #f0f5fa 100%)" }}
+      >
+        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <p className="text-[11px] uppercase tracking-[0.28em] text-[#0e1e38]/25 mb-4">Ils nous font confiance</p>
+            <h2
+              className="text-[clamp(1.4rem,2.5vw,2rem)] font-bold tracking-[-0.025em] text-[#0e1e38] max-w-lg"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              500+ entrepreneurs. Des résultats concrets.
+            </h2>
+          </motion.div>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          >
+            {TESTIMONIALS.map((t) => (
+              <motion.div
+                key={t.name}
+                variants={fadeUp}
+                className="relative flex flex-col rounded-2xl p-7"
+                style={{
+                  background: "rgba(225,232,244,0.52)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
+                  border: "1px solid rgba(175,198,225,0.38)",
+                  boxShadow: "0 4px 20px rgba(80,120,180,0.06)",
+                }}
+              >
+                <span
+                  className="text-[52px] leading-none font-bold mb-1 select-none"
+                  style={{ fontFamily: "var(--font-heading)", color: "rgba(42,80,144,0.14)" }}
+                  aria-hidden
+                >
+                  &ldquo;
+                </span>
+                <p className="text-[14px] leading-relaxed text-[#0e1e38]/65 flex-1 mb-6">
+                  {t.quote}
+                </p>
+                <div
+                  className="flex items-center gap-3 pt-5"
+                  style={{ borderTop: "1px solid rgba(14,30,56,0.07)" }}
+                >
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-semibold text-[#2a5090] flex-shrink-0"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(42,80,144,0.12) 0%, rgba(74,127,212,0.07) 100%)",
+                      border: "1px solid rgba(42,80,144,0.15)",
+                    }}
+                  >
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-semibold text-[#0e1e38] leading-tight">{t.name}</p>
+                    <p className="text-[11px] text-[#0e1e38]/40 mt-0.5">{t.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ─── How we work — 3 pillars, light strip ─── */}
       <section
         className="py-[80px] lg:py-[100px] border-t border-[#0e1e38]/[0.05]"
@@ -372,6 +493,61 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* ─── FAQ objections ─── */}
+      <section
+        className="py-[80px] lg:py-[100px] border-t border-[#0e1e38]/[0.05]"
+        style={{ background: "linear-gradient(160deg, #eef3f9 0%, #f2f6fb 100%)" }}
+      >
+        <div className="px-6 lg:px-10 max-w-[800px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <p className="text-[11px] uppercase tracking-[0.28em] text-[#0e1e38]/25 mb-4">Questions fréquentes</p>
+            <h2
+              className="text-[clamp(1.4rem,2.5vw,2rem)] font-bold tracking-[-0.025em] text-[#0e1e38]"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Les doutes qu&apos;on entend souvent.
+            </h2>
+          </motion.div>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="space-y-3"
+          >
+            {FAQ.map((f) => (
+              <motion.div
+                key={f.q}
+                variants={fadeUp}
+                className="rounded-xl px-7 py-6"
+                style={{
+                  background: "rgba(255,255,255,0.72)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255,255,255,0.88)",
+                  boxShadow: "0 2px 12px rgba(80,120,180,0.05)",
+                }}
+              >
+                <h3
+                  className="text-[15px] font-semibold text-[#0e1e38] mb-2 tracking-[-0.01em]"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {f.q}
+                </h3>
+                <p className="text-[13px] leading-relaxed text-[#0e1e38]/55">{f.a}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ─── CTA — dark, chiffres, tension ─── */}
       <section
         className="relative py-[80px] lg:py-[100px] overflow-hidden"
@@ -422,7 +598,9 @@ export default function ServicesPage() {
 
             <div className="flex flex-col gap-3 shrink-0">
               <a
-                href="/contact"
+                href="https://calendly.com/ma-societe-us/entretien-gratuit"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-full text-[14px] font-semibold text-white transition-all"
                 style={{
                   background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",

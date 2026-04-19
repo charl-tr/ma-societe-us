@@ -1,7 +1,6 @@
 "use client";
 
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ScrollTimeline } from "@/components/sections/ScrollTimeline";
 
 const OFFER_DETAILS = [
   {
@@ -93,9 +92,6 @@ export default function PackLLCPage() {
           </div>
         </div>
       </section>
-
-      {/* Timeline steps — dark section with scroll animation */}
-      <ScrollTimeline />
 
       {/* CTA */}
       <section className="py-[120px] lg:py-[144px] border-t border-[#0e1e38]/[0.06]" style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e4ecf6 40%, #f2f6fb 100%)" }}>

@@ -312,7 +312,9 @@ export function SavingsEstimator() {
               </div>
 
               <a
-                href="/contact"
+                href="https://calendly.com/ma-societe-us/entretien-gratuit"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="shrink-0 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[13px] font-semibold text-white transition-all"
                 style={{
                   background: "linear-gradient(135deg, #2a5090, #1a3a70)",

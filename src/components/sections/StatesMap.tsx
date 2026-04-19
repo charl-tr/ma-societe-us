@@ -267,47 +267,60 @@ function GlassCard({
       onMouseEnter={onHover}
       className="w-full text-left cursor-pointer focus:outline-none"
     >
+      {/* Verre dépoli gris-argent — pas blanc SaaS.
+          Fond : gris-bleu froid translucide. Bordure : argent/acier, pas blanc pur.
+          Blur élevé (32px) + saturate réduit pour casser la "clarté digitale". */}
       <div
         className="relative rounded-2xl overflow-hidden transition-all duration-500"
         style={{
           background: isActive
-            ? "linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(230,240,255,0.78) 100%)"
-            : "linear-gradient(160deg, rgba(255,255,255,0.78) 0%, rgba(235,242,255,0.58) 100%)",
-          backdropFilter: "blur(28px) saturate(1.5)",
-          WebkitBackdropFilter: "blur(28px) saturate(1.5)",
-          border: "1px solid rgba(255,255,255,0.88)",
+            ? "linear-gradient(160deg, rgba(218,228,242,0.82) 0%, rgba(200,218,240,0.70) 100%)"
+            : "linear-gradient(160deg, rgba(225,232,244,0.62) 0%, rgba(208,222,240,0.46) 100%)",
+          backdropFilter: "blur(32px) saturate(1.2) brightness(1.04)",
+          WebkitBackdropFilter: "blur(32px) saturate(1.2) brightness(1.04)",
+          border: isActive
+            ? "1px solid rgba(170,195,225,0.70)"
+            : "1px solid rgba(175,198,225,0.42)",
           boxShadow: isActive
-            ? "0 12px 40px rgba(60,110,200,0.16), 0 2px 0 rgba(255,255,255,0.95) inset, 0 0 0 1px rgba(180,205,235,0.35)"
-            : "0 6px 24px rgba(80,120,180,0.09), 0 1px 0 rgba(255,255,255,0.85) inset, 0 0 0 1px rgba(180,205,235,0.18)",
+            ? "0 12px 40px rgba(60,100,180,0.13), 0 1px 0 rgba(255,255,255,0.65) inset, 0 0 0 0.5px rgba(150,185,225,0.30)"
+            : "0 4px 20px rgba(80,110,160,0.07), 0 1px 0 rgba(255,255,255,0.50) inset",
           transform: isActive ? "translateY(-2px)" : "translateY(0)",
         }}
       >
-        {/* Chrome top shine — bright silver */}
+        {/* Chrome top — argent métallique, pas blanc pur */}
         <div
           className="absolute inset-x-0 top-0 h-[1px]"
           style={{
             background: isActive
-              ? "linear-gradient(90deg, rgba(180,205,230,0.4), rgba(255,255,255,1) 25%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 75%, rgba(180,205,230,0.4))"
-              : "linear-gradient(90deg, rgba(180,205,230,0.2), rgba(255,255,255,0.9) 40%, rgba(255,255,255,0.9) 60%, rgba(180,205,230,0.2))",
+              ? "linear-gradient(90deg, rgba(160,190,225,0.3), rgba(230,238,250,0.95) 30%, rgba(245,250,255,1) 50%, rgba(230,238,250,0.95) 70%, rgba(160,190,225,0.3))"
+              : "linear-gradient(90deg, rgba(160,185,215,0.15), rgba(210,225,242,0.70) 40%, rgba(220,232,248,0.75) 50%, rgba(210,225,242,0.70) 60%, rgba(160,185,215,0.15))",
           }}
         />
-        {/* Inner top glow when active */}
+        {/* Reflet bas — verre épais */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-[1px]"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(140,170,210,0.25) 40%, rgba(140,170,210,0.25) 60%, transparent)",
+          }}
+        />
+        {/* Lueur active — glow intérieur subtil */}
         {isActive && (
           <div
-            className="absolute inset-x-0 top-0 h-16 pointer-events-none"
+            className="absolute inset-x-0 top-0 h-20 pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse at 50% 0%, rgba(80,130,220,0.07) 0%, transparent 70%)",
+              background: "radial-gradient(ellipse at 50% 0%, rgba(60,110,200,0.05) 0%, transparent 75%)",
             }}
           />
         )}
 
         <div className="px-5 py-6 text-center">
           <h3
-            className="font-bold leading-tight text-[#0e1e38] transition-colors duration-300"
+            className="font-bold leading-tight transition-colors duration-300"
             style={{
               fontFamily: "var(--font-heading)",
               fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
               letterSpacing: "-0.02em",
+              color: isActive ? "rgba(10,24,50,0.95)" : "rgba(14,30,56,0.72)",
             }}
           >
             {state.name}
@@ -316,7 +329,7 @@ function GlassCard({
             className="mt-2 leading-snug"
             style={{
               fontSize: "clamp(0.72rem, 1.2vw, 0.82rem)",
-              color: isActive ? "rgba(14,30,56,0.60)" : "rgba(14,30,56,0.38)",
+              color: isActive ? "rgba(14,30,56,0.55)" : "rgba(14,30,56,0.32)",
               transition: "color 0.3s ease",
             }}
           >

@@ -90,7 +90,7 @@ export default function HomePage() {
       <Hero />
 
       {/* ─── Stats bar — misty glass, transition from hero ─── */}
-      <section className="border-b border-[#1a2a40]/[0.07]" style={{ background: "linear-gradient(180deg, #eef3f9 0%, #ffffff 100%)" }}>
+      <section className="border-b border-[#1a2a40]/[0.07]" style={{ background: "linear-gradient(180deg, #eef3f9 0%, #e8eef6 100%)" }}>
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
           <motion.div
             variants={stagger}
@@ -128,6 +128,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── Value props — dark, numbered, high contrast ─── */}
+      {/* Hover : glow border propre — AUCUN backdrop-blur (dark bg = blur sur le contenu, pas sur le fond) */}
       <section className="bg-[#0a1628] py-16 lg:py-24">
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
           {/* Header row */}
@@ -151,54 +152,64 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* Grid */}
+          {/* Grid — cartes séparées avec gap, pas gap-px fusionnées */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06]"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
           >
             {VALUE_PROPS.map((prop, i) => (
               <motion.div
                 key={prop.title}
                 variants={fadeUp}
-                className="relative p-7 lg:p-8 group transition-all duration-500 cursor-default"
-                style={{ background: "#0a1628" }}
-                whileHover={{ backgroundColor: "#0d1a2e" }}
+                className="relative p-7 lg:p-8 group rounded-2xl transition-all duration-400 cursor-default overflow-hidden"
+                style={{
+                  background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                }}
+                whileHover={{
+                  background: "linear-gradient(160deg, rgba(74,127,212,0.10) 0%, rgba(42,80,144,0.06) 100%)",
+                  borderColor: "rgba(74,127,212,0.35)",
+                  boxShadow: "0 8px 32px rgba(42,80,144,0.18), inset 0 1px 0 rgba(255,255,255,0.08)",
+                }}
               >
-                {/* Hover glass border — s'allume au survol */}
+                {/* Chrome top — visible en permanence, s'intensifie au hover */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-sm"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(74,127,212,0.08) 0%, rgba(42,80,144,0.04) 100%)",
-                    backdropFilter: "blur(4px)",
-                    border: "1px solid rgba(74,127,212,0.2)",
-                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
-                  }}
+                  className="absolute inset-x-0 top-0 h-[1px] opacity-40 group-hover:opacity-100 transition-opacity duration-400"
+                  style={{ background: "linear-gradient(90deg, transparent, rgba(100,160,240,0.8) 40%, rgba(140,190,255,1) 50%, rgba(100,160,240,0.8) 60%, transparent)" }}
                 />
-                {/* Number */}
+
+                {/* Number — stroke plus visible */}
                 <span
-                  className="block text-[clamp(3rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] mb-6 transition-all duration-500"
+                  className="block text-[clamp(2.8rem,4.5vw,3.6rem)] font-bold leading-none tracking-[-0.04em] mb-6 transition-all duration-400 group-hover:opacity-60"
                   style={{
                     fontFamily: "var(--font-heading)",
                     color: "transparent",
-                    WebkitTextStroke: "1px rgba(255,255,255,0.12)",
+                    WebkitTextStroke: "1px rgba(255,255,255,0.22)",
                   }}
                 >
                   0{i + 1}
                 </span>
+
                 {/* Icon */}
-                <div className="relative w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-white/50 mb-5 group-hover:border-[rgba(74,127,212,0.3)] group-hover:text-[#4a7fd4] transition-all duration-300">
+                <div className="relative w-10 h-10 rounded-xl flex items-center justify-center text-white/45 mb-5 transition-all duration-400 group-hover:text-[#6aaee8]"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.09)",
+                  }}
+                >
                   <PropIcon type={prop.icon} />
                 </div>
+
                 <h3
-                  className="text-[17px] font-semibold mb-2.5 tracking-tight text-white"
+                  className="text-[17px] font-semibold mb-3 tracking-tight text-white/90 group-hover:text-white transition-colors duration-300"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {prop.title}
                 </h3>
-                <p className="text-[13px] leading-relaxed text-white/40">
+                <p className="text-[13px] leading-relaxed text-white/38 group-hover:text-white/55 transition-colors duration-300">
                   {prop.description}
                 </p>
               </motion.div>
@@ -207,94 +218,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── Savings Estimator — conversion hook ─── */}
-      <SavingsEstimator />
-
-      {/* ─── Teaser cards — tall editorial panels ─── */}
-      <motion.section
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        className="px-6 lg:px-10 py-10 lg:py-14 max-w-[1400px] mx-auto"
-        style={{ background: "transparent" }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-          {/* Card 1 — light, provocateur */}
-          <motion.a
-            href="/creer-llc"
-            variants={fadeUp}
-            className="group relative rounded-2xl overflow-hidden border border-[#1a2a40]/[0.08] bg-white hover:border-[#1a2a40]/[0.14] transition-all duration-500 flex flex-col min-h-[340px] lg:min-h-[420px]"
-          >
-            {/* Top accent */}
-            <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #0a1628 0%, #2a5090 50%, transparent 100%)" }} />
-            <div className="flex-1 p-8 lg:p-12 flex flex-col">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#2a5090]/40 mb-6">Choisir le bon état</p>
-              <h3
-                className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold tracking-[-0.025em] leading-[1.1] text-[#0a1628] mb-5 max-w-xs"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Le mauvais état coûte jusqu&apos;à 12&nbsp;000€. Par an.
-              </h3>
-              <p className="text-[14px] leading-relaxed text-[#1a2a40]/45 mb-auto">
-                Delaware, Wyoming, Colorado, Nouveau-Mexique — 4 juridictions, 4 profils types. On identifie la vôtre en 15 minutes.
-              </p>
-              <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-[#0a1628] group-hover:gap-4 transition-all">
-                <span>Trouver mon état optimal</span>
-                <span className="text-[#2a5090]">→</span>
-              </div>
-            </div>
-          </motion.a>
-
-          {/* Card 2 — dark navy, bold — blue accent */}
-          <motion.a
-            href="/services/pack-llc"
-            variants={fadeUp}
-            className="group relative rounded-2xl overflow-hidden flex flex-col min-h-[340px] lg:min-h-[420px] transition-all duration-500"
-            style={{
-              background: "linear-gradient(160deg, #0f1e38 0%, #1a3060 100%)",
-            }}
-          >
-            {/* Chrome top — silver blue */}
-            <div
-              className="h-[1px]"
-              style={{
-                background: "linear-gradient(90deg, transparent, rgba(100,150,220,0.5) 30%, rgba(140,190,255,0.8) 50%, rgba(100,150,220,0.5) 70%, transparent)",
-              }}
-            />
-            {/* Blue top accent line */}
-            <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #2a5090 0%, #4a80b8 50%, transparent 100%)" }} />
-            <div className="flex-1 p-8 lg:p-12 flex flex-col">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-white/25 mb-6">Pack tout inclus</p>
-              <h3
-                className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold tracking-[-0.025em] leading-[1.1] text-white mb-5 max-w-xs"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Opérationnel en 14&nbsp;jours.<br />
-                <span style={{ color: "#6aabde" }}>Garanti.</span>
-              </h3>
-              <p className="text-[14px] leading-relaxed text-white/35 mb-auto">
-                LLC créée, EIN obtenu, compte Mercury ouvert, carte VISA en main. Zéro déplacement — on gère de A à Z depuis les USA.
-              </p>
-              <div className="mt-8 flex items-center gap-2 text-[13px] font-semibold text-white/50 group-hover:text-white group-hover:gap-4 transition-all">
-                <span>Voir ce qui est inclus</span>
-                <span style={{ color: "#6aabde" }}>→</span>
-              </div>
-            </div>
-          </motion.a>
-        </div>
-      </motion.section>
-
-      {/* ─── States Map — glassmorphism ─── */}
-      <StatesMap />
-
-      {/* ─── Process steps — scroll timeline ─── */}
-      <ScrollTimeline />
-
-      {/* ─── Testimonials — light misty, high contrast ─── */}
+      {/* ─── Testimonials — avant l'Estimator : preuve sociale avant calcul personnel ─── */}
+      {/* Justification : le visiteur croit au résultat (témoignages) avant de calculer son propre gain (estimateur).
+          L'inverse = calcul abstrait sans ancre de crédibilité. */}
       <section className="py-16 lg:py-24" style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e8eef6 40%, #f2f6fb 100%)" }}>
         <div className="px-6 lg:px-10 max-w-[1400px] mx-auto">
-          {/* Header */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -311,7 +239,6 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          {/* Cards — liquid glass on light */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -336,12 +263,10 @@ export default function HomePage() {
                     : "0 4px 20px rgba(80,120,180,0.07), 0 1px 0 rgba(255,255,255,0.85) inset",
                 }}
               >
-                {/* Chrome top */}
                 <div
                   className="absolute inset-x-0 top-0 h-[1px]"
                   style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 60%, transparent)" }}
                 />
-                {/* Stars */}
                 <div className="flex gap-1 mb-5">
                   {[...Array(5)].map((_, si) => (
                     <svg key={si} className="w-3.5 h-3.5" fill="#4a80b8" viewBox="0 0 20 20">
@@ -361,6 +286,106 @@ export default function HomePage() {
                     <p className="text-[11px] text-[#0e1e38]/35">{t.role}</p>
                   </div>
                 </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── Savings Estimator — conversion hook ─── */}
+      <SavingsEstimator />
+
+      {/* ─── States Map — glassmorphism ─── */}
+      <StatesMap />
+
+      {/* ─── Process steps — scroll timeline ─── */}
+      <ScrollTimeline />
+
+      {/* ─── Différenciateur — "pourquoi nous ?" ─── */}
+      <section
+        className="py-[80px] lg:py-[120px]"
+        style={{ background: "linear-gradient(160deg, #eef3f9 0%, #e8eef6 50%, #f2f6fb 100%)" }}
+      >
+        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease }}
+            viewport={{ once: true }}
+            className="mb-14"
+          >
+            <p className="text-[11px] uppercase tracking-[0.28em] text-[#0e1e38]/25 mb-4">
+              Pourquoi nous
+            </p>
+            <h2
+              className="text-[clamp(1.6rem,3.5vw,2.6rem)] font-bold tracking-[-0.03em] leading-[1.1] text-[#0e1e38] max-w-2xl"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Pas une plateforme.<br />Un cabinet franco-américain.
+            </h2>
+          </motion.div>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="grid grid-cols-1 lg:grid-cols-3 gap-5"
+          >
+            {[
+              {
+                n: "01",
+                title: "Depuis 2014 — pas depuis la pandémie",
+                body: "On a créé des LLC avant que ce soit tendance. 10 ans d'expérience dans les deux systèmes — américain et français — avec les vrais professionnels locaux agréés.",
+              },
+              {
+                n: "02",
+                title: "Un interlocuteur, pas un ticket",
+                body: "Christophe et son équipe suivent votre dossier du début à la fin. Pas de bot, pas de formulaire en ligne, pas de transfert. Vous avez un numéro de téléphone et une réponse sous 24h.",
+              },
+              {
+                n: "03",
+                title: "Les deux fiscalités, pas une seule",
+                body: "La plupart des prestataires connaissent le droit américain. Nous connaissons aussi la déclaration française (2047, revenus étrangers). Aucune surprise côté impôts, des deux côtés.",
+              },
+            ].map((d) => (
+              <motion.div
+                key={d.n}
+                variants={fadeUp}
+                className="relative rounded-2xl p-7 lg:p-8"
+                style={{
+                  background: "rgba(225,232,244,0.52)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
+                  border: "1px solid rgba(175,198,225,0.38)",
+                  boxShadow: "0 4px 20px rgba(80,120,180,0.06)",
+                }}
+              >
+                {/* Chrome top */}
+                <div
+                  className="absolute inset-x-0 top-0 h-[1px] rounded-t-2xl"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(175,198,225,0.60) 40%, rgba(210,225,245,0.80) 60%, transparent)",
+                  }}
+                />
+                <span
+                  className="block text-[clamp(2rem,3vw,2.4rem)] font-bold leading-none mb-5"
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    color: "transparent",
+                    WebkitTextStroke: "1px rgba(42,80,144,0.20)",
+                  }}
+                >
+                  {d.n}
+                </span>
+                <h3
+                  className="text-[16px] font-semibold text-[#0e1e38] mb-3 leading-snug tracking-[-0.01em]"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {d.title}
+                </h3>
+                <p className="text-[13px] leading-relaxed text-[#0e1e38]/50">{d.body}</p>
               </motion.div>
             ))}
           </motion.div>

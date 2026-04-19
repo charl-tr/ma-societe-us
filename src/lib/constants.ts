@@ -4,18 +4,21 @@ export const SITE = {
   email: "contact@ma-societe-us.com",
 };
 
+// Nav: 4 items max — simplicité pilier #1
+// "Tarifs" retiré → pricing vit dans /services, double emploi = friction
+// "Contact" retiré → le bouton CTA navbar fait ce travail (dupliquer = diluer sa valeur)
+// "À propos" ajouté → confiance pilier #1, page équipe doit être accessible depuis le nav
 export const NAV_ITEMS = [
   { label: "Créer une LLC", href: "/creer-llc" },
   { label: "Services", href: "/services" },
-  { label: "Tarifs", href: "/tarifs" },
+  { label: "À propos", href: "/a-propos" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const HERO = {
-  headline: "Votre société américaine.\nJusqu'à 0% d'impôts.",
+  headline: "Votre société américaine.\nCréée en 14 jours.",
   subline:
-    "On crée votre LLC aux USA en 2 semaines. 100% légal, 100% à distance. Plus de 500 entrepreneurs nous font déjà confiance.",
+    "Cabinet franco-américain depuis 2014. 100% légal, 100% à distance — sans billet d'avion, sans visa, sans frais cachés.",
   cta: "Entretien gratuit — 15 min",
   ctaSecondary: "Voir comment ça marche",
 };

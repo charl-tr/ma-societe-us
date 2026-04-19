@@ -57,7 +57,9 @@ export function CTASection() {
           className="mt-8 flex flex-col sm:flex-row items-start gap-4"
         >
           <a
-            href="/contact"
+            href="https://calendly.com/ma-societe-us/entretien-gratuit"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-full text-[14px] font-semibold transition-all bg-[#002868] text-white shadow-[0_4px_20px_rgba(0,40,104,0.4)] hover:shadow-[0_8px_24px_rgba(0,40,104,0.5)] border border-white/10"
           >
             Réserver mon créneau gratuit →

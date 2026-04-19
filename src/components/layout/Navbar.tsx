@@ -50,7 +50,7 @@ export function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-[13px] tracking-wide transition-colors duration-300 text-[#0e1e38]/50 hover:text-[#0e1e38]"
+                className="text-[14px] font-medium tracking-wide transition-colors duration-300 text-[#0e1e38]/70 hover:text-[#0e1e38]"
               >
                 {item.label}
               </a>
@@ -59,21 +59,25 @@ export function Navbar() {
 
           <div className="hidden lg:flex items-center flex-shrink-0">
             <a
-              href="/contact"
+              href="https://calendly.com/ma-societe-us/entretien-gratuit"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-semibold text-white transition-all duration-300"
               style={{
                 background: "linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%)",
                 boxShadow: "0 4px 16px rgba(42,80,144,0.25)",
               }}
             >
-              Prendre rendez-vous
+              Entretien gratuit — 15 min
             </a>
           </div>
 
           {/* Mobile: CTA + hamburger */}
           <div className="lg:hidden flex items-center gap-3 relative z-50">
             <a
-              href="/contact"
+              href="https://calendly.com/ma-societe-us/entretien-gratuit"
+              target="_blank"
+              rel="noopener noreferrer"
               className={`inline-flex items-center px-4 py-1.5 rounded-full text-[12px] font-medium transition-all duration-300 ${
                 menuOpen
                   ? "text-white"
@@ -123,14 +127,16 @@ export function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="/contact"
+              href="https://calendly.com/ma-societe-us/entretien-gratuit"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 + NAV_ITEMS.length * 0.08, duration: 0.4 }}
               className="mt-4 bg-[#002868] text-white px-8 py-3.5 rounded-full text-sm font-medium shadow-[0_4px_20px_rgba(0,40,104,0.3)]"
             >
-              Prendre rendez-vous
+              Entretien gratuit — 15 min
             </motion.a>
             <motion.p
               initial={{ opacity: 0 }}
