@@ -69,10 +69,28 @@ html[data-theme="premium"] {
   --c-border:    rgba(26,18,8,.08);
   background: #f3efe8; color: #1a1208;
 }
+/* ════ THEME: VAULT GLASS ════ */
+html[data-theme="vault"] {
+  --c-bg:        #F8F9FB;
+  --c-bg-2:      #F2F4F8;
+  --c-bg-3:      #EFF1F6;
+  --c-text:      #111520;
+  --c-text-2:    rgba(17,21,32,.50);
+  --c-text-3:    rgba(17,21,32,.28);
+  --c-accent:    #1a3a72;
+  --c-accent-d:  #0e2454;
+  --c-accent-l:  #2a52a0;
+  --c-surface:   rgba(255,255,255,.88);
+  --c-surface-b: rgba(255,255,255,.97);
+  --c-border:    rgba(160,168,188,.18);
+  background: #F8F9FB; color: #111520;
+}
+
 /* ════ THEME SURFACE OVERRIDES ════ */
 html[data-theme] body { background: var(--c-bg); }
 html[data-theme="dark"]    .navbar { background: rgba(6,16,30,.92) !important; border-bottom-color: rgba(255,255,255,.07) !important; }
 html[data-theme="premium"] .navbar { background: rgba(243,239,232,.94) !important; border-bottom-color: rgba(26,18,8,.07) !important; }
+html[data-theme="vault"]   .navbar { background: rgba(248,249,251,.96) !important; border-bottom-color: rgba(160,168,188,.15) !important; }
 html[data-theme] .nl { color: var(--c-text-2); }
 html[data-theme] .hero-bg  { background: linear-gradient(160deg, var(--c-bg) 0%, var(--c-bg-2) 50%, var(--c-bg-3) 100%) !important; }
 html[data-theme] .hero-h1  { color: var(--c-text); }
@@ -99,6 +117,129 @@ html[data-theme] .tl-p        { color: var(--c-text-2); }
 html[data-theme] .diff-item   { color: var(--c-text-2); border-bottom-color: var(--c-border); }
 html[data-theme] .hero-cta-p  { background: linear-gradient(135deg, var(--c-accent-d), var(--c-accent)); }
 html[data-theme] .hp-detail   { background: linear-gradient(160deg, var(--c-surface), rgba(238,246,255,.06)); }
+
+/* ════════════════════════════════════════
+   VAULT GLASS — BANKING PAGE DEEP STYLING
+════════════════════════════════════════ */
+
+/* Page background — blanc lumineux */
+html[data-theme="vault"] #pv-fintech .inner {
+  background: linear-gradient(160deg, #ffffff 0%, #F4F6FB 100%);
+  position: relative;
+}
+/* Halo radial derrière le titre — lumière interne vault */
+html[data-theme="vault"] #pv-fintech .inner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(240,244,255,.95) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+html[data-theme="vault"] #pv-fintech .inner > * { position: relative; z-index: 1; }
+
+/* H1 Banking — ligne chrome dessous */
+html[data-theme="vault"] #pv-fintech .i-h1 {
+  color: #111520;
+}
+html[data-theme="vault"] #pv-fintech .i-h1::after {
+  content: '';
+  display: block;
+  margin-top: 12px;
+  height: 2px; width: 56px;
+  background: linear-gradient(90deg, transparent, #B8BDCC 30%, #D8DCE8 50%, #B8BDCC 70%, transparent);
+  border-radius: 2px;
+}
+
+/* Pack cards — verre en couches */
+html[data-theme="vault"] #pv-fintech .pack-col {
+  background: rgba(255,255,255,.82);
+  border: 1px solid rgba(168,175,200,.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 0 -1px 0 rgba(148,158,185,.1),
+    0 16px 48px rgba(17,21,50,.05),
+    0 4px 12px rgba(17,21,50,.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Carte premium — porte de coffre avec lumière interne */
+html[data-theme="vault"] #pv-fintech .pack-col-premium {
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(26,58,114,.13);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 0 0 3px rgba(255,255,255,.55),
+    0 0 50px rgba(26,58,114,.05),
+    0 20px 60px rgba(17,21,50,.07),
+    0 4px 16px rgba(17,21,50,.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+/* Glow interne — lumière derrière la porte */
+html[data-theme="vault"] #pv-fintech .pack-col-premium::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%; transform: translateX(-50%);
+  width: 320px; height: 320px;
+  background: radial-gradient(circle at center, rgba(255,255,255,.75) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+html[data-theme="vault"] #pv-fintech .pack-col-premium > * { position: relative; z-index: 1; }
+
+/* Badge Recommandé — finition chrome */
+html[data-theme="vault"] #pv-fintech .pack-rec-badge {
+  background: linear-gradient(135deg, #C0C6D6 0%, #DADEEA 45%, #C4C9D9 100%);
+  color: #1a2a4a;
+  border: none;
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 8px rgba(17,21,50,.1);
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+/* Numéros de process — disques chrome */
+html[data-theme="vault"] #pv-fintech .ps-num {
+  background: linear-gradient(135deg, #C8CDDE 0%, #E0E3EE 100%);
+  color: #1a2a4a;
+  border: 1px solid rgba(168,175,200,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 2px 6px rgba(17,21,50,.07);
+}
+
+/* Étapes process — séparation légère */
+html[data-theme="vault"] #pv-fintech .process-step {
+  border-bottom-color: rgba(168,175,200,.15);
+}
+
+/* Conteneur process — panneau givré */
+html[data-theme="vault"] #pv-fintech .process-steps-wrap {
+  background: rgba(255,255,255,.88) !important;
+  border-color: rgba(168,175,200,.2) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.99), 0 4px 20px rgba(17,21,50,.04) !important;
+}
+
+/* Helper "Comment choisir" — glass panel */
+html[data-theme="vault"] #pv-fintech .pack-helper {
+  background: rgba(255,255,255,.80);
+  border-color: rgba(168,175,200,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.97), 0 4px 16px rgba(17,21,50,.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+html[data-theme="vault"] #pv-fintech .ph-col.rec {
+  background: rgba(26,58,114,.04);
+  border-radius: 10px;
+  border: 1px solid rgba(26,58,114,.08);
+  padding: 12px;
+}
+
+/* CTA final — acier institutionnel profond */
+html[data-theme="vault"] #pv-fintech .i-cta {
+  background: linear-gradient(135deg, #0e2454 0%, #1a3a72 60%, #132d5e 100%);
+  border: 1px solid rgba(26,58,114,.25);
+  box-shadow: 0 8px 32px rgba(14,36,84,.18), inset 0 1px 0 rgba(255,255,255,.09);
+}
 
 /* ════════════════════════════════════════
    DESIGN CONTROL BAR
@@ -1324,6 +1465,7 @@ body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
     <button class="db-btn on" onclick="setTheme('',this)">Liquid Glass</button>
     <button class="db-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
     <button class="db-btn" onclick="setTheme('premium',this)">Manhattan</button>
+    <button class="db-btn" onclick="setTheme('vault',this)">Vault Glass</button>
   </div>
 </div>
 
@@ -2259,7 +2401,7 @@ body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
         </div>
 
         <!-- Process steps fintech -->
-        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+        <div class="process-steps-wrap" style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
           <div class="section-h3" style="margin-bottom:12px">3 étapes pour ouvrir votre compte Fintech</div>
           <div class="process-steps">
             <div class="process-step">
