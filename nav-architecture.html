@@ -22,7 +22,229 @@
   --font-heading: 'Space Grotesk', system-ui, sans-serif;
   --font-head: var(--font-heading);
   --font-body: 'DM Sans', system-ui, sans-serif;
+  /* ── semantic tokens (used by theme overrides) ── */
+  --c-bg:        #eef3f9;
+  --c-bg-2:      #e4ecf6;
+  --c-bg-3:      #e8f0f9;
+  --c-text:      #0e1e38;
+  --c-text-2:    rgba(14,30,56,.55);
+  --c-text-3:    rgba(14,30,56,.35);
+  --c-accent:    #2a5090;
+  --c-accent-d:  #1a3a6a;
+  --c-accent-l:  #4a80b8;
+  --c-surface:   rgba(255,255,255,.82);
+  --c-surface-b: rgba(255,255,255,.88);
+  --c-border:    rgba(26,42,64,.07);
 }
+
+/* ════ THEME: HARVEY DARK ════ */
+html[data-theme="dark"] {
+  --c-bg:        #06101e;
+  --c-bg-2:      #0b1826;
+  --c-bg-3:      #091422;
+  --c-text:      rgba(230,240,255,.92);
+  --c-text-2:    rgba(200,218,245,.48);
+  --c-text-3:    rgba(200,218,245,.26);
+  --c-accent:    #6a9fd8;
+  --c-accent-d:  #4a7ab8;
+  --c-accent-l:  #8abae8;
+  --c-surface:   rgba(255,255,255,.055);
+  --c-surface-b: rgba(255,255,255,.09);
+  --c-border:    rgba(255,255,255,.08);
+  background: #06101e; color: rgba(230,240,255,.92);
+}
+/* ════ THEME: PREMIUM MANHATTAN ════ */
+html[data-theme="premium"] {
+  --c-bg:        #f3efe8;
+  --c-bg-2:      #ebe6dc;
+  --c-bg-3:      #eee9df;
+  --c-text:      #1a1208;
+  --c-text-2:    rgba(26,18,8,.52);
+  --c-text-3:    rgba(26,18,8,.30);
+  --c-accent:    #1a1208;
+  --c-accent-d:  #0a0600;
+  --c-accent-l:  #3a2a18;
+  --c-surface:   rgba(255,255,255,.80);
+  --c-surface-b: rgba(255,255,255,.92);
+  --c-border:    rgba(26,18,8,.08);
+  background: #f3efe8; color: #1a1208;
+}
+/* ════ THEME SURFACE OVERRIDES ════ */
+html[data-theme] body { background: var(--c-bg); }
+html[data-theme="dark"]    .navbar { background: rgba(6,16,30,.92) !important; border-bottom-color: rgba(255,255,255,.07) !important; }
+html[data-theme="premium"] .navbar { background: rgba(243,239,232,.94) !important; border-bottom-color: rgba(26,18,8,.07) !important; }
+html[data-theme] .nl { color: var(--c-text-2); }
+html[data-theme] .hero-bg  { background: linear-gradient(160deg, var(--c-bg) 0%, var(--c-bg-2) 50%, var(--c-bg-3) 100%) !important; }
+html[data-theme] .hero-h1  { color: var(--c-text); }
+html[data-theme] .hero-sub { color: var(--c-text-2); }
+html[data-theme] .hero-legal { color: var(--c-text-3); }
+html[data-theme] .section  { background: linear-gradient(160deg, var(--c-bg) 0%, var(--c-bg-2) 100%) !important; border-top-color: var(--c-border) !important; }
+html[data-theme] .timeline-section { background: linear-gradient(160deg, var(--c-bg-2), var(--c-bg-3)) !important; }
+html[data-theme] .offers-section   { background: linear-gradient(160deg, var(--c-bg-2), var(--c-bg-3)) !important; border-top-color: var(--c-border) !important; }
+html[data-theme] .hp-map-section   { background: linear-gradient(160deg, var(--c-bg) 0%, var(--c-bg-2) 100%) !important; }
+html[data-theme] .section-h2, html[data-theme] .section-tag { color: var(--c-text); }
+html[data-theme] .section-sub { color: var(--c-text-2); }
+html[data-theme] .non-item    { background: var(--c-surface); border-color: var(--c-surface-b); }
+html[data-theme] .non-q       { color: var(--c-text); }
+html[data-theme] .non-a       { color: var(--c-text-2); }
+html[data-theme] .op-card     { background: var(--c-surface); border-color: var(--c-border); }
+html[data-theme] .testi-card  { background: var(--c-surface); border-color: var(--c-surface-b); }
+html[data-theme] .testi-text  { color: var(--c-text-2); }
+html[data-theme] .testi-nm    { color: var(--c-text); }
+html[data-theme] .chemin-card { background: var(--c-surface); border-color: var(--c-surface-b); }
+html[data-theme] .chemin-h    { color: var(--c-text); }
+html[data-theme] .chemin-p    { color: var(--c-text-2); }
+html[data-theme] .tl-h        { color: var(--c-text); }
+html[data-theme] .tl-p        { color: var(--c-text-2); }
+html[data-theme] .diff-item   { color: var(--c-text-2); border-bottom-color: var(--c-border); }
+html[data-theme] .hero-cta-p  { background: linear-gradient(135deg, var(--c-accent-d), var(--c-accent)); }
+html[data-theme] .hp-detail   { background: linear-gradient(160deg, var(--c-surface), rgba(238,246,255,.06)); }
+
+/* ════════════════════════════════════════
+   DESIGN CONTROL BAR
+════════════════════════════════════════ */
+.design-bar {
+  background: #0a1220; border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 6px 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  font-size: 10.5px; font-family: var(--font-body);
+  position: sticky; top: 0; z-index: 61;
+}
+.db-group { display: flex; align-items: center; gap: 5px; }
+.db-label { color: rgba(255,255,255,.28); letter-spacing: .12em; text-transform: uppercase; font-size: 9px; white-space: nowrap; margin-right: 2px; }
+.db-btn {
+  color: rgba(255,255,255,.38); background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+  padding: 3px 11px; font-size: 10px; font-weight: 600; cursor: pointer;
+  transition: all .14s; white-space: nowrap; font-family: var(--font-body);
+}
+.db-btn:hover { color: rgba(255,255,255,.75); background: rgba(255,255,255,.1); }
+.db-btn.on { color: #fff; background: rgba(42,80,144,.55); border-color: rgba(42,80,144,.7); }
+.db-sep { width: 1px; height: 14px; background: rgba(255,255,255,.08); flex-shrink: 0; }
+
+/* ════════════════════════════════════════
+   HERO V2 — CABINET SPLIT
+════════════════════════════════════════ */
+.hv2-wrap {
+  min-height: calc(100vh - 40px - 64px - 28px - 28px);
+  display: flex; align-items: center; padding: 60px 80px;
+  position: relative; overflow: hidden;
+}
+.hv2-bg { position: absolute; inset: 0; background: linear-gradient(160deg, var(--c-bg) 0%, var(--c-bg-2) 100%); }
+.hv2-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+  max-width: 1100px; width: 100%; margin: 0 auto;
+}
+.hv2-eyebrow {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--c-accent); margin-bottom: 22px;
+}
+.hv2-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); flex-shrink: 0; }
+.hv2-h1 {
+  font-family: var(--font-head); font-size: clamp(34px, 3.8vw, 58px);
+  font-weight: 700; line-height: 1.0; letter-spacing: -.035em; color: var(--c-text);
+  margin-bottom: 20px;
+}
+.hv2-h1 em { font-style: normal; color: var(--c-accent); }
+.hv2-sub { font-size: 15px; color: var(--c-text-2); line-height: 1.7; max-width: 400px; margin-bottom: 28px; }
+.hv2-credential {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--c-surface); border: 1px solid var(--c-surface-b);
+  border-radius: 12px; padding: 11px 16px; margin-bottom: 32px;
+  backdrop-filter: blur(12px); box-shadow: 0 2px 12px rgba(42,80,144,.06);
+}
+.hv2-cred-icon {
+  width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--c-accent-d), var(--c-accent));
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.hv2-cred-title { font-size: 12px; font-weight: 700; color: var(--c-text); }
+.hv2-cred-sub { font-size: 10.5px; color: var(--c-text-2); margin-top: 1px; }
+.hv2-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: linear-gradient(135deg, var(--c-accent-d), var(--c-accent));
+  color: #fff; border: none; border-radius: 28px; padding: 15px 30px;
+  font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 14px;
+  box-shadow: 0 8px 28px rgba(42,80,144,.26); transition: all .2s; font-family: var(--font-body);
+}
+.hv2-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 36px rgba(42,80,144,.36); }
+.hv2-note { font-size: 11px; color: var(--c-text-3); }
+.hv2-photo-frame {
+  aspect-ratio: 4/5; border-radius: 22px; overflow: hidden; position: relative;
+  background: linear-gradient(160deg, rgba(42,80,144,.1), rgba(42,80,144,.04));
+  border: 1px solid var(--c-border);
+  box-shadow: 0 24px 60px rgba(42,80,144,.10), 0 2px 0 rgba(255,255,255,.8) inset;
+}
+.hv2-photo-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; color: var(--c-text-3);
+}
+.hv2-photo-icon { font-size: 52px; opacity: .2; }
+.hv2-photo-label { font-size: 11px; text-align: center; line-height: 1.6; font-weight: 500; }
+.hv2-photo-label strong { color: var(--c-text-2); }
+.hv2-photo-badge {
+  position: absolute; bottom: 20px; left: 16px; right: 16px;
+  background: rgba(6,14,30,.75); backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 14px;
+  padding: 14px 18px; color: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.hv2-badge-name { font-size: 13px; font-weight: 700; }
+.hv2-badge-role { font-size: 10.5px; opacity: .55; margin-top: 2px; }
+.hv2-badge-stats { display: flex; gap: 16px; flex-shrink: 0; }
+.hv2-bstat { text-align: center; }
+.hv2-bstat-val { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: #6a9fd8; line-height: 1; }
+.hv2-bstat-lbl { font-size: 9px; opacity: .45; letter-spacing: .08em; text-transform: uppercase; margin-top: 2px; }
+
+/* ════════════════════════════════════════
+   HERO V3 — MINIMAL / CONVICTION
+════════════════════════════════════════ */
+.hv3-wrap {
+  min-height: calc(100vh - 40px - 64px - 28px - 28px);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 60px 40px; position: relative; overflow: hidden;
+}
+.hv3-bg { position: absolute; inset: 0; background: linear-gradient(180deg, var(--c-bg) 0%, var(--c-bg-2) 100%); }
+.hv3-inner { position: relative; z-index: 1; max-width: 680px; }
+.hv3-proof {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--c-surface); border: 1px solid var(--c-surface-b);
+  border-radius: 24px; padding: 5px 14px; margin-bottom: 44px;
+  font-size: 11.5px; font-weight: 600; color: var(--c-text-2);
+  backdrop-filter: blur(12px);
+}
+.hv3-proof-dot { width: 6px; height: 6px; border-radius: 50%; background: #1a9a60; flex-shrink: 0; animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(26,154,96,.4)} 50%{box-shadow:0 0 0 5px rgba(26,154,96,0)} }
+.hv3-h1 {
+  font-family: var(--font-head); font-size: clamp(46px, 6.5vw, 82px);
+  font-weight: 700; line-height: .95; letter-spacing: -.04em; color: var(--c-text);
+  margin-bottom: 26px;
+}
+.hv3-h1 em { font-style: normal; display: block; color: var(--c-accent); }
+.hv3-sub { font-size: 17px; color: var(--c-text-2); line-height: 1.65; margin-bottom: 44px; }
+.hv3-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--c-accent-d), var(--c-accent));
+  color: #fff; border: none; border-radius: 32px; padding: 17px 38px;
+  font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 28px;
+  box-shadow: 0 10px 36px rgba(42,80,144,.28); transition: all .2s; font-family: var(--font-body);
+}
+.hv3-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 44px rgba(42,80,144,.38); }
+.hv3-trust { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--c-text-3); }
+.hv3-trust-item::before { content: '✓ '; color: #1a9a60; font-weight: 700; }
+.hv3-trust-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--c-text-3); flex-shrink: 0; }
+
+/* ── V2/V3 mobile ── */
+@media (max-width: 768px) {
+  .hv2-wrap { padding: 52px 20px; }
+  .hv2-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hv2-photo-frame { aspect-ratio: 16/9; }
+  .hv3-wrap { padding: 52px 20px; }
+  .hv3-h1 { font-size: clamp(38px, 10vw, 52px); }
+}
+
 html { font-family: var(--font-body); background: #eef3f9; color: var(--navy); -webkit-font-smoothing: antialiased; }
 body { min-height: 100vh; }
 
@@ -1088,6 +1310,23 @@ body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
   <span class="at-dot"></span><span class="at-lbl">Annotations ON</span>
 </button>
 
+<!-- DESIGN CONTROL BAR -->
+<div class="design-bar">
+  <div class="db-group">
+    <span class="db-label">Hero</span>
+    <button class="db-btn on" onclick="setHeroVariant(1,this)">V1 · Actuel</button>
+    <button class="db-btn" onclick="setHeroVariant(2,this)">V2 · Cabinet</button>
+    <button class="db-btn" onclick="setHeroVariant(3,this)">V3 · Minimal</button>
+  </div>
+  <div class="db-sep"></div>
+  <div class="db-group">
+    <span class="db-label">Thème</span>
+    <button class="db-btn on" onclick="setTheme('',this)">Liquid Glass</button>
+    <button class="db-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
+    <button class="db-btn" onclick="setTheme('premium',this)">Manhattan</button>
+  </div>
+</div>
+
 <!-- META -->
 <div class="meta-strip">
   <div class="ms-label">MA SOCIÉTÉ US · <strong>Architecture Navigation</strong></div>
@@ -1240,7 +1479,7 @@ body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
 
     <!-- HOME -->
     <div class="pv on" id="pv-home">
-      <div class="hero">
+      <div class="hero hero-variant" id="hv-1">
         <div class="hero-bg"></div><div class="hero-dots"></div><div class="hero-glow"></div>
         <div class="hero-body">
           <div class="hero-pill"><span class="hp-dot"></span>500+ sociétés créées depuis 2014</div>
@@ -1264,6 +1503,71 @@ body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
             <div class="pg-item"><div class="pgi-val">4</div><div class="pgi-lbl">Juridictions</div></div>
             <div class="pg-item"><div class="pgi-val">500+</div><div class="pgi-lbl">Clients</div></div>
             <div class="pg-item"><div class="pgi-val">10 ans</div><div class="pgi-lbl">Expertise</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO V2 — Cabinet Split -->
+      <div class="hv2-wrap hero-variant" id="hv-2" style="display:none">
+        <div class="hv2-bg"></div>
+        <div class="hv2-inner">
+          <div class="hv2-left">
+            <div class="hv2-eyebrow"><span class="hv2-dot"></span>Cabinet franco-américain depuis 2014</div>
+            <h1 class="hv2-h1">Votre LLC aux USA.<br><em>En 14 jours.</em></h1>
+            <p class="hv2-sub">CPA agréé IRS. Chargé d'affaires dédié. Suivi complet A à Z — pas juste un formulaire en ligne.</p>
+            <div class="hv2-credential">
+              <div class="hv2-cred-icon">🏛</div>
+              <div>
+                <div class="hv2-cred-title">Christophe — CPA agréé IRS</div>
+                <div class="hv2-cred-sub">Signe personnellement chaque déclaration fiscale</div>
+              </div>
+            </div>
+            <div>
+              <button class="hv2-cta" onclick="window.open('https://calendly.com/ypls/decouverte-site','_blank')">
+                Réserver mon entretien gratuit <span>→</span>
+              </button>
+              <p class="hv2-note">Sans engagement · 15 min · 100% à distance</p>
+            </div>
+          </div>
+          <div class="hv2-photo-frame">
+            <div class="hv2-photo-placeholder">
+              <div class="hv2-photo-icon">📸</div>
+              <div class="hv2-photo-label">Photo Christophe<br><strong>+ équipe bureau NYC</strong></div>
+            </div>
+            <div class="hv2-photo-badge">
+              <div>
+                <div class="hv2-badge-name">Christophe</div>
+                <div class="hv2-badge-role">Fondateur · CPA agréé IRS</div>
+              </div>
+              <div class="hv2-badge-stats">
+                <div class="hv2-bstat"><div class="hv2-bstat-val">500+</div><div class="hv2-bstat-lbl">Clients</div></div>
+                <div class="hv2-bstat"><div class="hv2-bstat-val">10</div><div class="hv2-bstat-lbl">Années</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO V3 — Minimal Conviction -->
+      <div class="hv3-wrap hero-variant" id="hv-3" style="display:none">
+        <div class="hv3-bg"></div>
+        <div class="hv3-inner">
+          <div class="hv3-proof"><span class="hv3-proof-dot"></span>500+ entrepreneurs. 15M€ d'économies. 0% d'impôts US.</div>
+          <h1 class="hv3-h1">Votre société<br>américaine.<br><em>Sans visa.<br>Sans avion.</em></h1>
+          <p class="hv3-sub">Cabinet franco-américain. CPA agréé IRS. Accompagnement complet A à Z.</p>
+          <div>
+            <button class="hv3-cta" onclick="window.open('https://calendly.com/ypls/decouverte-site','_blank')">
+              Réserver mon entretien gratuit · 15 min <span>→</span>
+            </button>
+          </div>
+          <div class="hv3-trust">
+            <span class="hv3-trust-item">100% légal</span>
+            <span class="hv3-trust-sep"></span>
+            <span class="hv3-trust-item">Conforme OCDE</span>
+            <span class="hv3-trust-sep"></span>
+            <span class="hv3-trust-item">CPA agréé IRS</span>
+            <span class="hv3-trust-sep"></span>
+            <span class="hv3-trust-item">Depuis 2014</span>
           </div>
         </div>
       </div>
@@ -2577,6 +2881,30 @@ function selectState(key) {
     <div class="md-features">${d.feats.map(f=>`<div class="md-feat"><span class="md-feat-arrow" style="color:${d.accent}">›</span><span>${f}</span></div>`).join('')}</div>
     <button class="md-cta" onclick="go('${key}')">Créer ma LLC au ${d.name} →</button>
   `;
+}
+
+/* ── Design control bar ── */
+function setTheme(theme, btn) {
+  document.documentElement.setAttribute('data-theme', theme);
+  if (!theme) document.documentElement.removeAttribute('data-theme');
+  document.querySelectorAll('.db-btn').forEach(b => {
+    if (b.onclick && b.onclick.toString().includes('setTheme')) b.classList.remove('on');
+  });
+  btn.classList.add('on');
+}
+
+function setHeroVariant(n, btn) {
+  document.querySelectorAll('.hero-variant').forEach(el => { el.style.display = 'none'; });
+  const target = document.getElementById('hv-' + n);
+  if (target) {
+    target.style.display = '';
+    if (n === 2) { target.style.display = 'flex'; }
+    if (n === 3) { target.style.display = 'flex'; }
+  }
+  document.querySelectorAll('.db-btn').forEach(b => {
+    if (b.onclick && b.onclick.toString().includes('setHeroVariant')) b.classList.remove('on');
+  });
+  btn.classList.add('on');
 }
 </script>
 </body>
