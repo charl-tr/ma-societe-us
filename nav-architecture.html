@@ -5,392 +5,439 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Navigation Architecture — MA SOCIÉTÉ US</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    background: #f0f3f8;
-    color: #0e1e38;
-    min-height: 100vh;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "Inter", sans-serif; background: #eef2f8; color: #0e1e38; }
 
-  /* ── Page shell ── */
-  .page { max-width: 1320px; margin: 0 auto; padding: 48px 32px 80px; }
-  .page-title {
-    font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-    color: #2a5090; margin-bottom: 6px;
-  }
-  .page-heading { font-size: 28px; font-weight: 700; color: #0e1e38; line-height: 1.2; }
-  .page-sub { font-size: 14px; color: #0e1e38; opacity: .45; margin-top: 6px; margin-bottom: 48px; }
+/* ── Layout ── */
+.page { max-width: 1300px; margin: 0 auto; padding: 52px 32px 100px; }
+h1 { font-size: 26px; font-weight: 700; color: #0e1e38; }
+.subtitle { font-size: 14px; color: rgba(14,30,56,.45); margin-top: 5px; margin-bottom: 48px; }
 
-  /* ── Section divider ── */
-  .section { margin-bottom: 64px; }
-  .section-head { margin-bottom: 20px; }
-  .section-label {
-    font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
-    color: #2a5090; margin-bottom: 4px;
-  }
-  .section-title { font-size: 20px; font-weight: 700; color: #0e1e38; }
-  .section-desc { font-size: 13px; color: #0e1e38; opacity: .45; margin-top: 4px; }
+.section { margin-bottom: 72px; }
+.section-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #2a5090; margin-bottom: 4px; }
+.section-title { font-size: 20px; font-weight: 700; color: #0e1e38; margin-bottom: 4px; }
+.section-desc { font-size: 13px; color: rgba(14,30,56,.45); margin-bottom: 24px; }
 
-  /* ══════════════════════════════════════════════════
-     OPTION H — NAVBAR MOCKUP
-  ══════════════════════════════════════════════════ */
-  .mockup-shell {
-    background: #e4ecf6;
-    border-radius: 16px;
-    padding: 40px 32px 32px;
-    position: relative;
-    overflow: visible;
-  }
-  .mockup-label {
-    font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
-    color: #2a5090; margin-bottom: 16px;
-  }
+/* ══════════════════════════════════════
+   SECTION 1 — STRUCTURE EXPLAINED
+══════════════════════════════════════ */
+.structure-explainer {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-bottom: 36px;
+}
+.explain-card {
+  background: #fff; border-radius: 12px; padding: 24px;
+  border: 1px solid #e0e8f0;
+}
+.explain-card h3 { font-size: 14px; font-weight: 700; color: #0e1e38; margin-bottom: 8px; }
+.explain-card p { font-size: 13px; color: rgba(14,30,56,.6); line-height: 1.6; }
+.explain-card .badge {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+}
+.badge-blue { background: #ebf2ff; color: #2a5090; }
+.badge-green { background: #e8f8f0; color: #1a7850; }
+.badge-amber { background: #fff5e6; color: #a05a14; }
+.badge-navy { background: rgba(14,30,56,.08); color: #0e1e38; }
 
-  /* Navbar */
-  .navbar {
-    background: #fff;
-    border-radius: 12px 12px 0 0;
-    height: 64px;
-    display: flex; align-items: center;
-    padding: 0 32px;
-    gap: 0;
-    box-shadow: 0 2px 12px rgba(14,30,56,.06);
-    position: relative;
-    z-index: 10;
-    border-bottom: 1px solid rgba(14,30,56,.06);
-  }
-  .nav-logo {
-    font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
-    color: #0e1e38; margin-right: auto;
-  }
-  .nav-items { display: flex; align-items: center; gap: 8px; margin-right: 20px; }
-  .nav-item {
-    font-size: 14px; font-weight: 500; color: rgba(14,30,56,.6);
-    padding: 8px 14px; border-radius: 8px; cursor: pointer;
-    transition: color .15s, background .15s;
-    white-space: nowrap;
-  }
-  .nav-item:hover { color: #0e1e38; background: rgba(14,30,56,.04); }
-  .nav-item.active {
-    color: #2a5090; background: rgba(42,80,144,.06);
-    display: flex; align-items: center; gap: 5px;
-  }
-  .nav-item.active::after { content: "›"; opacity: .6; font-size: 16px; }
-  .nav-portal { font-size: 13px; color: rgba(14,30,56,.35); margin-right: 16px; cursor: pointer; }
-  .nav-cta {
-    background: linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%);
-    color: #fff; font-size: 13px; font-weight: 600;
-    padding: 10px 22px; border-radius: 24px; cursor: pointer;
-    box-shadow: 0 4px 16px rgba(42,80,144,.28);
-    white-space: nowrap;
-    transition: box-shadow .15s;
-  }
-  .nav-cta:hover { box-shadow: 0 6px 24px rgba(42,80,144,.38); }
+/* ══════════════════════════════════════
+   SECTION 2 — NAVBAR MOCKUP (interactive)
+══════════════════════════════════════ */
+.mockup-bg {
+  background: #d8e4f0;
+  border-radius: 16px;
+  padding: 32px 28px 28px;
+}
+.mockup-note {
+  font-size: 12px; font-weight: 500; color: #2a5090;
+  background: rgba(42,80,144,.1); border: 1px solid rgba(42,80,144,.2);
+  border-radius: 8px; padding: 9px 14px; display: inline-block; margin-bottom: 16px;
+}
 
-  /* Active indicator */
-  .nav-active-line {
-    position: absolute; bottom: 0; height: 2px; width: 68px;
-    background: #2a5090; border-radius: 1px;
-    left: 50%; transform: translateX(-50%);
-  }
+/* Navbar */
+.navbar {
+  background: #fff; border-radius: 12px 12px 0 0;
+  height: 62px; display: flex; align-items: center; padding: 0 28px;
+  box-shadow: 0 1px 0 #e0e8f0; position: relative; z-index: 20;
+}
+.nav-logo { font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #0e1e38; margin-right: auto; }
+.nav-links { display: flex; align-items: center; gap: 2px; margin-right: 16px; }
+.nav-link {
+  font-size: 14px; font-weight: 500; color: rgba(14,30,56,.5);
+  padding: 7px 14px; border-radius: 8px; cursor: pointer;
+  transition: color .15s, background .15s; user-select: none;
+  display: flex; align-items: center; gap: 4px; position: relative;
+}
+.nav-link:hover, .nav-link.hovered { color: #0e1e38; background: rgba(14,30,56,.05); }
+.nav-link.open { color: #2a5090; background: rgba(42,80,144,.08); }
+.nav-link .chevron { font-size: 12px; opacity: .6; transition: transform .2s; }
+.nav-link.open .chevron { transform: rotate(90deg); }
+.nav-link .active-dot {
+  position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+  width: 20px; height: 2px; background: #2a5090; border-radius: 1px;
+  opacity: 0; transition: opacity .15s;
+}
+.nav-link.open .active-dot { opacity: 1; }
+.nav-portal { font-size: 13px; color: rgba(14,30,56,.3); margin-right: 14px; cursor: pointer; padding: 7px 10px; border-radius: 8px; transition: color .15s; }
+.nav-portal:hover { color: rgba(14,30,56,.6); }
+.nav-cta {
+  background: linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%);
+  color: #fff; font-size: 13px; font-weight: 600; padding: 10px 20px;
+  border-radius: 24px; cursor: pointer; white-space: nowrap;
+  box-shadow: 0 3px 14px rgba(42,80,144,.28); transition: box-shadow .15s;
+}
+.nav-cta:hover { box-shadow: 0 5px 22px rgba(42,80,144,.4); }
 
-  /* Mega dropdown */
-  .dropdown-wrap {
-    position: relative;
-    background: #fff;
-    border-radius: 0 0 16px 16px;
-    overflow: hidden;
-    box-shadow: 0 16px 48px rgba(14,30,56,.12), 0 4px 16px rgba(14,30,56,.06);
-  }
-  .dropdown-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .dropdown-col {
-    padding: 0;
-    border-right: 1px solid #e0e8f0;
-  }
-  .dropdown-col:last-child { border-right: none; }
-  .col-header {
-    padding: 16px 28px 14px;
-    background: #f8fafc;
-    border-bottom: 1px solid #e0e8f0;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .col-header-label {
-    font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-  }
-  .col-header-label.blue { color: #2a5090; }
-  .col-header-label.green { color: #1a7850; }
-  .col-header-label.amber { color: #a05a14; }
-  .col-tag {
-    font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px;
-  }
-  .col-tag.blue { background: #ebf2ff; color: #2a5090; }
-  .col-tag.green { background: #e8f8f0; color: #1a7850; }
-  .col-tag.amber { background: #fff5e6; color: #a05a14; }
+/* Dropdown panel */
+.dropdown-panel {
+  background: #fff; overflow: hidden;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 16px 48px rgba(14,30,56,.12), 0 4px 16px rgba(14,30,56,.06);
+  display: none;
+}
+.dropdown-panel.visible { display: block; }
 
-  /* Items */
-  .col-items { padding: 8px 0; }
-  .col-item {
-    padding: 12px 28px 12px;
-    cursor: pointer;
-    transition: background .12s;
-    border-bottom: 1px solid #f0f4f8;
-  }
-  .col-item:last-child { border-bottom: none; }
-  .col-item:hover { background: #f5f9ff; }
-  .item-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-  .item-name { font-size: 14px; font-weight: 600; color: #0e1e38; }
-  .item-price { font-size: 13px; font-weight: 500; color: #2a5090; white-space: nowrap; }
-  .item-desc { font-size: 12px; color: rgba(14,30,56,.45); margin-top: 3px; line-height: 1.4; }
-  .item-badge {
-    display: inline-block; font-size: 10px; font-weight: 600;
-    padding: 2px 8px; border-radius: 10px; margin-top: 5px;
-    background: #ebf2ff; color: #2a5090;
-  }
-  .item-badge.green { background: #e8f8f0; color: #1a7850; }
-  .item-badge.amber { background: #fff5e6; color: #a05a14; }
+.drop-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.drop-col { border-right: 1px solid #e8eef6; }
+.drop-col:last-child { border-right: none; }
 
-  /* Banking CTA */
-  .banking-cta-wrap { padding: 12px 28px 16px; }
-  .banking-cta {
-    display: block; width: 100%;
-    background: #0e1e38; color: #fff;
-    font-size: 13px; font-weight: 600;
-    padding: 11px 20px; border-radius: 8px; text-align: center;
-    cursor: pointer; transition: background .15s;
-    border: none; text-decoration: none;
-  }
-  .banking-cta:hover { background: #1a3a6a; }
+.col-head {
+  padding: 14px 24px;
+  background: #f8fafc; border-bottom: 1px solid #e8eef6;
+  display: flex; align-items: center; gap: 10px;
+}
+.col-head-label { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.col-head-tag {
+  font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px;
+}
+.c-blue .col-head-label { color: #2a5090; }
+.c-blue .col-head-tag { background: #ebf2ff; color: #2a5090; }
+.c-green .col-head-label { color: #1a7850; }
+.c-green .col-head-tag { background: #e8f8f0; color: #1a7850; }
+.c-amber .col-head-label { color: #a05a14; }
+.c-amber .col-head-tag { background: #fff5e6; color: #a05a14; }
 
-  /* Footer bar */
-  .dropdown-footer {
-    background: #f8fafc;
-    border-top: 1px solid #e0e8f0;
-    padding: 12px 28px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .footer-link { font-size: 13px; font-weight: 500; color: #2a5090; cursor: pointer; }
-  .footer-trust { font-size: 12px; color: rgba(14,30,56,.35); }
+.col-items { padding: 6px 0; }
+.col-item {
+  padding: 11px 24px; cursor: pointer;
+  border-bottom: 1px solid #f0f4f8;
+  transition: background .1s;
+}
+.col-item:last-child { border-bottom: none; }
+.col-item:hover, .col-item.hover-demo { background: #f0f6ff; }
+.item-top { display: flex; align-items: baseline; justify-content: space-between; }
+.item-name { font-size: 14px; font-weight: 600; color: #0e1e38; }
+.item-price { font-size: 12px; font-weight: 500; color: #2a5090; }
+.item-desc { font-size: 12px; color: rgba(14,30,56,.45); margin-top: 2px; line-height: 1.4; }
+.item-pill {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 10px; margin-top: 4px;
+}
+.pill-blue { background: #ebf2ff; color: #2a5090; }
+.pill-green { background: #e8f8f0; color: #1a7850; }
+.pill-amber { background: #fff5e6; color: #a05a14; }
 
-  /* Hover instruction */
-  .hover-note {
-    background: rgba(42,80,144,.08);
-    border: 1px solid rgba(42,80,144,.15);
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-size: 12px; color: #2a5090; font-weight: 500;
-    margin-bottom: 16px; display: inline-block;
-  }
+/* State sub-items */
+.state-item {
+  padding: 8px 24px 8px 36px; cursor: pointer;
+  border-bottom: 1px solid #f5f7fb;
+  transition: background .1s; display: flex; align-items: center; gap: 10px;
+}
+.state-item:hover { background: #f0f6ff; }
+.state-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.state-name { font-size: 13px; font-weight: 600; color: #0e1e38; min-width: 120px; }
+.state-tag { font-size: 11px; color: rgba(14,30,56,.45); }
 
-  /* ══════════════════════════════════════════════════
-     7 OPTIONS TABLE
-  ══════════════════════════════════════════════════ */
-  .options-table {
-    width: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba(14,30,56,.07);
-  }
-  .options-table table {
-    width: 100%; border-collapse: collapse;
-    font-size: 13px;
-  }
-  .options-table thead th {
-    background: #0e1e38; color: rgba(255,255,255,.65);
-    font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-    padding: 14px 20px; text-align: left;
-  }
-  .options-table tbody tr { background: #fff; }
-  .options-table tbody tr:nth-child(even) { background: #f9fbfe; }
-  .options-table tbody tr.recommended {
-    background: #eef3ff !important;
-    position: relative;
-  }
-  .options-table tbody td {
-    padding: 18px 20px;
-    border-bottom: 1px solid #e8eef6;
-    vertical-align: top;
-    line-height: 1.5;
-  }
-  .options-table tbody tr:last-of-type td { border-bottom: none; }
-  .opt-id {
-    font-size: 18px; font-weight: 800; color: rgba(14,30,56,.2);
-    white-space: nowrap;
-  }
-  .opt-id.highlight { color: #2a5090; }
-  .opt-name { font-size: 14px; font-weight: 600; color: #0e1e38; }
-  .opt-badge {
-    display: inline-block; margin-top: 5px;
-    background: #2a5090; color: #fff;
-    font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 20px;
-  }
-  .opt-items { color: rgba(14,30,56,.6); font-size: 12px; line-height: 1.6; }
-  .pro { color: #1a7850; font-size: 12px; }
-  .pro::before { content: "✓  "; }
-  .con { color: #b03c28; font-size: 12px; margin-top: 4px; }
-  .con::before { content: "✗  "; }
-  .verdict { font-size: 12px; font-weight: 500; color: rgba(14,30,56,.65); }
-  .score {
-    font-size: 22px; font-weight: 800; text-align: center;
-    white-space: nowrap;
-  }
-  .score.high { color: #2a5090; }
-  .score.mid { color: #1a7850; }
-  .score.low { color: rgba(14,30,56,.35); }
-  .recommended-bar {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px; background: #2a5090; border-radius: 0;
-  }
-  .table-footer {
-    background: #f8fafc; padding: 14px 20px;
-    font-size: 12px; color: rgba(14,30,56,.45);
-    border-top: 1px solid #e0e8f0;
-  }
-  .recommended td:first-child { position: relative; }
+/* Banking CTA */
+.banking-cta-wrap { padding: 10px 24px 14px; }
+.banking-cta {
+  display: block; background: #0e1e38; color: #fff;
+  font-size: 13px; font-weight: 600; padding: 11px 16px;
+  border-radius: 8px; text-align: center; cursor: pointer;
+  transition: background .15s; text-decoration: none;
+}
+.banking-cta:hover { background: #1a3a6a; }
 
-  /* Weights legend */
-  .weights-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-    margin-bottom: 20px;
-  }
-  .weight-card {
-    background: #fff; border: 1px solid #e0e8f0;
-    border-radius: 10px; padding: 14px 16px;
-  }
-  .weight-name { font-size: 12px; font-weight: 600; color: #0e1e38; }
-  .weight-val { font-size: 20px; font-weight: 800; color: #2a5090; }
-  .weight-desc { font-size: 11px; color: rgba(14,30,56,.45); margin-top: 2px; }
+.drop-footer {
+  background: #f8fafc; border-top: 1px solid #e8eef6;
+  padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+}
+.drop-footer-link { font-size: 13px; font-weight: 500; color: #2a5090; cursor: pointer; }
+.drop-footer-trust { font-size: 11px; color: rgba(14,30,56,.35); }
 
-  /* Nav tabs */
-  .tabs {
-    display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap;
-  }
-  .tab {
-    font-size: 13px; font-weight: 500; padding: 8px 18px;
-    border-radius: 20px; cursor: pointer; transition: all .15s;
-    background: #fff; color: rgba(14,30,56,.5);
-    border: 1px solid #e0e8f0;
-  }
-  .tab.active, .tab:hover {
-    background: #2a5090; color: #fff; border-color: #2a5090;
-  }
+/* ══════════════════════════════════════
+   SECTION 3 — SITEMAP / PAGE TREE
+══════════════════════════════════════ */
+.sitemap { display: flex; flex-direction: column; gap: 16px; }
+.sitemap-row { display: grid; grid-template-columns: 200px 1fr; gap: 0; align-items: stretch; }
+.sitemap-nav-label {
+  background: #0e1e38; color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 16px 20px; border-radius: 10px 0 0 10px;
+  display: flex; align-items: center;
+}
+.sitemap-pages {
+  background: #fff; border: 1px solid #e0e8f0; border-left: none;
+  border-radius: 0 10px 10px 0; padding: 12px 20px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.page-chip {
+  background: #f0f4fb; border: 1px solid #d8e4f0;
+  border-radius: 8px; padding: 6px 14px;
+  font-size: 12px; font-weight: 500; color: #0e1e38;
+}
+.page-chip.primary { background: #ebf2ff; border-color: #c0d4f0; color: #2a5090; font-weight: 600; }
+.page-chip.new { border-style: dashed; border-color: #a0b4d0; color: rgba(14,30,56,.5); }
+.page-arrow { font-size: 14px; color: rgba(14,30,56,.2); }
+.page-chip-note { font-size: 11px; color: rgba(14,30,56,.35); padding: 0 4px; }
 
-  @media (max-width: 900px) {
-    .dropdown-cols { grid-template-columns: 1fr; }
-    .dropdown-col { border-right: none; border-bottom: 1px solid #e0e8f0; }
-    .weights-grid { grid-template-columns: 1fr 1fr; }
-  }
+/* ══════════════════════════════════════
+   SECTION 4 — 7 OPTIONS
+══════════════════════════════════════ */
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+.option-card {
+  background: #fff; border: 1px solid #e0e8f0; border-radius: 12px;
+  padding: 20px 24px; display: grid;
+  grid-template-columns: 48px 200px 1fr 160px 80px;
+  gap: 16px; align-items: start;
+  transition: border-color .15s;
+}
+.option-card:hover { border-color: #c0d4f0; }
+.option-card.recommended {
+  background: #eef4ff; border-color: #2a5090; border-width: 2px;
+  position: relative; overflow: hidden;
+}
+.option-card.recommended::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: #2a5090;
+}
+.opt-id { font-size: 24px; font-weight: 800; color: rgba(14,30,56,.2); line-height: 1; padding-top: 2px; }
+.opt-id.rec { color: #2a5090; }
+.opt-name-wrap {}
+.opt-name { font-size: 15px; font-weight: 700; color: #0e1e38; line-height: 1.2; }
+.opt-rec-badge {
+  display: inline-block; margin-top: 6px;
+  background: #2a5090; color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+.opt-details {}
+.opt-items-label { font-size: 10px; font-weight: 700; color: rgba(14,30,56,.35); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.opt-items-val { font-size: 12px; color: rgba(14,30,56,.65); margin-bottom: 10px; }
+.opt-pro { font-size: 12px; color: #1a7850; line-height: 1.5; }
+.opt-pro::before { content: "✓  "; }
+.opt-con { font-size: 12px; color: #b03c28; line-height: 1.5; margin-top: 3px; }
+.opt-con::before { content: "✗  "; }
+.opt-verdict { font-size: 12px; color: rgba(14,30,56,.55); line-height: 1.5; }
+.opt-verdict.rec { color: #2a5090; font-weight: 600; }
+.opt-score-wrap { text-align: right; }
+.opt-score { font-size: 28px; font-weight: 800; line-height: 1; }
+.opt-score.high { color: #2a5090; }
+.opt-score.mid { color: #1a7850; }
+.opt-score.low { color: rgba(14,30,56,.25); }
+.opt-score-label { font-size: 10px; color: rgba(14,30,56,.35); margin-top: 2px; }
+
+.options-header {
+  background: #0e1e38; border-radius: 10px 10px 0 0;
+  display: grid; grid-template-columns: 48px 200px 1fr 160px 80px;
+  gap: 16px; padding: 12px 24px;
+  font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+
+/* Tabs */
+.tabs { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+.tab {
+  font-size: 13px; font-weight: 500; padding: 9px 20px; border-radius: 24px;
+  cursor: pointer; border: 1px solid #dce6f0; background: #fff;
+  color: rgba(14,30,56,.5); transition: all .15s;
+}
+.tab:hover, .tab.active { background: #2a5090; color: #fff; border-color: #2a5090; }
+
+@media (max-width: 900px) {
+  .drop-cols { grid-template-columns: 1fr; }
+  .option-card { grid-template-columns: 1fr; }
+  .structure-explainer { grid-template-columns: 1fr; }
+  .sitemap-row { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Page header -->
-  <div class="page-title">MA SOCIÉTÉ US · Redesign 2026</div>
-  <h1 class="page-heading">Architecture Navigation</h1>
-  <p class="page-sub">7 options analysées · Scoring multicritères · Recommandation Option H</p>
+  <div style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2a5090;margin-bottom:6px;">MA SOCIÉTÉ US · Architecture</div>
+  <h1>Structure de navigation</h1>
+  <p class="subtitle">Option H recommandée · Ce que le visiteur voit · Sitemap des pages · Comparaison 7 options</p>
 
   <div class="tabs">
-    <div class="tab active" onclick="scrollTo('option-h')">Option H — Recommandée</div>
-    <div class="tab" onclick="scrollTo('comparison')">Comparaison 7 options</div>
-    <div class="tab" onclick="scrollTo('weights')">Critères & pondération</div>
+    <div class="tab active" onclick="showTab('structure')">1 — Structure expliquée</div>
+    <div class="tab" onclick="showTab('mockup')">2 — Mockup interactif</div>
+    <div class="tab" onclick="showTab('sitemap')">3 — Pages créées</div>
+    <div class="tab" onclick="showTab('options')">4 — 7 options comparées</div>
   </div>
 
-  <!-- ══ SECTION 1 — OPTION H MOCKUP ══ -->
-  <div class="section" id="option-h">
-    <div class="section-head">
-      <div class="section-label">Section 1</div>
-      <div class="section-title">Option H — Mega Dropdown 3 colonnes</div>
-      <div class="section-desc">Le survol de "Services" révèle les 3 piliers en un seul geste. Banking a sa propre colonne.</div>
+  <!-- ══ TAB 1: STRUCTURE EXPLAINED ══ -->
+  <div id="tab-structure" class="section">
+    <div class="section-label">Section 1</div>
+    <div class="section-title">Comment est structurée la navigation ?</div>
+    <div class="section-desc">Option H = 4 items top-level + 1 mega dropdown sur "Services" qui révèle les 3 piliers en un survol.</div>
+
+    <div class="structure-explainer">
+      <div class="explain-card">
+        <span class="badge badge-navy">Top-level (toujours visible)</span>
+        <h3>4 items dans la barre de navigation</h3>
+        <p>
+          <strong>Créer une LLC</strong> — page d'introduction à la LLC, avec les 4 États en sous-pages.<br><br>
+          <strong>Services ▾</strong> — survol → mega dropdown 3 colonnes (voir ci-dessous).<br><br>
+          <strong>À propos</strong> — page équipe + crédibilité cabinet.<br><br>
+          <strong>Blog</strong> — contenu SEO, autorité éditoriale.<br><br>
+          + Bouton CTA <strong>"Réserver mon entretien →"</strong> toujours visible.
+        </p>
+      </div>
+      <div class="explain-card">
+        <span class="badge badge-blue">Mega dropdown — "Services" survolé</span>
+        <h3>3 colonnes révélées en 1 geste</h3>
+        <p>
+          <strong style="color:#2a5090">CRÉATION</strong> — Pack LLC $997, Pack Premium $1 597, puis les 4 États détaillés (NM, CO, WY, DE chacun avec son argument).<br><br>
+          <strong style="color:#1a7850">GESTION</strong> — Déclaration LLC, Option Confort, Visa E2, Prestations additionnelles.<br><br>
+          <strong style="color:#a05a14">BANKING</strong> — Banque en ligne (fintech), Banque physique + CTA dédié Calendly banking direct.
+        </p>
+      </div>
     </div>
 
-    <div class="mockup-shell">
-      <div class="mockup-label">Aperçu desktop 1440px — état "Services" survolé</div>
-      <p class="hover-note">💡 Survolez les items de navigation pour voir les états hover</p>
+    <div class="explain-card" style="margin-bottom:16px;">
+      <span class="badge badge-blue">Pourquoi "Services" et pas "Pack LLC" + "Banking" séparés ?</span>
+      <h3>Un seul survol révèle tout — zéro ambiguïté</h3>
+      <p>
+        Si Banking était un item top-level séparé, la navbar aurait 6 items — surcharge cognitive, perte d'autorité premium.
+        Avec le mega dropdown, le visiteur qui cherche <em>le banking</em> voit immédiatement "BANKING" comme colonne dédiée dès qu'il survole "Services".
+        Il ne passe pas par la case "Création" et n'est pas perdu.
+        Chaque colonne a sa propre couleur et son propre CTA — les 3 audiences (créer / gérer / encaisser) ont chacune un chemin direct.
+      </p>
+    </div>
+
+    <div class="explain-card">
+      <span class="badge badge-green">Les 4 États — pourquoi les décomposer ?</span>
+      <h3>Chaque État a un argument différenciant fort</h3>
+      <p>
+        <strong>Nouveau-Mexique</strong> — Anonymat total : votre nom n'apparaît dans aucun registre public.<br>
+        <strong>Colorado</strong> — LLC opérationnelle en 24h : le plus rapide des 4 États.<br>
+        <strong>Wyoming</strong> — Pro-crypto & Web3 : réglementation la plus favorable aux actifs numériques.<br>
+        <strong>Delaware</strong> — Standard levée de fonds : plébiscité par les investisseurs et VC américains.<br><br>
+        Ces arguments sont du contenu SEO (longue traîne) et du contenu de conversion (chaque visiteur se reconnaît dans un profil).
+        Ils seront en sous-pages de "Créer une LLC" ET dans le mega dropdown avec une ligne courte par État.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ TAB 2: MOCKUP INTERACTIF ══ -->
+  <div id="tab-mockup" class="section" style="display:none;">
+    <div class="section-label">Section 2</div>
+    <div class="section-title">Mockup interactif — Option H</div>
+    <div class="section-desc">Cliquez sur "Services" pour voir le mega dropdown. Survolez les items pour voir les états hover.</div>
+
+    <div class="mockup-bg">
+      <p class="mockup-note">▸ Cliquez sur "Services" pour ouvrir/fermer le dropdown · Survolez les items</p>
 
       <!-- Navbar -->
       <div class="navbar">
         <div class="nav-logo">MA SOCIÉTÉ US</div>
-        <div class="nav-items">
-          <div class="nav-item">Créer une LLC</div>
-          <div class="nav-item active">Services</div>
-          <div class="nav-item">À propos</div>
-          <div class="nav-item">Blog</div>
+        <div class="nav-links">
+          <div class="nav-link" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">Créer une LLC</div>
+          <div class="nav-link open" id="services-btn" onclick="toggleDropdown()" style="position:relative;">
+            Services <span class="chevron">›</span>
+            <span class="active-dot"></span>
+          </div>
+          <div class="nav-link" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">À propos</div>
+          <div class="nav-link" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">Blog</div>
         </div>
         <div class="nav-portal">Portail client</div>
         <div class="nav-cta">Réserver mon entretien →</div>
       </div>
 
-      <!-- Mega dropdown -->
-      <div class="dropdown-wrap">
-        <div class="dropdown-cols">
+      <!-- Dropdown -->
+      <div class="dropdown-panel visible" id="dropdown">
+        <div class="drop-cols">
 
-          <!-- Col 1: Création -->
-          <div class="dropdown-col">
-            <div class="col-header">
-              <span class="col-header-label blue">Création</span>
-              <span class="col-tag blue">Démarrer</span>
+          <!-- CRÉATION -->
+          <div class="drop-col c-blue">
+            <div class="col-head">
+              <span class="col-head-label">Création</span>
+              <span class="col-head-tag">Démarrer</span>
             </div>
             <div class="col-items">
-              <div class="col-item">
-                <div class="item-row">
+              <div class="col-item hover-demo">
+                <div class="item-top">
                   <span class="item-name">Pack LLC</span>
                   <span class="item-price">$997</span>
                 </div>
-                <div class="item-desc">LLC créée en 14 jours, EIN inclus</div>
-                <span class="item-badge">Le plus populaire</span>
+                <div class="item-desc">LLC créée en 14 jours, EIN inclus, chargé dédié</div>
+                <span class="item-pill pill-blue">Le plus populaire</span>
               </div>
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Pack Premium</span>
                   <span class="item-price">$1 597</span>
                 </div>
-                <div class="item-desc">LLC + compte bancaire Mercury</div>
-                <span class="item-badge green">Recommandé</span>
+                <div class="item-desc">LLC + compte bancaire Mercury ouvert</div>
+                <span class="item-pill pill-green">Recommandé</span>
               </div>
-              <div class="col-item">
-                <div class="item-row">
-                  <span class="item-name">Choisir son État →</span>
-                </div>
-                <div class="item-desc">NM · CO · WY · DE — comparer les juridictions</div>
+              <div class="col-item" style="background:#f8fafc; cursor:default;">
+                <div class="item-name" style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,30,56,.35);">Choisir son État</div>
+              </div>
+              <div class="state-item">
+                <span class="state-dot" style="background:#2a5090;"></span>
+                <span class="state-name">Nouveau-Mexique</span>
+                <span class="state-tag">Anonymat total — 0 registre public</span>
+              </div>
+              <div class="state-item">
+                <span class="state-dot" style="background:#1a7850;"></span>
+                <span class="state-name">Colorado</span>
+                <span class="state-tag">LLC en 24h — le plus rapide</span>
+              </div>
+              <div class="state-item">
+                <span class="state-dot" style="background:#7a50a0;"></span>
+                <span class="state-name">Wyoming</span>
+                <span class="state-tag">Pro-crypto & Web3</span>
+              </div>
+              <div class="state-item">
+                <span class="state-dot" style="background:#a05a14;"></span>
+                <span class="state-name">Delaware</span>
+                <span class="state-tag">Standard levée de fonds VC</span>
               </div>
             </div>
           </div>
 
-          <!-- Col 2: Gestion -->
-          <div class="dropdown-col">
-            <div class="col-header">
-              <span class="col-header-label green">Gestion</span>
-              <span class="col-tag green">Optimiser</span>
+          <!-- GESTION -->
+          <div class="drop-col c-green">
+            <div class="col-head">
+              <span class="col-head-label">Gestion</span>
+              <span class="col-head-tag">Optimiser</span>
             </div>
             <div class="col-items">
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Déclaration LLC</span>
                   <span class="item-price">dès $800</span>
                 </div>
-                <div class="item-desc">CPA agréé IRS · Signature personnelle</div>
+                <div class="item-desc">CPA agréé IRS · signature personnelle</div>
               </div>
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Option Confort</span>
                   <span class="item-price">sur devis</span>
                 </div>
-                <div class="item-desc">Domiciliation + veille fiscale annuelle</div>
+                <div class="item-desc">Domiciliation + veille fiscale + rappels</div>
               </div>
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Visa E2</span>
                   <span class="item-price">sur devis</span>
                 </div>
                 <div class="item-desc">Immigrer aux USA par l'entrepreneuriat</div>
               </div>
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Prestations add.</span>
                   <span class="item-price">dès $100</span>
                 </div>
@@ -399,27 +446,27 @@
             </div>
           </div>
 
-          <!-- Col 3: Banking -->
-          <div class="dropdown-col">
-            <div class="col-header">
-              <span class="col-header-label amber">Banking</span>
-              <span class="col-tag amber">Encaisser</span>
+          <!-- BANKING -->
+          <div class="drop-col c-amber">
+            <div class="col-head">
+              <span class="col-head-label">Banking</span>
+              <span class="col-head-tag">Encaisser</span>
             </div>
             <div class="col-items">
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Banque en ligne</span>
                   <span class="item-price">dès $600</span>
                 </div>
                 <div class="item-desc">Mercury, Relay — 100% à distance</div>
-                <span class="item-badge amber">En 48h</span>
+                <span class="item-pill pill-amber">En 48h</span>
               </div>
               <div class="col-item">
-                <div class="item-row">
+                <div class="item-top">
                   <span class="item-name">Banque physique</span>
                   <span class="item-price">sur devis</span>
                 </div>
-                <div class="item-desc">Stabilité institutionnelle + financement</div>
+                <div class="item-desc">Stabilité institutionnelle · financement</div>
               </div>
             </div>
             <div class="banking-cta-wrap">
@@ -430,200 +477,274 @@
           </div>
 
         </div>
-
-        <!-- Footer -->
-        <div class="dropdown-footer">
-          <div class="footer-link">→ Voir tous les tarifs</div>
-          <div class="footer-trust">CPA agréé IRS · Cabinet franco-américain depuis 2014 · 500+ sociétés créées</div>
+        <div class="drop-footer">
+          <span class="drop-footer-link">→ Voir tous les tarifs</span>
+          <span class="drop-footer-trust">CPA agréé IRS · Franco-américain depuis 2014 · 500+ sociétés créées</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ══ SECTION 2 — SCORING WEIGHTS ══ -->
-  <div class="section" id="weights">
-    <div class="section-head">
-      <div class="section-label">Section 2</div>
-      <div class="section-title">Critères de scoring (7 critères pondérés)</div>
-      <div class="section-desc">Score /10 pour chaque critère · pondération × importance stratégique</div>
-    </div>
-    <div class="weights-grid">
-      <div class="weight-card">
-        <div class="weight-val">×2</div>
-        <div class="weight-name">Clarté de l'offre</div>
-        <div class="weight-desc">Tous les services visibles sans friction</div>
-      </div>
-      <div class="weight-card">
-        <div class="weight-val">×2</div>
-        <div class="weight-name">Autorité premium</div>
-        <div class="weight-desc">Register cabinet haut de gamme 2026</div>
-      </div>
-      <div class="weight-card">
-        <div class="weight-val">×1.5</div>
-        <div class="weight-name">Accès Banking</div>
-        <div class="weight-desc">Le service bancaire doit être en 1er niveau</div>
-      </div>
-      <div class="weight-card">
-        <div class="weight-val">×1.5</div>
-        <div class="weight-name">Taux de conversion</div>
-        <div class="weight-desc">Chemin vers Calendly ≤ 2 clics</div>
-      </div>
-      <div class="weight-card">
-        <div class="weight-val">×1</div>
-        <div class="weight-name">SEO / crawlabilité</div>
-        <div class="weight-desc">Liens visibles par Googlebot</div>
-      </div>
-      <div class="weight-card">
-        <div class="weight-val">×1</div>
-        <div class="weight-name">Mobile (responsive)</div>
-        <div class="weight-desc">Hamburger → drawer propre</div>
-      </div>
-      <div class="weight-card">
-        <div class="weight-val">×0.5</div>
-        <div class="weight-name">Complexité implémentation</div>
-        <div class="weight-desc">Score inversé — moins complexe = mieux</div>
-      </div>
+    <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <div style="font-size:12px;color:rgba(14,30,56,.5);">Légende hover :</div>
+      <div style="background:#f0f6ff;border-radius:6px;padding:5px 12px;font-size:12px;color:#2a5090;font-weight:500;">Item survolé (bleu clair)</div>
+      <div style="background:#ebf2ff;border-radius:6px;border:1px solid #c0d4f0;padding:5px 12px;font-size:12px;color:#2a5090;font-weight:500;">Badge populaire</div>
+      <div style="background:#e8f8f0;border-radius:6px;border:1px solid #b0d8c0;padding:5px 12px;font-size:12px;color:#1a7850;font-weight:500;">Badge recommandé</div>
+      <div style="background:#fff5e6;border-radius:6px;border:1px solid #e0c090;padding:5px 12px;font-size:12px;color:#a05a14;font-weight:500;">Badge banking rapide</div>
     </div>
   </div>
 
-  <!-- ══ SECTION 3 — 7 OPTIONS TABLE ══ -->
-  <div class="section" id="comparison">
-    <div class="section-head">
-      <div class="section-label">Section 3</div>
-      <div class="section-title">Comparaison — 7 options de navigation</div>
-      <div class="section-desc">Score final pondéré /10 · Option H retenue</div>
-    </div>
-    <div class="options-table">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:40px">#</th>
-            <th style="width:200px">Option</th>
-            <th style="width:320px">Structure navigation</th>
-            <th style="width:200px">Avantages</th>
-            <th style="width:200px">Inconvénients</th>
-            <th>Verdict</th>
-            <th style="width:80px;text-align:center">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><div class="opt-id">A</div></td>
-            <td>
-              <div class="opt-name">Flat 4 items</div>
-            </td>
-            <td><div class="opt-items">Créer LLC · Services · À propos · Blog</div></td>
-            <td><div class="pro">Ultra simple, mobile-first</div></td>
-            <td><div class="con">Banking et Déclaration invisibles</div></td>
-            <td><div class="verdict">Trop minimaliste — cache l'offre complète au visiteur</div></td>
-            <td><div class="score low">5.8</div></td>
-          </tr>
-          <tr>
-            <td><div class="opt-id">B</div></td>
-            <td>
-              <div class="opt-name">Flat 6 items</div>
-            </td>
-            <td><div class="opt-items">LLC · Banking · Déclaration · Immigration · Tarifs · Contact</div></td>
-            <td><div class="pro">Tout visible en un coup d'œil</div></td>
-            <td><div class="con">Surcharge cognitive, pas premium</div></td>
-            <td><div class="verdict">Register cheap — dilue l'autorité du cabinet</div></td>
-            <td><div class="score low">6.2</div></td>
-          </tr>
-          <tr>
-            <td><div class="opt-id">C</div></td>
-            <td>
-              <div class="opt-name">Dropdown classique</div>
-            </td>
-            <td><div class="opt-items">Créer LLC ▾ (NM/CO/WY/DE) · Services ▾ (Banking/Décl/E2) · Tarifs · Blog</div></td>
-            <td><div class="pro">Familier, bien indexé par Google</div></td>
-            <td><div class="con">Dropdown classique = daté en 2026</div></td>
-            <td><div class="verdict">Acceptable mais pas différenciant — zéro signal d'autorité</div></td>
-            <td><div class="score mid">6.8</div></td>
-          </tr>
-          <tr>
-            <td><div class="opt-id">D</div></td>
-            <td>
-              <div class="opt-name">Tab navigation</div>
-            </td>
-            <td><div class="opt-items">[ LLC ]  [ Banking ]  [ Déclaration ]  [ E2 ]  [ Blog ]</div></td>
-            <td><div class="pro">Clarté absolue par service</div></td>
-            <td><div class="con">Register SaaS, pas cabinet juridique</div></td>
-            <td><div class="verdict">Mauvais signal d'autorité — ressemble à un outil, pas à un cabinet</div></td>
-            <td><div class="score low">5.4</div></td>
-          </tr>
-          <tr>
-            <td><div class="opt-id">E</div></td>
-            <td>
-              <div class="opt-name">Mega dropdown 2 col.</div>
-            </td>
-            <td><div class="opt-items">Créer LLC ▾ (NM/CO/WY/DE) · Services ▾ (Banking | Décl/E2) · Blog</div></td>
-            <td><div class="pro">Structuré, premium, bon SEO</div></td>
-            <td><div class="con">Banking reste sous "Services" — peu visible</div></td>
-            <td><div class="verdict">Bien, mais Banking mérite une colonne dédiée pour le trafic bancaire</div></td>
-            <td><div class="score mid">7.6</div></td>
-          </tr>
-          <tr>
-            <td><div class="opt-id">F</div></td>
-            <td>
-              <div class="opt-name">Sticky sidebar mobile</div>
-            </td>
-            <td><div class="opt-items">Hamburger + drawer latéral (desktop + mobile)</div></td>
-            <td><div class="pro">Moderne sur mobile</div></td>
-            <td><div class="con">Désorientation desktop — non-standard</div></td>
-            <td><div class="verdict">Mobile OK, desktop non — contre-intuitif pour prospect premium</div></td>
-            <td><div class="score low">5.1</div></td>
-          </tr>
-          <tr>
-            <td><div class="opt-id">G</div></td>
-            <td>
-              <div class="opt-name">Progressive disclosure</div>
-            </td>
-            <td><div class="opt-items">Hero → scroll → sections → anchor nav en bas</div></td>
-            <td><div class="pro">Storytelling immersif, engageant</div></td>
-            <td><div class="con">Impossible de naviguer directement</div></td>
-            <td><div class="verdict">Landing page one-shot, pas site multi-services — bloque le retour</div></td>
-            <td><div class="score mid">6.9</div></td>
-          </tr>
-          <tr class="recommended">
-            <td>
-              <div class="recommended-bar"></div>
-              <div class="opt-id highlight">H</div>
-            </td>
-            <td>
-              <div class="opt-name">Mega dropdown 3 col.</div>
-              <div><span class="opt-badge">★ Recommandé</span></div>
-            </td>
-            <td>
-              <div class="opt-items" style="font-weight:500; color: #0e1e38;">
-                Créer LLC · <strong>Services ▾</strong> (Création | Gestion | Banking) · À propos · Blog
-              </div>
-            </td>
-            <td>
-              <div class="pro">Banking = colonne dédiée, visible immédiatement</div>
-              <div class="pro" style="margin-top:3px">Toute l'offre en 1 survol, zéro clic</div>
-            </td>
-            <td>
-              <div class="con">Implémentation légèrement plus complexe</div>
-            </td>
-            <td><div class="verdict" style="font-weight:600; color:#2a5090;">Autorité + clarté + conversion = optimum. Score le plus élevé sur 6 critères sur 7.</div></td>
-            <td><div class="score high">8.9</div></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="table-footer">
-        Pondération appliquée : Clarté offre ×2 · Autorité premium ×2 · Accès Banking ×1.5 · Conversion ×1.5 · SEO ×1 · Mobile ×1 · Complexité ×0.5 (inversé)
+  <!-- ══ TAB 3: SITEMAP ══ -->
+  <div id="tab-sitemap" class="section" style="display:none;">
+    <div class="section-label">Section 3</div>
+    <div class="section-title">Pages créées — ce que verra le visiteur</div>
+    <div class="section-desc">Chaque item de navigation pointe vers une page. Voici le plan complet.</div>
+
+    <div class="sitemap">
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label">Créer une LLC</div>
+        <div class="sitemap-pages">
+          <span class="page-chip primary">/creer-llc — page pilier</span>
+          <span class="page-arrow">→</span>
+          <span class="page-chip">/creer-llc/nouveau-mexique — Anonymat</span>
+          <span class="page-chip">/creer-llc/colorado — 24h</span>
+          <span class="page-chip">/creer-llc/wyoming — Crypto</span>
+          <span class="page-chip">/creer-llc/delaware — VC</span>
+          <span class="page-chip-note">4 pages État = SEO + conversion par profil</span>
+        </div>
       </div>
+
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label" style="background:#1e3a5a;">Services ▾ — CRÉATION</div>
+        <div class="sitemap-pages">
+          <span class="page-chip primary">/services/pack-llc — $997</span>
+          <span class="page-chip primary">/services/pack-premium — $1 597</span>
+          <span class="page-chip-note">Les 2 packs côte à côte sur la même page pricing ou 2 pages liées</span>
+        </div>
+      </div>
+
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label" style="background:#1a4a30;">Services ▾ — GESTION</div>
+        <div class="sitemap-pages">
+          <span class="page-chip">/services/declaration-llc — dès $800</span>
+          <span class="page-chip">/services/option-confort — domiciliation</span>
+          <span class="page-chip">/services/visa-e2 — immigration</span>
+          <span class="page-chip new">/tarifs — prestations add. (tableau)</span>
+        </div>
+      </div>
+
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label" style="background:#5a3010;">Services ▾ — BANKING</div>
+        <div class="sitemap-pages">
+          <span class="page-chip primary">/services/compte-bancaire</span>
+          <span class="page-arrow">→</span>
+          <span class="page-chip">Fintech (Mercury/Relay)</span>
+          <span class="page-chip">Banque physique USA</span>
+          <span class="page-chip-note">CTA dédié → calendly.com/ypls/entretien-telephonique-compte-bancaire</span>
+        </div>
+      </div>
+
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label" style="background:#2a3a50;">À propos</div>
+        <div class="sitemap-pages">
+          <span class="page-chip primary">/a-propos — équipe + 10 ans cabinet</span>
+          <span class="page-chip-note">Autorité · CPA agréé IRS · Christophe + équipe</span>
+        </div>
+      </div>
+
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label" style="background:#3a3a3a;">Blog</div>
+        <div class="sitemap-pages">
+          <span class="page-chip">/blog — liste articles</span>
+          <span class="page-chip">/blog/[slug] — article individuel</span>
+        </div>
+      </div>
+
+      <div class="sitemap-row">
+        <div class="sitemap-nav-label" style="background:#5a3a80;">Hors nav</div>
+        <div class="sitemap-pages">
+          <span class="page-chip new">/formation-gratuite — 7 modules (funnel 2)</span>
+          <span class="page-chip new">/contact — Calendly embed</span>
+          <span class="page-chip new">/tarifs — grille complète</span>
+          <span class="page-chip-note">Pages accessibles via footer, CTAs et liens internes</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border-radius:12px;padding:20px 24px;border:1px solid #e0e8f0;">
+      <div style="font-size:13px;font-weight:700;color:#0e1e38;margin-bottom:8px;">Question ouverte : Pack LLC et Pack Premium — 1 page ou 2 ?</div>
+      <p style="font-size:13px;color:rgba(14,30,56,.6);line-height:1.6;">
+        <strong>Option A — 1 page pricing (/tarifs ou /services/packs)</strong> : les 2 packs côte à côte dans une section comparaison.
+        Le visiteur voit $997 vs $1 597 et choisit. Meilleur pour la conversion (comparaison directe).<br><br>
+        <strong>Option B — 2 pages séparées</strong> : /services/pack-llc et /services/pack-premium.
+        Mieux pour le SEO (2 pages indexées), mais risque de dispersion.<br><br>
+        <strong>Recommandation</strong> : 1 page avec section comparison + anchor links depuis le dropdown.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ TAB 4: 7 OPTIONS ══ -->
+  <div id="tab-options" class="section" style="display:none;">
+    <div class="section-label">Section 4</div>
+    <div class="section-title">Comparaison — 7 options de navigation</div>
+    <div class="section-desc">Score /10 pondéré · 7 critères · Option H retenue à 8.9</div>
+
+    <div class="options-grid">
+      <div class="options-header">
+        <div>#</div>
+        <div>Option</div>
+        <div>Structure + Avantages / Inconvénients</div>
+        <div>Verdict</div>
+        <div style="text-align:right">Score</div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">A</div>
+        <div class="opt-name-wrap"><div class="opt-name">Flat 4 items</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">Créer LLC · Services · À propos · Blog</div>
+          <div class="opt-pro">Ultra simple, mobile-first, zéro friction</div>
+          <div class="opt-con">Banking et Déclaration LLC invisibles — clients perdus</div>
+        </div>
+        <div class="opt-verdict">Trop minimaliste. Cache l'offre complète aux visiteurs ciblés banking.</div>
+        <div class="opt-score-wrap"><div class="opt-score low">5.8</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">B</div>
+        <div class="opt-name-wrap"><div class="opt-name">Flat 6 items</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">LLC · Banking · Déclaration · Immigration · Tarifs · Contact</div>
+          <div class="opt-pro">Tout visible en un coup d'œil, zéro ambiguïté</div>
+          <div class="opt-con">Surcharge cognitive, register cheap, pas premium du tout</div>
+        </div>
+        <div class="opt-verdict">Dilue l'autorité. Ressemble à un comparateur, pas à un cabinet.</div>
+        <div class="opt-score-wrap"><div class="opt-score low">6.2</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">C</div>
+        <div class="opt-name-wrap"><div class="opt-name">Dropdown classique 2 niveaux</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">Créer LLC ▾ (NM/CO/WY/DE) · Services ▾ (Banking/Décl/E2) · Tarifs · Blog</div>
+          <div class="opt-pro">Familier, bien crawlé par Google, connu des utilisateurs</div>
+          <div class="opt-con">Dropdowns classiques = daté visuellement en 2026</div>
+        </div>
+        <div class="opt-verdict">Correct mais pas différenciant. Zéro signal d'autorité premium.</div>
+        <div class="opt-score-wrap"><div class="opt-score mid">6.8</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">D</div>
+        <div class="opt-name-wrap"><div class="opt-name">Tab navigation horizontale</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">[ LLC ] [ Banking ] [ Déclaration ] [ E2 ] [ Blog ]</div>
+          <div class="opt-pro">Clarté absolue, chaque service à égalité</div>
+          <div class="opt-con">Register SaaS/outil — mauvais signal pour cabinet juridique</div>
+        </div>
+        <div class="opt-verdict">Ressemble à une app, pas à un cabinet franco-américain d'autorité.</div>
+        <div class="opt-score-wrap"><div class="opt-score low">5.4</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">E</div>
+        <div class="opt-name-wrap"><div class="opt-name">Mega dropdown 2 colonnes</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">Créer LLC ▾ · Services ▾ (Création | Gestion+Banking) · Blog</div>
+          <div class="opt-pro">Premium visuellement, structuré, bon SEO</div>
+          <div class="opt-con">Banking noyé dans "Gestion" — les prospects banking ne le voient pas</div>
+        </div>
+        <div class="opt-verdict">Bien, mais Banking mérite sa colonne dédiée. Audience bancaire ignorée.</div>
+        <div class="opt-score-wrap"><div class="opt-score mid">7.6</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">F</div>
+        <div class="opt-name-wrap"><div class="opt-name">Sidebar sticky + drawer</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">Hamburger → drawer latéral (desktop + mobile identiques)</div>
+          <div class="opt-pro">Moderne sur mobile, libère l'espace header</div>
+          <div class="opt-con">Contre-intuitif desktop, non-standard pour prospect premium B2B</div>
+        </div>
+        <div class="opt-verdict">Bon mobile, mauvais desktop. Cabinet juridique n'est pas une app mobile.</div>
+        <div class="opt-score-wrap"><div class="opt-score low">5.1</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card">
+        <div class="opt-id">G</div>
+        <div class="opt-name-wrap"><div class="opt-name">Progressive disclosure (scroll nav)</div></div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val">Hero → scroll → sections storytelling → anchor nav en bas</div>
+          <div class="opt-pro">Immersif, storytelling, engagement élevé sur la page</div>
+          <div class="opt-con">Impossible de naviguer directement vers Banking ou Déclaration</div>
+        </div>
+        <div class="opt-verdict">Landing page one-shot. Pas adapté à un site multi-services avec retour.</div>
+        <div class="opt-score-wrap"><div class="opt-score mid">6.9</div><div class="opt-score-label">/10</div></div>
+      </div>
+
+      <div class="option-card recommended">
+        <div class="opt-id rec">H</div>
+        <div class="opt-name-wrap">
+          <div class="opt-name">Mega dropdown 3 colonnes</div>
+          <span class="opt-rec-badge">★ Recommandé</span>
+        </div>
+        <div class="opt-details">
+          <div class="opt-items-label">Structure</div>
+          <div class="opt-items-val" style="font-weight:500;color:#0e1e38;">Créer LLC · <strong>Services ▾</strong> (CRÉATION | GESTION | BANKING) · À propos · Blog</div>
+          <div class="opt-pro">Banking = colonne dédiée, visible dès le 1er survol</div>
+          <div class="opt-pro" style="margin-top:3px;">4 États détaillés avec argument dans la colonne Création</div>
+          <div class="opt-pro" style="margin-top:3px;">Toute l'offre révélée en 1 geste, zéro clic superflu</div>
+          <div class="opt-con">Légèrement plus complexe à implémenter qu'un dropdown classique</div>
+        </div>
+        <div class="opt-verdict rec">Autorité + clarté + conversion = optimum. Score max sur 6 critères sur 7.</div>
+        <div class="opt-score-wrap"><div class="opt-score high">8.9</div><div class="opt-score-label">/10</div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;background:#f8fafc;border-radius:8px;padding:14px 20px;font-size:12px;color:rgba(14,30,56,.45);">
+      Pondération : Clarté offre ×2 · Autorité premium ×2 · Accès Banking ×1.5 · Conversion ×1.5 · SEO ×1 · Mobile ×1 · Complexité ×0.5 (score inversé)
     </div>
   </div>
 
 </div>
 
 <script>
-function scrollTo(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+function showTab(name) {
+  ['structure','mockup','sitemap','options'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', ['structure','mockup','sitemap','options'][i] === name);
+  });
 }
+
+function toggleDropdown() {
+  const btn = document.getElementById('services-btn');
+  const panel = document.getElementById('dropdown');
+  btn.classList.toggle('open');
+  panel.classList.toggle('visible');
+}
+
+// Demo hover on first item cycling
+let currentHover = null;
+const items = document.querySelectorAll('.col-item');
+items.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    if(currentHover) currentHover.classList.remove('hover-demo');
+    item.classList.add('hover-demo');
+    currentHover = item;
+  });
+  item.addEventListener('mouseleave', () => {
+    item.classList.remove('hover-demo');
+    currentHover = null;
+  });
+});
 </script>
 </body>
 </html>
