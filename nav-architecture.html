@@ -633,6 +633,25 @@ body { min-height: 100vh; }
 .cmp-table tbody tr:hover td { background: rgba(235,242,255,.4); }
 .cmp-table td:first-child { font-weight: 600; color: rgba(14,30,56,.5); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
 .cmp-star { color: #f5a623; }
+
+/* ── FOOTER ── */
+.site-footer { background: #0f1a2e; }
+.footer-chrome { height: 2px; background: linear-gradient(90deg, rgba(200,210,225,.08), rgba(255,255,255,.35) 30%, rgba(220,230,245,.25) 50%, rgba(255,255,255,.35) 70%, rgba(200,210,225,.08)); }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 52px 72px 32px; }
+.footer-top { display: flex; gap: 60px; justify-content: space-between; margin-bottom: 40px; }
+.footer-brand { max-width: 260px; flex-shrink: 0; }
+.footer-logo { height: 38px; width: auto; margin-bottom: 16px; filter: brightness(0) invert(1) opacity(.85); }
+.footer-tagline { font-size: 12px; color: rgba(255,255,255,.22); line-height: 1.65; margin-bottom: 18px; }
+.footer-socials { display: flex; gap: 12px; }
+.footer-social { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.3); cursor: pointer; transition: color .15s; letter-spacing: .04em; }
+.footer-social:hover { color: rgba(255,255,255,.65); }
+.footer-cols { display: flex; gap: 40px; flex-wrap: wrap; }
+.footer-col { min-width: 120px; }
+.footer-col-label { font-size: 11px; text-transform: uppercase; letter-spacing: .15em; color: rgba(255,255,255,.22); margin-bottom: 16px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col li { font-size: 13px; color: rgba(255,255,255,.38); cursor: pointer; transition: color .15s; }
+.footer-col li:hover { color: rgba(255,255,255,.75); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.06); padding-top: 20px; font-size: 11px; color: rgba(255,255,255,.14); }
 </style>
 </head>
 <body>
@@ -1245,6 +1264,63 @@ body { min-height: 100vh; }
     </div>
 
   </div><!-- /page-frame -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-chrome"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="MA SOCIÉTÉ US" class="footer-logo">
+          <p class="footer-tagline">Cabinet franco-américain spécialisé dans la création et la gestion de sociétés aux États-Unis. Marque déposée Yes Please LLC. Profession comptable et juridique réglementée.</p>
+          <div class="footer-socials">
+            <span class="footer-social">YouTube</span>
+            <span class="footer-social">Facebook</span>
+            <span class="footer-social">Instagram</span>
+          </div>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <div class="footer-col-label">Services</div>
+            <ul>
+              <li onclick="go('offres')">Pack LLC — $997</li>
+              <li onclick="go('offres')">Pack Premium — $1 597</li>
+              <li onclick="go('fintech')">Compte bancaire USA</li>
+              <li onclick="go('gestion')">Déclaration LLC</li>
+              <li onclick="go('gestion')">Gestion & Maintenance</li>
+              <li onclick="go('tarifs')">Tous les tarifs</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-label">Cabinet</div>
+            <ul>
+              <li onclick="go('apropos')">À propos</li>
+              <li onclick="go('creer')">Créer ma LLC</li>
+              <li onclick="go('blog')">Blog</li>
+              <li onclick="go('cal')">Contact</li>
+              <li>Portail client ↗</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-label">Légal</div>
+            <ul>
+              <li>Mentions légales</li>
+              <li>CGV</li>
+              <li>Confidentialité</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-label">Contact</div>
+            <ul>
+              <li>contact@ma-societe-us.com</li>
+              <li onclick="go('cal')">Réserver un entretien →</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">Copyright 2026 — YES PLEASE LLC. Tous droits réservés.</div>
+    </div>
+  </footer>
 </div><!-- /browser-wrap -->
 
 <!-- ANALYSIS -->
