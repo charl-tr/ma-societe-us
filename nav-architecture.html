@@ -551,6 +551,15 @@ body { min-height: 100vh; }
 .ct-desc { font-size: 12px; color: rgba(14,30,56,.48); margin-top: 2px; }
 .ct-arrow { font-size: 13px; font-weight: 600; color: var(--blue); flex-shrink: 0; }
 
+.process-steps { display: flex; flex-direction: column; gap: 0; margin: 28px 0; }
+.process-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid rgba(14,30,56,.06); }
+.process-step:last-child { border-bottom: none; }
+.ps-num { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg,#1a3a6a,#2a5090); color: #fff; font-family: 'Space Grotesk',sans-serif; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ps-content {}
+.ps-title { font-family: 'Space Grotesk',sans-serif; font-size: 15px; font-weight: 700; color: #0e1e38; margin-bottom: 4px; }
+.ps-desc { font-size: 13px; color: rgba(14,30,56,.52); line-height: 1.55; }
+.section-h3 { font-family: 'Space Grotesk',sans-serif; font-size: 17px; font-weight: 700; color: #0e1e38; margin-bottom: 4px; }
+
 /* ── GESTION PAGE ──────────────────────────────── */
 .gestion-block { margin-bottom: 36px; }
 .gestion-block-h { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
@@ -1082,6 +1091,14 @@ body { min-height: 100vh; }
         <h1 class="i-h1" id="st-h1"></h1>
         <p class="i-sub" id="st-sub"></p>
         <div class="cards-grid" id="st-cards"></div>
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:12px">Le processus de création</div>
+          <div class="process-steps">
+            <div class="process-step"><div class="ps-num">1</div><div class="ps-content"><div class="ps-title">Entretien découverte — 15 min</div><div class="ps-desc">On valide que cet État correspond à votre situation, votre profil et vos objectifs.</div></div></div>
+            <div class="process-step"><div class="ps-num">2</div><div class="ps-content"><div class="ps-title">Préparation du dossier — J+1 à J+3</div><div class="ps-desc">Votre chargé d'affaires constitue le dossier d'immatriculation et les documents légaux.</div></div></div>
+            <div class="process-step"><div class="ps-num">3</div><div class="ps-content"><div class="ps-title">Immatriculation Secretary of State — J+14</div><div class="ps-desc">Dépôt officiel, obtention de l'EIN IRS, transmission des documents dans votre portail.</div></div></div>
+          </div>
+        </div>
         <div class="confort-teaser" style="margin-bottom:24px" onclick="go('offres')">
           <div>
             <div class="ct-label">Étape suivante</div>
@@ -1157,6 +1174,17 @@ body { min-height: 100vh; }
           </div>
         </div>
 
+        <!-- Ce qui est inclus -->
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:16px">Ce qui est inclus dans les deux packs</div>
+          <div class="process-steps">
+            <div class="process-step"><div class="ps-num">1</div><div class="ps-content"><div class="ps-title">Entretien découverte + choix de l'État</div><div class="ps-desc">15 min avec votre chargé d'affaires pour choisir la bonne juridiction selon votre profil.</div></div></div>
+            <div class="process-step"><div class="ps-num">2</div><div class="ps-content"><div class="ps-title">Immatriculation LLC + EIN IRS</div><div class="ps-desc">Dépôt auprès du Secretary of State, obtention de l'EIN, rédaction des documents légaux.</div></div></div>
+            <div class="process-step"><div class="ps-num">3</div><div class="ps-content"><div class="ps-title">Accès au portail client sécurisé</div><div class="ps-desc">Tous vos documents en ligne, suivi de dossier en temps réel, 2 entretiens annuels inclus.</div></div></div>
+            <div class="process-step"><div class="ps-num">4</div><div class="ps-content"><div class="ps-title">Pack Premium uniquement — Compte bancaire ouvert</div><div class="ps-desc">Mercury ou Relay ouvert dans la foulée. Carte Visa pro. Vous facturez en dollars dès J+14.</div></div></div>
+          </div>
+        </div>
+
         <!-- Option Confort teaser -->
         <div class="confort-teaser" onclick="go('gestion')">
           <div>
@@ -1174,19 +1202,97 @@ body { min-height: 100vh; }
       </div>
     </div>
 
-    <!-- BANKING -->
+    <!-- BANKING — comparison page -->
     <div class="pv" id="pv-fintech">
-      <div class="banking-hero">
-        <div class="i-crumb"><span>Services</span><span class="bc-sep">›</span><strong>Banking</strong></div>
+      <div class="inner" style="min-height:auto;padding-bottom:36px">
+        <div class="i-crumb"><span>Services</span><span class="bc-sep">›</span><strong>Compte bancaire USA</strong></div>
         <h1 class="i-h1">Compte bancaire USA</h1>
-        <p class="i-sub" style="margin-bottom:0">Deux solutions selon votre profil. Votre LLC n'est opérationnelle qu'avec un compte US dédié.</p>
-      </div>
-      <div class="inner" style="padding-top:32px;background:linear-gradient(160deg,#eef3f9,#e4eef8)">
-        <div class="cards-grid">
-          <div class="card" style="border-color:#b8d4ee"><div class="card-tag" style="color:#1a5a94">Fintech — recommandé</div><div class="card-h">Banque en ligne</div><div class="card-p">Mercury · Relay · 100% à distance · Carte Visa · Compatible Stripe, PayPal</div><div class="card-price" style="color:#1a5a94">dès $600</div><div class="card-note">Inclus dans le Pack Premium</div></div>
-          <div class="card"><div class="card-tag" style="color:#2a5090">Banque physique</div><div class="card-h">Institution US</div><div class="card-p">Pour crédit, financement, relations institutionnelles. Délai 2-3 mois. Déplacement requis.</div><div class="card-price">Sur devis</div></div>
+        <p class="i-sub">Deux options selon votre situation. La fintech si vous démarrez et voulez aller vite. La banque physique si vous visez un ancrage institutionnel durable aux États-Unis.</p>
+
+        <div class="pack-grid">
+          <!-- Fintech -->
+          <div class="pack-col pack-col-premium">
+            <div class="pack-rec-badge">Recommandé</div>
+            <div class="pack-name">Banque en ligne (Fintech)</div>
+            <div class="pack-price">dès $600<span> USD</span></div>
+            <div class="pack-tagline">Mercury · Relay · 100% à distance</div>
+            <ul class="pack-list">
+              <li class="pl-yes">100% à distance, pas de déplacement</li>
+              <li class="pl-yes">Compte ouvert en 48h–7 jours</li>
+              <li class="pl-highlight">Multi-devises, carte Visa/Mastercard</li>
+              <li class="pl-yes">Compatible Stripe, PayPal, Wise</li>
+              <li class="pl-yes">Dépôt initial faible</li>
+              <li class="pl-highlight">Inclus dans le Pack Premium</li>
+            </ul>
+            <button class="pack-cta-main" onclick="go('cal-banking')">Ouvrir mon compte Fintech →</button>
+            <p class="pack-savings">Inclus dans le Pack Premium ($1 597)</p>
+          </div>
+
+          <!-- Banque physique -->
+          <div class="pack-col">
+            <div class="pack-name">Banque physique USA</div>
+            <div class="pack-price" style="font-size:28px">Sur devis</div>
+            <div class="pack-tagline">Bank of America · Chase · Wells Fargo</div>
+            <ul class="pack-list">
+              <li class="pl-no">Déplacement en agence US obligatoire</li>
+              <li class="pl-no">Délai d'ouverture 2–3 mois</li>
+              <li class="pl-yes">Accès aux financements et crédits US</li>
+              <li class="pl-yes">Stabilité institutionnelle</li>
+              <li class="pl-yes">Relations bancaires long terme</li>
+              <li class="pl-no">Dépôt initial important requis</li>
+            </ul>
+            <button class="pack-cta-sec" onclick="go('cal-banking')">Demander un devis →</button>
+            <p class="pack-note">Idéal pour les entreprises établies avec besoin de crédit US</p>
+          </div>
         </div>
-        <div class="i-cta" style="background:linear-gradient(135deg,#1a3a6a,#2a5090)"><div><h3>Appel banking dédié</h3><p>Conseil personnalisé · Fintech ou physique — on analyse ensemble.</p></div><button class="i-cta-btn" onclick="go('cal-banking')">Appel gratuit →</button></div>
+
+        <!-- Comment choisir -->
+        <div class="pack-helper">
+          <div class="pack-helper-h">Comment choisir ?</div>
+          <div class="ph-grid">
+            <div class="ph-col rec">
+              <div class="ph-col-label" style="color:var(--blue)">Fintech si vous…</div>
+              Démarrez votre activité · Voulez aller vite · N'avez pas besoin de crédit US · Facturez en ligne (Stripe, PayPal, Wise)
+            </div>
+            <div class="ph-col">
+              <div class="ph-col-label">Banque physique si vous…</div>
+              Avez besoin d'un financement US · Cherchez des relations institutionnelles durables · Envisagez un établissement physique aux USA
+            </div>
+          </div>
+        </div>
+
+        <!-- Process steps fintech -->
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:12px">3 étapes pour ouvrir votre compte Fintech</div>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="ps-num">1</div>
+              <div class="ps-content">
+                <div class="ps-title">Entretien 15 min — on analyse votre profil</div>
+                <div class="ps-desc">On identifie la meilleure solution (Mercury, Relay ou autre) selon votre activité, votre volume et vos intégrations requises.</div>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num">2</div>
+              <div class="ps-content">
+                <div class="ps-title">Constitution du dossier — on prépare tout</div>
+                <div class="ps-desc">Votre chargé d'affaires rassemble les documents requis par la fintech et soumet votre dossier en votre nom.</div>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num">3</div>
+              <div class="ps-content">
+                <div class="ps-title">Compte ouvert — vous recevez votre IBAN US et votre carte</div>
+                <div class="ps-desc">Accès au dashboard en ligne, carte Visa pro envoyée, intégrations activées. Vous facturez en dollars dès J+7.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="i-cta">
+          <div><h3>Appel banking dédié</h3><p>Conseil personnalisé · Fintech ou physique — on analyse ensemble.</p></div>
+          <button class="i-cta-btn" onclick="go('cal-banking')">Appel gratuit →</button>
+        </div>
       </div>
     </div>
 
@@ -1208,6 +1314,11 @@ body { min-height: 100vh; }
           </div>
         </div>
 
+        <div class="i-cta" style="margin-bottom:32px;background:linear-gradient(135deg,#1a4a2a,#2a7850)">
+          <div><h3>Option Confort — tarif sur devis</h3><p>Abonnement annuel · Tarif selon la complexité de votre situation</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Obtenir un devis →</button>
+        </div>
+
         <!-- Prestations à la carte -->
         <div class="gestion-block">
           <div class="gestion-block-h">Prestations à la carte</div>
@@ -1225,6 +1336,11 @@ body { min-height: 100vh; }
           </div>
         </div>
 
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:20px 24px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:8px">Pour les clients existants</div>
+          <p style="font-size:13px;color:rgba(14,30,56,.5);line-height:1.6">Ces prestations sont disponibles pour tout entrepreneur ayant déjà une LLC — qu'elle ait été créée avec nous ou non. Notre CPA agréé IRS reprend votre dossier et assure la conformité.</p>
+        </div>
+
         <div class="i-cta">
           <div><h3>Vous avez déjà une LLC ?</h3><p>On reprend votre dossier et on prend en charge la gestion courante.</p></div>
           <button class="i-cta-btn" onclick="go('cal')">Discuter de ma situation →</button>
@@ -1239,6 +1355,10 @@ body { min-height: 100vh; }
         <h1 class="i-h1" id="g-h1"></h1>
         <p class="i-sub" id="g-sub"></p>
         <div class="cards-grid" id="g-cards"></div>
+        <div style="margin-top:8px;padding:20px 24px;background:rgba(42,80,144,.05);border-radius:14px;border:1px solid rgba(42,80,144,.1);margin-bottom:24px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#2a5090;margin-bottom:6px">CPA agréé IRS</div>
+          <p style="font-size:13px;color:rgba(14,30,56,.6);line-height:1.6">Toutes nos prestations fiscales sont réalisées et signées par notre CPA agréé IRS. Votre protection en cas de contrôle ou redressement.</p>
+        </div>
         <div class="i-cta"><div><h3>Une question sur ce service ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
     </div>
