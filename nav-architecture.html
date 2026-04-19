@@ -6,497 +6,422 @@
 <title>Navigation Architecture — MA SOCIÉTÉ US</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --navy: #0e1e38; --blue: #2a5090; --white: #fff;
-  --border: rgba(14,30,56,.08); --gray: #f4f7fb;
-}
-html { font-family: -apple-system,"Inter","Helvetica Neue",sans-serif; background:#f0f4fa; color:var(--navy); }
-body { min-height:100vh; }
+:root { --navy:#0e1e38; --blue:#2a5090; --white:#fff; --border:rgba(14,30,56,.07); }
+html { font-family:-apple-system,"Inter","Helvetica Neue",sans-serif; background:#edf1f8; color:var(--navy); }
 
-/* ════════════════════════════════════════
-   TOP META BAR
-════════════════════════════════════════ */
-.meta-bar {
-  background: var(--navy); padding: 10px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 11px;
+/* ── Meta bar ── */
+.meta {
+  background:var(--navy); padding:9px 40px;
+  display:flex; align-items:center; justify-content:space-between;
 }
-.meta-bar-left { color: rgba(255,255,255,.4); letter-spacing:.08em; }
-.meta-bar-left strong { color: rgba(255,255,255,.8); }
-.meta-tabs { display:flex; gap:4px; }
-.meta-tab {
-  color: rgba(255,255,255,.4); padding:5px 14px; border-radius:20px;
-  cursor:pointer; transition:all .15s; font-weight:500;
+.meta-title { font-size:11px; color:rgba(255,255,255,.4); letter-spacing:.08em; }
+.meta-title strong { color:rgba(255,255,255,.75); }
+.meta-pills { display:flex; gap:4px; }
+.mp {
+  font-size:11px; font-weight:500; padding:4px 13px; border-radius:20px;
+  color:rgba(255,255,255,.4); cursor:pointer; transition:all .15s;
 }
-.meta-tab:hover { color:rgba(255,255,255,.8); background:rgba(255,255,255,.06); }
-.meta-tab.active { color:#fff; background:rgba(255,255,255,.12); }
+.mp:hover { color:#fff; background:rgba(255,255,255,.08); }
+.mp.on { color:#fff; background:rgba(255,255,255,.13); }
 
-/* ════════════════════════════════════════
+/* ══════════════════════════════════════
    NAVBAR
-════════════════════════════════════════ */
+══════════════════════════════════════ */
 .navbar {
-  background:rgba(255,255,255,.96); backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(14,30,56,.06);
-  height:64px; display:flex; align-items:center; padding:0 48px; gap:0;
-  position:sticky; top:0; z-index:50;
-  box-shadow:0 2px 16px rgba(14,30,56,.05);
+  background:rgba(255,255,255,.97); backdrop-filter:blur(20px);
+  height:64px; display:flex; align-items:center; padding:0 48px;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 1px 12px rgba(14,30,56,.05);
+  position:sticky; top:0; z-index:60;
 }
-.nav-logo {
+.logo {
   font-size:11.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase;
   color:var(--navy); margin-right:auto; cursor:pointer; user-select:none;
 }
-.nav-logo em { color:var(--blue); font-style:normal; }
+.logo em { color:var(--blue); font-style:normal; }
 .nav-links { display:flex; align-items:center; gap:2px; margin-right:20px; }
-.nav-link {
+.nl {
   font-size:14px; font-weight:500; color:rgba(14,30,56,.5);
   padding:8px 14px; border-radius:8px; cursor:pointer; user-select:none;
   display:flex; align-items:center; gap:5px;
   transition:color .15s, background .15s; position:relative; white-space:nowrap;
 }
-.nav-link:hover { color:var(--navy); background:rgba(14,30,56,.05); }
-.nav-link.page-active { color:var(--blue); }
-.nav-link.page-active::after {
-  content:''; position:absolute; bottom:4px; left:50%; transform:translateX(-50%);
+.nl:hover { color:var(--navy); background:rgba(14,30,56,.05); }
+.nl.cur { color:var(--blue); }
+.nl.cur::after {
+  content:''; position:absolute; bottom:3px; left:50%; transform:translateX(-50%);
   width:4px; height:4px; border-radius:50%; background:var(--blue);
 }
-.nav-link.dd-open { color:var(--blue); background:rgba(42,80,144,.07); }
-.nav-link .chev {
-  display:inline-block; font-size:11px; opacity:.5;
-  transition:transform .22s cubic-bezier(.4,0,.2,1);
+.nl.ddo { color:var(--blue); background:rgba(42,80,144,.07); }
+.chev {
+  display:inline-block; transition:transform .22s cubic-bezier(.4,0,.2,1);
+  opacity:.5; margin-top:1px;
 }
-.nav-link.dd-open .chev { transform:rotate(180deg); opacity:.8; }
-.nav-portal { font-size:13px; color:rgba(14,30,56,.3); padding:6px 12px; border-radius:8px; cursor:pointer; margin-right:10px; transition:color .15s,background .15s; }
+.nl.ddo .chev { transform:rotate(180deg); opacity:.8; }
+.nav-portal {
+  font-size:13px; color:rgba(14,30,56,.3); padding:6px 12px; border-radius:8px;
+  cursor:pointer; margin-right:10px; transition:color .15s,background .15s;
+}
 .nav-portal:hover { color:rgba(14,30,56,.6); background:rgba(14,30,56,.04); }
-.nav-cta {
+.cta-btn {
   background:linear-gradient(135deg,#1a3a6a,#2a5090); color:#fff;
   font-size:13px; font-weight:600; padding:10px 22px; border-radius:24px;
   cursor:pointer; border:none; white-space:nowrap;
   box-shadow:0 4px 16px rgba(42,80,144,.26); transition:all .15s;
 }
-.nav-cta:hover { box-shadow:0 6px 24px rgba(42,80,144,.38); transform:translateY(-1px); }
+.cta-btn:hover { box-shadow:0 6px 24px rgba(42,80,144,.38); transform:translateY(-1px); }
 
-/* ════════════════════════════════════════
-   MEGA DROPDOWN
-════════════════════════════════════════ */
-.mega-outer {
-  background:rgba(255,255,255,.98); backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(14,30,56,.06);
-  overflow:hidden;
-  max-height:0; opacity:0;
-  transition:max-height .3s cubic-bezier(.4,0,.2,1), opacity .2s;
+/* ══════════════════════════════════════
+   DROPDOWN — "Créer ma LLC" only
+   2 columns: Offres | États
+══════════════════════════════════════ */
+.dd-outer {
+  background:rgba(255,255,255,.98); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  overflow:hidden; max-height:0; opacity:0;
+  transition:max-height .28s cubic-bezier(.4,0,.2,1), opacity .2s;
 }
-.mega-outer.open { max-height:600px; opacity:1; }
+.dd-outer.open { max-height:440px; opacity:1; }
 
-.mega-inner { display:grid; grid-template-columns:1fr 1fr 1fr; border-top:1px solid rgba(14,30,56,.06); }
+.dd-inner { display:grid; grid-template-columns:1fr 1fr; }
+.dd-col { border-right:1px solid var(--border); }
+.dd-col:last-child { border-right:none; }
 
-.mega-col { border-right:1px solid rgba(14,30,56,.06); }
-.mega-col:last-child { border-right:none; }
-
-.col-head {
-  padding:13px 24px 12px; background:rgba(248,250,253,.9);
-  border-bottom:1px solid rgba(14,30,56,.06);
+.dd-head {
+  padding:12px 28px 11px; background:rgba(248,250,253,.95);
+  border-bottom:1px solid var(--border);
   display:flex; align-items:center; gap:10px;
 }
-.col-head-label { font-size:10px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; }
-.col-head-tag { font-size:10px; font-weight:600; padding:2px 9px; border-radius:20px; margin-left:auto; }
+.dd-head-label { font-size:10px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--blue); }
+.dd-head-tag { font-size:10px; font-weight:600; padding:2px 9px; border-radius:20px; background:#ebf2ff; color:var(--blue); margin-left:auto; }
+.dd-head-tag.green { background:#e8f8f0; color:#1a7850; }
 
-.cc .col-head-label { color:#2a5090; }
-.cc .col-head-tag { background:#ebf2ff; color:#2a5090; }
-.cg .col-head-label { color:#1a7850; }
-.cg .col-head-tag { background:#e8f8f0; color:#1a7850; }
-.cb .col-head-label { color:#a05a14; }
-.cb .col-head-tag { background:#fff5e6; color:#a05a14; }
-
-.dd-item {
-  padding:10px 24px; cursor:pointer;
+/* Offer items */
+.offer-item {
+  padding:14px 28px; cursor:pointer;
   border-bottom:1px solid rgba(14,30,56,.04);
-  display:flex; flex-direction:column; gap:2px;
-  transition:background .1s;
-  position:relative;
+  transition:background .1s; position:relative;
 }
-.dd-item:hover, .dd-item.preview-active { background:#eef4ff; }
-.dd-item.preview-active::before {
+.offer-item:hover, .offer-item.hi { background:#eef4ff; }
+.offer-item.hi::before {
   content:''; position:absolute; left:0; top:0; bottom:0;
   width:3px; background:var(--blue); border-radius:0 2px 2px 0;
 }
-.dd-item:last-child { border-bottom:none; }
-.di-top { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
-.di-name { font-size:13.5px; font-weight:600; color:var(--navy); }
-.di-price { font-size:12px; font-weight:500; color:var(--blue); white-space:nowrap; }
-.di-desc { font-size:11.5px; color:rgba(14,30,56,.45); line-height:1.4; }
-.di-pill {
+.offer-item:last-child { border-bottom:none; }
+.oi-top { display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:3px; }
+.oi-name { font-size:14px; font-weight:700; color:var(--navy); }
+.oi-price { font-size:13px; font-weight:600; color:var(--blue); }
+.oi-desc { font-size:12px; color:rgba(14,30,56,.45); line-height:1.4; }
+.oi-pill {
   display:inline-block; font-size:10px; font-weight:600;
-  padding:2px 8px; border-radius:10px; margin-top:3px; width:fit-content;
+  padding:2px 8px; border-radius:10px; margin-top:5px;
 }
 .pb { background:#ebf2ff; color:#2a5090; }
 .pg { background:#e8f8f0; color:#1a7850; }
-.pa { background:#fff5e6; color:#a05a14; }
 
-.states-sep { padding:8px 24px 6px; background:rgba(248,250,253,.9); border-top:1px solid rgba(14,30,56,.05); border-bottom:1px solid rgba(14,30,56,.05); }
-.states-sep-label { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(14,30,56,.3); }
+.dd-tarifs-link {
+  padding:12px 28px; font-size:13px; font-weight:500; color:var(--blue);
+  cursor:pointer; border-top:1px solid var(--border);
+  background:rgba(248,250,253,.8);
+  display:flex; align-items:center; gap:6px;
+}
+.dd-tarifs-link:hover { background:#eef4ff; }
 
+/* State items */
 .state-item {
-  padding:9px 24px 9px 32px; cursor:pointer;
-  border-bottom:1px solid rgba(14,30,56,.03);
-  display:flex; align-items:center; gap:10px;
+  padding:11px 28px 11px 28px; cursor:pointer;
+  border-bottom:1px solid rgba(14,30,56,.04);
+  display:flex; align-items:center; gap:12px;
   transition:background .1s; position:relative;
 }
-.state-item:hover, .state-item.preview-active { background:#eef4ff; }
-.state-item.preview-active::before {
+.state-item:hover, .state-item.hi { background:#eef4ff; }
+.state-item.hi::before {
   content:''; position:absolute; left:0; top:0; bottom:0;
   width:3px; border-radius:0 2px 2px 0;
 }
-.si-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
-.si-name { font-size:13px; font-weight:600; color:var(--navy); }
-.si-tag { font-size:11px; color:rgba(14,30,56,.4); margin-left:auto; }
+.si-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.si-body { flex:1; }
+.si-name { font-size:13.5px; font-weight:700; color:var(--navy); }
+.si-tagline { font-size:11.5px; color:rgba(14,30,56,.42); margin-top:2px; line-height:1.3; }
+.si-arrow { font-size:14px; color:rgba(14,30,56,.2); transition:color .15s; }
+.state-item:hover .si-arrow { color:var(--blue); }
 
-.bank-cta-wrap { padding:10px 24px 14px; }
-.bank-cta {
-  display:block; width:100%; background:var(--navy); color:#fff;
-  font-size:13px; font-weight:600; padding:11px; border-radius:8px;
-  text-align:center; cursor:pointer; border:none; transition:background .15s;
+.dd-footer {
+  grid-column:1/-1; background:rgba(248,250,253,.95);
+  border-top:1px solid var(--border);
+  padding:10px 28px; display:flex; align-items:center; justify-content:space-between;
 }
-.bank-cta:hover { background:#1a3a6a; }
+.ddf-trust { font-size:11px; color:rgba(14,30,56,.32); }
+.ddf-link { font-size:12px; font-weight:500; color:var(--blue); cursor:pointer; }
 
-.mega-footer {
-  grid-column:1/-1; background:rgba(248,250,253,.9);
-  border-top:1px solid rgba(14,30,56,.06);
-  padding:11px 24px; display:flex; align-items:center; justify-content:space-between;
-}
-.mf-link { font-size:13px; font-weight:500; color:var(--blue); cursor:pointer; }
-.mf-trust { font-size:11px; color:rgba(14,30,56,.35); }
-
-/* ════════════════════════════════════════
-   BROWSER CHROME (page preview container)
-════════════════════════════════════════ */
-.preview-shell {
-  background:#e8edf4; padding:0;
-  min-height:calc(100vh - 64px - 40px);
-  position:relative;
-}
-
-/* Browser chrome bar */
+/* ══════════════════════════════════════
+   BROWSER FRAME
+══════════════════════════════════════ */
+.browser-shell { background:#dce4f0; }
 .browser-bar {
-  background:#d8dde8; padding:10px 16px;
-  display:flex; align-items:center; gap:10px;
-  border-bottom:1px solid #c8ceda;
+  background:#cdd5e4; padding:9px 16px;
+  display:flex; align-items:center; gap:10px; border-bottom:1px solid #c0c9da;
 }
-.browser-dots { display:flex; gap:6px; }
-.browser-dot { width:12px; height:12px; border-radius:50%; }
-.bd-red { background:#ff5f57; }
-.bd-yellow { background:#febc2e; }
-.bd-green { background:#28c840; }
+.b-dots { display:flex; gap:5px; }
+.bd { width:11px; height:11px; border-radius:50%; }
 .browser-url {
-  flex:1; background:rgba(255,255,255,.7); border-radius:6px;
-  padding:6px 14px; font-size:12px; color:rgba(14,30,56,.5);
-  display:flex; align-items:center; gap:8px;
+  flex:1; background:rgba(255,255,255,.65); border-radius:6px;
+  padding:5px 12px; font-size:12px; display:flex; align-items:center; gap:7px;
 }
-.url-lock { font-size:11px; opacity:.5; }
-.url-text { font-weight:500; color:rgba(14,30,56,.65); transition:all .25s; }
+.url-lock { opacity:.45; font-size:10px; }
+.url-val { font-weight:500; color:rgba(14,30,56,.6); transition:all .2s; }
 
-/* Page views */
-.page-frame {
-  min-height:calc(100vh - 64px - 40px - 38px);
-  overflow:hidden; position:relative;
-}
-.pv { display:none; animation:fadeSlide .28s ease; }
-.pv.on { display:block; }
-@keyframes fadeSlide { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+/* ── Page views ── */
+.page-frame { min-height:calc(100vh - 64px - 36px - 34px); position:relative; overflow:hidden; }
+.pv { display:none; }
+.pv.on { display:block; animation:fi .28s ease; }
+@keyframes fi { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
 
-/* ── HOME ── */
-.home-hero {
-  min-height:calc(100vh - 64px - 40px - 38px);
-  background:linear-gradient(160deg,#eef3f9 0%,#e4ecf6 40%,#f0f6fb 100%);
-  display:flex; align-items:center; padding:0 80px;
-  position:relative; overflow:hidden;
+/* HOME */
+.hero {
+  min-height:calc(100vh - 64px - 36px - 34px);
+  background:linear-gradient(160deg,#eef3f9 0%,#e2eaf5 40%,#eef4fb 100%);
+  display:flex; align-items:center; padding:0 72px; position:relative; overflow:hidden;
 }
-.home-hero::before {
+.hero::before {
   content:''; position:absolute; inset:0;
-  background-image:radial-gradient(circle,rgba(42,80,144,.06) 1px,transparent 1px);
+  background-image:radial-gradient(circle,rgba(42,80,144,.055) 1px,transparent 1px);
   background-size:32px 32px;
 }
-.hero-body { position:relative; z-index:1; max-width:580px; }
+.hero-copy { position:relative; z-index:1; max-width:560px; }
 .hero-pill {
   display:inline-flex; align-items:center; gap:8px;
   background:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.9);
-  backdrop-filter:blur(12px); padding:5px 15px; border-radius:24px;
-  font-size:12px; color:rgba(14,30,56,.55); margin-bottom:24px;
+  padding:5px 14px; border-radius:24px; font-size:12px; color:rgba(14,30,56,.5);
+  margin-bottom:22px; backdrop-filter:blur(10px);
 }
-.hero-pill-dot { width:5px; height:5px; border-radius:50%; background:#4a80b8; }
-.hero-h1 { font-size:clamp(38px,5vw,68px); font-weight:800; line-height:.97; letter-spacing:-.03em; color:var(--navy); margin-bottom:18px; }
+.hp-dot { width:5px; height:5px; border-radius:50%; background:#4a80b8; }
+.hero-h1 { font-size:clamp(36px,4.8vw,66px); font-weight:800; line-height:.97; letter-spacing:-.03em; color:var(--navy); margin-bottom:16px; }
 .hero-h1 em { font-style:normal; background:linear-gradient(90deg,#3a6898,#5a90c8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.hero-sub { font-size:15px; color:rgba(14,30,56,.6); line-height:1.6; margin-bottom:32px; max-width:440px; }
-.hero-btns { display:flex; align-items:center; gap:14px; }
-.hero-btn-p {
-  background:linear-gradient(135deg,#1a3a6a,#2a5090); color:#fff;
-  font-size:14px; font-weight:600; padding:13px 26px; border-radius:26px;
-  cursor:pointer; border:none; box-shadow:0 5px 20px rgba(42,80,144,.28);
-}
-.hero-btn-s { font-size:14px; color:rgba(14,30,56,.4); cursor:pointer; }
-.hero-panel {
-  position:absolute; right:80px; top:50%; transform:translateY(-50%); z-index:1;
-}
-.panel-big {
+.hero-p { font-size:15px; color:rgba(14,30,56,.58); line-height:1.6; margin-bottom:30px; max-width:420px; }
+.hero-btns { display:flex; gap:14px; align-items:center; }
+.hero-primary { background:linear-gradient(135deg,#1a3a6a,#2a5090); color:#fff; font-size:14px; font-weight:600; padding:13px 26px; border-radius:26px; cursor:pointer; border:none; box-shadow:0 5px 20px rgba(42,80,144,.28); }
+.hero-secondary { font-size:14px; color:rgba(14,30,56,.38); cursor:pointer; }
+.hero-panel { position:absolute; right:72px; top:50%; transform:translateY(-50%); }
+.panel-main {
   background:rgba(255,255,255,.85); backdrop-filter:blur(24px);
   border:1px solid rgba(255,255,255,.9); border-radius:18px;
-  padding:28px 32px 22px; text-align:center; margin-bottom:8px;
-  box-shadow:0 12px 40px rgba(42,80,144,.12);
+  padding:26px 30px 20px; text-align:center; margin-bottom:8px;
+  box-shadow:0 12px 40px rgba(42,80,144,.11);
 }
-.panel-num { font-size:80px; font-weight:800; line-height:1; letter-spacing:-.04em; color:var(--navy); }
-.panel-num span { color:#4a80b8; }
-.panel-lbl { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(14,30,56,.4); margin-top:6px; }
-.panel-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-.panel-mini {
-  background:rgba(255,255,255,.75); backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.85); border-radius:10px;
-  padding:12px; text-align:center; box-shadow:0 3px 12px rgba(42,80,144,.07);
-}
-.pm-val { font-size:18px; font-weight:800; color:var(--navy); }
-.pm-lbl { font-size:9px; text-transform:uppercase; letter-spacing:.14em; color:rgba(14,30,56,.4); margin-top:2px; }
+.panel-n { font-size:76px; font-weight:800; line-height:1; letter-spacing:-.04em; color:var(--navy); }
+.panel-n span { color:#4a80b8; }
+.panel-l { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(14,30,56,.4); margin-top:6px; }
+.panel-g { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.panel-s { background:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.85); border-radius:10px; padding:11px 12px; text-align:center; }
+.ps-v { font-size:17px; font-weight:800; color:var(--navy); }
+.ps-l { font-size:9px; text-transform:uppercase; letter-spacing:.14em; color:rgba(14,30,56,.38); margin-top:2px; }
 
-/* ── INNER PAGE ── */
-.inner { padding:52px 64px; }
-.i-crumb { font-size:12px; color:rgba(14,30,56,.35); margin-bottom:20px; }
-.i-crumb strong { color:var(--blue); }
-.i-h1 { font-size:clamp(32px,3.5vw,52px); font-weight:800; letter-spacing:-.03em; color:var(--navy); margin-bottom:8px; line-height:1.05; }
-.i-sub { font-size:15px; color:rgba(14,30,56,.55); max-width:520px; line-height:1.6; margin-bottom:40px; }
-
-.i-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-bottom:40px; }
-.i-card {
-  background:#fff; border:1.5px solid var(--border); border-radius:14px;
-  padding:24px; cursor:pointer; transition:border-color .15s,box-shadow .15s;
-}
-.i-card:hover { border-color:#b8d0f0; box-shadow:0 4px 20px rgba(42,80,144,.09); }
-.i-card-tag { font-size:9.5px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; margin-bottom:10px; }
-.i-card-h { font-size:17px; font-weight:700; color:var(--navy); margin-bottom:6px; }
-.i-card-p { font-size:12.5px; color:rgba(14,30,56,.55); line-height:1.5; }
-.i-card-price { font-size:22px; font-weight:800; color:var(--blue); margin-top:14px; }
-.i-card-note { font-size:11px; color:rgba(14,30,56,.4); margin-top:2px; }
-
-.i-cta {
+/* INNER PAGE */
+.inner { padding:48px 64px; background:#fff; min-height:calc(100vh - 64px - 36px - 34px); }
+.crumb { font-size:12px; color:rgba(14,30,56,.35); margin-bottom:20px; }
+.crumb strong { color:var(--blue); }
+.inner-h1 { font-size:clamp(30px,3.2vw,50px); font-weight:800; letter-spacing:-.03em; color:var(--navy); line-height:1.05; margin-bottom:8px; }
+.inner-sub { font-size:15px; color:rgba(14,30,56,.52); max-width:500px; line-height:1.6; margin-bottom:36px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:16px; margin-bottom:36px; }
+.card { background:#fff; border:1.5px solid rgba(14,30,56,.08); border-radius:14px; padding:22px; cursor:pointer; transition:border-color .15s,box-shadow .15s; }
+.card:hover { border-color:#b0caf0; box-shadow:0 4px 20px rgba(42,80,144,.08); }
+.card-tag { font-size:9.5px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; margin-bottom:10px; }
+.card-h { font-size:17px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.card-p { font-size:12.5px; color:rgba(14,30,56,.52); line-height:1.55; }
+.card-price { font-size:22px; font-weight:800; color:var(--blue); margin-top:12px; }
+.card-note { font-size:11px; color:rgba(14,30,56,.38); margin-top:2px; }
+.cta-bar {
   background:linear-gradient(135deg,#1a3a6a,#2a5090); border-radius:14px;
-  padding:32px 36px; display:flex; align-items:center; justify-content:space-between; gap:20px;
+  padding:30px 34px; display:flex; align-items:center; justify-content:space-between; gap:20px;
 }
-.i-cta h3 { font-size:20px; font-weight:700; color:#fff; }
-.i-cta p { font-size:13px; color:rgba(255,255,255,.6); margin-top:3px; }
-.i-cta-btn {
-  background:#fff; color:var(--blue); font-size:13px; font-weight:700;
-  padding:12px 24px; border-radius:22px; cursor:pointer; border:none;
-  white-space:nowrap; flex-shrink:0;
-}
+.cta-bar h3 { font-size:19px; font-weight:700; color:#fff; }
+.cta-bar p { font-size:13px; color:rgba(255,255,255,.58); margin-top:3px; }
+.cta-bar-btn { background:#fff; color:var(--blue); font-size:13px; font-weight:700; padding:11px 22px; border-radius:22px; cursor:pointer; border:none; white-space:nowrap; }
 
-/* State cards */
-.state-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.state-card {
-  background:#fff; border:2px solid var(--border); border-radius:14px;
-  padding:24px; cursor:pointer; transition:all .15s;
-}
-.state-card:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(42,80,144,.1); }
-.sc-flag { font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:8px; }
+/* States grid */
+.states-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:36px; }
+.sc { background:#fff; border:2px solid rgba(14,30,56,.08); border-radius:14px; padding:22px; cursor:pointer; transition:all .15s; }
+.sc:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(42,80,144,.09); }
+.sc-flag { font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:7px; }
 .sc-h { font-size:18px; font-weight:800; color:var(--navy); margin-bottom:5px; }
-.sc-p { font-size:12.5px; color:rgba(14,30,56,.5); margin-bottom:12px; line-height:1.5; }
-.sc-benefit { display:inline-block; font-size:11px; font-weight:600; padding:6px 12px; border-radius:8px; }
+.sc-p { font-size:12.5px; color:rgba(14,30,56,.48); margin-bottom:12px; line-height:1.5; }
+.sc-badge { display:inline-block; font-size:11px; font-weight:600; padding:5px 12px; border-radius:8px; }
 
-/* ── CALENDLY ── */
-.calendly-view {
-  display:flex; align-items:center; justify-content:center;
-  min-height:calc(100vh - 64px - 40px - 38px);
-  background:#f4f7fb;
+/* Banking page */
+.banking-hero {
+  background:linear-gradient(160deg,#fff9f0 0%,#fff3e0 100%);
+  padding:52px 64px 40px; border-bottom:1px solid rgba(160,90,20,.08);
 }
-.cal-card {
-  background:#fff; border-radius:20px; padding:48px 40px; max-width:480px; width:100%;
-  text-align:center; box-shadow:0 8px 40px rgba(42,80,144,.1);
-}
-.cal-icon { font-size:36px; margin-bottom:14px; }
-.cal-h { font-size:24px; font-weight:800; margin-bottom:8px; }
-.cal-p { font-size:14px; color:rgba(14,30,56,.5); margin-bottom:20px; line-height:1.6; }
-.cal-link { font-size:12px; color:var(--blue); font-weight:600; }
-.cal-mock { background:#f4f7fb; border-radius:10px; padding:20px; margin-top:16px; font-size:13px; color:rgba(14,30,56,.4); }
+.banking-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:32px 64px 48px; background:#fff; }
+.b-card { border:1.5px solid rgba(14,30,56,.08); border-radius:14px; padding:24px; }
 
-/* ════════════════════════════════════════
-   ANALYSIS SECTION (below demo)
-════════════════════════════════════════ */
-.analysis-toggle {
+/* Calendly */
+.cal-shell { display:flex; align-items:center; justify-content:center; background:#f4f7fb; min-height:calc(100vh - 64px - 36px - 34px); }
+.cal-card { background:#fff; border-radius:18px; padding:44px 36px; max-width:440px; width:100%; text-align:center; box-shadow:0 8px 40px rgba(42,80,144,.1); }
+.cal-icon { font-size:34px; margin-bottom:12px; }
+.cal-h { font-size:22px; font-weight:800; margin-bottom:8px; }
+.cal-p { font-size:14px; color:rgba(14,30,56,.48); line-height:1.6; margin-bottom:18px; }
+.cal-url { font-size:12px; color:var(--blue); font-weight:600; }
+.cal-mock { background:#f4f7fb; border-radius:8px; padding:16px; margin-top:14px; font-size:12px; color:rgba(14,30,56,.38); }
+
+/* ══════════════════════════════════════
+   ANALYSIS SECTION
+══════════════════════════════════════ */
+.toggle-bar {
   background:#fff; border-top:1px solid var(--border);
-  padding:16px 32px; display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:14px 40px; display:flex; align-items:center; justify-content:space-between;
   cursor:pointer; transition:background .15s;
 }
-.analysis-toggle:hover { background:#f8fafd; }
-.at-label { font-size:13px; font-weight:600; color:var(--blue); }
-.at-arrow { font-size:14px; color:var(--blue); transition:transform .25s; }
-.at-arrow.open { transform:rotate(180deg); }
+.toggle-bar:hover { background:#f8fafd; }
+.tb-label { font-size:13px; font-weight:600; color:var(--blue); }
+.tb-arr { font-size:13px; color:var(--blue); transition:transform .22s; }
+.tb-arr.open { transform:rotate(180deg); }
 
-.analysis-body { display:none; background:#f0f4fa; padding:52px 48px; }
-.analysis-body.open { display:block; }
-
-.an-title { font-size:22px; font-weight:700; color:var(--navy); margin-bottom:4px; }
-.an-sub { font-size:13px; color:rgba(14,30,56,.45); margin-bottom:32px; }
+.analysis { display:none; background:#edf1f8; padding:48px; }
+.analysis.open { display:block; }
+.an-h { font-size:21px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.an-p { font-size:13px; color:rgba(14,30,56,.42); margin-bottom:28px; }
 
 .opts { display:flex; flex-direction:column; gap:10px; }
 .opt {
   background:#fff; border:1.5px solid var(--border); border-radius:12px;
-  padding:18px 22px; display:grid;
-  grid-template-columns:44px 1fr 1fr 72px; gap:14px; align-items:start;
-  transition:border-color .15s;
+  padding:18px 22px; display:grid; grid-template-columns:44px 200px 1fr 1fr 68px;
+  gap:14px; align-items:start; transition:border-color .15s;
 }
 .opt:hover { border-color:#c0d4f0; }
-.opt.rec { background:#eef4ff; border-color:var(--blue); border-width:2px; position:relative; overflow:hidden; }
+.opt.rec { background:#eef4ff; border-color:var(--blue); position:relative; overflow:hidden; }
 .opt.rec::before { content:''; position:absolute; left:0;top:0;bottom:0; width:4px; background:var(--blue); }
-.opt-id { font-size:22px; font-weight:800; color:rgba(14,30,56,.18); line-height:1; padding-top:2px; }
-.opt-id.r { color:var(--blue); }
-.opt-name { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:4px; }
-.opt-badge { display:inline-block; background:var(--blue); color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:2px 9px; border-radius:20px; margin-top:4px; }
-.opt-items { font-size:12px; color:rgba(14,30,56,.55); margin-bottom:6px; }
-.opt-pro { font-size:12px; color:#1a7850; line-height:1.5; }
-.opt-pro::before { content:"✓  "; }
-.opt-con { font-size:12px; color:#b03c28; line-height:1.5; margin-top:3px; }
-.opt-con::before { content:"✗  "; }
-.opt-verdict { font-size:12px; color:rgba(14,30,56,.55); line-height:1.5; }
-.opt-verdict.r { color:var(--blue); font-weight:600; }
-.opt-score { font-size:26px; font-weight:800; text-align:right; }
-.opt-score.hi { color:var(--blue); }
-.opt-score.mi { color:#1a7850; }
-.opt-score.lo { color:rgba(14,30,56,.22); }
-.opt-score-lbl { font-size:10px; color:rgba(14,30,56,.3); text-align:right; }
+.oid { font-size:22px; font-weight:800; color:rgba(14,30,56,.18); line-height:1; }
+.oid.r { color:var(--blue); }
+.on2 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+.obadge { display:inline-block; background:var(--blue); color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:2px 9px; border-radius:20px; margin-top:4px; }
+.oitems { font-size:12px; color:rgba(14,30,56,.5); }
+.opro { font-size:12px; color:#1a7850; line-height:1.5; }
+.opro::before { content:"✓  "; }
+.ocon { font-size:12px; color:#b03c28; line-height:1.5; margin-top:3px; }
+.ocon::before { content:"✗  "; }
+.overdict { font-size:12px; color:rgba(14,30,56,.52); line-height:1.5; }
+.overdict.r { color:var(--blue); font-weight:600; }
+.oscore { font-size:26px; font-weight:800; text-align:right; }
+.oscore.hi { color:var(--blue); }
+.oscore.mi { color:#1a7850; }
+.oscore.lo { color:rgba(14,30,56,.2); }
+.oscore-l { font-size:10px; color:rgba(14,30,56,.3); text-align:right; }
 </style>
 </head>
 <body>
 
-<!-- ══ META BAR ══ -->
-<div class="meta-bar">
-  <div class="meta-bar-left">MA SOCIÉTÉ US · <strong>Architecture Navigation</strong> · Option H recommandée</div>
-  <div class="meta-tabs">
-    <div class="meta-tab active" onclick="setMeta(this,'demo')">Démo interactive</div>
-    <div class="meta-tab" onclick="setMeta(this,'analyse')">Analyse 7 options ↓</div>
+<!-- META BAR -->
+<div class="meta">
+  <div class="meta-title">MA SOCIÉTÉ US · <strong>Architecture Navigation — Démo interactive</strong></div>
+  <div class="meta-pills">
+    <div class="mp on" onclick="scrollTop(this)">Démo</div>
+    <div class="mp" onclick="openAnalysis(this)">7 options comparées ↓</div>
   </div>
 </div>
 
-<!-- ══ NAVBAR (live interactive) ══ -->
-<nav class="navbar" id="navbar">
-  <div class="nav-logo" onclick="nav('home')">MA SOCIÉTÉ <em>US</em></div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo" onclick="go('home')">MA SOCIÉTÉ <em>US</em></div>
   <div class="nav-links">
-    <div class="nav-link" id="nl-creer" onclick="nav('creer')">Créer une LLC</div>
-    <div class="nav-link" id="nl-services" onclick="toggleDD()">
-      Services
+    <div class="nl" id="nl-llc" onclick="toggleDD()">
+      Créer ma LLC
       <span class="chev">
-        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
     </div>
-    <div class="nav-link" id="nl-apropos" onclick="nav('apropos')">À propos</div>
-    <div class="nav-link" id="nl-blog" onclick="nav('blog')">Blog</div>
+    <div class="nl" id="nl-banking" onclick="go('banking')">Banking</div>
+    <div class="nl" id="nl-apropos" onclick="go('apropos')">À propos</div>
+    <div class="nl" id="nl-blog" onclick="go('blog')">Blog</div>
   </div>
-  <div class="nav-portal" onclick="nav('portail')">Portail client</div>
-  <button class="nav-cta" onclick="nav('cal')">Réserver mon entretien →</button>
+  <div class="nav-portal" onclick="go('portail')">Portail client</div>
+  <button class="cta-btn" onclick="go('cal')">Réserver mon entretien →</button>
 </nav>
 
-<!-- ══ MEGA DROPDOWN ══ -->
-<div class="mega-outer" id="mega">
-  <div class="mega-inner">
+<!-- DROPDOWN -->
+<div class="dd-outer" id="dd">
+  <div class="dd-inner">
 
-    <!-- CRÉATION -->
-    <div class="mega-col cc">
-      <div class="col-head">
-        <span class="col-head-label">Création</span>
-        <span class="col-head-tag">Démarrer</span>
+    <!-- Col gauche: Offres -->
+    <div class="dd-col">
+      <div class="dd-head">
+        <span class="dd-head-label">Nos offres</span>
+        <span class="dd-head-tag">Créer</span>
       </div>
-      <div class="dd-item" onmouseenter="preview('pack-llc',this)" onclick="nav('pack-llc')">
-        <div class="di-top"><span class="di-name">Pack LLC</span><span class="di-price">$997</span></div>
-        <span class="di-desc">LLC en 14 jours · EIN · Chargé dédié</span>
-        <span class="di-pill pb">Le plus populaire</span>
+      <div class="offer-item" onmouseenter="prev('pack-llc',this)" onclick="go('pack-llc')">
+        <div class="oi-top"><span class="oi-name">Pack LLC</span><span class="oi-price">$997</span></div>
+        <div class="oi-desc">LLC en 14 jours · EIN · Chargé dédié · Portail client</div>
+        <span class="oi-pill pb">Le plus populaire</span>
       </div>
-      <div class="dd-item" onmouseenter="preview('pack-premium',this)" onclick="nav('pack-premium')">
-        <div class="di-top"><span class="di-name">Pack Premium</span><span class="di-price">$1 597</span></div>
-        <span class="di-desc">LLC + compte Mercury ouvert</span>
-        <span class="di-pill pg">Recommandé</span>
+      <div class="offer-item" onmouseenter="prev('pack-premium',this)" onclick="go('pack-premium')">
+        <div class="oi-top"><span class="oi-name">Pack Premium</span><span class="oi-price">$1 597</span></div>
+        <div class="oi-desc">LLC + compte Mercury ouvert · Carte Visa incluse</div>
+        <span class="oi-pill pg">Recommandé</span>
       </div>
-      <div class="states-sep"><span class="states-sep-label">Choisir son État</span></div>
-      <div class="state-item" onmouseenter="preview('nm',this)" onclick="nav('nm')" style="--sc:#2a5090">
+      <div class="dd-tarifs-link" onclick="go('tarifs');closeDD()">
+        → Voir tous les tarifs &amp; services
+      </div>
+    </div>
+
+    <!-- Col droite: États -->
+    <div class="dd-col">
+      <div class="dd-head">
+        <span class="dd-head-label">Choisir son État</span>
+        <span class="dd-head-tag green">4 juridictions</span>
+      </div>
+      <div class="state-item" onmouseenter="prev('nm',this)" onclick="go('nm')" style="--c:#2a5090">
         <span class="si-dot" style="background:#2a5090"></span>
-        <span class="si-name">Nouveau-Mexique</span>
-        <span class="si-tag">Anonymat total</span>
+        <div class="si-body">
+          <div class="si-name">Nouveau-Mexique</div>
+          <div class="si-tagline">Anonymat total — votre nom n'apparaît nulle part</div>
+        </div>
+        <span class="si-arrow">›</span>
       </div>
-      <div class="state-item" onmouseenter="preview('co',this)" onclick="nav('co')" style="--sc:#1a7850">
+      <div class="state-item" onmouseenter="prev('co',this)" onclick="go('co')" style="--c:#1a7850">
         <span class="si-dot" style="background:#1a7850"></span>
-        <span class="si-name">Colorado</span>
-        <span class="si-tag">LLC en 24h</span>
+        <div class="si-body">
+          <div class="si-name">Colorado</div>
+          <div class="si-tagline">LLC opérationnelle en 24 heures</div>
+        </div>
+        <span class="si-arrow">›</span>
       </div>
-      <div class="state-item" onmouseenter="preview('wy',this)" onclick="nav('wy')" style="--sc:#7a50a0">
+      <div class="state-item" onmouseenter="prev('wy',this)" onclick="go('wy')" style="--c:#7a50a0">
         <span class="si-dot" style="background:#7a50a0"></span>
-        <span class="si-name">Wyoming</span>
-        <span class="si-tag">Pro-crypto</span>
+        <div class="si-body">
+          <div class="si-name">Wyoming</div>
+          <div class="si-tagline">Pro-crypto &amp; Web3 — DAO légalisées</div>
+        </div>
+        <span class="si-arrow">›</span>
       </div>
-      <div class="state-item" onmouseenter="preview('de',this)" onclick="nav('de')" style="--sc:#a05a14">
+      <div class="state-item" onmouseenter="prev('de',this)" onclick="go('de')" style="--c:#a05a14">
         <span class="si-dot" style="background:#a05a14"></span>
-        <span class="si-name">Delaware</span>
-        <span class="si-tag">Levée de fonds VC</span>
+        <div class="si-body">
+          <div class="si-name">Delaware</div>
+          <div class="si-tagline">Standard levée de fonds — référence VC</div>
+        </div>
+        <span class="si-arrow">›</span>
+      </div>
+      <div class="dd-footer" style="grid-column:1">
+        <span class="ddf-trust">CPA agréé IRS · Cabinet depuis 2014 · 500+ sociétés</span>
+        <span class="ddf-link" onclick="go('creer');closeDD()">Comparer les États →</span>
       </div>
     </div>
 
-    <!-- GESTION -->
-    <div class="mega-col cg">
-      <div class="col-head">
-        <span class="col-head-label">Gestion</span>
-        <span class="col-head-tag">Optimiser</span>
-      </div>
-      <div class="dd-item" onmouseenter="preview('decl',this)" onclick="nav('decl')">
-        <div class="di-top"><span class="di-name">Déclaration LLC</span><span class="di-price">dès $800</span></div>
-        <span class="di-desc">CPA agréé IRS · Signature personnelle</span>
-      </div>
-      <div class="dd-item" onmouseenter="preview('confort',this)" onclick="nav('confort')">
-        <div class="di-top"><span class="di-name">Option Confort</span><span class="di-price">sur devis</span></div>
-        <span class="di-desc">Domiciliation · Veille fiscale · Rappels</span>
-      </div>
-      <div class="dd-item" onmouseenter="preview('e2',this)" onclick="nav('e2')">
-        <div class="di-top"><span class="di-name">Visa E2</span><span class="di-price">sur devis</span></div>
-        <span class="di-desc">Immigrer aux USA par l'entrepreneuriat</span>
-      </div>
-      <div class="dd-item" onmouseenter="preview('presta',this)" onclick="nav('presta')">
-        <div class="di-top"><span class="di-name">Prestations add.</span><span class="di-price">dès $100</span></div>
-        <span class="di-desc">Annual report · CGV · Dissolution…</span>
-      </div>
-    </div>
-
-    <!-- BANKING -->
-    <div class="mega-col cb">
-      <div class="col-head">
-        <span class="col-head-label">Banking</span>
-        <span class="col-head-tag">Encaisser</span>
-      </div>
-      <div class="dd-item" onmouseenter="preview('fintech',this)" onclick="nav('fintech')">
-        <div class="di-top"><span class="di-name">Banque en ligne</span><span class="di-price">dès $600</span></div>
-        <span class="di-desc">Mercury · Relay · 100% à distance</span>
-        <span class="di-pill pa">Compte ouvert en 48h</span>
-      </div>
-      <div class="dd-item" onmouseenter="preview('bphysique',this)" onclick="nav('bphysique')">
-        <div class="di-top"><span class="di-name">Banque physique</span><span class="di-price">sur devis</span></div>
-        <span class="di-desc">Stabilité institutionnelle · Financement</span>
-      </div>
-      <div style="padding:10px 24px;font-size:12px;color:rgba(14,30,56,.38);line-height:1.6;">
-        Votre LLC a besoin d'un compte US dédié pour être pleinement opérationnelle.
-      </div>
-      <div class="bank-cta-wrap">
-        <button class="bank-cta" onclick="nav('cal-banking')">Appel banking gratuit →</button>
-      </div>
-    </div>
-
-    <div class="mega-footer">
-      <span class="mf-link" onclick="nav('tarifs');closeDD()">→ Voir tous les tarifs</span>
-      <span class="mf-trust">CPA agréé IRS · Cabinet franco-américain depuis 2014 · 500+ sociétés créées</span>
-    </div>
   </div>
 </div>
 
-<!-- ══ BROWSER CHROME + PAGE PREVIEW ══ -->
-<div class="preview-shell">
+<!-- BROWSER + PAGE PREVIEW -->
+<div class="browser-shell">
   <div class="browser-bar">
-    <div class="browser-dots">
-      <div class="browser-dot bd-red"></div>
-      <div class="browser-dot bd-yellow"></div>
-      <div class="browser-dot bd-green"></div>
+    <div class="b-dots">
+      <div class="bd" style="background:#ff5f57"></div>
+      <div class="bd" style="background:#febc2e"></div>
+      <div class="bd" style="background:#28c840"></div>
     </div>
     <div class="browser-url">
       <span class="url-lock">🔒</span>
-      <span class="url-text" id="url-text">ma-societe-us.com</span>
+      <span class="url-val" id="urlval">ma-societe-us.com</span>
     </div>
   </div>
 
@@ -504,407 +429,288 @@ body { min-height:100vh; }
 
     <!-- HOME -->
     <div class="pv on" id="pv-home">
-      <div class="home-hero">
-        <div class="hero-body">
-          <div class="hero-pill"><span class="hero-pill-dot"></span>500+ sociétés créées depuis 2014</div>
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="hero-pill"><span class="hp-dot"></span>500+ sociétés créées depuis 2014</div>
           <h1 class="hero-h1">Votre société<br>américaine.<br><em>Créée en 14 jours.</em></h1>
-          <p class="hero-sub">Cabinet franco-américain depuis 2014. 100% légal, 100% à distance — sans billet d'avion, sans visa.</p>
+          <p class="hero-p">Cabinet franco-américain depuis 2014. 100% légal, 100% à distance — sans billet d'avion, sans visa.</p>
           <div class="hero-btns">
-            <button class="hero-btn-p" onclick="nav('cal')">Réserver mon entretien gratuit</button>
-            <span class="hero-btn-s" onclick="nav('pack-llc')">Voir comment ça marche →</span>
+            <button class="hero-primary" onclick="go('cal')">Réserver mon entretien gratuit</button>
+            <span class="hero-secondary" onclick="go('pack-llc')">Voir l'offre →</span>
           </div>
-          <p style="margin-top:16px;font-size:11px;color:rgba(14,30,56,.38);">100% légal · Conforme OCDE · Depuis 2014</p>
+          <p style="margin-top:14px;font-size:11px;color:rgba(14,30,56,.35)">100% légal · Conforme OCDE · Depuis 2014</p>
         </div>
         <div class="hero-panel">
-          <div class="panel-big">
-            <div class="panel-num">0<span>%</span></div>
-            <div class="panel-lbl">d'impôts aux USA</div>
-            <div style="margin-top:8px;font-size:10px;background:rgba(255,255,255,.6);border-radius:20px;padding:4px 12px;display:inline-block;color:rgba(14,30,56,.4)">100% légal · OCDE</div>
+          <div class="panel-main">
+            <div class="panel-n">0<span>%</span></div>
+            <div class="panel-l">d'impôts aux USA</div>
+            <div style="margin-top:8px;font-size:10px;background:rgba(255,255,255,.6);border-radius:20px;padding:3px 12px;display:inline-block;color:rgba(14,30,56,.38)">100% légal · OCDE</div>
           </div>
-          <div class="panel-grid">
-            <div class="panel-mini"><div class="pm-val">14j</div><div class="pm-lbl">Création</div></div>
-            <div class="panel-mini"><div class="pm-val">4</div><div class="pm-lbl">États</div></div>
-            <div class="panel-mini"><div class="pm-val">500+</div><div class="pm-lbl">Clients</div></div>
-            <div class="panel-mini"><div class="pm-val">10 ans</div><div class="pm-lbl">Expertise</div></div>
+          <div class="panel-g">
+            <div class="panel-s"><div class="ps-v">14j</div><div class="ps-l">Création</div></div>
+            <div class="panel-s"><div class="ps-v">4</div><div class="ps-l">États</div></div>
+            <div class="panel-s"><div class="ps-v">500+</div><div class="ps-l">Clients</div></div>
+            <div class="panel-s"><div class="ps-v">10 ans</div><div class="ps-l">Expertise</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CREER LLC -->
+    <!-- CREER (États overview) -->
     <div class="pv" id="pv-creer">
       <div class="inner">
-        <div class="i-crumb">Accueil / <strong>Créer une LLC</strong></div>
-        <h1 class="i-h1">Créer votre LLC<br>aux États-Unis</h1>
-        <p class="i-sub">4 États, 4 profils d'entrepreneurs. Choisissez la juridiction qui correspond à votre situation.</p>
-        <div class="state-grid">
-          <div class="state-card" onclick="nav('nm')" style="border-color:#c0d4f0"><div class="sc-flag" style="color:#2a5090">● Nouveau-Mexique</div><div class="sc-h">Anonymat total</div><div class="sc-p">Votre nom n'apparaît dans aucun registre public américain.</div><span class="sc-benefit" style="background:#ebf2ff;color:#2a5090">0 registre public</span></div>
-          <div class="state-card" onclick="nav('co')" style="border-color:#b0d8c0"><div class="sc-flag" style="color:#1a7850">● Colorado</div><div class="sc-h">LLC en 24 heures</div><div class="sc-p">Le délai le plus rapide des États-Unis.</div><span class="sc-benefit" style="background:#e8f8f0;color:#1a7850">Opérationnelle en 24h</span></div>
-          <div class="state-card" onclick="nav('wy')" style="border-color:#c8b8e0"><div class="sc-flag" style="color:#7a50a0">● Wyoming</div><div class="sc-h">Pro-crypto & Web3</div><div class="sc-p">Réglementation la plus favorable aux actifs numériques.</div><span class="sc-benefit" style="background:#f0e8f8;color:#7a50a0">DAO légalisées</span></div>
-          <div class="state-card" onclick="nav('de')" style="border-color:#e0c890"><div class="sc-flag" style="color:#a05a14">● Delaware</div><div class="sc-h">Standard levée de fonds</div><div class="sc-p">Plébiscité par 68% des Fortune 500 et les VC.</div><span class="sc-benefit" style="background:#fff5e6;color:#a05a14">Référence investisseurs</span></div>
+        <div class="crumb">Accueil / <strong>Créer ma LLC</strong></div>
+        <h1 class="inner-h1">Créer votre LLC<br>aux États-Unis</h1>
+        <p class="inner-sub">4 États, 4 profils d'entrepreneurs. Choisissez la juridiction adaptée à votre situation.</p>
+        <div class="states-grid">
+          <div class="sc" onclick="go('nm')" style="border-color:#c0d4f0"><div class="sc-flag" style="color:#2a5090">● Nouveau-Mexique</div><div class="sc-h">Anonymat total</div><div class="sc-p">Votre nom n'apparaît dans aucun registre public américain.</div><span class="sc-badge" style="background:#ebf2ff;color:#2a5090">0 registre public</span></div>
+          <div class="sc" onclick="go('co')" style="border-color:#b0d8c0"><div class="sc-flag" style="color:#1a7850">● Colorado</div><div class="sc-h">LLC en 24 heures</div><div class="sc-p">Le délai de traitement le plus rapide des États-Unis.</div><span class="sc-badge" style="background:#e8f8f0;color:#1a7850">Opérationnelle en 24h</span></div>
+          <div class="sc" onclick="go('wy')" style="border-color:#c8b8e0"><div class="sc-flag" style="color:#7a50a0">● Wyoming</div><div class="sc-h">Pro-crypto &amp; Web3</div><div class="sc-p">Réglementation la plus favorable aux actifs numériques.</div><span class="sc-badge" style="background:#f0e8f8;color:#7a50a0">DAO légalisées</span></div>
+          <div class="sc" onclick="go('de')" style="border-color:#e0c890"><div class="sc-flag" style="color:#a05a14">● Delaware</div><div class="sc-h">Standard levée de fonds</div><div class="sc-p">Plébiscité par 68% des Fortune 500 et les investisseurs VC.</div><span class="sc-badge" style="background:#fff5e6;color:#a05a14">Référence VC</span></div>
         </div>
-        <div class="i-cta" style="margin-top:32px"><div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div><button class="i-cta-btn" onclick="nav('cal')">Entretien gratuit →</button></div>
+        <div class="cta-bar"><div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div><button class="cta-bar-btn" onclick="go('cal')">Entretien gratuit →</button></div>
       </div>
     </div>
 
     <!-- PACK LLC -->
     <div class="pv" id="pv-pack-llc">
       <div class="inner">
-        <div class="i-crumb">Services / Création / <strong>Pack LLC</strong></div>
-        <h1 class="i-h1">Pack LLC — $997</h1>
-        <p class="i-sub">LLC américaine créée en 14 jours, de A à Z, sans vous déplacer. EIN inclus, chargé dédié.</p>
-        <div class="i-grid">
-          <div class="i-card"><div class="i-card-tag" style="color:#2a5090">Pack LLC</div><div class="i-card-h">Ce qui est inclus</div><div class="i-card-p">Immatriculation Secretary of State · EIN IRS · Documents légaux · Portail client · 2 entretiens/an</div><div class="i-card-price">$997</div></div>
-          <div class="i-card" style="border-color:#c0d4f0;background:#f8fbff"><div class="i-card-tag" style="color:#1a7850">Pack Premium</div><div class="i-card-h">LLC + Compte bancaire</div><div class="i-card-p">Tout le Pack LLC + ouverture Mercury ou Relay. Carte Visa, multi-devises, compatible Stripe.</div><div class="i-card-price">$1 597</div><div class="i-card-note">Banking inclus</div></div>
+        <div class="crumb">Créer ma LLC / <strong>Pack LLC</strong></div>
+        <h1 class="inner-h1">Pack LLC — $997</h1>
+        <p class="inner-sub">Votre LLC américaine créée en 14 jours, de A à Z, sans vous déplacer. EIN obtenu, chargé dédié.</p>
+        <div class="cards">
+          <div class="card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">LLC créée en 14 jours</div><div class="card-p">Immatriculation Secretary of State · EIN IRS · Documents légaux · 2 entretiens/an</div></div>
+          <div class="card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Chargé d'affaires dédié</div><div class="card-p">Un interlocuteur francophone dédié à votre dossier. Portail client sécurisé pour suivre en temps réel.</div></div>
+          <div class="card" style="border-color:#b0caf0;background:#f8fbff"><div class="card-tag" style="color:#1a7850">Upgrade disponible</div><div class="card-h">Pack Premium — $1 597</div><div class="card-p">Tout le Pack LLC + ouverture de votre compte Mercury ou Relay. Carte Visa incluse.</div><div class="card-price">$1 597</div><div class="card-note">Banking inclus dès $600</div></div>
         </div>
-        <div class="i-cta"><div><h3>Prêt à vous lancer ?</h3><p>Entretien découverte 15 min · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="nav('cal')">Réserver →</button></div>
+        <div class="cta-bar"><div><h3>Prêt à vous lancer ?</h3><p>Entretien découverte 15 min · Gratuit · Sans engagement</p></div><button class="cta-bar-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
     </div>
 
     <!-- PACK PREMIUM -->
     <div class="pv" id="pv-pack-premium">
       <div class="inner">
-        <div class="i-crumb">Services / Création / <strong>Pack Premium</strong></div>
-        <h1 class="i-h1">Pack Premium — $1 597</h1>
-        <p class="i-sub">La solution complète : LLC créée + compte bancaire Mercury ouvert. Opérationnel en 14 jours.</p>
-        <div class="i-grid">
-          <div class="i-card"><div class="i-card-tag" style="color:#1a7850">Inclus</div><div class="i-card-h">Tout le Pack LLC</div><div class="i-card-p">LLC + EIN + documents légaux + chargé dédié + portail client</div></div>
-          <div class="i-card"><div class="i-card-tag" style="color:#a05a14">Inclus</div><div class="i-card-h">Compte bancaire US</div><div class="i-card-p">Mercury ou Relay · Carte Visa pro · Multi-devises · Compatible Stripe & PayPal</div><div class="i-card-note" style="margin-top:8px;font-size:12px;color:rgba(14,30,56,.5)">Valeur séparée : dès $600</div></div>
+        <div class="crumb">Créer ma LLC / <strong>Pack Premium</strong></div>
+        <h1 class="inner-h1">Pack Premium — $1 597</h1>
+        <p class="inner-sub">La solution complète : LLC créée + compte Mercury ouvert. Vous facturez en dollars en 14 jours.</p>
+        <div class="cards">
+          <div class="card"><div class="card-tag" style="color:#1a7850">Inclus</div><div class="card-h">Tout le Pack LLC</div><div class="card-p">LLC + EIN + documents légaux + chargé dédié + portail client</div></div>
+          <div class="card"><div class="card-tag" style="color:#a05a14">Inclus</div><div class="card-h">Compte bancaire US</div><div class="card-p">Mercury ou Relay · Carte Visa pro · Multi-devises · Compatible Stripe &amp; PayPal</div><div class="card-note" style="margin-top:8px;font-size:12px;color:rgba(14,30,56,.4)">Valeur séparée : dès $600</div></div>
         </div>
-        <div class="i-cta"><div><h3>La solution complète</h3><p>Facturer en dollars dans les 14 jours qui suivent votre appel.</p></div><button class="i-cta-btn" onclick="nav('cal')">Réserver →</button></div>
+        <div class="cta-bar"><div><h3>La solution complète</h3><p>Facturer en dollars dans les 14 jours suivant votre appel.</p></div><button class="cta-bar-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
     </div>
 
-    <!-- ÉTATS (template généré en JS) -->
+    <!-- BANKING -->
+    <div class="pv" id="pv-banking">
+      <div class="banking-hero">
+        <div class="crumb">Accueil / <strong>Banking</strong></div>
+        <h1 class="inner-h1" style="margin-bottom:8px">Compte bancaire USA</h1>
+        <p class="inner-sub" style="margin-bottom:0">Votre LLC n'est pleinement opérationnelle qu'avec un compte US dédié. Deux solutions selon votre profil.</p>
+      </div>
+      <div class="banking-grid">
+        <div class="b-card" style="border-color:#e0c090">
+          <div class="card-tag" style="color:#a05a14">Fintech — recommandé</div>
+          <div class="card-h">Banque en ligne</div>
+          <div class="card-p">Mercury · Relay · 100% à distance · Compte ouvert en 48h · Carte Visa pro · Compatible Stripe, PayPal, e-commerce.</div>
+          <div class="card-price" style="color:#a05a14">dès $600</div>
+          <div class="card-note">Inclus dans le Pack Premium</div>
+        </div>
+        <div class="b-card">
+          <div class="card-tag" style="color:#2a5090">Banque physique</div>
+          <div class="card-h">Institution US</div>
+          <div class="card-p">Pour crédit, financement ou relations institutionnelles. Délai 2-3 mois. Déplacement en agence requis. Dépôt initial important.</div>
+          <div class="card-price">Sur devis</div>
+        </div>
+      </div>
+      <div style="padding:0 64px 48px">
+        <div class="cta-bar" style="background:linear-gradient(135deg,#5a3010,#a05a14)"><div><h3>Appel banking dédié</h3><p>Conseil personnalisé · Fintech ou physique — on analyse ensemble.</p></div><button class="cta-bar-btn" onclick="go('cal-banking')">Appel gratuit →</button></div>
+      </div>
+    </div>
+
+    <!-- STATE PAGES (filled by JS) -->
     <div class="pv" id="pv-state">
       <div class="inner">
-        <div class="i-crumb" id="st-crumb"></div>
-        <h1 class="i-h1" id="st-h1"></h1>
-        <p class="i-sub" id="st-sub"></p>
-        <div class="i-grid" id="st-cards"></div>
-        <div class="i-cta"><div><h3>Cet État vous correspond ?</h3><p>15 min pour confirmer le bon choix pour votre situation.</p></div><button class="i-cta-btn" onclick="nav('cal')">Entretien gratuit →</button></div>
+        <div class="crumb" id="st-crumb"></div>
+        <h1 class="inner-h1" id="st-h1"></h1>
+        <p class="inner-sub" id="st-sub"></p>
+        <div class="cards" id="st-cards"></div>
+        <div class="cta-bar"><div><h3>Cet État vous correspond ?</h3><p>15 min pour confirmer le bon choix pour votre situation.</p></div><button class="cta-bar-btn" onclick="go('cal')">Entretien gratuit →</button></div>
       </div>
     </div>
 
-    <!-- GESTION PAGES -->
+    <!-- GENERIC (À propos, blog, tarifs...) -->
     <div class="pv" id="pv-generic">
       <div class="inner">
-        <div class="i-crumb" id="g-crumb"></div>
-        <h1 class="i-h1" id="g-h1"></h1>
-        <p class="i-sub" id="g-sub"></p>
-        <div class="i-grid" id="g-cards"></div>
-        <div class="i-cta"><div><h3>Une question sur ce service ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="nav('cal')">Réserver →</button></div>
+        <div class="crumb" id="g-crumb"></div>
+        <h1 class="inner-h1" id="g-h1"></h1>
+        <p class="inner-sub" id="g-sub"></p>
+        <div class="cards" id="g-cards"></div>
+        <div class="cta-bar"><div><h3>Une question ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="cta-bar-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
     </div>
 
-    <!-- FINTECH / BANKING -->
-    <div class="pv" id="pv-fintech">
-      <div class="inner">
-        <div class="i-crumb">Services / Banking / <strong>Banque en ligne</strong></div>
-        <h1 class="i-h1">Compte bancaire USA<br>ouvert en 48h</h1>
-        <p class="i-sub">Mercury ou Relay · 100% à distance · Carte Visa · Compatible Stripe, PayPal, e-commerce.</p>
-        <div class="i-grid">
-          <div class="i-card"><div class="i-card-tag" style="color:#a05a14">Fintech — recommandé</div><div class="i-card-h">Mercury · Relay</div><div class="i-card-p">Compte en 48h depuis la France. Carte Visa pro, SWIFT, intégrations e-commerce natives.</div><div class="i-card-price">dès $600</div><div class="i-card-note">Inclus dans le Pack Premium</div></div>
-          <div class="i-card"><div class="i-card-tag" style="color:#2a5090">Banque physique</div><div class="i-card-h">Institution US</div><div class="i-card-p">Pour crédit, financement, relations institutionnelles. Délai 2-3 mois. Déplacement requis.</div><div class="i-card-price">Sur devis</div></div>
-        </div>
-        <div class="i-cta" style="background:linear-gradient(135deg,#5a3010,#a05a14)"><div><h3>Appel banking dédié</h3><p>Conseil personnalisé · Aucun engagement</p></div><button class="i-cta-btn" onclick="nav('cal-banking')">Appel gratuit →</button></div>
-      </div>
-    </div>
-
-    <!-- CALENDLY -->
+    <!-- CAL -->
     <div class="pv" id="pv-cal">
-      <div class="calendly-view">
+      <div class="cal-shell">
         <div class="cal-card">
           <div class="cal-icon">📅</div>
           <h2 class="cal-h">Réserver votre entretien</h2>
           <p class="cal-p">15 min · Gratuit · Sans engagement<br>Avec un expert franco-américain</p>
-          <div class="cal-link">→ calendly.com/ypls/decouverte-site</div>
-          <div class="cal-mock">Dans la vraie implémentation, le widget Calendly apparaît ici.</div>
+          <div class="cal-url">→ calendly.com/ypls/decouverte-site</div>
+          <div class="cal-mock">Widget Calendly ici dans la vraie version.</div>
         </div>
       </div>
     </div>
 
     <div class="pv" id="pv-cal-banking">
-      <div class="calendly-view">
+      <div class="cal-shell">
         <div class="cal-card">
           <div class="cal-icon">🏦</div>
           <h2 class="cal-h">Appel banking gratuit</h2>
-          <p class="cal-p">Conseil personnalisé sur votre solution bancaire US.<br>Fintech ou banque physique — on analyse ensemble.</p>
-          <div class="cal-link">→ calendly.com/ypls/entretien-telephonique-compte-bancaire</div>
-          <div class="cal-mock">Widget Calendly dédié banking ici.</div>
+          <p class="cal-p">Conseil sur votre solution bancaire US.<br>Fintech ou banque physique — on analyse ensemble.</p>
+          <div class="cal-url">→ calendly.com/ypls/entretien-telephonique-compte-bancaire</div>
+          <div class="cal-mock">Widget Calendly dédié banking.</div>
         </div>
       </div>
     </div>
 
-  </div><!-- /page-frame -->
-</div><!-- /preview-shell -->
-
-<!-- ══ ANALYSIS TOGGLE ══ -->
-<div class="analysis-toggle" onclick="toggleAnalysis()" id="at">
-  <span class="at-label">↓ Voir l'analyse — comparaison des 7 options de navigation</span>
-  <span class="at-arrow" id="at-arrow">▾</span>
+  </div>
 </div>
 
-<div class="analysis-body" id="ab">
-  <h2 class="an-title">Comparaison — 7 options de navigation</h2>
-  <p class="an-sub">Score /10 pondéré · Clarté offre ×2 · Autorité premium ×2 · Accès Banking ×1.5 · Conversion ×1.5 · SEO ×1 · Mobile ×1</p>
-
+<!-- ANALYSIS TOGGLE -->
+<div class="toggle-bar" onclick="toggleAnalysis()" id="tog">
+  <span class="tb-label">↓ Analyse — comparaison des 7 options de navigation testées</span>
+  <span class="tb-arr" id="tarr">▾</span>
+</div>
+<div class="analysis" id="anlys">
+  <h2 class="an-h">7 options comparées</h2>
+  <p class="an-p">Score /10 pondéré · Clarté offre ×2 · Autorité premium ×2 · Accès Banking ×1.5 · Conversion ×1.5 · SEO ×1 · Mobile ×1</p>
   <div class="opts">
-    <div class="opt"><div class="opt-id">A</div><div><div class="opt-name">Flat 4 items</div><div class="opt-items">Créer LLC · Services · À propos · Blog</div></div><div><div class="opt-pro">Ultra simple, mobile-first</div><div class="opt-con">Banking et Déclaration invisibles</div></div><div class="opt-verdict">Cache l'offre complète. Clients banking perdus.</div><div><div class="opt-score lo">5.8</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt"><div class="opt-id">B</div><div><div class="opt-name">Flat 6 items</div><div class="opt-items">LLC · Banking · Décl. · Immigration · Tarifs · Contact</div></div><div><div class="opt-pro">Tout visible directement</div><div class="opt-con">Surcharge cognitive, register cheap</div></div><div class="opt-verdict">Dilue l'autorité. Ressemble à un comparateur.</div><div><div class="opt-score lo">6.2</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt"><div class="opt-id">C</div><div><div class="opt-name">Dropdown classique</div><div class="opt-items">Créer LLC ▾ · Services ▾ · Tarifs · Blog</div></div><div><div class="opt-pro">Familier, bien crawlé SEO</div><div class="opt-con">Visuellement daté en 2026</div></div><div class="opt-verdict">Correct mais zéro signal d'autorité premium.</div><div><div class="opt-score mi">6.8</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt"><div class="opt-id">D</div><div><div class="opt-name">Tab navigation</div><div class="opt-items">[ LLC ] [ Banking ] [ Décl. ] [ E2 ] [ Blog ]</div></div><div><div class="opt-pro">Clarté absolue par service</div><div class="opt-con">Register SaaS — pas un cabinet</div></div><div class="opt-verdict">Mauvais signal d'autorité. Ressemble à une app.</div><div><div class="opt-score lo">5.4</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt"><div class="opt-id">E</div><div><div class="opt-name">Mega dropdown 2 col.</div><div class="opt-items">Créer LLC ▾ · Services ▾ (Création | Gestion+Banking)</div></div><div><div class="opt-pro">Premium visuellement, bon SEO</div><div class="opt-con">Banking noyé dans Gestion — invisible</div></div><div class="opt-verdict">Bien, mais audience banking ignorée.</div><div><div class="opt-score mi">7.6</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt"><div class="opt-id">F</div><div><div class="opt-name">Sidebar + drawer</div><div class="opt-items">Hamburger → drawer latéral</div></div><div><div class="opt-pro">Moderne mobile</div><div class="opt-con">Contre-intuitif desktop</div></div><div class="opt-verdict">Bon mobile, mauvais desktop premium B2B.</div><div><div class="opt-score lo">5.1</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt"><div class="opt-id">G</div><div><div class="opt-name">Progressive disclosure</div><div class="opt-items">Hero → scroll → sections → anchor nav</div></div><div><div class="opt-pro">Storytelling immersif</div><div class="opt-con">Impossible de naviguer directement</div></div><div class="opt-verdict">Landing page, pas site multi-services.</div><div><div class="opt-score mi">6.9</div><div class="opt-score-lbl">/10</div></div></div>
-
-    <div class="opt rec"><div class="opt-id r">H</div><div><div class="opt-name">Mega dropdown 3 col.</div><span class="opt-badge">★ Recommandé</span><div class="opt-items" style="margin-top:6px;font-weight:500">Créer LLC · Services ▾ (CRÉATION | GESTION | BANKING) · À propos · Blog</div></div><div><div class="opt-pro">Banking = colonne dédiée, visible dès le survol</div><div class="opt-pro" style="margin-top:3px">4 États avec argument dans Création</div><div class="opt-pro" style="margin-top:3px">Toute l'offre en 1 geste, 0 clic superflu</div><div class="opt-con">Légèrement plus complexe à implémenter</div></div><div class="opt-verdict r">Autorité + clarté + conversion = optimum. Score max sur 6/7 critères.</div><div><div class="opt-score hi">8.9</div><div class="opt-score-lbl">/10</div></div></div>
+    <div class="opt"><div class="oid">A</div><div><div class="on2">Flat 4 items</div><div class="oitems">LLC · Services · À propos · Blog</div></div><div><div class="opro">Simple, mobile-first</div><div class="ocon">Banking et Déclaration invisibles</div></div><div class="overdict">Cache l'offre. Clients banking perdus.</div><div><div class="oscore lo">5.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">B</div><div><div class="on2">Flat 6 items</div><div class="oitems">LLC · Banking · Décl · E2 · Tarifs · Contact</div></div><div><div class="opro">Tout visible directement</div><div class="ocon">Surcharge, register cheap</div></div><div class="overdict">Dilue l'autorité. Ressemble à un comparateur.</div><div><div class="oscore lo">6.2</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">C</div><div><div class="on2">Dropdown classique</div><div class="oitems">Créer LLC ▾ · Services ▾ · Tarifs · Blog</div></div><div><div class="opro">Familier, bon SEO</div><div class="ocon">Visuellement daté en 2026</div></div><div class="overdict">Correct, zéro signal premium.</div><div><div class="oscore mi">6.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">D</div><div><div class="on2">Tab navigation</div><div class="oitems">[ LLC ] [ Banking ] [ Décl ] [ E2 ]</div></div><div><div class="opro">Clarté absolue</div><div class="ocon">Register SaaS, pas cabinet</div></div><div class="overdict">Ressemble à une app. Mauvais signal autorité.</div><div><div class="oscore lo">5.4</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">E</div><div><div class="on2">Mega dropdown 2 col.</div><div class="oitems">Créer LLC ▾ · Services ▾ (Création|Gestion+Banking)</div></div><div><div class="opro">Premium visuellement</div><div class="ocon">Banking noyé dans Gestion</div></div><div class="overdict">Bien. Banking mérite mieux.</div><div><div class="oscore mi">7.6</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">F</div><div><div class="on2">Sidebar + drawer</div><div class="oitems">Hamburger → drawer latéral desktop</div></div><div><div class="opro">Moderne mobile</div><div class="ocon">Contre-intuitif desktop</div></div><div class="overdict">Mobile OK, desktop non.</div><div><div class="oscore lo">5.1</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">G</div><div><div class="on2">Progressive disclosure</div><div class="oitems">Hero → scroll → anchor nav</div></div><div><div class="opro">Storytelling immersif</div><div class="ocon">Navigation directe impossible</div></div><div class="overdict">Landing page, pas site multi-services.</div><div><div class="oscore mi">6.9</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">H</div><div><div class="on2">Mega dropdown 3 col.</div><div class="oitems">LLC ▾ · Services ▾ (Création|Gestion|Banking) · …</div></div><div><div class="opro">3 colonnes, banking visible</div><div class="ocon">Services trop chargé, LLC sans dropdown</div></div><div class="overdict">Bon, mais incohérent (LLC vide, Services surchargé).</div><div><div class="oscore mi">7.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt rec"><div class="oid r">I</div><div><div class="on2">Créer ma LLC ▾ + Banking top-level</div><span class="obadge">★ Version actuelle</span><div class="oitems" style="margin-top:5px;font-weight:500">Créer ma LLC ▾ · Banking · À propos · Blog</div></div><div><div class="opro">Dropdown focalisé : Offres + États seulement</div><div class="opro" style="margin-top:3px">Banking top-level = audience banking directement servie</div><div class="opro" style="margin-top:3px">Décl/E2/Confort dans footer + Tarifs = désencombrement</div><div class="ocon">Déclaration LLC moins visible (ok : c'est un service clients)</div></div><div class="overdict r">Architecture par intention visiteur. Propre, premium, cohérent.</div><div><div class="oscore hi">9.1</div><div class="oscore-l">/10</div></div></div>
   </div>
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────
 let ddOpen = false;
-let currentPV = 'home';
 
-// ── Pages data ────────────────────────────────────────
-const stateData = {
-  nm: {
-    crumb: 'Créer une LLC / <strong>Nouveau-Mexique</strong>',
-    h1: 'LLC au Nouveau-Mexique<br><span style="color:#2a5090">Anonymat total</span>',
-    sub: "Votre nom n'apparaît dans aucun registre public américain. Idéal pour les entrepreneurs discrets et les patrimoines exposés.",
-    cards: [
-      { tag: '#2a5090', label: 'Avantage clé', h: 'Anonymat absolu', p: 'Ni votre nom ni votre adresse dans les registres du Nouveau-Mexique. Aucune base de données corporate ne peut remonter à vous.' },
-      { tag: '#2a5090', label: 'Pas de rapport annuel', h: 'Zéro obligation annuelle', p: 'Contrairement au Wyoming ou Delaware, aucun rapport annuel requis. Administration minimale.' },
-      { tag: '#1a7850', label: 'Idéal pour', h: 'Votre profil', p: 'Consultant · Coach · Prestataire de services · Entrepreneurs souhaitant séparer vie publique et activité.' }
-    ]
-  },
-  co: {
-    crumb: 'Créer une LLC / <strong>Colorado</strong>',
-    h1: 'LLC au Colorado<br><span style="color:#1a7850">Opérationnelle en 24h</span>',
-    sub: "Le délai de traitement le plus rapide des États-Unis. Une opportunité urgente ? La LLC Colorado est prête en un jour ouvré.",
-    cards: [
-      { tag: '#1a7850', label: 'Avantage clé', h: 'Traitement en 24h', p: 'Le Secretary of State du Colorado traite les immatriculations en 24h ouvrées. Plus rapide que tout autre État.' },
-      { tag: '#1a7850', label: 'Fiscalité', h: 'Pas de franchise tax', p: "Pas de taxe annuelle fixe. Impôt étatique plafonné à 4.4% si applicable. Charges administratives réduites." },
-      { tag: '#2a5090', label: 'Idéal pour', h: 'Votre profil', p: 'E-commerce · SaaS · Freelance digital · Prestataire pressé de démarrer et facturer.' }
-    ]
-  },
-  wy: {
-    crumb: 'Créer une LLC / <strong>Wyoming</strong>',
-    h1: 'LLC au Wyoming<br><span style="color:#7a50a0">Pro-crypto & Web3</span>',
-    sub: "L'État le plus favorable aux actifs numériques aux USA. Crypto, NFT, DAO — le Wyoming les reconnaît légalement.",
-    cards: [
-      { tag: '#7a50a0', label: 'Avantage clé', h: 'DAOs légalement reconnues', p: '1er État américain à légiférer sur les DAO. Structure légale robuste pour tout projet Web3.' },
-      { tag: '#7a50a0', label: 'Fiscalité crypto', h: 'Pas d\'impôt crypto étatique', p: 'Le Wyoming ne taxe pas les plus-values sur crypto au niveau étatique. Environnement fiscal optimal.' },
-      { tag: '#1a7850', label: 'Idéal pour', h: 'Votre profil', p: 'Trader crypto · Développeur DeFi · Fondateur NFT · Projets blockchain et Web3.' }
-    ]
-  },
-  de: {
-    crumb: 'Créer une LLC / <strong>Delaware</strong>',
-    h1: 'LLC au Delaware<br><span style="color:#a05a14">Standard levée de fonds</span>',
-    sub: "68% des Fortune 500 et la majorité des startups levant des fonds sont incorporées au Delaware. Le signal qu'attendent les investisseurs.",
-    cards: [
-      { tag: '#a05a14', label: 'Avantage clé', h: 'Référence des investisseurs', p: 'Les VC et fonds exigent souvent une structure Delaware. Indispensable pour lever des fonds en Amérique.' },
-      { tag: '#a05a14', label: 'Juridique', h: 'Court of Chancery', p: 'Tribunal spécialisé en droit des sociétés, le plus expérimenté du monde. Protection et prévisibilité maximale.' },
-      { tag: '#1a7850', label: 'Idéal pour', h: 'Votre profil', p: 'Startup en recherche de fonds · SaaS avec ambitions US · Entrepreneurs ciblant des investisseurs américains.' }
-    ]
-  }
-};
-
-const genericData = {
-  decl: {
-    crumb: 'Services / Gestion / <strong>Déclaration LLC</strong>',
-    h1: 'Déclaration LLC<br>dès $800',
-    sub: 'CPA agréé IRS qui signe personnellement. Lettre de support justifiant votre statut non-résident. Protection contre redressement IRS.',
-    cards: [
-      { tag: '#2a5090', label: 'Différenciant', h: 'CPA agréé IRS', p: 'Notre CPA signe personnellement chaque déclaration. Pas un prestataire offshore, un expert agréé par l\'IRS.' },
-      { tag: '#1a7850', label: 'Inclus', h: 'Guide déclaration française', p: 'Comment déclarer vos revenus LLC en France. Optimisation fiscale des deux côtés de l\'Atlantique.' }
-    ]
-  },
-  confort: {
-    crumb: 'Services / Gestion / <strong>Option Confort</strong>',
-    h1: 'Option Confort<br>Domiciliation & Veille',
-    sub: 'Registered Agent + adresse commerciale + scan courriers + rappels échéances fiscales + support mail illimité.',
-    cards: [
-      { tag: '#1a7850', label: 'Inclus', h: 'Domiciliation complète', p: 'Adresse commerciale utilisable sur vos supports. Scan de 5 courriers/an. Registered Agent inclus.' },
-      { tag: '#2a5090', label: 'Inclus', h: 'Veille & rappels', p: 'Veille juridique et fiscale. Rappels automatiques des échéances. Support mail réponse 48h.' }
-    ]
-  },
-  e2: {
-    crumb: 'Services / Gestion / <strong>Visa E2</strong>',
-    h1: 'Visa E2<br>Immigration USA',
-    sub: 'Immigrer aux USA par l\'entrepreneuriat. Taux de succès quasi 100%. 10 ans d\'expérience. 150 000 Français aux USA.',
-    cards: [
-      { tag: '#2a5090', label: 'Service complet', h: 'A à Z visa E2', p: 'Business plan + dossier + avocat immigration + préparation entretien + suivi ambassade.' },
-      { tag: '#1a7850', label: 'Chiffres', h: '~100% de succès', p: '10+ ans d\'expérience visa E2. Taux de succès quasi 100%. Pas de déplacement US requis pendant le traitement.' }
-    ]
-  },
-  presta: {
-    crumb: 'Services / <strong>Prestations additionnelles</strong>',
-    h1: 'Prestations\nadditionnelles',
-    sub: 'Annual report, Operating Agreement, Certificate of Good Standing, dissolution, CGV/CGU, modifications capitalistiques.',
-    cards: [
-      { tag: '#2a5090', label: 'Maintenance', h: 'Annual Report', p: 'À partir de $299. Obligatoire dans certains États pour maintenir la LLC en règle.' },
-      { tag: '#1a7850', label: 'Juridique', h: 'Operating Agreement', p: 'À partir de $600. Document fondateur qui régit le fonctionnement de votre LLC.' }
-    ]
-  },
-  bphysique: {
-    crumb: 'Services / Banking / <strong>Banque physique</strong>',
-    h1: 'Banque physique USA<br>Stabilité institutionnelle',
-    sub: 'Pour les entreprises nécessitant crédit, financement ou relations institutionnelles. Délai 2-3 mois.',
-    cards: [
-      { tag: '#a05a14', label: 'Avantage', h: 'Accès aux financements', p: 'Crédits commerciaux, lignes de crédit, relations bancaires long terme. Incontournable pour certains secteurs.' },
-      { tag: '#2a5090', label: 'À noter', h: 'Déplacement requis', p: 'Rendez-vous physique en agence US obligatoire. Dépôt initial important. Délai 2-3 mois.' }
-    ]
-  },
-  apropos: {
-    crumb: '<strong>À propos</strong>',
-    h1: 'Cabinet franco-américain\ndepuis 2014',
-    sub: '500+ sociétés créées. 15M€ d\'économies générées. CPA agréé IRS. Christophe et son équipe à Miami et Paris.',
-    cards: [
-      { tag: '#2a5090', label: 'Notre différence', h: 'CPA agréé IRS', p: 'Nous sommes l\'un des rares cabinets francophones avec un CPA agréé IRS qui signe personnellement les déclarations.' },
-      { tag: '#1a7850', label: 'Chiffres', h: '500+ sociétés · 10 ans', p: '500+ LLC créées depuis 2014. 15M€ d\'économies générées pour nos clients. Chargé dédié pour chaque dossier.' }
-    ]
-  },
-  blog: {
-    crumb: '<strong>Blog</strong>',
-    h1: 'Blog\nRessources & Guides',
-    sub: 'Tout savoir sur la LLC américaine, la fiscalité franco-américaine et l\'immigration entrepreneuriale.',
-    cards: [
-      { tag: '#2a5090', label: 'Populaire', h: 'LLC et fiscalité française', p: 'Comment déclarer vos revenus d\'une LLC américaine en France. Guide complet 2026.' },
-      { tag: '#1a7850', label: 'Guide', h: 'Quel État choisir ?', p: 'NM vs CO vs WY vs DE — comparaison complète pour choisir la bonne juridiction selon votre profil.' }
-    ]
-  },
-  tarifs: {
-    crumb: '<strong>Tarifs</strong>',
-    h1: 'Tous nos tarifs',
-    sub: 'Pack LLC $997 · Pack Premium $1 597 · Déclaration LLC dès $800 · Prestations additionnelles dès $100.',
-    cards: [
-      { tag: '#2a5090', label: 'Création', h: 'Pack LLC — $997 · Pack Premium — $1 597', p: 'Les deux packs côte à côte avec détail des inclusions.' },
-      { tag: '#1a7850', label: 'Gestion & Autre', h: 'Déclaration dès $800 · Confort · Prestations', p: 'Annual report $299 · Operating Agreement $600 · Good Standing $100 · Dissolution $699' }
-    ]
-  }
-};
-
-const urlMap = {
+const urls = {
   home:'ma-societe-us.com', creer:'ma-societe-us.com/creer-llc',
-  'pack-llc':'ma-societe-us.com/services/pack-llc', 'pack-premium':'ma-societe-us.com/services/pack-premium',
-  nm:'ma-societe-us.com/creer-llc/nouveau-mexique', co:'ma-societe-us.com/creer-llc/colorado',
-  wy:'ma-societe-us.com/creer-llc/wyoming', de:'ma-societe-us.com/creer-llc/delaware',
-  decl:'ma-societe-us.com/services/declaration-llc', confort:'ma-societe-us.com/services/option-confort',
-  e2:'ma-societe-us.com/services/visa-e2', presta:'ma-societe-us.com/tarifs',
-  fintech:'ma-societe-us.com/services/compte-bancaire', bphysique:'ma-societe-us.com/services/banque-physique',
+  'pack-llc':'ma-societe-us.com/creer-llc/pack-llc',
+  'pack-premium':'ma-societe-us.com/creer-llc/pack-premium',
+  banking:'ma-societe-us.com/banking',
+  nm:'ma-societe-us.com/creer-llc/nouveau-mexique',
+  co:'ma-societe-us.com/creer-llc/colorado',
+  wy:'ma-societe-us.com/creer-llc/wyoming',
+  de:'ma-societe-us.com/creer-llc/delaware',
+  tarifs:'ma-societe-us.com/tarifs',
   apropos:'ma-societe-us.com/a-propos', blog:'ma-societe-us.com/blog',
-  tarifs:'ma-societe-us.com/tarifs', portail:'app.ma-societe-us.com',
+  portail:'app.ma-societe-us.com',
   cal:'ma-societe-us.com/contact', 'cal-banking':'ma-societe-us.com/contact/banking',
 };
 
-// ── DD ────────────────────────────────────────────────
+const states = {
+  nm:{ crumb:'Créer ma LLC / <strong>Nouveau-Mexique</strong>', h1:'LLC au Nouveau-Mexique<br><span style="color:#2a5090">Anonymat total</span>', sub:"Votre nom n'apparaît dans aucun registre public américain. Idéal pour les entrepreneurs discrets et les patrimoines exposés.", cards:[{t:'#2a5090',l:'Avantage clé',h:'Anonymat absolu',p:"Ni votre nom ni votre adresse dans les registres du Nouveau-Mexique. Aucune base de données corporate ne peut remonter à vous."},{t:'#2a5090',l:'Avantage',h:'Pas de rapport annuel',p:"Aucun rapport annuel requis. Administration minimale, zéro obligation récurrente."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Consultant · Coach · Prestataire de services · Entrepreneurs souhaitant séparer vie publique et activité."}]},
+  co:{ crumb:'Créer ma LLC / <strong>Colorado</strong>', h1:'LLC au Colorado<br><span style="color:#1a7850">Opérationnelle en 24h</span>', sub:"Le délai de traitement le plus rapide des États-Unis. Une opportunité urgente ? La LLC Colorado est prête en un jour ouvré.", cards:[{t:'#1a7850',l:'Avantage clé',h:'Traitement en 24h',p:"Le Secretary of State du Colorado traite les immatriculations en 24h ouvrées. Plus rapide que tout autre État proposé."},{t:'#1a7850',l:'Fiscalité',h:'Pas de franchise tax',p:"Aucune taxe annuelle fixe. Impôt étatique plafonné à 4.4% si applicable."},{t:'#2a5090',l:'Idéal pour',h:'Votre profil',p:"E-commerce · SaaS · Freelance digital · Prestataire pressé de démarrer et facturer."}]},
+  wy:{ crumb:'Créer ma LLC / <strong>Wyoming</strong>', h1:'LLC au Wyoming<br><span style="color:#7a50a0">Pro-crypto &amp; Web3</span>', sub:"L'État le plus favorable aux actifs numériques aux USA. Crypto, NFT, DAO — le Wyoming les reconnaît légalement.", cards:[{t:'#7a50a0',l:'Avantage clé',h:'DAOs légalement reconnues',p:"1er État américain à légiférer sur les DAO. Structure légale robuste pour tout projet Web3."},{t:'#7a50a0',l:'Fiscalité crypto',h:'0% impôt crypto étatique',p:"Le Wyoming ne taxe pas les plus-values crypto au niveau étatique."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Trader crypto · Développeur DeFi · Fondateur NFT · Projets blockchain."}]},
+  de:{ crumb:'Créer ma LLC / <strong>Delaware</strong>', h1:'LLC au Delaware<br><span style="color:#a05a14">Standard levée de fonds</span>', sub:"68% des Fortune 500 et la majorité des startups levant des fonds sont incorporées au Delaware. Le signal qu'attendent les investisseurs.", cards:[{t:'#a05a14',l:'Avantage clé',h:'Référence des investisseurs',p:"Les VC et fonds exigent souvent une structure Delaware. Indispensable pour lever des fonds en Amérique."},{t:'#a05a14',l:'Juridique',h:'Court of Chancery',p:"Tribunal spécialisé en droit des sociétés, le plus expérimenté du monde."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Startup en recherche de fonds · SaaS avec ambitions US · Entrepreneurs ciblant des investisseurs américains."}]}
+};
+
+const generics = {
+  apropos:{ crumb:'<strong>À propos</strong>', h1:'Cabinet franco-américain<br>depuis 2014', sub:"500+ sociétés créées. 15M€ d'économies générées. CPA agréé IRS. Une équipe franco-américaine à Miami et Paris.", cards:[{t:'#2a5090',l:'Notre différence',h:'CPA agréé IRS',p:"L'un des rares cabinets francophones avec un CPA agréé IRS qui signe personnellement les déclarations."},{t:'#1a7850',l:'10 ans d\'expérience',h:'500+ LLC · 15M€',p:"500+ sociétés créées depuis 2014. 15M€ d'économies générées. Chargé dédié pour chaque dossier."}]},
+  blog:{ crumb:'<strong>Blog</strong>', h1:'Blog &amp; Ressources', sub:"Tout savoir sur la LLC américaine, la fiscalité franco-américaine et l'immigration entrepreneuriale.", cards:[{t:'#2a5090',l:'Populaire',h:'LLC et fiscalité française',p:"Comment déclarer vos revenus d'une LLC américaine en France. Guide complet 2026."},{t:'#1a7850',l:'Guide',h:'Quel État choisir ?',p:"NM vs CO vs WY vs DE — comparaison complète pour choisir la bonne juridiction selon votre profil."}]},
+  tarifs:{ crumb:'<strong>Tarifs</strong>', h1:'Tous nos tarifs', sub:"Pack LLC $997 · Pack Premium $1 597 · Déclaration LLC dès $800 · Banking dès $600 · Prestations additionnelles dès $100.", cards:[{t:'#2a5090',l:'Création',h:'Pack LLC — $997',p:"LLC + EIN + documents légaux + chargé dédié + portail client"},{t:'#1a7850',l:'Création + Banking',h:'Pack Premium — $1 597',p:"Tout le Pack LLC + compte Mercury ouvert. Carte Visa incluse."},{t:'#a05a14',l:'Gestion',h:'Déclaration LLC — dès $800',p:"CPA agréé IRS · Signature personnelle · Guide déclaration française"},{t:'#2a5090',l:'Gestion',h:'Option Confort · Visa E2 · Prestations',p:"Domiciliation · Visa E2 · Annual report · CGV · Dissolution"}]},
+};
+
 function toggleDD() {
   ddOpen ? closeDD() : openDD();
 }
 function openDD() {
-  ddOpen = true;
-  document.getElementById('mega').classList.add('open');
-  document.getElementById('nl-services').classList.add('dd-open');
+  ddOpen=true;
+  document.getElementById('dd').classList.add('open');
+  document.getElementById('nl-llc').classList.add('ddo');
 }
 function closeDD() {
-  ddOpen = false;
-  document.getElementById('mega').classList.remove('open');
-  document.getElementById('nl-services').classList.remove('dd-open');
-  clearPreviews();
-}
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeDD(); });
-
-// ── Preview (hover in DD) ─────────────────────────────
-function clearPreviews() {
-  document.querySelectorAll('.dd-item.preview-active,.state-item.preview-active').forEach(el => el.classList.remove('preview-active'));
+  ddOpen=false;
+  document.getElementById('dd').classList.remove('open');
+  document.getElementById('nl-llc').classList.remove('ddo');
+  document.querySelectorAll('.offer-item.hi,.state-item.hi').forEach(e=>e.classList.remove('hi'));
 }
 
-function preview(key, el) {
-  clearPreviews();
-  el.classList.add('preview-active');
-  // Show content below without navigating
-  showPV(key, false);
+function prev(key, el) {
+  document.querySelectorAll('.offer-item.hi,.state-item.hi').forEach(e=>e.classList.remove('hi'));
+  el.classList.add('hi');
+  showPage(key, false);
 }
 
-// ── Navigate ──────────────────────────────────────────
-function nav(key) {
+function go(key) {
   closeDD();
-  showPV(key, true);
+  showPage(key, true);
 }
 
-function showPV(key, updateNav) {
-  // Update URL bar
-  document.getElementById('url-text').textContent = urlMap[key] || 'ma-societe-us.com';
-
-  // Hide all
-  document.querySelectorAll('.pv').forEach(v => v.classList.remove('on'));
-
-  // Update nav active
-  if (updateNav) {
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('page-active'));
-    if (['creer','nm','co','wy','de'].includes(key)) document.getElementById('nl-creer').classList.add('page-active');
-    else if (['pack-llc','pack-premium','decl','confort','e2','presta','fintech','bphysique','tarifs'].includes(key)) document.getElementById('nl-services').classList.add('page-active');
-    else if (key==='apropos') document.getElementById('nl-apropos').classList.add('page-active');
-    else if (key==='blog') document.getElementById('nl-blog').classList.add('page-active');
+function showPage(key, updateNav) {
+  document.getElementById('urlval').textContent = urls[key]||'ma-societe-us.com';
+  document.querySelectorAll('.pv').forEach(v=>v.classList.remove('on'));
+  if(updateNav) {
+    document.querySelectorAll('.nl').forEach(l=>l.classList.remove('cur'));
+    if(['creer','pack-llc','pack-premium','nm','co','wy','de'].includes(key)) document.getElementById('nl-llc').classList.add('cur');
+    else if(key==='banking'||key==='cal-banking') document.getElementById('nl-banking').classList.add('cur');
+    else if(key==='apropos') document.getElementById('nl-apropos').classList.add('cur');
+    else if(key==='blog') document.getElementById('nl-blog').classList.add('cur');
   }
-
-  // Show correct view
-  if (key==='home') { document.getElementById('pv-home').classList.add('on'); }
-  else if (key==='creer') { document.getElementById('pv-creer').classList.add('on'); }
-  else if (key==='pack-llc') { document.getElementById('pv-pack-llc').classList.add('on'); }
-  else if (key==='pack-premium') { document.getElementById('pv-pack-premium').classList.add('on'); }
-  else if (key==='fintech') { document.getElementById('pv-fintech').classList.add('on'); }
-  else if (key==='cal') { document.getElementById('pv-cal').classList.add('on'); }
-  else if (key==='cal-banking') { document.getElementById('pv-cal-banking').classList.add('on'); }
-  else if (stateData[key]) {
-    const s = stateData[key];
-    document.getElementById('st-crumb').innerHTML = s.crumb;
-    document.getElementById('st-h1').innerHTML = s.h1;
-    document.getElementById('st-sub').textContent = s.sub;
-    document.getElementById('st-cards').innerHTML = s.cards.map(c=>`<div class="i-card"><div class="i-card-tag" style="color:${c.tag}">${c.label}</div><div class="i-card-h">${c.h}</div><div class="i-card-p">${c.p}</div></div>`).join('');
-    document.getElementById('pv-state').classList.add('on');
-  }
-  else if (genericData[key]) {
-    const g = genericData[key];
-    document.getElementById('g-crumb').innerHTML = g.crumb;
-    document.getElementById('g-h1').innerHTML = g.h1.replace('\n','<br>');
-    document.getElementById('g-sub').textContent = g.sub;
-    document.getElementById('g-cards').innerHTML = g.cards.map(c=>`<div class="i-card"><div class="i-card-tag" style="color:${c.tag}">${c.label}</div><div class="i-card-h">${c.h}</div><div class="i-card-p">${c.p}</div></div>`).join('');
-    document.getElementById('pv-generic').classList.add('on');
-  }
-  else { document.getElementById('pv-home').classList.add('on'); }
+  if(key==='home') show('pv-home');
+  else if(key==='creer') show('pv-creer');
+  else if(key==='pack-llc') show('pv-pack-llc');
+  else if(key==='pack-premium') show('pv-pack-premium');
+  else if(key==='banking') show('pv-banking');
+  else if(key==='cal') show('pv-cal');
+  else if(key==='cal-banking') show('pv-cal-banking');
+  else if(states[key]) {
+    const s=states[key];
+    document.getElementById('st-crumb').innerHTML=s.crumb;
+    document.getElementById('st-h1').innerHTML=s.h1;
+    document.getElementById('st-sub').textContent=s.sub;
+    document.getElementById('st-cards').innerHTML=s.cards.map(c=>`<div class="card"><div class="card-tag" style="color:${c.t}">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    show('pv-state');
+  } else if(generics[key]) {
+    const g=generics[key];
+    document.getElementById('g-crumb').innerHTML=g.crumb;
+    document.getElementById('g-h1').innerHTML=g.h1;
+    document.getElementById('g-sub').textContent=g.sub;
+    document.getElementById('g-cards').innerHTML=g.cards.map(c=>`<div class="card"><div class="card-tag" style="color:${c.t}">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    show('pv-generic');
+  } else show('pv-home');
 }
 
-// ── Analysis ──────────────────────────────────────────
+function show(id) { document.getElementById(id).classList.add('on'); }
+
 function toggleAnalysis() {
-  const ab = document.getElementById('ab');
-  const arr = document.getElementById('at-arrow');
-  const open = ab.classList.toggle('open');
-  arr.classList.toggle('open', open);
-  if (open) document.getElementById('ab').scrollIntoView({ behavior:'smooth', block:'start' });
+  const a=document.getElementById('anlys'), arr=document.getElementById('tarr');
+  const open=a.classList.toggle('open');
+  arr.classList.toggle('open',open);
+  if(open) setTimeout(()=>a.scrollIntoView({behavior:'smooth',block:'start'}),50);
 }
-
-// ── Meta tabs ─────────────────────────────────────────
-function setMeta(el, target) {
-  document.querySelectorAll('.meta-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  if (target === 'analyse') {
-    const ab = document.getElementById('ab');
-    ab.classList.add('open');
-    document.getElementById('at-arrow').classList.add('open');
-    setTimeout(() => ab.scrollIntoView({ behavior:'smooth', block:'start' }), 50);
-  } else {
-    window.scrollTo({ top:0, behavior:'smooth' });
-  }
+function openAnalysis(el) {
+  document.querySelectorAll('.mp').forEach(m=>m.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('anlys').classList.add('open');
+  document.getElementById('tarr').classList.add('open');
+  setTimeout(()=>document.getElementById('anlys').scrollIntoView({behavior:'smooth',block:'start'}),50);
 }
+function scrollTop(el) {
+  document.querySelectorAll('.mp').forEach(m=>m.classList.remove('on'));
+  el.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDD();});
 </script>
 </body>
 </html>
