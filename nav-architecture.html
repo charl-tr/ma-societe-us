@@ -699,6 +699,79 @@ body { min-height: 100vh; }
 .footer-col li { font-size: 13px; color: rgba(255,255,255,.38); cursor: pointer; transition: color .15s; }
 .footer-col li:hover { color: rgba(255,255,255,.75); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.06); padding-top: 20px; font-size: 11px; color: rgba(255,255,255,.14); }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: linear-gradient(90deg, #0e1e38 0%, #1a3a6a 100%);
+  padding: 20px 72px;
+  display: flex; align-items: center; justify-content: space-around; gap: 12px;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; display: flex; flex-direction: column; gap: 4px; }
+.stat-val { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -.025em; line-height: 1; }
+.stat-val em { color: #6a9fd8; font-style: normal; }
+.stat-lbl { font-size: 11px; color: rgba(255,255,255,.38); letter-spacing: .08em; text-transform: uppercase; }
+.stat-sep { width: 1px; height: 40px; background: rgba(255,255,255,.1); }
+
+/* ── TIMELINE ── */
+.timeline-section { padding: 72px 72px 64px; background: linear-gradient(160deg, #eef3f9, #e8f0f9); }
+.timeline-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 40px; position: relative; }
+.timeline-wrap::before {
+  content: ''; position: absolute; top: 22px; left: 11%; right: 11%;
+  height: 2px; background: linear-gradient(90deg, rgba(42,80,144,.2), rgba(42,80,144,.5) 50%, rgba(42,80,144,.2));
+}
+.tl-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; }
+.tl-num {
+  width: 46px; height: 46px; border-radius: 50%; border: 2px solid rgba(42,80,144,.2);
+  background: linear-gradient(135deg, #fff, #eef3f9); color: var(--navy);
+  font-family: var(--font-head); font-size: 16px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  position: relative; z-index: 1;
+  box-shadow: 0 4px 16px rgba(42,80,144,.12);
+}
+.tl-step:first-child .tl-num,
+.tl-step.done .tl-num { background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; border-color: transparent; }
+.tl-h { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.2; }
+.tl-p { font-size: 12px; color: rgba(14,30,56,.48); line-height: 1.5; }
+.tl-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; background: rgba(42,80,144,.08); color: var(--blue); }
+
+/* ── OFFERS PREVIEW ── */
+.offers-section { padding: 64px 72px; background: linear-gradient(160deg, #e8f0f9, #e4ecf6); border-top: 1px solid rgba(14,30,56,.06); }
+.offers-preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 840px; margin: 0 auto 24px; }
+.op-card {
+  background: rgba(255,255,255,.8); border: 1.5px solid rgba(14,30,56,.08);
+  border-radius: 20px; padding: 32px 28px; position: relative; cursor: pointer;
+  transition: box-shadow .2s, transform .18s;
+}
+.op-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(80,120,180,.15); }
+.op-card.featured { background: linear-gradient(160deg, rgba(255,255,255,.98), rgba(235,244,255,.85)); border-color: rgba(42,80,144,.3); box-shadow: 0 8px 32px rgba(42,80,144,.12); }
+.op-rec-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; white-space: nowrap; }
+.op-name { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(14,30,56,.4); margin-bottom: 6px; }
+.op-price { font-family: var(--font-head); font-size: 48px; font-weight: 700; color: var(--navy); letter-spacing: -.04em; line-height: 1; margin-bottom: 4px; }
+.op-price span { font-size: 20px; color: rgba(14,30,56,.35); }
+.op-tagline { font-size: 13px; color: rgba(14,30,56,.48); margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(14,30,56,.07); }
+.op-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.op-feat { font-size: 13px; color: rgba(14,30,56,.65); display: flex; gap: 9px; align-items: baseline; }
+.op-feat::before { content: "✓"; color: #1a7850; font-weight: 700; flex-shrink: 0; }
+.op-feat.extra::before { content: "✓"; color: #2a5090; font-weight: 700; }
+.op-feat.extra { color: var(--navy); font-weight: 600; }
+.op-btn { display: block; width: 100%; padding: 13px; border-radius: 28px; border: none; font-family: var(--font-head); font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; }
+.op-btn-primary { background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; }
+.op-btn-secondary { background: transparent; border: 1.5px solid rgba(42,80,144,.25); color: var(--blue); }
+.offers-link { text-align: center; font-size: 13px; color: rgba(14,30,56,.4); }
+.offers-link a { color: var(--blue); font-weight: 600; cursor: pointer; }
+.offers-link a:hover { text-decoration: underline; }
+
+/* ── TESTIMONIALS GRID ── */
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testi-card { background: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.85); border-radius: 18px; padding: 28px; }
+.testi-stars { color: #f5a623; font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+.testi-text { font-size: 14px; color: rgba(14,30,56,.72); line-height: 1.65; margin-bottom: 20px; font-style: italic; }
+.testi-meta { display: flex; align-items: center; gap: 12px; }
+.testi-av { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #2a5090, #4a80b8); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.testi-nm { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--navy); }
+.testi-rl { font-size: 11.5px; color: rgba(14,30,56,.42); margin-top: 1px; }
+.testi-result { display: inline-flex; align-items: center; gap: 5px; background: #e8f8f0; color: #1a7850; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 6px; letter-spacing: .04em; }
 </style>
 </head>
 <body>
@@ -883,7 +956,18 @@ body { min-height: 100vh; }
         </div>
       </div>
 
-      <!-- SECTION: Légalité 5 NON -->
+      <!-- §2 STATS BAR -->
+      <div class="stats-bar">
+        <div class="stat-item"><div class="stat-val">500<em>+</em></div><div class="stat-lbl">Sociétés créées</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">10<em> ans</em></div><div class="stat-lbl">D'expertise</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">15M<em>€</em></div><div class="stat-lbl">D'économies générées</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val" style="font-size:18px;line-height:1.3">CPA agréé<em> IRS</em></div><div class="stat-lbl">Signe personnellement</div></div>
+      </div>
+
+      <!-- §3 LÉGALITÉ 5 NON -->
       <div class="section">
         <div class="section-tag">Légalité</div>
         <h2 class="section-h2">5 idées reçues.<br>5 fois non.</h2>
@@ -898,8 +982,110 @@ body { min-height: 100vh; }
         </div>
       </div>
 
-      <!-- SECTION: Différenciants vs concurrents -->
+      <!-- §4 TIMELINE COMMENT ÇA MARCHE -->
+      <div class="timeline-section">
+        <div style="text-align:center">
+          <div class="section-tag">Comment ça marche</div>
+          <h2 class="section-h2">De zéro à LLC opérationnelle<br>en 4 étapes.</h2>
+          <p class="section-sub" style="margin:0 auto 0;max-width:480px">Un processus rodé depuis 2014. Vous n'avez rien à gérer — on s'occupe de tout.</p>
+        </div>
+        <div class="timeline-wrap">
+          <div class="tl-step done">
+            <div class="tl-num">1</div>
+            <div class="tl-tag">Gratuit · 15 min</div>
+            <div class="tl-h">Entretien découverte</div>
+            <p class="tl-p">Un expert vous pose les bonnes questions pour définir la structure idéale.</p>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num">2</div>
+            <div class="tl-tag">NM · CO · WY · DE</div>
+            <div class="tl-h">Choix de l'État</div>
+            <p class="tl-p">On recommande l'État en fonction de votre activité, anonymat et fiscalité.</p>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num">3</div>
+            <div class="tl-tag">Sous 2 semaines</div>
+            <div class="tl-h">Immatriculation + EIN</div>
+            <p class="tl-p">LLC créée, EIN obtenu, documents légaux livrés dans votre portail client.</p>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num">4</div>
+            <div class="tl-tag">Optionnel · dès $600</div>
+            <div class="tl-h">Compte bancaire US</div>
+            <p class="tl-p">Mercury, Relay ou banque physique — 100% à distance, carte Visa incluse.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- §5 3 CHEMINS -->
       <div class="section" style="background:linear-gradient(160deg,#e8f0f9,#e4ecf6)">
+        <div class="section-tag">Par où commencer</div>
+        <h2 class="section-h2">Où en êtes-vous ?</h2>
+        <p class="section-sub">Trois situations, trois points d'entrée. Choisissez celui qui vous correspond.</p>
+        <div class="chemins-grid">
+          <div class="chemin-card" onclick="go('offres')">
+            <div class="chemin-icon">🏢</div>
+            <div class="chemin-h">Je veux créer ma LLC</div>
+            <p class="chemin-p">Vous partez de zéro. On s'occupe de tout : choix de l'État, immatriculation, EIN, compte bancaire.</p>
+            <div class="chemin-link">Voir nos offres →</div>
+          </div>
+          <div class="chemin-card" onclick="go('fintech')">
+            <div class="chemin-icon">🏦</div>
+            <div class="chemin-h">J'ai une LLC, je veux un compte</div>
+            <p class="chemin-p">Votre LLC existe mais elle n'a pas de compte bancaire US dédié. On ouvre ça en 48h.</p>
+            <div class="chemin-link">Voir les solutions banking →</div>
+          </div>
+          <div class="chemin-card" onclick="go('gestion')">
+            <div class="chemin-icon">📋</div>
+            <div class="chemin-h">Ma LLC existe, je veux la gérer</div>
+            <p class="chemin-p">Déclaration IRS, annual report, domiciliation, dissolution — on gère vos obligations courantes.</p>
+            <div class="chemin-link">Voir les services →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- §6 OFFRES APERÇU -->
+      <div class="offers-section">
+        <div class="section-tag" style="text-align:center">Nos offres</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">Deux packs, un seul objectif :<br>votre LLC opérationnelle.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 40px">Pas de frais cachés. Pas de mauvaise surprise.</p>
+        <div class="offers-preview-grid">
+          <div class="op-card" onclick="go('offres')">
+            <div class="op-name">Pack LLC</div>
+            <div class="op-price">$997<span> USD</span></div>
+            <div class="op-tagline">LLC créée en 14 jours · EIN inclus · Chargé dédié</div>
+            <div class="op-features">
+              <div class="op-feat">LLC immatriculée sous 14 jours</div>
+              <div class="op-feat">EIN (numéro fiscal US) obtenu</div>
+              <div class="op-feat">Documents légaux (Operating Agreement)</div>
+              <div class="op-feat">Chargé d'affaires dédié (2 entretiens/an)</div>
+              <div class="op-feat">Portail client sécurisé</div>
+            </div>
+            <button class="op-btn op-btn-secondary" onclick="go('offres')">En savoir plus</button>
+          </div>
+          <div class="op-card featured" onclick="go('offres')">
+            <div class="op-rec-badge">Recommandé</div>
+            <div class="op-name">Pack Premium</div>
+            <div class="op-price">$1 597<span> USD</span></div>
+            <div class="op-tagline">Tout le Pack LLC + compte bancaire US ouvert</div>
+            <div class="op-features">
+              <div class="op-feat">Tout ce qui est inclus dans Pack LLC</div>
+              <div class="op-feat extra">Compte bancaire US ouvert (Mercury/Relay)</div>
+              <div class="op-feat extra">Carte Visa ou Mastercard incluse</div>
+              <div class="op-feat extra">Compatible Stripe, PayPal, Shopify</div>
+              <div class="op-feat extra">100% à distance — aucun déplacement</div>
+            </div>
+            <button class="op-btn op-btn-primary" onclick="go('offres')">Choisir ce pack</button>
+          </div>
+        </div>
+        <p class="offers-link">
+          Vous avez besoin d'un service spécifique ?
+          <a onclick="go('gestion')">Voir toutes les prestations →</a>
+        </p>
+      </div>
+
+      <!-- §7 DIFFÉRENCIANTS -->
+      <div class="section">
         <div class="section-tag">Pourquoi nous</div>
         <h2 class="section-h2">Pas juste un enregistrement.<br>Un accompagnement complet.</h2>
         <p class="section-sub">De nombreux sites créent votre LLC pour quelques centaines de dollars. C'est tout ce qu'ils font.</p>
@@ -923,64 +1109,52 @@ body { min-height: 100vh; }
         </div>
       </div>
 
-      <!-- SECTION: 3 chemins -->
-      <div class="section">
-        <div class="section-tag">Par où commencer</div>
-        <h2 class="section-h2">Où en êtes-vous ?</h2>
-        <p class="section-sub">Trois situations, trois points d'entrée. Choisissez celui qui vous correspond.</p>
-        <div class="chemins-grid">
-          <div class="chemin-card" onclick="go('creer')">
-            <div class="chemin-icon">🏢</div>
-            <div class="chemin-h">Créer ma LLC</div>
-            <p class="chemin-p">Vous souhaitez créer votre société américaine. On s'occupe de tout : État, immatriculation, EIN, banque.</p>
-            <div class="chemin-link">Voir nos offres →</div>
+      <!-- §8 TÉMOIGNAGES -->
+      <div class="section" style="background:linear-gradient(160deg,#e8f0f9,#e4ecf6)">
+        <div class="section-tag" style="text-align:center">Témoignages</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">500+ entrepreneurs<br>nous font confiance.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 36px">Depuis 2014, chaque LLC est unique. Voici ce que nos clients en disent.</p>
+        <div class="testi-grid">
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"J'avais des dizaines de questions sur la légalité et le bon État. En 15 min d'appel, tout était clair. Ma LLC était prête en 12 jours, le compte Mercury ouvert dans la foulée."</p>
+            <div class="testi-meta">
+              <div class="testi-av">A</div>
+              <div>
+                <div class="testi-nm">Antoine R.</div>
+                <div class="testi-rl">Consultant indépendant · Paris</div>
+                <div class="testi-result">LLC opérationnelle en 12 jours</div>
+              </div>
+            </div>
           </div>
-          <div class="chemin-card" onclick="go('fintech')">
-            <div class="chemin-icon">🏦</div>
-            <div class="chemin-h">Ouvrir un compte US</div>
-            <p class="chemin-p">Vous avez déjà une LLC et cherchez un compte bancaire américain. Fintech ou banque physique.</p>
-            <div class="chemin-link">Voir les solutions banking →</div>
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Je craignais que ce soit compliqué ou illégal vis-à-vis du fisc français. L'équipe a tout expliqué avec des sources juridiques. Maintenant j'encaisse mes clients US en dollars, proprement."</p>
+            <div class="testi-meta">
+              <div class="testi-av" style="background:linear-gradient(135deg,#1a7850,#2a9a70)">S</div>
+              <div>
+                <div class="testi-nm">Sophie M.</div>
+                <div class="testi-rl">E-commerçante · Lyon → marché US</div>
+                <div class="testi-result">15 000 $ encaissés le 1er mois</div>
+              </div>
+            </div>
           </div>
-          <div class="chemin-card" onclick="go('gestion')">
-            <div class="chemin-icon">📋</div>
-            <div class="chemin-h">Gérer ma LLC</div>
-            <p class="chemin-p">Déclaration fiscale, domiciliation, annual report, dissolution. On gère les obligations courantes.</p>
-            <div class="chemin-link">Voir les services de gestion →</div>
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Le chargé d'affaires m'a accompagné à chaque étape — pas de formulaire en ligne, de vraies conversations. J'ai choisi le Wyoming pour ma DAO crypto et c'était le bon choix."</p>
+            <div class="testi-meta">
+              <div class="testi-av" style="background:linear-gradient(135deg,#6a3a90,#8a5ab0)">T</div>
+              <div>
+                <div class="testi-nm">Thomas K.</div>
+                <div class="testi-rl">Fondateur Web3 · Bordeaux</div>
+                <div class="testi-result">Wyoming DAO LLC · crypto-ready</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- SECTION: Témoignage -->
-      <div class="section" style="background:linear-gradient(160deg,#e8f0f9,#e4ecf6);text-align:center">
-        <div class="section-tag">Témoignage client</div>
-        <h2 class="section-h2" style="max-width:500px;margin:0 auto 10px">Ce que nos clients disent</h2>
-        <p class="section-sub" style="margin:0 auto 36px">500+ entrepreneurs nous ont fait confiance depuis 2014.</p>
-        <div class="testimonial-wrap">
-          <p class="testi-quote">"J'avais des dizaines de questions sur la légalité, la fiscalité, le bon État à choisir. En 15 min d'appel, tout était clair. Ma LLC était prête en 12 jours, le compte Mercury ouvert dans la foulée. Impressionnant."</p>
-          <div class="testi-author">
-            <div class="testi-avatar">A</div>
-            <div><div class="testi-name">Antoine R.</div><div class="testi-role">Consultant indépendant · Paris → clients US</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECTION: CTA dual -->
-      <div class="cta-dual">
-        <div class="cta-card primary" onclick="go('cal')">
-          <div class="cta-card-label">Vous êtes prêt</div>
-          <h3 class="cta-card-h">Réserver mon entretien gratuit</h3>
-          <p class="cta-card-p">15 min · Sans engagement · Expert dédié non-résidents</p>
-          <button class="cta-card-btn" onclick="go('cal')">Prendre rendez-vous →</button>
-        </div>
-        <div class="cta-card" onclick="go('apropos')">
-          <div class="cta-card-label">Vous hésitez encore</div>
-          <h3 class="cta-card-h">Formation gratuite</h3>
-          <p class="cta-card-p">7 modules · Comprendre la LLC avant de se lancer · Capture email</p>
-          <button class="cta-card-btn">Accéder à la formation →</button>
-        </div>
-      </div>
-
-      <!-- SECTION: Carte des états -->
+      <!-- §9 CARTE DES ÉTATS -->
       <div class="hp-map-section">
         <div class="section-tag">Nos 4 juridictions</div>
         <h2 class="section-h2">Le bon État, c'est<br>des milliers d'euros d'écart.</h2>
@@ -1058,6 +1232,22 @@ body { min-height: 100vh; }
           </div>
         </div>
         <button class="hero-cta-p" onclick="go('creer')" style="margin:0 auto">Explorer la carte complète →</button>
+      </div>
+
+      <!-- §10 DOUBLE CTA -->
+      <div class="cta-dual">
+        <div class="cta-card primary" onclick="go('cal')">
+          <div class="cta-card-label">Vous êtes prêt</div>
+          <h3 class="cta-card-h">Réserver mon entretien gratuit</h3>
+          <p class="cta-card-p">15 min · Sans engagement · Expert dédié non-résidents</p>
+          <button class="cta-card-btn" onclick="go('cal')">Prendre rendez-vous →</button>
+        </div>
+        <div class="cta-card">
+          <div class="cta-card-label">Vous hésitez encore</div>
+          <h3 class="cta-card-h">Formation gratuite</h3>
+          <p class="cta-card-p">7 modules · Comprendre la LLC avant de se lancer</p>
+          <button class="cta-card-btn">Accéder à la formation →</button>
+        </div>
       </div>
 
     </div>
