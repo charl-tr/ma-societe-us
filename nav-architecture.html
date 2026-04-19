@@ -347,8 +347,12 @@ body { min-height: 100vh; }
   min-height: calc(100vh - 40px - 64px - 34px);
   padding: 52px 72px;
 }
-.i-crumb { font-size: 12px; color: rgba(14,30,56,.35); margin-bottom: 22px; }
-.i-crumb strong { color: var(--blue); }
+.i-crumb {
+  font-size: 11.5px; color: rgba(14,30,56,.38); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.i-crumb .bc-sep { opacity: .35; font-size: 9px; }
+.i-crumb strong { color: var(--blue); font-weight: 600; }
 .i-h1 {
   font-family: var(--font-head); font-size: clamp(32px, 3.5vw, 52px);
   font-weight: 700; letter-spacing: -.03em; color: var(--navy);
@@ -470,6 +474,80 @@ body { min-height: 100vh; }
 .oscore.mi { color: #1a7850; }
 .oscore.lo { color: rgba(14,30,56,.2); }
 .oscore-l { font-size: 10px; color: rgba(14,30,56,.3); text-align: right; }
+
+/* ── INTERACTIVE MAP ──────────────────────────────── */
+.map-layout {
+  display: flex; gap: 24px; padding: 0 52px 36px; align-items: flex-start;
+  background: linear-gradient(160deg, #eef3f9 0%, #e8f0f9 100%);
+}
+.map-panel { flex: 0 0 500px; }
+.us-map { width: 100%; display: block; border-radius: 14px; overflow: visible; }
+.us-map .s {
+  fill: #d8e4f0; stroke: #eef3f9; stroke-width: 1.2;
+  cursor: default; transition: fill .15s;
+}
+.us-map .key {
+  stroke: #fff; stroke-width: 2; cursor: pointer;
+  transition: fill .15s, filter .15s;
+}
+.us-map .key:hover, .us-map .key.active {
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.22));
+}
+.us-map .wy { fill: #c8dff4; }
+.us-map .wy:hover, .us-map .wy.active { fill: #5a9fd4; }
+.us-map .co { fill: #c2e8d0; }
+.us-map .co:hover, .us-map .co.active { fill: #2a9a68; }
+.us-map .nm { fill: #ccd4f2; }
+.us-map .nm:hover, .us-map .nm.active { fill: #3a5aaa; }
+.us-map .de { fill: #ebd4e0; }
+.us-map .de:hover, .us-map .de.active { fill: #9a3a58; }
+.map-lbl { font-family: 'Space Grotesk', sans-serif; font-size: 9px; font-weight: 600; fill: rgba(14,30,56,.42); pointer-events: none; text-anchor: middle; }
+.map-key-lbl { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 800; pointer-events: none; text-anchor: middle; }
+.de-line { stroke: rgba(154,58,88,.5); stroke-width: 1.2; stroke-dasharray: 4,3; }
+.de-badge { fill: #ebd4e0; stroke: #fff; stroke-width: 1.5; rx: 8; }
+.de-badge-txt { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 800; fill: #9a3a58; pointer-events: none; text-anchor: middle; }
+
+.map-detail {
+  flex: 1; min-height: 320px;
+  background: linear-gradient(160deg, rgba(255,255,255,.92) 0%, rgba(235,244,255,.75) 100%);
+  backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,.85);
+  border-radius: 18px; padding: 30px 26px;
+  box-shadow: 0 6px 28px rgba(80,120,180,.1);
+}
+.md-placeholder {
+  height: 280px; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px; color: rgba(14,30,56,.22); text-align: center;
+  font-size: 13px; line-height: 1.6;
+}
+.md-icon { font-size: 38px; }
+.md-label { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 6px; }
+.md-name { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.1; }
+.md-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 12px; margin-bottom: 14px; }
+.md-tagline { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 8px; line-height: 1.4; }
+.md-desc { font-size: 12.5px; color: rgba(14,30,56,.55); line-height: 1.65; margin-bottom: 16px; }
+.md-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.md-feat { font-size: 12px; color: rgba(14,30,56,.65); display: flex; gap: 8px; }
+.md-feat-arrow { font-size: 10px; margin-top: 2px; flex-shrink: 0; }
+.md-cta {
+  display: block; width: 100%; padding: 11px 16px; border-radius: 24px; border: none;
+  background: var(--navy); color: #fff; font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: background .15s; text-align: center;
+}
+.md-cta:hover { background: var(--blue); }
+
+/* ── COMPARE TABLE ──────────────────────────────── */
+.cmp-wrap { overflow-x: auto; margin-bottom: 28px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(14,30,56,.07); }
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 12.5px; background: rgba(255,255,255,.7); }
+.cmp-table th {
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; padding: 12px 16px;
+  text-align: left; background: rgba(255,255,255,.9); border-bottom: 2px solid rgba(14,30,56,.08);
+}
+.cmp-table td { padding: 10px 16px; border-bottom: 1px solid rgba(14,30,56,.05); color: rgba(14,30,56,.68); }
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tbody tr:hover td { background: rgba(235,242,255,.4); }
+.cmp-table td:first-child { font-weight: 600; color: rgba(14,30,56,.5); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.cmp-star { color: #f5a623; }
 </style>
 </head>
 <body>
@@ -655,19 +733,143 @@ body { min-height: 100vh; }
       </div>
     </div>
 
-    <!-- CREER -->
+    <!-- CREER — interactive state map -->
     <div class="pv" id="pv-creer">
-      <div class="inner">
-        <div class="i-crumb">Accueil / <strong>Créer ma LLC</strong></div>
-        <h1 class="i-h1">Créer votre LLC<br>aux États-Unis</h1>
-        <p class="i-sub">4 États, 4 profils d'entrepreneurs. Choisissez la juridiction adaptée à votre situation.</p>
-        <div class="states-grid">
-          <div class="state-card" onclick="go('nm')"><div class="sc-flag"><span class="sc-dot" style="background:#2a5090"></span><span style="color:#2a5090">Nouveau-Mexique</span></div><div class="sc-h">Anonymat total</div><div class="sc-p">Votre nom n'apparaît dans aucun registre public américain.</div><span class="sc-badge" style="background:#ebf2ff;color:#2a5090">0 registre public</span></div>
-          <div class="state-card" onclick="go('co')"><div class="sc-flag"><span class="sc-dot" style="background:#1a7850"></span><span style="color:#1a7850">Colorado</span></div><div class="sc-h">LLC en 24 heures</div><div class="sc-p">Le délai de traitement le plus rapide des États-Unis.</div><span class="sc-badge" style="background:#e8f8f0;color:#1a7850">Opérationnelle en 24h</span></div>
-          <div class="state-card" onclick="go('wy')"><div class="sc-flag"><span class="sc-dot" style="background:#7a50a0"></span><span style="color:#7a50a0">Wyoming</span></div><div class="sc-h">Pro-crypto &amp; Web3</div><div class="sc-p">Réglementation la plus favorable aux actifs numériques.</div><span class="sc-badge" style="background:#f0e8f8;color:#7a50a0">DAO légalisées</span></div>
-          <div class="state-card" onclick="go('de')"><div class="sc-flag"><span class="sc-dot" style="background:#a05a14"></span><span style="color:#a05a14">Delaware</span></div><div class="sc-h">Standard levée de fonds</div><div class="sc-p">Plébiscité par 68% des Fortune 500 et les investisseurs VC.</div><span class="sc-badge" style="background:#fff5e6;color:#a05a14">Référence VC</span></div>
+      <div class="inner" style="min-height:auto;padding-bottom:28px">
+        <div class="i-crumb"><span>Accueil</span><span class="bc-sep">›</span><strong>Choisir mon État</strong></div>
+        <h1 class="i-h1">Choisissez votre État</h1>
+        <p class="i-sub">4 juridictions, 4 profils. Survolez un État sur la carte pour voir ses atouts.</p>
+      </div>
+
+      <div class="map-layout">
+        <!-- SVG US MAP -->
+        <div class="map-panel">
+          <svg class="us-map" viewBox="0 0 760 480">
+            <rect width="760" height="480" fill="#e8f0f8" rx="14"/>
+            <!-- WA --><polygon class="s" points="0,28 93,28 93,85 5,85"/>
+            <!-- OR --><polygon class="s" points="0,85 93,85 97,150 0,150"/>
+            <!-- CA --><polygon class="s" points="0,150 97,150 118,207 108,315 75,320 58,380 0,380"/>
+            <!-- NV --><polygon class="s" points="97,118 173,92 176,278 118,207"/>
+            <!-- ID --><polygon class="s" points="93,28 173,28 173,92 156,126 93,150"/>
+            <!-- MT --><rect class="s" x="109" y="0" width="158" height="92"/>
+            <!-- WY KEY --><rect class="s key wy" id="wy-shape" x="173" y="92" width="94" height="74" onmouseenter="selectState('wy')" onclick="go('wy')"/>
+            <!-- UT --><rect class="s" x="134" y="150" width="66" height="90"/>
+            <!-- AZ --><polygon class="s" points="134,240 222,240 222,348 175,382 134,382"/>
+            <!-- CO KEY --><rect class="s key co" id="co-shape" x="200" y="166" width="93" height="74" onmouseenter="selectState('co')" onclick="go('co')"/>
+            <!-- NM KEY --><rect class="s key nm" id="nm-shape" x="200" y="240" width="82" height="108" onmouseenter="selectState('nm')" onclick="go('nm')"/>
+            <!-- ND --><rect class="s" x="267" y="0" width="108" height="72"/>
+            <!-- SD --><rect class="s" x="267" y="72" width="108" height="68"/>
+            <!-- NE --><rect class="s" x="267" y="140" width="122" height="66"/>
+            <!-- KS --><rect class="s" x="267" y="206" width="130" height="66"/>
+            <!-- OK --><rect class="s" x="267" y="272" width="152" height="68"/>
+            <!-- TX --><polygon class="s" points="267,340 422,340 440,382 420,452 308,462 268,422 258,382"/>
+            <!-- MN --><polygon class="s" points="375,0 470,0 472,46 460,96 415,100 375,100"/>
+            <!-- IA --><rect class="s" x="375" y="100" width="89" height="66"/>
+            <!-- MO --><rect class="s" x="375" y="166" width="93" height="86"/>
+            <!-- AR --><rect class="s" x="380" y="252" width="90" height="72"/>
+            <!-- LA --><polygon class="s" points="380,324 470,324 475,362 450,402 410,422 380,402"/>
+            <!-- WI --><rect class="s" x="457" y="8" width="82" height="106"/>
+            <!-- IL --><rect class="s" x="457" y="114" width="66" height="114"/>
+            <!-- MS --><rect class="s" x="457" y="252" width="65" height="96"/>
+            <!-- KY --><polygon class="s" points="462,230 590,196 594,214 580,230 462,250"/>
+            <!-- TN --><rect class="s" x="462" y="250" width="128" height="54"/>
+            <!-- IN --><rect class="s" x="522" y="114" width="58" height="100"/>
+            <!-- MI --><polygon class="s" points="522,66 598,66 600,78 582,102 580,114 522,114"/>
+            <!-- OH --><rect class="s" x="580" y="80" width="78" height="100"/>
+            <!-- AL --><rect class="s" x="520" y="284" width="66" height="92"/>
+            <!-- GA --><rect class="s" x="584" y="258" width="80" height="100"/>
+            <!-- SC --><polygon class="s" points="584,220 664,220 672,262 632,282 584,258"/>
+            <!-- NC --><polygon class="s" points="580,192 696,184 704,212 672,262 584,220"/>
+            <!-- WV+VA --><polygon class="s" points="578,142 666,142 680,152 696,184 584,192 560,188 558,166"/>
+            <!-- FL --><polygon class="s" points="520,376 662,358 665,392 648,432 622,462 580,472 560,462 532,442 520,422"/>
+            <!-- NE states block --><polygon class="s" points="627,62 760,0 760,162 665,162 627,142"/>
+            <!-- MD+NJ --><polygon class="s" points="627,142 665,142 666,192 648,202 644,190 627,186"/>
+            <!-- DE KEY (tiny, with callout) -->
+            <rect class="s key de" id="de-shape" x="648" y="156" width="18" height="30" onmouseenter="selectState('de')" onclick="go('de')"/>
+            <line class="de-line" x1="666" y1="163" x2="708" y2="128"/>
+            <rect class="de-badge" x="696" y="112" width="54" height="28" rx="8" style="fill:#ebd4e0;stroke:#fff;stroke-width:1.5"/>
+            <text class="de-badge-txt" x="723" y="131">DE ★</text>
+
+            <!-- Labels for non-key states -->
+            <text class="map-lbl" x="46" y="62">WA</text>
+            <text class="map-lbl" x="46" y="122">OR</text>
+            <text class="map-lbl" x="44" y="268">CA</text>
+            <text class="map-lbl" x="136" y="198">NV</text>
+            <text class="map-lbl" x="130" y="100">ID</text>
+            <text class="map-lbl" x="186" y="50">MT</text>
+            <text class="map-lbl" x="166" y="198">UT</text>
+            <text class="map-lbl" x="168" y="318">AZ</text>
+            <text class="map-lbl" x="318" y="40">ND</text>
+            <text class="map-lbl" x="318" y="110">SD</text>
+            <text class="map-lbl" x="326" y="177">NE</text>
+            <text class="map-lbl" x="330" y="242">KS</text>
+            <text class="map-lbl" x="340" y="308">OK</text>
+            <text class="map-lbl" x="338" y="405">TX</text>
+            <text class="map-lbl" x="416" y="52">MN</text>
+            <text class="map-lbl" x="418" y="136">IA</text>
+            <text class="map-lbl" x="420" y="212">MO</text>
+            <text class="map-lbl" x="422" y="290">AR</text>
+            <text class="map-lbl" x="418" y="362">LA</text>
+            <text class="map-lbl" x="496" y="60">WI</text>
+            <text class="map-lbl" x="488" y="176">IL</text>
+            <text class="map-lbl" x="486" y="300">MS</text>
+            <text class="map-lbl" x="522" y="272">TN</text>
+            <text class="map-lbl" x="520" y="216">KY</text>
+            <text class="map-lbl" x="550" y="166">IN</text>
+            <text class="map-lbl" x="556" y="102">MI</text>
+            <text class="map-lbl" x="617" y="132">OH</text>
+            <text class="map-lbl" x="552" y="336">AL</text>
+            <text class="map-lbl" x="622" y="310">GA</text>
+            <text class="map-lbl" x="638" y="246">SC</text>
+            <text class="map-lbl" x="640" y="210">NC</text>
+            <text class="map-lbl" x="618" y="170">VA</text>
+            <text class="map-lbl" x="595" y="422">FL</text>
+            <text class="map-lbl" x="697" y="80">NY</text>
+            <text class="map-lbl" x="688" y="154">PA</text>
+
+            <!-- KEY STATE LABELS (bold, colored) -->
+            <text class="map-key-lbl" x="220" y="135" style="fill:#5a9fd4">WY</text>
+            <text class="map-key-lbl" x="246" y="210" style="fill:#2a9a68">CO</text>
+            <text class="map-key-lbl" x="241" y="298" style="fill:#3a5aaa">NM</text>
+          </svg>
         </div>
-        <div class="i-cta"><div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div><button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button></div>
+
+        <!-- DETAIL PANEL -->
+        <div class="map-detail" id="map-detail">
+          <div class="md-placeholder">
+            <div class="md-icon">🗺</div>
+            <div>Survolez un État sur la carte<br>pour voir ses atouts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <div class="inner" style="min-height:auto;padding-top:32px">
+        <div class="cmp-wrap">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th>Critère</th>
+                <th style="color:#2a5090">Nouveau-Mexique</th>
+                <th style="color:#1a7850">Colorado</th>
+                <th style="color:#7a50a0">Wyoming</th>
+                <th style="color:#a05a14">Delaware</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Anonymat</td><td><span class="cmp-star">★★★</span> Total</td><td><span class="cmp-star">★</span> Limité</td><td><span class="cmp-star">★★</span> Bon</td><td><span class="cmp-star">★</span> Standard</td></tr>
+              <tr><td>Délai création</td><td>5–7 jours</td><td><strong style="color:#1a7850">24 heures</strong></td><td>3–5 jours</td><td>2–3 jours</td></tr>
+              <tr><td>Crypto / DAO</td><td>Favorable</td><td>Favorable</td><td><strong style="color:#7a50a0">Optimal — DAO légales</strong></td><td>Standard</td></tr>
+              <tr><td>Levée de fonds</td><td>Non adapté</td><td>Possible</td><td>Possible</td><td><strong style="color:#a05a14">Standard VC</strong></td></tr>
+              <tr><td>Coût annuel État</td><td>$50</td><td>$50</td><td>$60</td><td>$300+</td></tr>
+              <tr><td>Idéal pour</td><td>Freelances · Créateurs</td><td>E-commerce · SaaS</td><td>Crypto · Web3 · NFT</td><td>Startups · VC</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="i-cta">
+          <div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button>
+        </div>
       </div>
     </div>
 
@@ -685,7 +887,7 @@ body { min-height: 100vh; }
     <!-- PACK LLC -->
     <div class="pv" id="pv-pack-llc">
       <div class="inner">
-        <div class="i-crumb">Créer ma LLC / <strong>Pack LLC</strong></div>
+        <div class="i-crumb"><span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Pack LLC</strong></div>
         <h1 class="i-h1">Pack LLC — <em>$997</em></h1>
         <p class="i-sub">Votre LLC américaine créée en 14 jours, de A à Z, sans vous déplacer. EIN obtenu, chargé dédié.</p>
         <div class="cards-grid">
@@ -700,7 +902,7 @@ body { min-height: 100vh; }
     <!-- PACK PREMIUM -->
     <div class="pv" id="pv-pack-premium">
       <div class="inner">
-        <div class="i-crumb">Créer ma LLC / <strong>Pack Premium</strong></div>
+        <div class="i-crumb"><span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Pack Premium</strong></div>
         <h1 class="i-h1">Pack Premium — <em>$1 597</em></h1>
         <p class="i-sub">La solution complète : LLC créée + compte Mercury ouvert. Vous facturez en dollars en 14 jours.</p>
         <div class="cards-grid">
@@ -714,7 +916,7 @@ body { min-height: 100vh; }
     <!-- BANKING -->
     <div class="pv" id="pv-fintech">
       <div class="banking-hero">
-        <div class="i-crumb">Services / <strong>Banking</strong></div>
+        <div class="i-crumb"><span>Services</span><span class="bc-sep">›</span><strong>Banking</strong></div>
         <h1 class="i-h1">Compte bancaire USA</h1>
         <p class="i-sub" style="margin-bottom:0">Deux solutions selon votre profil. Votre LLC n'est opérationnelle qu'avec un compte US dédié.</p>
       </div>
@@ -806,10 +1008,10 @@ const urls = {
 };
 
 const states = {
-  nm:{ crumb:'Créer ma LLC / <strong>Nouveau-Mexique</strong>', h1:'LLC au Nouveau-Mexique<br><span style="color:#2a5090">Anonymat total</span>', sub:"Votre nom n'apparaît dans aucun registre public américain. Idéal pour les entrepreneurs discrets.", cards:[{t:'#2a5090',l:'Avantage clé',h:'0 registre public',p:"Ni votre nom ni votre adresse dans les registres du Nouveau-Mexique."},{t:'#2a5090',l:'Avantage',h:'Pas de rapport annuel',p:"Aucun rapport annuel requis. Administration minimale."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Consultant · Coach · Prestataire de services · Entrepreneurs discrets."}]},
-  co:{ crumb:'Créer ma LLC / <strong>Colorado</strong>', h1:'LLC au Colorado<br><span style="color:#1a7850">En 24 heures</span>', sub:"Le délai le plus rapide des États-Unis. Une opportunité urgente ? La LLC Colorado est prête en un jour ouvré.", cards:[{t:'#1a7850',l:'Avantage clé',h:'Traitement en 24h',p:"Le Secretary of State du Colorado traite les immatriculations en 24h ouvrées."},{t:'#1a7850',l:'Fiscalité',h:'Pas de franchise tax',p:"Aucune taxe annuelle fixe. Impôt étatique plafonné à 4.4%."},{t:'#2a5090',l:'Idéal pour',h:'Votre profil',p:"E-commerce · SaaS · Freelance digital · Prestataire pressé."}]},
-  wy:{ crumb:'Créer ma LLC / <strong>Wyoming</strong>', h1:'LLC au Wyoming<br><span style="color:#7a50a0">Pro-crypto &amp; Web3</span>', sub:"L'État le plus favorable aux actifs numériques aux USA. Crypto, NFT, DAO — reconnus légalement.", cards:[{t:'#7a50a0',l:'Avantage clé',h:'DAOs reconnues légalement',p:"1er État à légiférer sur les DAO. Structure robuste pour tout projet Web3."},{t:'#7a50a0',l:'Fiscalité',h:'0% impôt crypto étatique',p:"Le Wyoming ne taxe pas les plus-values crypto au niveau étatique."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Trader crypto · DeFi · NFT · Projets blockchain."}]},
-  de:{ crumb:'Créer ma LLC / <strong>Delaware</strong>', h1:'LLC au Delaware<br><span style="color:#a05a14">Levée de fonds</span>', sub:"68% des Fortune 500 incorporées au Delaware. Le signal qu'attendent les investisseurs.", cards:[{t:'#a05a14',l:'Avantage clé',h:'Référence des investisseurs',p:"Les VC exigent souvent une structure Delaware. Indispensable pour lever des fonds en Amérique."},{t:'#a05a14',l:'Juridique',h:'Court of Chancery',p:"Tribunal spécialisé en droit des sociétés, le plus expérimenté du monde."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Startup · SaaS · Entrepreneurs ciblant des investisseurs américains."}]},
+  nm:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Nouveau-Mexique</strong>', h1:'LLC au Nouveau-Mexique<br><span style="color:#2a5090">Anonymat total</span>', sub:"Votre nom n'apparaît dans aucun registre public américain. Idéal pour les entrepreneurs discrets.", cards:[{t:'#2a5090',l:'Avantage clé',h:'0 registre public',p:"Ni votre nom ni votre adresse dans les registres du Nouveau-Mexique."},{t:'#2a5090',l:'Avantage',h:'Pas de rapport annuel',p:"Aucun rapport annuel requis. Administration minimale."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Consultant · Coach · Prestataire de services · Entrepreneurs discrets."}]},
+  co:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Colorado</strong>', h1:'LLC au Colorado<br><span style="color:#1a7850">En 24 heures</span>', sub:"Le délai le plus rapide des États-Unis. Une opportunité urgente ? La LLC Colorado est prête en un jour ouvré.", cards:[{t:'#1a7850',l:'Avantage clé',h:'Traitement en 24h',p:"Le Secretary of State du Colorado traite les immatriculations en 24h ouvrées."},{t:'#1a7850',l:'Fiscalité',h:'Pas de franchise tax',p:"Aucune taxe annuelle fixe. Impôt étatique plafonné à 4.4%."},{t:'#2a5090',l:'Idéal pour',h:'Votre profil',p:"E-commerce · SaaS · Freelance digital · Prestataire pressé."}]},
+  wy:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Wyoming</strong>', h1:'LLC au Wyoming<br><span style="color:#7a50a0">Pro-crypto &amp; Web3</span>', sub:"L'État le plus favorable aux actifs numériques aux USA. Crypto, NFT, DAO — reconnus légalement.", cards:[{t:'#7a50a0',l:'Avantage clé',h:'DAOs reconnues légalement',p:"1er État à légiférer sur les DAO. Structure robuste pour tout projet Web3."},{t:'#7a50a0',l:'Fiscalité',h:'0% impôt crypto étatique',p:"Le Wyoming ne taxe pas les plus-values crypto au niveau étatique."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Trader crypto · DeFi · NFT · Projets blockchain."}]},
+  de:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Delaware</strong>', h1:'LLC au Delaware<br><span style="color:#a05a14">Levée de fonds</span>', sub:"68% des Fortune 500 incorporées au Delaware. Le signal qu'attendent les investisseurs.", cards:[{t:'#a05a14',l:'Avantage clé',h:'Référence des investisseurs',p:"Les VC exigent souvent une structure Delaware. Indispensable pour lever des fonds en Amérique."},{t:'#a05a14',l:'Juridique',h:'Court of Chancery',p:"Tribunal spécialisé en droit des sociétés, le plus expérimenté du monde."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Startup · SaaS · Entrepreneurs ciblant des investisseurs américains."}]},
 };
 
 const generics = {
@@ -906,6 +1108,42 @@ function msTab(el, goAnalysis) {
   } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+const stateDetails = {
+  wy: { name:'Wyoming', label:'Pro-Crypto & Web3', tag:'DAO légalisées', tagBg:'#f0e8f8', tagColor:'#7a50a0', accent:'#7a50a0',
+    tagline:'La juridiction la plus favorable aux actifs numériques',
+    desc:'Le Wyoming est le seul État américain à reconnaître légalement les DAO. Réglementation crypto-native, confidentialité renforcée, frais parmi les plus bas.',
+    feats:['DAO légalement reconnues (loi 2021)','Aucun impôt sur les revenus des LLC','Confidentialité : gérant non public','Frais annuels : $60/an'] },
+  co: { name:'Colorado', label:'LLC en 24 Heures', tag:'Opérationnelle en 24h', tagBg:'#e8f8f0', tagColor:'#1a7850', accent:'#1a7850',
+    tagline:'Le délai de traitement le plus rapide des États-Unis',
+    desc:'Le Colorado propose un service de traitement accéléré permettant d\'immatriculer votre LLC en moins de 24h ouvrées. Idéal pour lancer vite.',
+    feats:['LLC opérationnelle en moins de 24h','Écosystème startup dynamique (Denver)','Frais d\'État : $50/an','Idéal pour e-commerce et SaaS'] },
+  nm: { name:'Nouveau-Mexique', label:'Anonymat Total', tag:'0 registre public', tagBg:'#ebf2ff', tagColor:'#2a5090', accent:'#2a5090',
+    tagline:'Votre identité n\'apparaît dans aucun registre public américain',
+    desc:'Au Nouveau-Mexique, ni les gérants ni les associés n\'ont l\'obligation d\'apparaître dans les documents publics. Le maximum d\'anonymat disponible aux USA.',
+    feats:['Gérant et associés non publics','Pas de registered agent public','Frais d\'État parmi les plus bas ($50)','Idéal pour freelances et créateurs de contenu'] },
+  de: { name:'Delaware', label:'Levée de Fonds', tag:'Référence VC', tagBg:'#fff5e6', tagColor:'#a05a14', accent:'#a05a14',
+    tagline:'Le standard des investisseurs américains et Fortune 500',
+    desc:'68% des sociétés Fortune 500 et la quasi-totalité des startups levant des fonds aux USA s\'incorporent au Delaware. Signal immédiat pour les investisseurs.',
+    feats:['Standard des fonds VC américains','Court of Chancery — tribunal spécialisé','Structure C-Corp possible','Indispensable pour lever des fonds aux USA'] },
+};
+
+function selectState(key) {
+  document.querySelectorAll('.us-map .key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-shape');
+  if (el) el.classList.add('active');
+  const d = stateDetails[key];
+  if (!d) return;
+  document.getElementById('map-detail').innerHTML = `
+    <div class="md-label" style="color:${d.accent}">${d.label}</div>
+    <div class="md-name">${d.name}</div>
+    <span class="md-tag" style="background:${d.tagBg};color:${d.tagColor}">${d.tag}</span>
+    <div class="md-tagline">${d.tagline}</div>
+    <div class="md-desc">${d.desc}</div>
+    <div class="md-features">${d.feats.map(f=>`<div class="md-feat"><span class="md-feat-arrow" style="color:${d.accent}">›</span><span>${f}</span></div>`).join('')}</div>
+    <button class="md-cta" onclick="go('${key}')">Créer ma LLC au ${d.name} →</button>
+  `;
+}
 </script>
 </body>
 </html>
