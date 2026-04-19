@@ -580,21 +580,27 @@ body { min-height: 100vh; }
   fill: #d8e4f0; stroke: #eef3f9; stroke-width: 1.2;
   cursor: default; transition: fill .15s;
 }
+.us-map .s { transition: opacity .22s; }
 .us-map .key {
   stroke: #fff; stroke-width: 2; cursor: pointer;
-  transition: fill .15s, filter .15s;
+  transform-box: fill-box; transform-origin: center;
+  transition: fill .22s ease, filter .22s ease, opacity .22s ease, transform .24s ease;
 }
-.us-map .key:hover, .us-map .key.active {
-  filter: drop-shadow(0 3px 10px rgba(0,0,0,.22));
+.us-map.has-hover .s { opacity: 0.45; }
+.us-map.has-hover .map-lbl { opacity: 0.35; }
+.us-map.has-hover .key { opacity: 0.18; transform: scale(0.97); }
+.us-map.has-hover .key.active {
+  opacity: 1 !important; transform: scale(1.09);
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,.30));
 }
-.us-map .wy { fill: #c8dff4; }
-.us-map .wy:hover, .us-map .wy.active { fill: #5a9fd4; }
-.us-map .co { fill: #c2e8d0; }
-.us-map .co:hover, .us-map .co.active { fill: #2a9a68; }
-.us-map .nm { fill: #ccd4f2; }
-.us-map .nm:hover, .us-map .nm.active { fill: #3a5aaa; }
-.us-map .de { fill: #ebd4e0; }
-.us-map .de:hover, .us-map .de.active { fill: #9a3a58; }
+.us-map .wy { fill: #b8d8ee; }
+.us-map .wy.active { fill: #4a8fc8; }
+.us-map .co { fill: #aeddc2; }
+.us-map .co.active { fill: #1e9a60; }
+.us-map .nm { fill: #b4c6ec; }
+.us-map .nm.active { fill: #2a4aaa; }
+.us-map .de { fill: #d8c4d4; }
+.us-map .de.active { fill: #8a2a58; }
 .map-lbl { font-family: 'Space Grotesk', sans-serif; font-size: 9px; font-weight: 600; fill: rgba(14,30,56,.42); pointer-events: none; text-anchor: middle; }
 .map-key-lbl { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 800; pointer-events: none; text-anchor: middle; }
 .de-line { stroke: rgba(154,58,88,.5); stroke-width: 1.2; stroke-dasharray: 4,3; }
@@ -642,6 +648,38 @@ body { min-height: 100vh; }
 .cmp-table tbody tr:hover td { background: rgba(235,242,255,.4); }
 .cmp-table td:first-child { font-weight: 600; color: rgba(14,30,56,.5); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
 .cmp-star { color: #f5a623; }
+
+/* ── BACK BUTTON ── */
+.back-btn {
+  display: none; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 600; color: rgba(14,30,56,.38);
+  cursor: pointer; margin-bottom: 10px; transition: color .15s; width: fit-content;
+  letter-spacing: .02em;
+}
+.back-btn:hover { color: var(--blue); }
+.back-arrow { font-size: 15px; line-height: 1; }
+
+/* ── HOMEPAGE MAP SECTION ── */
+.hp-map-section {
+  padding: 64px 72px 56px;
+  background: linear-gradient(160deg, #e8f0f9 0%, #eef3f9 100%);
+  border-top: 1px solid rgba(14,30,56,.06);
+  text-align: center;
+}
+.hp-map-section .section-tag { margin-bottom: 10px; }
+.hp-map-section .section-h2 { margin: 0 auto 10px; }
+.hp-map-section .section-sub { margin: 0 auto 36px; }
+.hp-map-wrap { max-width: 680px; margin: 0 auto 32px; }
+.hp-states-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; max-width: 720px; margin: 0 auto 36px; }
+.hp-state-card {
+  background: rgba(255,255,255,.8); border: 1.5px solid rgba(255,255,255,.9);
+  border-radius: 14px; padding: 18px 14px; cursor: pointer; text-align: left;
+  transition: all .2s; box-shadow: 0 3px 14px rgba(80,120,180,.07);
+}
+.hp-state-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(80,120,180,.14); }
+.hp-sc-dot { width: 8px; height: 8px; border-radius: 50%; margin-bottom: 10px; display: block; }
+.hp-sc-name { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.hp-sc-tag { font-size: 11px; color: rgba(14,30,56,.45); line-height: 1.4; }
 
 /* ── FOOTER ── */
 .site-footer { background: #0f1a2e; }
@@ -942,12 +980,93 @@ body { min-height: 100vh; }
         </div>
       </div>
 
+      <!-- SECTION: Carte des états -->
+      <div class="hp-map-section">
+        <div class="section-tag">Nos 4 juridictions</div>
+        <h2 class="section-h2">Le bon État, c'est<br>des milliers d'euros d'écart.</h2>
+        <p class="section-sub">NM · CO · WY · DE — chaque juridiction a ses atouts. Survolez la carte pour comparer.</p>
+        <div class="hp-map-wrap">
+          <svg class="us-map" id="us-map-hp" viewBox="0 0 760 480">
+            <rect width="760" height="480" fill="#e4edf6" rx="14"/>
+            <polygon class="s" points="0,28 93,28 93,85 5,85"/>
+            <polygon class="s" points="0,85 93,85 97,150 0,150"/>
+            <polygon class="s" points="0,150 97,150 118,207 108,315 75,320 58,380 0,380"/>
+            <polygon class="s" points="97,118 173,92 176,278 118,207"/>
+            <polygon class="s" points="93,28 173,28 173,92 156,126 93,150"/>
+            <rect class="s" x="109" y="0" width="158" height="92"/>
+            <rect class="s key wy" id="wy-hp" x="173" y="92" width="94" height="74" onmouseenter="hpHover('wy')" onmouseleave="hpLeave()" onclick="go('wy')"/>
+            <rect class="s" x="134" y="150" width="66" height="90"/>
+            <polygon class="s" points="134,240 222,240 222,348 175,382 134,382"/>
+            <rect class="s key co" id="co-hp" x="200" y="166" width="93" height="74" onmouseenter="hpHover('co')" onmouseleave="hpLeave()" onclick="go('co')"/>
+            <rect class="s key nm" id="nm-hp" x="200" y="240" width="82" height="108" onmouseenter="hpHover('nm')" onmouseleave="hpLeave()" onclick="go('nm')"/>
+            <rect class="s" x="267" y="0" width="108" height="72"/>
+            <rect class="s" x="267" y="72" width="108" height="68"/>
+            <rect class="s" x="267" y="140" width="122" height="66"/>
+            <rect class="s" x="267" y="206" width="130" height="66"/>
+            <rect class="s" x="267" y="272" width="152" height="68"/>
+            <polygon class="s" points="267,340 422,340 440,382 420,452 308,462 268,422 258,382"/>
+            <polygon class="s" points="375,0 470,0 472,46 460,96 415,100 375,100"/>
+            <rect class="s" x="375" y="100" width="89" height="66"/>
+            <rect class="s" x="375" y="166" width="93" height="86"/>
+            <rect class="s" x="380" y="252" width="90" height="72"/>
+            <polygon class="s" points="380,324 470,324 475,362 450,402 410,422 380,402"/>
+            <rect class="s" x="457" y="8" width="82" height="106"/>
+            <rect class="s" x="457" y="114" width="66" height="114"/>
+            <rect class="s" x="457" y="252" width="65" height="96"/>
+            <polygon class="s" points="462,230 590,196 594,214 580,230 462,250"/>
+            <rect class="s" x="462" y="250" width="128" height="54"/>
+            <rect class="s" x="522" y="114" width="58" height="100"/>
+            <polygon class="s" points="522,66 598,66 600,78 582,102 580,114 522,114"/>
+            <rect class="s" x="580" y="80" width="78" height="100"/>
+            <rect class="s" x="520" y="284" width="66" height="92"/>
+            <rect class="s" x="584" y="258" width="80" height="100"/>
+            <polygon class="s" points="584,220 664,220 672,262 632,282 584,258"/>
+            <polygon class="s" points="580,192 696,184 704,212 672,262 584,220"/>
+            <polygon class="s" points="578,142 666,142 680,152 696,184 584,192 560,188 558,166"/>
+            <polygon class="s" points="520,376 662,358 665,392 648,432 622,462 580,472 560,462 532,442 520,422"/>
+            <polygon class="s" points="627,62 760,0 760,162 665,162 627,142"/>
+            <polygon class="s" points="627,142 665,142 666,192 648,202 644,190 627,186"/>
+            <rect class="s key de" id="de-hp" x="648" y="156" width="18" height="30" onmouseenter="hpHover('de')" onmouseleave="hpLeave()" onclick="go('de')"/>
+            <line class="de-line" x1="666" y1="163" x2="708" y2="128"/>
+            <rect style="fill:#d8c4d4;stroke:#fff;stroke-width:1.5" x="696" y="112" width="54" height="28" rx="8"/>
+            <text class="de-badge-txt" x="723" y="131">DE ★</text>
+            <text class="map-key-lbl" x="220" y="136" style="fill:#4a8fc8">WY</text>
+            <text class="map-key-lbl" x="246" y="212" style="fill:#1e9a60">CO</text>
+            <text class="map-key-lbl" x="241" y="300" style="fill:#2a4aaa">NM</text>
+          </svg>
+        </div>
+        <div class="hp-states-grid">
+          <div class="hp-state-card" onclick="go('nm')">
+            <span class="hp-sc-dot" style="background:#2a5090"></span>
+            <div class="hp-sc-name">Nouveau-Mexique</div>
+            <div class="hp-sc-tag">Anonymat total · 0 registre public</div>
+          </div>
+          <div class="hp-state-card" onclick="go('co')">
+            <span class="hp-sc-dot" style="background:#1a7850"></span>
+            <div class="hp-sc-name">Colorado</div>
+            <div class="hp-sc-tag">LLC opérationnelle en 24h</div>
+          </div>
+          <div class="hp-state-card" onclick="go('wy')">
+            <span class="hp-sc-dot" style="background:#7a50a0"></span>
+            <div class="hp-sc-name">Wyoming</div>
+            <div class="hp-sc-tag">Pro-crypto & Web3 · DAO légales</div>
+          </div>
+          <div class="hp-state-card" onclick="go('de')">
+            <span class="hp-sc-dot" style="background:#a05a14"></span>
+            <div class="hp-sc-name">Delaware</div>
+            <div class="hp-sc-tag">Standard levée de fonds VC</div>
+          </div>
+        </div>
+        <button class="hero-cta-p" onclick="go('creer')" style="margin:0 auto">Explorer la carte complète →</button>
+      </div>
+
     </div>
 
     <!-- CREER — interactive state map -->
     <div class="pv" id="pv-creer">
       <div class="inner" style="min-height:auto;padding-bottom:28px">
-        <div class="i-crumb"><span>Accueil</span><span class="bc-sep">›</span><strong>Choisir mon État</strong></div>
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><strong>Choisir mon État</strong></div>
         <h1 class="i-h1">Choisissez votre État</h1>
         <p class="i-sub">4 juridictions, 4 profils. Survolez un État sur la carte pour voir ses atouts.</p>
       </div>
@@ -1087,6 +1206,7 @@ body { min-height: 100vh; }
     <!-- STATE template -->
     <div class="pv" id="pv-state">
       <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
         <div class="i-crumb" id="st-crumb"></div>
         <h1 class="i-h1" id="st-h1"></h1>
         <p class="i-sub" id="st-sub"></p>
@@ -1114,7 +1234,8 @@ body { min-height: 100vh; }
     <!-- OFFRES — Pack comparison (merged) -->
     <div class="pv" id="pv-offres">
       <div class="inner" style="min-height:auto;padding-bottom:36px">
-        <div class="i-crumb"><span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Nos offres</strong></div>
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('creer')" style="cursor:pointer">Créer ma LLC</span><span class="bc-sep">›</span><strong>Nos offres</strong></div>
         <h1 class="i-h1">Deux offres,<br><em>un seul objectif.</em></h1>
         <p class="i-sub">LLC créée en 14 jours dans les deux cas. La différence : est-ce que votre compte bancaire US est ouvert en même temps ?</p>
 
@@ -1205,7 +1326,8 @@ body { min-height: 100vh; }
     <!-- BANKING — comparison page -->
     <div class="pv" id="pv-fintech">
       <div class="inner" style="min-height:auto;padding-bottom:36px">
-        <div class="i-crumb"><span>Services</span><span class="bc-sep">›</span><strong>Compte bancaire USA</strong></div>
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><span onclick="go('home')" style="cursor:pointer">Services</span><span class="bc-sep">›</span><strong>Compte bancaire USA</strong></div>
         <h1 class="i-h1">Compte bancaire USA</h1>
         <p class="i-sub">Deux options selon votre situation. La fintech si vous démarrez et voulez aller vite. La banque physique si vous visez un ancrage institutionnel durable aux États-Unis.</p>
 
@@ -1299,7 +1421,8 @@ body { min-height: 100vh; }
     <!-- GESTION & MAINTENANCE -->
     <div class="pv" id="pv-gestion">
       <div class="inner">
-        <div class="i-crumb"><span>Services</span><span class="bc-sep">›</span><strong>Gestion &amp; Maintenance</strong></div>
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><span onclick="go('home')" style="cursor:pointer">Services</span><span class="bc-sep">›</span><strong>Gestion &amp; Maintenance</strong></div>
         <h1 class="i-h1">Gérez votre LLC<br><em>sans y penser.</em></h1>
         <p class="i-sub">Pour les entrepreneurs qui ont déjà une LLC et souhaitent déléguer les obligations courantes.</p>
 
@@ -1351,6 +1474,7 @@ body { min-height: 100vh; }
     <!-- GENERIC pages (filled by JS) -->
     <div class="pv" id="pv-generic">
       <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
         <div class="i-crumb" id="g-crumb"></div>
         <h1 class="i-h1" id="g-h1"></h1>
         <p class="i-sub" id="g-sub"></p>
@@ -1507,6 +1631,35 @@ const generics = {
 
 // ─── State ──────────────────────────────────────────
 let openDD = null;
+let pageHistory = ['home'];
+
+function goBack() {
+  if (pageHistory.length > 1) {
+    pageHistory.pop();
+    const prev = pageHistory[pageHistory.length - 1];
+    showPage(prev, true);
+    updateBackBtns();
+  }
+}
+function updateBackBtns() {
+  const show = pageHistory.length > 1;
+  document.querySelectorAll('.back-btn').forEach(b => b.style.display = show ? 'flex' : 'none');
+}
+
+function hpHover(key) {
+  const map = document.getElementById('us-map-hp');
+  if (!map) return;
+  map.classList.add('has-hover');
+  map.querySelectorAll('.key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-hp');
+  if (el) el.classList.add('active');
+}
+function hpLeave() {
+  const map = document.getElementById('us-map-hp');
+  if (!map) return;
+  map.classList.remove('has-hover');
+  map.querySelectorAll('.key').forEach(el => el.classList.remove('active'));
+}
 
 function toggleDD(id) {
   openDD === id ? closeAll() : openDD_(id);
@@ -1534,7 +1687,9 @@ function prev(key, el) {
 
 function go(key) {
   closeAll();
+  if (pageHistory[pageHistory.length - 1] !== key) pageHistory.push(key);
   showPage(key, true);
+  updateBackBtns();
 }
 
 function showPage(key, updateNav) {
@@ -1590,6 +1745,18 @@ function msTab(el, goAnalysis) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
 
+// Reset map hover when mouse leaves the map panel
+document.addEventListener('DOMContentLoaded', () => {
+  const panel = document.querySelector('.map-panel');
+  if (panel) panel.addEventListener('mouseleave', () => {
+    const map = document.querySelector('#pv-creer .us-map');
+    if (map) map.classList.remove('has-hover');
+    document.querySelectorAll('#pv-creer .us-map .key').forEach(el => el.classList.remove('active'));
+    const detail = document.getElementById('map-detail');
+    if (detail) detail.innerHTML = '<div class="md-placeholder"><div class="md-icon">🗺</div><div>Survolez un État sur la carte<br>pour voir ses atouts</div></div>';
+  });
+});
+
 const stateDetails = {
   wy: { name:'Wyoming', label:'Pro-Crypto & Web3', tag:'DAO légalisées', tagBg:'#f0e8f8', tagColor:'#7a50a0', accent:'#7a50a0',
     tagline:'La juridiction la plus favorable aux actifs numériques',
@@ -1610,7 +1777,9 @@ const stateDetails = {
 };
 
 function selectState(key) {
-  document.querySelectorAll('.us-map .key').forEach(el => el.classList.remove('active'));
+  const map = document.querySelector('#pv-creer .us-map');
+  if (map) map.classList.add('has-hover');
+  document.querySelectorAll('#pv-creer .us-map .key').forEach(el => el.classList.remove('active'));
   const el = document.getElementById(key + '-shape');
   if (el) el.classList.add('active');
   const d = stateDetails[key];
