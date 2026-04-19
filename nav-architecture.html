@@ -902,6 +902,72 @@ body { min-height: 100vh; }
 .testi-result { display: inline-flex; align-items: center; gap: 5px; background: #e8f8f0; color: #1a7850; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 6px; letter-spacing: .04em; }
 
 /* ════════════════════════════════════════
+   ADMIN ANNOTATIONS
+════════════════════════════════════════ */
+.admin-bar {
+  position: relative;
+  padding: 10px 20px 10px 16px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(240,180,0,.06), rgba(240,180,0,.06) 5px,
+    transparent 5px, transparent 14px
+  );
+  border: 1.5px dashed rgba(200,150,0,.35);
+  border-top: none;
+  display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap;
+  font-family: 'DM Sans', monospace; font-size: 11px;
+  color: rgba(14,30,56,.52);
+  transition: opacity .2s;
+}
+body.admin-hidden .admin-bar { display: none; }
+.an-section { font-weight: 700; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(14,30,56,.35); white-space: nowrap; padding-top: 1px; }
+.an-pillars { display: flex; gap: 5px; flex-wrap: wrap; }
+.an-p { padding: 2px 8px; border-radius: 20px; font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.an-p.cf { background: rgba(42,80,144,.13); color: #2a5090; }
+.an-p.cp { background: rgba(26,120,80,.13); color: #1a7850; }
+.an-p.si { background: rgba(100,70,170,.13); color: #6446aa; }
+.an-p.cv { background: rgba(180,50,50,.13); color: #b43232; }
+.an-p.miss { background: rgba(200,100,0,.11); color: #b85800; border: 1px dashed rgba(200,100,0,.3); }
+.an-emotion { flex: 1; min-width: 200px; }
+.an-emotion strong { display: block; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: rgba(14,30,56,.38); margin-bottom: 3px; }
+.an-critique { color: rgba(180,50,50,.8); font-style: italic; margin-top: 3px; font-size: 10.5px; }
+.an-status {
+  margin-left: auto; white-space: nowrap; align-self: flex-start;
+  font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+.an-status.draft   { background: rgba(240,180,0,.18); color: #a06800; border: 1px solid rgba(240,180,0,.4); }
+.an-status.solid   { background: rgba(26,120,80,.14); color: #1a7850; border: 1px solid rgba(26,120,80,.35); }
+.an-status.warn    { background: rgba(180,50,50,.12); color: #b43232; border: 1px solid rgba(180,50,50,.3); }
+.an-status.missing { background: rgba(100,70,170,.12); color: #6446aa; border: 1px solid rgba(100,70,170,.3); }
+
+/* Section badge — top-right corner label */
+.section-admin-badge {
+  position: absolute; top: 12px; right: 16px; z-index: 10;
+  font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  background: rgba(240,180,0,.18); color: #a06800;
+  border: 1px dashed rgba(200,150,0,.4);
+  padding: 3px 10px; border-radius: 20px;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+body.admin-hidden .section-admin-badge { display: none; }
+
+/* Admin toggle button */
+#admin-toggle {
+  position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+  background: rgba(14,30,56,.9); color: rgba(255,255,255,.75);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 24px;
+  padding: 8px 16px; font-size: 11px; font-weight: 600; letter-spacing: .06em;
+  cursor: pointer; backdrop-filter: blur(12px);
+  display: flex; align-items: center; gap: 7px;
+  transition: background .15s;
+}
+#admin-toggle:hover { background: rgba(14,30,56,1); color: #fff; }
+#admin-toggle .at-dot { width: 7px; height: 7px; border-radius: 50%; background: #f0b400; flex-shrink: 0; }
+body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
+
+/* ════════════════════════════════════════
    MOBILE — 768px
 ════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -1016,6 +1082,11 @@ body { min-height: 100vh; }
 </style>
 </head>
 <body>
+
+<!-- ADMIN TOGGLE -->
+<button id="admin-toggle" onclick="document.body.classList.toggle('admin-hidden');this.querySelector('.at-lbl').textContent=document.body.classList.contains('admin-hidden')?'Annotations OFF':'Annotations ON'">
+  <span class="at-dot"></span><span class="at-lbl">Annotations ON</span>
+</button>
 
 <!-- META -->
 <div class="meta-strip">
@@ -1197,6 +1268,13 @@ body { min-height: 100vh; }
         </div>
       </div>
 
+      <div class="admin-bar">
+        <div class="an-section">§1 — Hero</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ✓</span><span class="an-p cf miss">Confiance ~</span><span class="an-p cp miss">Compétence ✗</span><span class="an-p cv miss">Conviction ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Désir — "je veux cette LLC pour moi"<div class="an-critique">⚠ Zéro preuve de compétence above-the-fold. CTA secondaire (formation gratuite) absent. Le visiteur tiède n'a nulle part où aller.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
       <!-- §2 STATS BAR -->
       <div class="stats-bar">
         <div class="stat-item"><div class="stat-val">500<em>+</em></div><div class="stat-lbl">Sociétés créées</div></div>
@@ -1206,6 +1284,13 @@ body { min-height: 100vh; }
         <div class="stat-item"><div class="stat-val">15M<em>€</em></div><div class="stat-lbl">D'économies générées</div></div>
         <div class="stat-sep"></div>
         <div class="stat-item"><div class="stat-val" style="font-size:18px;line-height:1.3">CPA agréé<em> IRS</em></div><div class="stat-lbl">Signe personnellement</div></div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§2 — Stats bar</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p cp">Compétence ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Réassurance — "500 sociétés, 10 ans, c'est sérieux"<div class="an-critique">⚠ Chiffres froids sans visage. "CPA agréé IRS" est le différenciant le plus fort — il est noyé en 4e position.</div></div>
+        <div class="an-status draft">BROUILLON</div>
       </div>
 
       <!-- §3 LÉGALITÉ 5 NON -->
@@ -1221,6 +1306,13 @@ body { min-height: 100vh; }
           <div class="non-item"><span class="non-badge">NON</span><div><div class="non-q">Redevable à hauteur des rémunérations ?</div><div class="non-a">La LLC est transparente fiscalement — imposition directe des associés.</div></div></div>
           <div class="non-item" style="background:rgba(42,80,144,.05);border-color:rgba(42,80,144,.15)"><div><div class="non-q" style="color:var(--blue)">Vous avez une question spécifique ?</div><div class="non-a">Nos experts répondent en 15 min — entretien gratuit.</div><div style="margin-top:8px"><span style="font-size:12px;font-weight:600;color:var(--blue);cursor:pointer" onclick="go('cal')">Réserver →</span></div></div></div>
         </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§3 — 5×NON Légalité</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p si">Simplicité ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Soulagement — "je ne risque rien, c'est parfaitement légal"<div class="an-critique">⚠ Ton encyclopédique (sources juridiques citées). Doit sonner comme un avocat qui vous parle, pas une FAQ corporate. La 6e carte CTA est bonne.</div></div>
+        <div class="an-status solid">SOLIDE</div>
       </div>
 
       <!-- §4 TIMELINE COMMENT ÇA MARCHE -->
@@ -1266,6 +1358,13 @@ body { min-height: 100vh; }
         </div>
       </div>
 
+      <div class="admin-bar">
+        <div class="an-section">§4 — Timeline 4 étapes</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ✓</span><span class="an-p cf miss">Confiance ~</span><span class="an-p cp miss">Compétence ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Tranquillité — "je n'ai rien à gérer, ils s'occupent de tout"<div class="an-critique">⚠ L'équipe est invisible dans le process. Qui fait l'étape 1 ? L'étape 3 ? Le chargé d'affaires dédié est le différenciant clé — il doit apparaître ici.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
       <!-- §5 3 CHEMINS -->
       <div class="section" style="background:linear-gradient(160deg,#e8f0f9,#e4ecf6)">
         <div class="section-tag">Par où commencer</div>
@@ -1291,6 +1390,13 @@ body { min-height: 100vh; }
             <div class="chemin-link">Voir les services →</div>
           </div>
         </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§5 — 3 Chemins</div>
+        <div class="an-pillars"><span class="an-p si miss">Simplicité ~</span><span class="an-p cv miss">Conviction ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Identification — "ce chemin c'est exactement ma situation"<div class="an-critique">🔴 3 choix = paralysie de décision. Copy plat, aucune charge émotionnelle. Chaque carte doit déclencher une reconnaissance immédiate ("c'est moi"). Les emojis 🏢🏦📋 affaiblissent l'autorité institutionnelle.</div></div>
+        <div class="an-status warn">À REPENSER</div>
       </div>
 
       <!-- §6 OFFRES APERÇU -->
@@ -1333,6 +1439,13 @@ body { min-height: 100vh; }
         </p>
       </div>
 
+      <div class="admin-bar">
+        <div class="an-section">§6 — Offres aperçu</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ~</span><span class="an-p cv">Conviction ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Valeur perçue — "$997 c'est rien comparé au risque"<div class="an-critique">🔴 Prix trop tôt dans le funnel. L'ancrage valeur (coût d'une erreur IRS, coût d'un concurrent à $200 qui ne signe pas) n'est PAS établi avant d'afficher le prix. Le visiteur n'a pas encore de référence pour juger si $997 est cher ou pas.</div></div>
+        <div class="an-status warn">À REPOSITIONNER</div>
+      </div>
+
       <!-- §7 DIFFÉRENCIANTS -->
       <div class="section">
         <div class="section-tag">Pourquoi nous</div>
@@ -1356,6 +1469,13 @@ body { min-height: 100vh; }
             <div class="diff-item"><span class="di-icon" style="color:#1a7850">✓</span>Chargé d'affaires dédié + portail client sécurisé</div>
           </div>
         </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§7 — Différenciants</div>
+        <div class="an-pillars"><span class="an-p cp">Compétence ✓</span><span class="an-p cf">Confiance ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Supériorité perçue — "pas de comparaison possible avec les autres"<div class="an-critique">⚠ Le format liste (eux vs nous) est bien, mais la lecture reste froide. L'argument "$200 vs accompagnement A-Z" devrait être le TITRE de la section, pas le sous-titre. "CPA agréé IRS qui signe" = preuve béton — mérite d'être visuellement mis en avant.</div></div>
+        <div class="an-status draft">BROUILLON</div>
       </div>
 
       <!-- §8 TÉMOIGNAGES -->
@@ -1401,6 +1521,13 @@ body { min-height: 100vh; }
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§8 — Témoignages</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p cv">Conviction ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Projection — "si eux l'ont fait, moi aussi je peux"<div class="an-critique">⚠ Témoignages trop génériques (pas de photos réelles, résultats peu spécifiques). "15 000$ encaissés le 1er mois" de Sophie est le seul avec un chiffre concret — c'est le modèle à suivre pour tous. Avatars générés = signal de faiblesse.</div></div>
+        <div class="an-status missing">PLACEHOLDER</div>
       </div>
 
       <!-- §9 CARTE DES ÉTATS -->
@@ -1627,6 +1754,23 @@ body { min-height: 100vh; }
           <div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div>
           <button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button>
         </div>
+      </div>
+      <div class="admin-bar">
+        <div class="an-section">§9 — Carte des États + Tableau comparatif</div>
+        <div class="an-pillars"><span class="an-p cp">Compétence ✓</span><span class="an-p si">Simplicité ✓</span><span class="an-p cf">Confiance ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Expertise visible — "ils connaissent vraiment les nuances, je peux leur faire confiance"<div class="an-critique">⚠ Section la plus forte en termes de démonstration d'expertise — mais trop tardive. La décision d'État est un moment clé du parcours client : doit intervenir plus tôt. Section MANQUANTE : Socle d'Excellence (Équipe + Infrastructure + Réseau Bancaire).</div></div>
+        <div class="an-status solid">SOLIDE — À REMONTER</div>
+      </div>
+
+      <div class="admin-bar" style="border-top:1.5px dashed rgba(180,50,50,.4);background:repeating-linear-gradient(-45deg,rgba(180,50,50,.04),rgba(180,50,50,.04) 5px,transparent 5px,transparent 14px)">
+        <div class="an-section" style="color:rgba(180,50,50,.6)">⚠ SECTIONS MANQUANTES</div>
+        <div class="an-emotion" style="flex:1">
+          <strong style="color:rgba(180,50,50,.7)">Non implémentées — gaps critiques vs site actuel</strong>
+          <div class="an-critique">🔴 <b>Socle d'Excellence</b> — Équipe (Christophe + CPA IRS + 11 collab.), Infrastructure (portail client), Réseau bancaire (5 fintechs). Pilier Compétence actuellement à 0 sur la homepage.</div>
+          <div class="an-critique" style="margin-top:4px">🔴 <b>Formation gratuite</b> — 2e chemin de conversion pour les 50% de visiteurs tièdes. Absent = perte directe de leads nurturables.</div>
+          <div class="an-critique" style="margin-top:4px">🟠 <b>§10 Double CTA final</b> — Deux options égales créent de l'hésitation. Hiérarchiser : primaire (Calendly) nettement dominant.</div>
+        </div>
+        <div class="an-status warn">ABSENT</div>
       </div>
     </div>
 
