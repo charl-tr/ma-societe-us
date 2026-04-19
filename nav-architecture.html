@@ -632,14 +632,14 @@ body { min-height: 100vh; }
   opacity: 1 !important; transform: scale(1.07);
 }
 /* Key state fills */
-#us-map-hp .wy { fill: rgba(114,76,172,.32); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
-#us-map-hp .wy.active { fill: #7a50b8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(114,76,172,.45)); }
-#us-map-hp .co { fill: rgba(24,108,60,.28); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
-#us-map-hp .co.active { fill: #1a8a50; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(24,138,80,.42)); }
-#us-map-hp .nm { fill: rgba(38,72,158,.28); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
-#us-map-hp .nm.active { fill: #2a5cc8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(42,92,200,.42)); }
-#us-map-hp .de { fill: rgba(130,34,60,.28); stroke: rgba(255,255,255,.8); stroke-width: 1.5; }
-#us-map-hp .de.active { fill: #aa3058; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 14px rgba(160,48,80,.42)); }
+#us-map-hp .wy { fill: rgba(114,76,172,.60); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
+#us-map-hp .wy.active { fill: #7a50b8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(114,76,172,.55)); }
+#us-map-hp .co { fill: rgba(24,108,60,.58); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
+#us-map-hp .co.active { fill: #1a8a50; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(24,138,80,.52)); }
+#us-map-hp .nm { fill: rgba(38,72,158,.60); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
+#us-map-hp .nm.active { fill: #2a5cc8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(42,92,200,.52)); }
+#us-map-hp .de { fill: rgba(130,34,60,.60); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
+#us-map-hp .de.active { fill: #aa3058; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(160,48,80,.52)); }
 /* Key labels */
 #us-map-hp .kl { font-family: 'Space Grotesk',sans-serif; font-size: 11px; font-weight: 800; text-anchor: middle; pointer-events: none; }
 #us-map-hp.has-hover .kl { opacity: .12; }
@@ -2158,7 +2158,7 @@ async function buildUSMap() {
   svg.addEventListener('mouseleave', hpMapLeave);
 
   const bg = document.createElementNS(NS, 'rect');
-  bg.setAttribute('width', W); bg.setAttribute('height', H); bg.setAttribute('fill', '#eef4fb');
+  bg.setAttribute('width', W); bg.setAttribute('height', H); bg.setAttribute('fill', '#dde8f4');
   svg.appendChild(bg);
 
   const defs = document.createElementNS(NS, 'defs');
@@ -2190,9 +2190,9 @@ async function buildUSMap() {
       if (c && !isNaN(c[0])) centroids[key] = c;
       keyGroup.appendChild(path);
     } else {
-      path.setAttribute('fill', 'rgba(175,200,228,0.30)');
-      path.setAttribute('stroke', 'rgba(255,255,255,0.72)');
-      path.setAttribute('stroke-width', '0.7');
+      path.setAttribute('fill', 'rgba(140,175,215,0.62)');
+      path.setAttribute('stroke', 'rgba(255,255,255,0.88)');
+      path.setAttribute('stroke-width', '0.8');
       bgGroup.appendChild(path);
     }
   });
