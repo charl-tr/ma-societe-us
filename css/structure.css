@@ -628,6 +628,113 @@ body {
 .diff-item { font-size: 13px; padding: 6px 0; border-bottom: 1px solid transparent; display: flex; gap: 10px; align-items: baseline; }
 .diff-item:last-child { border-bottom: none; }
 .diff-item .di-icon { flex-shrink: 0; font-size: 11px; }
+
+/* ══ §7 POURQUOI NOUS — Balance scale ══ */
+.pq-section { padding: 80px 40px; }
+
+.pq-wrap {
+  display: grid;
+  grid-template-columns: 1fr 240px 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ── Columns ── */
+.pq-col { }
+.pq-col-left  { text-align: right; }
+.pq-col-right { text-align: left; }
+
+.pq-heading {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.pq-items { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.pq-item {
+  display: flex; align-items: flex-start; gap: 9px;
+  font-size: 13.5px; line-height: 1.5;
+}
+.pq-col-left .pq-item { flex-direction: row-reverse; }
+.pqi-icon { flex-shrink: 0; font-size: 13px; line-height: 1.6; }
+
+/* Chrome cards — same as hp-co callouts */
+.pq-cards { display: flex; flex-direction: column; gap: 8px; }
+.pq-card {
+  border-radius: 9px;
+  padding: 11px 14px 10px;
+  text-align: center;
+}
+.pqc-h {
+  font-size: 13.5px; font-weight: 600; line-height: 1.3;
+  margin-bottom: 3px;
+}
+.pqc-tag {
+  font-size: 11px; line-height: 1.5;
+}
+.pq-badge {
+  display: inline-block; margin-top: 22px;
+  font-size: 12.5px; font-weight: 700;
+  padding: 5px 15px; border-radius: 20px;
+  letter-spacing: .04em;
+}
+
+/* ── Scale center ── */
+.pq-scale-wrap {
+  position: relative;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pq-shaft {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  width: 9px; height: 176px; border-radius: 5px 5px 0 0;
+}
+.pq-base {
+  position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+  width: 72px; height: 18px; border-radius: 50%;
+}
+.pq-pivot {
+  position: absolute; top: 40px; left: 50%; transform: translate(-50%,-50%);
+  width: 14px; height: 14px; border-radius: 50%;
+  z-index: 3;
+}
+
+/* Beam — pivot at center-top, rotates */
+.pq-beam {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: 50% 0%;
+  width: 224px; height: 8px; border-radius: 4px;
+  transition: transform 1.4s cubic-bezier(.2, 1, .25, 1);
+  z-index: 2;
+}
+
+/* Arms */
+.pq-arm {
+  position: absolute; top: 7px;
+  display: flex; flex-direction: column; align-items: center;
+  transition: transform 1.4s cubic-bezier(.2, 1, .25, 1);
+}
+.pq-arm-l { left: 2px; }
+.pq-arm-r { right: 2px; }
+
+/* Chains */
+.pq-chains {
+  display: flex; gap: 14px;
+  height: 40px; align-items: stretch;
+}
+.pq-chains i { display: block; width: 1px; }
+
+/* Bowl */
+.pq-bowl {
+  width: 88px; height: 18px;
+  border-radius: 0 0 50% 50%;
+  border: 1px solid transparent;
+}
 .chemins-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 .chemin-card { border: 1px solid transparent; border-radius: 18px; padding: 28px; cursor: pointer; transition: all .2s; }
 .chemin-card:hover { transform: translateY(-3px); }
@@ -928,32 +1035,35 @@ body {
 /* Section hôte */
 .lockable { position: relative; overflow: hidden; }
 
-/* Overlay */
+/* Overlay — fully opaque, no blur-through */
 .section-lock {
   position: absolute; inset: 0; z-index: 40;
   display: none; align-items: center; justify-content: center;
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
   transition: opacity .25s;
 }
 .lockable.locked .section-lock { display: flex; }
 
-/* Card centrale */
+/* Card centrale — s'adapte à la hauteur disponible */
 .sl-card {
   position: relative; text-align: center;
-  border-radius: 24px; padding: 36px 44px 32px;
+  border-radius: 20px;
+  padding: clamp(20px, 4vh, 36px) clamp(28px, 5vw, 44px) clamp(18px, 3.5vh, 32px);
   max-width: 320px; width: 90%;
   display: flex; flex-direction: column; align-items: center; gap: 0;
+  /* Ensure card never overflows its container */
+  max-height: calc(100% - 32px);
+  overflow: hidden;
 }
 
 /* Icône cadenas + anneaux */
 .sl-lock-wrap {
-  position: relative; width: 72px; height: 72px;
+  position: relative; width: 60px; height: 60px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vh, 20px);
+  flex-shrink: 0;
 }
 .sl-lock-svg {
-  width: 36px; height: 36px; position: relative; z-index: 2;
+  width: 30px; height: 30px; position: relative; z-index: 2;
 }
 .sl-ring {
   position: absolute; border-radius: 50%;
@@ -970,14 +1080,15 @@ body {
 /* Typography */
 .sl-label {
   font-size: 9px; font-weight: 700; letter-spacing: .18em;
-  text-transform: uppercase; margin-bottom: 10px; opacity: .5;
+  text-transform: uppercase; margin-bottom: 8px; opacity: .5; flex-shrink: 0;
 }
 .sl-title {
   font-family: var(--font-head); font-size: 17px; font-weight: 700;
-  line-height: 1.2; margin-bottom: 8px;
+  line-height: 1.2; margin-bottom: 6px; flex-shrink: 0;
 }
 .sl-sub {
-  font-size: 12.5px; line-height: 1.55; opacity: .5; margin-bottom: 20px;
+  font-size: 12.5px; line-height: 1.55; opacity: .5;
+  margin-bottom: clamp(12px, 2.5vh, 20px); flex-shrink: 0;
 }
 
 /* Bouton déverrouiller */
