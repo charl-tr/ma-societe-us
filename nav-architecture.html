@@ -86,36 +86,36 @@ html[data-theme="premium"] {
 }
 /* ════ THEME: VAULT GLASS ════ */
 html[data-theme="vault"] {
-  /* ── semantic tokens ── */
-  --c-bg:        #F5F6F8;
-  --c-bg-2:      #F0F2F7;
-  --c-bg-3:      #EBEDF3;
+  /* ── semantic tokens — Vault Glass: chrome poli, zéro bleu ── */
+  --c-bg:        #F8F8F9;
+  --c-bg-2:      #F2F2F4;
+  --c-bg-3:      #EBEBED;
   --c-text:      #0D1117;
   --c-text-2:    rgba(13,17,23,.48);
   --c-text-3:    rgba(13,17,23,.26);
-  --c-accent:    #1a3a72;
-  --c-accent-d:  #0e2454;
-  --c-accent-l:  #2a52a0;
-  --c-surface:   rgba(255,255,255,.92);
+  --c-accent:    #3C3C48;   /* charcoal chrome — pas de bleu */
+  --c-accent-d:  #1C1C24;
+  --c-accent-l:  #5C5C6A;
+  --c-surface:   rgba(255,255,255,.94);
   --c-surface-b: rgba(255,255,255,.99);
-  --c-border:    rgba(155,163,185,.16);
-  /* ── primitive override (cascades to all var(--navy) uses) ── */
+  --c-border:    rgba(172,172,180,.15);
+  /* ── primitive override ── */
   --navy:          #0D1117;
   /* ── element tokens ── */
-  --c-em-from:     #0e1e38;
-  --c-em-to:       #1a2e52;
-  --c-hero-glow:   rgba(255,255,255,.85);
-  --c-dot:         #B8BCC8;
-  --c-grid:        rgba(175,180,198,.09);
-  --c-panel-bg:    linear-gradient(160deg,rgba(255,255,255,.97) 0%,rgba(248,250,255,.95) 100%);
-  --c-panel-shadow: rgba(17,22,45,.07);
+  --c-em-from:     #1C1C24;
+  --c-em-to:       #3C3C48;
+  --c-hero-glow:   rgba(255,252,242,.90);   /* glow chaud annulaire vault door */
+  --c-dot:         #C2C2C8;
+  --c-grid:        rgba(165,165,172,.08);   /* grille neutre silver, zéro bleu */
+  --c-panel-bg:    linear-gradient(160deg,rgba(255,255,255,.98) 0%,rgba(252,252,253,.96) 100%);
+  --c-panel-shadow: rgba(20,20,25,.06);
   --c-panel-inset: rgba(255,255,255,1);
-  --c-pg-tint:     rgba(248,250,255,.92);
-  --c-pg-shadow:   rgba(17,22,45,.05);
-  --c-shine-edge:  rgba(215,218,228,.8);
-  --c-chrome:      linear-gradient(135deg,#C0C6D6 0%,#DADEEA 45%,#C4C9D9 100%);
-  --c-chrome-text: #1a2a4a;
-  background: #F5F6F8; color: #0D1117;
+  --c-pg-tint:     rgba(252,252,254,.94);
+  --c-pg-shadow:   rgba(20,20,25,.04);
+  --c-shine-edge:  rgba(210,210,216,.8);
+  --c-chrome:      linear-gradient(135deg,#C8CACC 0%,#DCDDE0 45%,#C6C8CA 100%);
+  --c-chrome-text: #2C2C38;
+  background: #F8F8F9; color: #0D1117;
 }
 
 /* ── HERO: vault-specific overrides (colors via tokens above) ── */
@@ -147,7 +147,7 @@ html[data-theme="vault"] .pb-shine {
     transparent);
 }
 html[data-theme="vault"] .pb-num { color: #0D1117; }
-html[data-theme="vault"] .pb-num span { color: #1a3060; } /* dark navy, pas bleu */
+html[data-theme="vault"] .pb-num span { color: #3C3C48; } /* charcoal chrome */
 html[data-theme="vault"] .pb-lbl { color: rgba(13,17,23,.38); }
 html[data-theme="vault"] .pb-badge {
   background: rgba(255,255,255,.85);
@@ -223,12 +223,12 @@ html[data-theme="vault"] .section-h2::after {
 
 /* ── Stats bar ── */
 html[data-theme="vault"] .stats-bar {
-  background: linear-gradient(135deg, #C8CDDE 0%, #DADEEA 45%, #CCD0DF 100%);
-  border-top: 1px solid rgba(155,163,185,.15);
-  border-bottom: 1px solid rgba(155,163,185,.15);
+  background: linear-gradient(135deg, #C8C8CA 0%, #DCDCDE 45%, #CACACC 100%);
+  border-top: 1px solid rgba(165,165,172,.15);
+  border-bottom: 1px solid rgba(165,165,172,.15);
 }
 html[data-theme="vault"] .stat-val { color: #0D1117; }
-html[data-theme="vault"] .stat-val em { color: #2a4a7a; }
+html[data-theme="vault"] .stat-val em { color: #5C5C6A; }
 html[data-theme="vault"] .stat-lbl { color: rgba(13,17,23,.5); }
 html[data-theme="vault"] .stat-sep { background: rgba(13,17,23,.12); }
 
@@ -501,17 +501,17 @@ html[data-theme="vault"] #pv-fintech .pack-helper {
   -webkit-backdrop-filter: blur(8px);
 }
 html[data-theme="vault"] #pv-fintech .ph-col.rec {
-  background: rgba(26,58,114,.04);
+  background: rgba(60,60,72,.04);
   border-radius: 10px;
-  border: 1px solid rgba(26,58,114,.08);
+  border: 1px solid rgba(60,60,72,.08);
   padding: 12px;
 }
 
-/* CTA final — acier institutionnel profond */
+/* CTA final — charcoal chrome, zéro bleu */
 html[data-theme="vault"] #pv-fintech .i-cta {
-  background: linear-gradient(135deg, #0e2454 0%, #1a3a72 60%, #132d5e 100%);
-  border: 1px solid rgba(26,58,114,.25);
-  box-shadow: 0 8px 32px rgba(14,36,84,.18), inset 0 1px 0 rgba(255,255,255,.09);
+  background: linear-gradient(135deg, #1C1C24 0%, #3C3C48 60%, #2C2C38 100%);
+  border: 1px solid rgba(60,60,72,.22);
+  box-shadow: 0 8px 32px rgba(20,20,25,.16), inset 0 1px 0 rgba(255,255,255,.09);
 }
 /* Neutraliser les couleurs parasites dans vault */
 html[data-theme="vault"] #pv-fintech .pack-savings { color: rgba(13,17,23,.45); }
@@ -527,7 +527,7 @@ html[data-theme="vault"] #pv-fintech .section-h3 { color: #0D1117; }
 html[data-theme="vault"] #pv-fintech .ps-title { color: #0D1117; }
 html[data-theme="vault"] #pv-fintech .ps-desc { color: rgba(13,17,23,.5); }
 /* i-cta button inside vault stays white */
-html[data-theme="vault"] .i-cta-btn { color: #1a3a72; }
+html[data-theme="vault"] .i-cta-btn { color: #3C3C48; }
 
 /* ════════════════════════════════════════
    SOVEREIGN THEME LAYERS
@@ -752,9 +752,9 @@ html[data-theme="liquid"] .testi-av {
 /* Body / Fond — GRILLE PARTOUT */
 html[data-theme="vault"] body {
   background:
-    linear-gradient(rgba(175,180,198,.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(175,180,198,.09) 1px, transparent 1px),
-    #F5F6F8;
+    linear-gradient(rgba(165,165,172,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165,165,172,.08) 1px, transparent 1px),
+    #F8F8F9;
   background-size: 24px 24px, 24px 24px, auto;
   color: #0D1117;
 }
@@ -773,31 +773,31 @@ html[data-theme="vault"] .nl { color: rgba(13,17,23,.55); }
 html[data-theme="vault"] .nl:hover,
 html[data-theme="vault"] .nl.active { color: #0D1117; }
 html[data-theme="vault"] .nav-cta {
-  background: linear-gradient(135deg,#0e2454,#1a3a72);
+  background: linear-gradient(135deg,#1C1C24,#3C3C48);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(14,36,84,.2);
+  box-shadow: 0 4px 16px rgba(20,20,25,.18);
 }
 
 /* Hero */
 html[data-theme="vault"] .hero-bg {
   background:
-    linear-gradient(rgba(175,180,198,.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(175,180,198,.09) 1px, transparent 1px),
-    linear-gradient(160deg, #F5F6F8 0%, #F0F2F7 100%);
+    linear-gradient(rgba(165,165,172,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165,165,172,.08) 1px, transparent 1px),
+    linear-gradient(160deg, #F8F8F9 0%, #F2F2F4 100%);
   background-size: 24px 24px, 24px 24px, auto;
 }
 html[data-theme="vault"] .hero-dots { opacity: 0; }
 html[data-theme="vault"] .hero-h1 { color: #0D1117; }
 html[data-theme="vault"] .hero-h1 em {
-  background: linear-gradient(90deg,#0e1e38,#1a2e52);
+  background: linear-gradient(90deg,#1C1C24,#3C3C48);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 html[data-theme="vault"] .hero-sub { color: rgba(13,17,23,.52); }
 html[data-theme="vault"] .hero-legal { color: rgba(13,17,23,.32); }
 html[data-theme="vault"] .hero-cta-p {
-  background: linear-gradient(135deg,#0e2454,#1a3a72);
+  background: linear-gradient(135deg,#1C1C24,#3C3C48);
   color: #fff;
-  box-shadow: 0 6px 24px rgba(14,36,84,.22);
+  box-shadow: 0 6px 24px rgba(20,20,25,.22);
 }
 html[data-theme="vault"] .hero-cta-s { color: rgba(13,17,23,.38); }
 html[data-theme="vault"] .hero-cta-s:hover { color: rgba(13,17,23,.7); }
@@ -808,7 +808,7 @@ html[data-theme="vault"] .hero-pill {
 }
 html[data-theme="vault"] .hp-dot { background: #B8BCC8; }
 html[data-theme="vault"] .hero-glow {
-  background: radial-gradient(ellipse, rgba(255,255,255,.9) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(255,252,240,.85) 0%, rgba(255,248,228,.3) 40%, transparent 65%);
 }
 
 /* Sections — TOUTES avec GRID */
@@ -822,11 +822,11 @@ html[data-theme="vault"] .cal-wrap,
 html[data-theme="vault"] .map-layout,
 html[data-theme="vault"] .cta-dual {
   background:
-    linear-gradient(rgba(175,180,198,.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(175,180,198,.09) 1px, transparent 1px),
-    linear-gradient(160deg, #F5F6F8 0%, #F0F2F7 100%);
+    linear-gradient(rgba(165,165,172,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165,165,172,.08) 1px, transparent 1px),
+    linear-gradient(160deg, #F8F8F9 0%, #F2F2F4 100%);
   background-size: 24px 24px, 24px 24px, auto;
-  border-top-color: rgba(155,163,185,.12);
+  border-top-color: rgba(165,165,172,.12);
 }
 
 /* Section headings */
@@ -842,7 +842,7 @@ html[data-theme="vault"] .section-h2::after {
 }
 html[data-theme="vault"] .section-sub { color: rgba(13,17,23,.48); }
 html[data-theme="vault"] .i-h1 { color: #0D1117; }
-html[data-theme="vault"] .i-h1 em { color: #1a3a72; }
+html[data-theme="vault"] .i-h1 em { color: #3C3C48; }
 html[data-theme="vault"] .i-sub { color: rgba(13,17,23,.48); }
 html[data-theme="vault"] .i-crumb { color: rgba(13,17,23,.35); }
 
@@ -879,7 +879,7 @@ html[data-theme="vault"] .pack-col {
 }
 html[data-theme="vault"] .pack-col-premium {
   background: rgba(255,255,255,.96);
-  border: 1px solid rgba(26,58,114,.13);
+  border: 1px solid rgba(60,60,72,.12);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,1),
     inset 0 0 0 3px rgba(255,255,255,.55),
@@ -888,13 +888,13 @@ html[data-theme="vault"] .pack-col-premium {
   backdrop-filter: blur(20px);
 }
 html[data-theme="vault"] .pack-cta-main {
-  background: linear-gradient(135deg,#0e2454,#1a3a72);
+  background: linear-gradient(135deg,#1C1C24,#3C3C48);
   color: #fff;
 }
 html[data-theme="vault"] .i-cta {
-  background: linear-gradient(135deg,#0e2454,#1a3a72,#132d5e);
-  border: 1px solid rgba(26,58,114,.25);
-  box-shadow: 0 8px 32px rgba(14,36,84,.18);
+  background: linear-gradient(135deg,#1C1C24,#3C3C48,#2C2C38);
+  border: 1px solid rgba(60,60,72,.22);
+  box-shadow: 0 8px 32px rgba(20,20,25,.16);
 }
 
 /* Textes généraux */
@@ -923,7 +923,7 @@ html[data-theme="vault"] .ct-label,
 html[data-theme="vault"] .chemin-link,
 html[data-theme="vault"] .ddo-price,
 html[data-theme="vault"] .at-lbl,
-html[data-theme="vault"] .at-arr { color: #1a3a72; }
+html[data-theme="vault"] .at-arr { color: #3C3C48; }
 
 /* Dropdown */
 html[data-theme="vault"] .dd-card {
@@ -946,8 +946,8 @@ html[data-theme="vault"] .cal-card {
 /* Testi avatar */
 html[data-theme="vault"] .testi-avatar,
 html[data-theme="vault"] .testi-av {
-  background: linear-gradient(135deg,#C0C6D6,#DADEEA);
-  color: #1a2a4a;
+  background: linear-gradient(135deg,#C8CACC,#DCDDE0);
+  color: #2C2C38;
 }
 
 /* ── DARK ─────────────────────────────── */
