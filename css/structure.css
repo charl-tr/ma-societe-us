@@ -1292,7 +1292,7 @@ body.admin-hidden .section-admin-badge { display: none; }
 /* Map: fond absolu sur la moitié droite, pleine hauteur */
 .hm-map-bg {
   position: absolute;
-  left: 44%; right: -8%;
+  left: 44%; right: 2%;
   top: -12%; bottom: -12%;
   pointer-events: none;
 }
