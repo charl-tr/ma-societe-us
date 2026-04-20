@@ -234,6 +234,180 @@ html[data-theme="liquid"] .dd-col-head {
 .ddf-link { color: var(--blue); }
 
 /* ══ SLICE 02 · HERO ══ */
+
+/* ── Hero V1 — Premium layout ── */
+html[data-theme="liquid"] .hero {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="liquid"] .hero-body {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 64px;
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 96px 56px 80px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Authority eyebrow */
+html[data-theme="liquid"] .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+html[data-theme="liquid"] .hero-ey-line {
+  flex: 0 0 36px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(42,80,144,.55), rgba(42,80,144,0));
+}
+html[data-theme="liquid"] .hero-ey-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(14,30,56,.4);
+}
+
+/* Editorial H1 */
+html[data-theme="liquid"] .hero-h1 {
+  font-size: clamp(50px, 5.8vw, 80px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  color: #0e1e38;
+  margin-bottom: 22px;
+}
+
+/* Credential chrome card */
+html[data-theme="liquid"] .hero-cred {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 30px;
+  max-width: 430px;
+}
+html[data-theme="liquid"] .hero-cred-icon {
+  font-size: 16px;
+  color: #2a5090;
+  flex-shrink: 0;
+  opacity: .75;
+}
+html[data-theme="liquid"] .hero-cred-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0e1e38;
+  line-height: 1.3;
+}
+html[data-theme="liquid"] .hero-cred-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  color: rgba(14,30,56,.4);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* CTA row */
+html[data-theme="liquid"] .hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+html[data-theme="liquid"] .hero-cta-p {
+  padding: 15px 30px;
+  font-size: 15px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: .01em;
+  border-radius: 10px;
+}
+
+/* Hero panel (right column) */
+html[data-theme="liquid"] .hero-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Main stat card */
+html[data-theme="liquid"] .panel-big {
+  border-radius: 16px;
+  padding: 38px 32px 30px;
+  text-align: center;
+}
+html[data-theme="liquid"] .pb-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  color: #0d1c35;
+  letter-spacing: -.03em;
+}
+html[data-theme="liquid"] .pb-num span {
+  font-size: .52em;
+  color: #2a5090;
+  vertical-align: middle;
+}
+html[data-theme="liquid"] .pb-lbl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: rgba(14,30,56,.36);
+  margin: 10px 0 16px;
+}
+
+/* Stat tiles grid */
+html[data-theme="liquid"] .panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+html[data-theme="liquid"] .pg-item {
+  border-radius: 11px;
+  padding: 16px 10px 14px;
+  text-align: center;
+}
+html[data-theme="liquid"] .pgi-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  font-weight: 600;
+  color: #0e1e38;
+  line-height: 1.15;
+}
+html[data-theme="liquid"] .pgi-unit {
+  font-size: .6em;
+  font-weight: 400;
+  color: rgba(14,30,56,.5);
+}
+html[data-theme="liquid"] .pgi-lbl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgba(14,30,56,.36);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-top: 4px;
+}
+
 html[data-theme="liquid"] .hero-bg {
   background: linear-gradient(160deg, #eef3f9 0%, #e4ecf6 30%, #eaf1f8 60%, #f2f6fb 100%);
 }
