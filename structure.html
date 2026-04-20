@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="liquid">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation Demo — MA SOCIÉTÉ US</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="css/structure.css">
+<link rel="stylesheet" href="css/liquid.css" id="theme-css">
+</head>
+<body>
+
+<!-- ADMIN TOGGLE -->
+<button id="admin-toggle" onclick="document.body.classList.toggle('admin-hidden');this.querySelector('.at-lbl').textContent=document.body.classList.contains('admin-hidden')?'Annotations OFF':'Annotations ON'">
+  <span class="at-dot"></span><span class="at-lbl">Annotations ON</span>
+</button>
+
+<!-- DESIGN CONTROL BAR -->
+<div class="design-bar">
+  <div class="db-group">
+    <span class="db-label">Hero</span>
+    <button class="db-btn on" onclick="setHeroVariant(1,this)">V1 · Actuel</button>
+    <button class="db-btn" onclick="setHeroVariant(2,this)">V2 · Cabinet</button>
+    <button class="db-btn" onclick="setHeroVariant(3,this)">V3 · Minimal</button>
+  </div>
+  <div class="db-sep"></div>
+  <div class="db-group">
+    <span class="db-label">Thème</span>
+    <button class="db-btn on" onclick="setTheme('liquid',this)">Liquid Glass</button>
+    <button class="db-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
+    <button class="db-btn" onclick="setTheme('premium',this)">Manhattan</button>
+    <button class="db-btn" onclick="setTheme('vault',this)">Vault Glass</button>
+  </div>
+</div>
+
+<!-- META -->
+<div class="meta-strip">
+  <div class="ms-label">MA SOCIÉTÉ US · <strong>Architecture Navigation</strong></div>
+  <div class="ms-nav">
+    <div class="ms-tab on" onclick="msTab(this,false)">Démo interactive</div>
+    <div class="ms-tab" onclick="msTab(this,true)">Analyse 7 options ↓</div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="nav">
+  <div class="nav-logo" onclick="go('home')">
+    <img src="logo.png" alt="MA SOCIÉTÉ US">
+  </div>
+  <div class="nav-links">
+    <div class="nl" id="nl-llc" onclick="toggleDD('llc')">
+      Créer ma LLC
+      <svg class="nl-chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="nl" id="nl-svc" onclick="toggleDD('svc')">
+      Services
+      <svg class="nl-chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="nl" id="nl-apropos" onclick="go('apropos')">À propos</div>
+    <div class="nl" id="nl-blog" onclick="go('blog')">Blog</div>
+  </div>
+  <button class="nav-cta" onclick="go('cal')">Réserver mon entretien gratuit</button>
+</nav>
+
+<!-- BACKDROP -->
+<div class="dd-backdrop" id="backdrop" onclick="closeAll()"></div>
+
+<!-- DD: CRÉER MA LLC -->
+<div class="dd-panel" id="dd-llc">
+  <div class="dd-card">
+    <div class="dd-cols dd-2col-wide">
+
+      <div class="dd-col col-offres">
+        <div class="dd-col-head">
+          <span class="dch-label">Nos offres</span>
+          <span class="dch-tag">Démarrer</span>
+        </div>
+        <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
+          <div class="ddo-row"><span class="ddo-name">Pack LLC</span><span class="ddo-price">$997</span></div>
+          <div class="ddo-desc">LLC en 14 jours · EIN · Chargé dédié · Portail client</div>
+          <span class="ddo-pill pill-b">Le plus populaire</span>
+        </div>
+        <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
+          <div class="ddo-row"><span class="ddo-name">Pack Premium</span><span class="ddo-price">$1 597</span></div>
+          <div class="ddo-desc">LLC + compte Mercury ouvert · Carte Visa incluse</div>
+          <span class="ddo-pill pill-g">Recommandé</span>
+        </div>
+        <div class="dd-tarifs" onclick="go('tarifs');closeAll()">→ Voir tous les tarifs</div>
+      </div>
+
+      <div class="dd-col col-etats">
+        <div class="dd-col-head">
+          <span class="dch-label">Choisir son État</span>
+          <span class="dch-tag">4 juridictions</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('nm',this)" onclick="go('nm')" style="--bc:#2a5090">
+          <span class="ds-dot" style="background:#2a5090"></span>
+          <div><div class="ds-name">Nouveau-Mexique</div><div class="ds-tag">Anonymat total — 0 registre public</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('co',this)" onclick="go('co')" style="--bc:#1a7850">
+          <span class="ds-dot" style="background:#1a7850"></span>
+          <div><div class="ds-name">Colorado</div><div class="ds-tag">LLC opérationnelle en 24 heures</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('wy',this)" onclick="go('wy')" style="--bc:#7a50a0">
+          <span class="ds-dot" style="background:#7a50a0"></span>
+          <div><div class="ds-name">Wyoming</div><div class="ds-tag">Pro-crypto &amp; Web3 · DAO légalisées</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('de',this)" onclick="go('de')" style="--bc:#a05a14">
+          <span class="ds-dot" style="background:#a05a14"></span>
+          <div><div class="ds-name">Delaware</div><div class="ds-tag">Standard levée de fonds VC</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-footer">
+          <span class="ddf-trust">CPA agréé IRS · Franco-américain depuis 2014</span>
+          <span class="ddf-link" onclick="go('creer');closeAll()">Comparer les États →</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DD: SERVICES -->
+<div class="dd-panel" id="dd-svc">
+  <div class="dd-card">
+    <div class="dd-cols dd-2col">
+
+      <div class="dd-col col-banking">
+        <div class="dd-col-head">
+          <span class="dch-label">Banking</span>
+          <span class="dch-tag">Encaisser</span>
+        </div>
+        <div class="dd-service" onmouseenter="prev('fintech',this)" onclick="go('fintech')">
+          <div class="ddo-row"><span class="ddo-name">Banque en ligne</span><span class="ddo-price">dès $600</span></div>
+          <div class="ddo-desc">Mercury · Relay · 100% à distance</div>
+          <span class="ddo-pill pill-a">Compte ouvert en 48h</span>
+        </div>
+        <div class="dd-service" onmouseenter="prev('bphysique',this)" onclick="go('bphysique')">
+          <div class="ddo-row"><span class="ddo-name">Banque physique</span><span class="ddo-price">sur devis</span></div>
+          <div class="ddo-desc">Stabilité institutionnelle · Financement</div>
+        </div>
+        <div style="padding:8px 26px 4px;font-size:11.5px;color:rgba(14,30,56,.38);line-height:1.55;">
+          Votre LLC a besoin d'un compte US dédié pour être pleinement opérationnelle.
+        </div>
+        <button class="dd-banking-cta" onclick="go('cal-banking');closeAll()">Appel banking gratuit →</button>
+      </div>
+
+      <div class="dd-col col-gestion">
+        <div class="dd-col-head">
+          <span class="dch-label">Gestion &amp; Fiscalité</span>
+          <span class="dch-tag">Optimiser</span>
+        </div>
+        <div class="dd-service" onmouseenter="prev('decl',this)" onclick="go('decl')">
+          <div class="ddo-row"><span class="ddo-name">Déclaration LLC</span><span class="ddo-price">dès $800</span></div>
+          <div class="ddo-desc">CPA agréé IRS · Signature personnelle · Protection redressement</div>
+        </div>
+        <div class="dd-service" onmouseenter="prev('gestion',this)" onclick="go('gestion')">
+          <div class="ddo-row"><span class="ddo-name">Option Confort</span><span class="ddo-price">sur devis</span></div>
+          <div class="ddo-desc">Domiciliation · Veille fiscale · Rappels échéances</div>
+        </div>
+        <div class="dd-service" onmouseenter="prev('e2',this)" onclick="go('e2')">
+          <div class="ddo-row"><span class="ddo-name">Visa E2</span><span class="ddo-price">sur devis</span></div>
+          <div class="ddo-desc">Immigrer aux USA par l'entrepreneuriat · ~100% de succès</div>
+        </div>
+        <div class="dd-service" onmouseenter="prev('gestion',this)" onclick="go('gestion')">
+          <div class="ddo-row"><span class="ddo-name">Prestations add.</span><span class="ddo-price">dès $100</span></div>
+          <div class="ddo-desc">Annual report · CGV · Operating Agreement · Dissolution</div>
+        </div>
+        <div class="dd-footer" style="grid-column:1">
+          <span class="ddf-trust">500+ sociétés créées · 15M€ d'économies</span>
+          <span class="ddf-link" onclick="go('tarifs');closeAll()">Tous les tarifs →</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PAGE FRAME -->
+<div class="browser-wrap">
+  <div class="page-frame">
+
+    <!-- HOME -->
+    <div class="pv on" id="pv-home">
+      <div class="hero hero-variant" id="hv-1">
+        <div class="hero-bg"></div><div class="hero-dots"></div><div class="hero-glow"></div>
+        <div class="hero-body">
+          <div class="hero-pill"><span class="hp-dot"></span>500+ sociétés créées depuis 2014</div>
+          <h1 class="hero-h1">Votre société<br>américaine.<br><em>Créée en 14 jours.</em></h1>
+          <p class="hero-sub">Cabinet franco-américain depuis 2014. 100% légal, 100% à distance — sans billet d'avion, sans visa, sans frais cachés.</p>
+          <div class="hero-btns">
+            <button class="hero-cta-p" onclick="go('cal')">Réserver mon entretien gratuit</button>
+            <span class="hero-cta-s" onclick="go('pack-llc')">Voir comment ça marche →</span>
+          </div>
+          <p class="hero-legal">100% légal · Conforme OCDE · Depuis 2014</p>
+        </div>
+        <div class="hero-panel">
+          <div class="panel-big a-stat-panel">
+            <div class="pb-shine a-shine"></div>
+            <div class="pb-num">0<span>%</span></div>
+            <div class="pb-lbl">d'impôts aux USA</div>
+            <div class="pb-badge"><span class="pb-badge-dot"></span><span class="pb-badge-txt">100% légal · Conforme OCDE</span></div>
+          </div>
+          <div class="panel-grid">
+            <div class="pg-item a-stat-tile"><div class="pgi-val">2 sem.</div><div class="pgi-lbl">Création</div></div>
+            <div class="pg-item a-stat-tile"><div class="pgi-val">4</div><div class="pgi-lbl">Juridictions</div></div>
+            <div class="pg-item a-stat-tile"><div class="pgi-val">500+</div><div class="pgi-lbl">Clients</div></div>
+            <div class="pg-item a-stat-tile"><div class="pgi-val">10 ans</div><div class="pgi-lbl">Expertise</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO V2 — Cabinet Split -->
+      <div class="hv2-wrap hero-variant" id="hv-2" style="display:none">
+        <div class="hv2-bg"></div>
+        <div class="hv2-inner">
+          <div class="hv2-left">
+            <div class="hv2-eyebrow"><span class="hv2-dot"></span>Cabinet franco-américain depuis 2014</div>
+            <h1 class="hv2-h1">Votre LLC aux USA.<br><em>En 14 jours.</em></h1>
+            <p class="hv2-sub">CPA agréé IRS. Chargé d'affaires dédié. Suivi complet A à Z — pas juste un formulaire en ligne.</p>
+            <div class="hv2-credential">
+              <div class="hv2-cred-icon">🏛</div>
+              <div>
+                <div class="hv2-cred-title">Christophe — CPA agréé IRS</div>
+                <div class="hv2-cred-sub">Signe personnellement chaque déclaration fiscale</div>
+              </div>
+            </div>
+            <div>
+              <button class="hv2-cta" onclick="window.open('https://calendly.com/ypls/decouverte-site','_blank')">
+                Réserver mon entretien gratuit <span>→</span>
+              </button>
+              <p class="hv2-note">Sans engagement · 15 min · 100% à distance</p>
+            </div>
+          </div>
+          <div class="hv2-photo-frame">
+            <div class="hv2-photo-placeholder">
+              <div class="hv2-photo-icon">📸</div>
+              <div class="hv2-photo-label">Photo Christophe<br><strong>+ équipe bureau NYC</strong></div>
+            </div>
+            <div class="hv2-photo-badge">
+              <div>
+                <div class="hv2-badge-name">Christophe</div>
+                <div class="hv2-badge-role">Fondateur · CPA agréé IRS</div>
+              </div>
+              <div class="hv2-badge-stats">
+                <div class="hv2-bstat"><div class="hv2-bstat-val">500+</div><div class="hv2-bstat-lbl">Clients</div></div>
+                <div class="hv2-bstat"><div class="hv2-bstat-val">10</div><div class="hv2-bstat-lbl">Années</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO V3 — Minimal Conviction -->
+      <div class="hv3-wrap hero-variant" id="hv-3" style="display:none">
+        <div class="hv3-bg"></div>
+        <div class="hv3-inner">
+          <div class="hv3-proof"><span class="hv3-proof-dot"></span>500+ entrepreneurs. 15M€ d'économies. 0% d'impôts US.</div>
+          <h1 class="hv3-h1">Votre société<br>américaine.<br><em>Sans visa.<br>Sans avion.</em></h1>
+          <p class="hv3-sub">Cabinet franco-américain. CPA agréé IRS. Accompagnement complet A à Z.</p>
+          <div>
+            <button class="hv3-cta" onclick="window.open('https://calendly.com/ypls/decouverte-site','_blank')">
+              Réserver mon entretien gratuit · 15 min <span>→</span>
+            </button>
+          </div>
+          <div class="hv3-trust">
+            <span class="hv3-trust-item">100% légal</span>
+            <span class="hv3-trust-sep"></span>
+            <span class="hv3-trust-item">Conforme OCDE</span>
+            <span class="hv3-trust-sep"></span>
+            <span class="hv3-trust-item">CPA agréé IRS</span>
+            <span class="hv3-trust-sep"></span>
+            <span class="hv3-trust-item">Depuis 2014</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§1 — Hero</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ✓</span><span class="an-p cf miss">Confiance ~</span><span class="an-p cp miss">Compétence ✗</span><span class="an-p cv miss">Conviction ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Désir — "je veux cette LLC pour moi"<div class="an-critique">⚠ Zéro preuve de compétence above-the-fold. CTA secondaire (formation gratuite) absent. Le visiteur tiède n'a nulle part où aller.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
+      <!-- §2 STATS BAR -->
+      <div class="stats-bar">
+        <div class="stat-item"><div class="stat-val">500<em>+</em></div><div class="stat-lbl">Sociétés créées</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">10<em> ans</em></div><div class="stat-lbl">D'expertise</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">15M<em>€</em></div><div class="stat-lbl">D'économies générées</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val" style="font-size:18px;line-height:1.3">CPA agréé<em> IRS</em></div><div class="stat-lbl">Signe personnellement</div></div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§2 — Stats bar</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p cp">Compétence ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Réassurance — "500 sociétés, 10 ans, c'est sérieux"<div class="an-critique">⚠ Chiffres froids sans visage. "CPA agréé IRS" est le différenciant le plus fort — il est noyé en 4e position.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
+      <!-- §3 LÉGALITÉ 5 NON -->
+      <div class="section">
+        <div class="section-tag">Légalité</div>
+        <h2 class="section-h2">5 idées reçues.<br>5 fois non.</h2>
+        <p class="section-sub">Créer une LLC en tant que résident français est 100% légal. Voici les 5 objections que nous entendons le plus souvent — réfutées.</p>
+        <div class="non-grid">
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Détenir une LLC en étant résident français est illégal ?</div><div class="non-a">Convention franco-américaine du 31/08/1994 — parfaitement légal.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Risque de requalification par le fisc français ?</div><div class="non-a">Convention fiscale ratifiée FR/US protège les associés non-résidents.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Considérée comme fraude fiscale ?</div><div class="non-a">Parfaitement légal pour tout résident français — conforme OCDE.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Les bénéfices sont soumis à l'impôt américain ?</div><div class="non-a">Exonération si votre résidence fiscale est en France.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Redevable à hauteur des rémunérations ?</div><div class="non-a">La LLC est transparente fiscalement — imposition directe des associés.</div></div></div>
+          <div class="non-item a-card" style="background:rgba(42,80,144,.05);border-color:rgba(42,80,144,.15)"><div><div class="non-q" style="color:var(--blue)">Vous avez une question spécifique ?</div><div class="non-a">Nos experts répondent en 15 min — entretien gratuit.</div><div style="margin-top:8px"><span style="font-size:12px;font-weight:600;color:var(--blue);cursor:pointer" onclick="go('cal')">Réserver →</span></div></div></div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§3 — 5×NON Légalité</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p si">Simplicité ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Soulagement — "je ne risque rien, c'est parfaitement légal"<div class="an-critique">⚠ Ton encyclopédique (sources juridiques citées). Doit sonner comme un avocat qui vous parle, pas une FAQ corporate. La 6e carte CTA est bonne.</div></div>
+        <div class="an-status solid">SOLIDE</div>
+      </div>
+
+      <!-- §4 TIMELINE COMMENT ÇA MARCHE -->
+      <div class="timeline-section">
+        <div style="text-align:center">
+          <div class="section-tag">Comment ça marche</div>
+          <h2 class="section-h2">De zéro à LLC opérationnelle<br>en 4 étapes.</h2>
+          <p class="section-sub" style="margin:0 auto 0;max-width:480px">Un processus rodé depuis 2014. Vous n'avez rien à gérer — on s'occupe de tout.</p>
+        </div>
+        <div class="timeline-wrap" id="tl-wrap">
+          <div class="tl-step done">
+            <div class="tl-num a-chrome">1</div>
+            <div class="tl-body">
+              <div class="tl-tag">Gratuit · 15 min</div>
+              <div class="tl-h">Entretien découverte</div>
+              <p class="tl-p">Un expert vous pose les bonnes questions pour définir la structure idéale.</p>
+            </div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num a-chrome">2</div>
+            <div class="tl-body">
+              <div class="tl-tag">NM · CO · WY · DE</div>
+              <div class="tl-h">Choix de l'État</div>
+              <p class="tl-p">On recommande l'État en fonction de votre activité, anonymat et fiscalité.</p>
+            </div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num a-chrome">3</div>
+            <div class="tl-body">
+              <div class="tl-tag">Sous 2 semaines</div>
+              <div class="tl-h">Immatriculation + EIN</div>
+              <p class="tl-p">LLC créée, EIN obtenu, documents légaux livrés dans votre portail client.</p>
+            </div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num a-chrome">4</div>
+            <div class="tl-body">
+              <div class="tl-tag">Optionnel · dès $600</div>
+              <div class="tl-h">Compte bancaire US</div>
+              <p class="tl-p">Mercury, Relay ou banque physique — 100% à distance, carte Visa incluse.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§4 — Timeline 4 étapes</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ✓</span><span class="an-p cf miss">Confiance ~</span><span class="an-p cp miss">Compétence ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Tranquillité — "je n'ai rien à gérer, ils s'occupent de tout"<div class="an-critique">⚠ L'équipe est invisible dans le process. Qui fait l'étape 1 ? L'étape 3 ? Le chargé d'affaires dédié est le différenciant clé — il doit apparaître ici.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
+      <!-- §5 3 CHEMINS -->
+      <div class="section">
+        <div class="section-tag">Par où commencer</div>
+        <h2 class="section-h2">Où en êtes-vous ?</h2>
+        <p class="section-sub">Trois situations, trois points d'entrée. Choisissez celui qui vous correspond.</p>
+        <div class="chemins-grid">
+          <div class="chemin-card a-card" onclick="go('offres')">
+            <div class="chemin-icon">🏢</div>
+            <div class="chemin-h">Je veux créer ma LLC</div>
+            <p class="chemin-p">Vous partez de zéro. On s'occupe de tout : choix de l'État, immatriculation, EIN, compte bancaire.</p>
+            <div class="chemin-link">Voir nos offres →</div>
+          </div>
+          <div class="chemin-card a-card" onclick="go('fintech')">
+            <div class="chemin-icon">🏦</div>
+            <div class="chemin-h">J'ai une LLC, je veux un compte</div>
+            <p class="chemin-p">Votre LLC existe mais elle n'a pas de compte bancaire US dédié. On ouvre ça en 48h.</p>
+            <div class="chemin-link">Voir les solutions banking →</div>
+          </div>
+          <div class="chemin-card a-card" onclick="go('gestion')">
+            <div class="chemin-icon">📋</div>
+            <div class="chemin-h">Ma LLC existe, je veux la gérer</div>
+            <p class="chemin-p">Déclaration IRS, annual report, domiciliation, dissolution — on gère vos obligations courantes.</p>
+            <div class="chemin-link">Voir les services →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§5 — 3 Chemins</div>
+        <div class="an-pillars"><span class="an-p si miss">Simplicité ~</span><span class="an-p cv miss">Conviction ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Identification — "ce chemin c'est exactement ma situation"<div class="an-critique">🔴 3 choix = paralysie de décision. Copy plat, aucune charge émotionnelle. Chaque carte doit déclencher une reconnaissance immédiate ("c'est moi"). Les emojis 🏢🏦📋 affaiblissent l'autorité institutionnelle.</div></div>
+        <div class="an-status warn">À REPENSER</div>
+      </div>
+
+      <!-- §6 OFFRES APERÇU -->
+      <div class="offers-section">
+        <div class="section-tag" style="text-align:center">Nos offres</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">Deux packs, un seul objectif :<br>votre LLC opérationnelle.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 40px">Pas de frais cachés. Pas de mauvaise surprise.</p>
+        <div class="offers-preview-grid">
+          <div class="op-card a-card" onclick="go('offres')">
+            <div class="op-name">Pack LLC</div>
+            <div class="op-price">$997<span> USD</span></div>
+            <div class="op-tagline">LLC créée en 14 jours · EIN inclus · Chargé dédié</div>
+            <div class="op-features">
+              <div class="op-feat">LLC immatriculée sous 14 jours</div>
+              <div class="op-feat">EIN (numéro fiscal US) obtenu</div>
+              <div class="op-feat">Documents légaux (Operating Agreement)</div>
+              <div class="op-feat">Chargé d'affaires dédié (2 entretiens/an)</div>
+              <div class="op-feat">Portail client sécurisé</div>
+            </div>
+            <button class="op-btn op-btn-secondary" onclick="go('offres')">En savoir plus</button>
+          </div>
+          <div class="op-card featured a-card" onclick="go('offres')">
+            <div class="op-rec-badge a-badge">Recommandé</div>
+            <div class="op-name">Pack Premium</div>
+            <div class="op-price">$1 597<span> USD</span></div>
+            <div class="op-tagline">Tout le Pack LLC + compte bancaire US ouvert</div>
+            <div class="op-features">
+              <div class="op-feat">Tout ce qui est inclus dans Pack LLC</div>
+              <div class="op-feat extra">Compte bancaire US ouvert (Mercury/Relay)</div>
+              <div class="op-feat extra">Carte Visa ou Mastercard incluse</div>
+              <div class="op-feat extra">Compatible Stripe, PayPal, Shopify</div>
+              <div class="op-feat extra">100% à distance — aucun déplacement</div>
+            </div>
+            <button class="op-btn op-btn-primary" onclick="go('offres')">Choisir ce pack</button>
+          </div>
+        </div>
+        <p class="offers-link">
+          Vous avez besoin d'un service spécifique ?
+          <a onclick="go('gestion')">Voir toutes les prestations →</a>
+        </p>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§6 — Offres aperçu</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ~</span><span class="an-p cv">Conviction ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Valeur perçue — "$997 c'est rien comparé au risque"<div class="an-critique">🔴 Prix trop tôt dans le funnel. L'ancrage valeur (coût d'une erreur IRS, coût d'un concurrent à $200 qui ne signe pas) n'est PAS établi avant d'afficher le prix. Le visiteur n'a pas encore de référence pour juger si $997 est cher ou pas.</div></div>
+        <div class="an-status warn">À REPOSITIONNER</div>
+      </div>
+
+      <!-- §7 DIFFÉRENCIANTS -->
+      <div class="section">
+        <div class="section-tag">Pourquoi nous</div>
+        <h2 class="section-h2">Pas juste un enregistrement.<br>Un accompagnement complet.</h2>
+        <p class="section-sub">De nombreux sites créent votre LLC pour quelques centaines de dollars. C'est tout ce qu'ils font.</p>
+        <div class="diff-cols">
+          <div class="diff-col">
+            <div class="diff-col-label">Les autres</div>
+            <div class="diff-item"><span class="di-icon" style="color:rgba(14,30,56,.3)">–</span>Enregistrement de la LLC uniquement</div>
+            <div class="diff-item"><span class="di-icon" style="color:rgba(14,30,56,.3)">–</span>Aucun suivi après la création</div>
+            <div class="diff-item"><span class="di-icon" style="color:rgba(14,30,56,.3)">–</span>Pas de CPA, pas de signature IRS</div>
+            <div class="diff-item"><span class="di-icon" style="color:rgba(14,30,56,.3)">–</span>Support générique, pas spécialisé non-résidents</div>
+            <div class="diff-item"><span class="di-icon" style="color:rgba(14,30,56,.3)">–</span>Vous gérez seul les obligations fiscales</div>
+          </div>
+          <div class="diff-col ours">
+            <div class="diff-col-label">MA SOCIÉTÉ US</div>
+            <div class="diff-item"><span class="di-icon" style="color:#1a7850">✓</span>Accompagnement A à Z — création, banque, déclaration</div>
+            <div class="diff-item"><span class="di-icon" style="color:#1a7850">✓</span>CPA agréé IRS qui signe personnellement vos déclarations</div>
+            <div class="diff-item"><span class="di-icon" style="color:#1a7850">✓</span>Spécialisation non-résidents étrangers (cas complexes)</div>
+            <div class="diff-item"><span class="di-icon" style="color:#1a7850">✓</span>Cabinet franco-américain bilingue depuis 2014</div>
+            <div class="diff-item"><span class="di-icon" style="color:#1a7850">✓</span>Chargé d'affaires dédié + portail client sécurisé</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§7 — Différenciants</div>
+        <div class="an-pillars"><span class="an-p cp">Compétence ✓</span><span class="an-p cf">Confiance ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Supériorité perçue — "pas de comparaison possible avec les autres"<div class="an-critique">⚠ Le format liste (eux vs nous) est bien, mais la lecture reste froide. L'argument "$200 vs accompagnement A-Z" devrait être le TITRE de la section, pas le sous-titre. "CPA agréé IRS qui signe" = preuve béton — mérite d'être visuellement mis en avant.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
+      <!-- §8 TÉMOIGNAGES -->
+      <div class="section">
+        <div class="section-tag" style="text-align:center">Témoignages</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">500+ entrepreneurs<br>nous font confiance.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 36px">Depuis 2014, chaque LLC est unique. Voici ce que nos clients en disent.</p>
+        <div class="testi-grid">
+          <div class="testi-card a-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"J'avais des dizaines de questions sur la légalité et le bon État. En 15 min d'appel, tout était clair. Ma LLC était prête en 12 jours, le compte Mercury ouvert dans la foulée."</p>
+            <div class="testi-meta">
+              <div class="testi-av">A</div>
+              <div>
+                <div class="testi-nm">Antoine R.</div>
+                <div class="testi-rl">Consultant indépendant · Paris</div>
+                <div class="testi-result">LLC opérationnelle en 12 jours</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card a-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Je craignais que ce soit compliqué ou illégal vis-à-vis du fisc français. L'équipe a tout expliqué avec des sources juridiques. Maintenant j'encaisse mes clients US en dollars, proprement."</p>
+            <div class="testi-meta">
+              <div class="testi-av" style="background:linear-gradient(135deg,#1a7850,#2a9a70)">S</div>
+              <div>
+                <div class="testi-nm">Sophie M.</div>
+                <div class="testi-rl">E-commerçante · Lyon → marché US</div>
+                <div class="testi-result">15 000 $ encaissés le 1er mois</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card a-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Le chargé d'affaires m'a accompagné à chaque étape — pas de formulaire en ligne, de vraies conversations. J'ai choisi le Wyoming pour ma DAO crypto et c'était le bon choix."</p>
+            <div class="testi-meta">
+              <div class="testi-av" style="background:linear-gradient(135deg,#6a3a90,#8a5ab0)">T</div>
+              <div>
+                <div class="testi-nm">Thomas K.</div>
+                <div class="testi-rl">Fondateur Web3 · Bordeaux</div>
+                <div class="testi-result">Wyoming DAO LLC · crypto-ready</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§8 — Témoignages</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p cv">Conviction ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Projection — "si eux l'ont fait, moi aussi je peux"<div class="an-critique">⚠ Témoignages trop génériques (pas de photos réelles, résultats peu spécifiques). "15 000$ encaissés le 1er mois" de Sophie est le seul avec un chiffre concret — c'est le modèle à suivre pour tous. Avatars générés = signal de faiblesse.</div></div>
+        <div class="an-status missing">PLACEHOLDER</div>
+      </div>
+
+      <!-- §9 CARTE DES ÉTATS -->
+      <div class="hp-map-section">
+        <div class="hp-map-header">
+          <div class="section-tag">Nos 4 juridictions</div>
+          <h2 class="section-h2">Le bon État, c'est<br>des milliers d'euros d'écart.</h2>
+          <p class="section-sub" style="margin:0 auto">Survolez ou cliquez un État pour découvrir ses avantages.</p>
+        </div>
+
+        <div class="hp-map-body">
+          <!-- LEFT: MAP -->
+          <div class="hp-map-col">
+            <div class="hp-map-wrap">
+              <div id="hp-map-container" style="display:block;width:100%;min-height:340px;"></div>
+            </div>
+          </div>
+
+          <!-- RIGHT: DETAIL PANEL -->
+          <div class="hp-detail a-card" id="hp-detail">
+            <div class="hd-inner" id="hd-inner">
+              <div class="hd-accent">
+                <span class="hd-abbr" id="hd-abbr">NM</span>
+                <span class="hd-tag" id="hd-tag">Anonymat total</span>
+              </div>
+              <div class="hd-name" id="hd-name">Nouveau-Mexique</div>
+              <p class="hd-pitch" id="hd-pitch">La juridiction la plus discrète des USA. Aucun registre public des associés — votre identité reste confidentielle.</p>
+              <div class="hd-perks" id="hd-perks">
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Aucun registre public des associés</div>
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Identité du fondateur 100% protégée</div>
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Frais de création parmi les plus bas des USA</div>
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Idéal pour les activités digitales et e-commerce</div>
+              </div>
+              <div class="hd-meta">
+                <div class="hd-meta-item"><div class="hd-meta-val">14 jours</div><div class="hd-meta-lbl">Création</div></div>
+                <div class="hd-meta-item"><div class="hd-meta-val">$997</div><div class="hd-meta-lbl">À partir de</div></div>
+                <div class="hd-meta-item"><div class="hd-meta-val" id="hd-highlight" style="color:#2a5090">Anonymat</div><div class="hd-meta-lbl">Atout clé</div></div>
+              </div>
+              <button class="hd-cta" id="hd-cta" style="background:linear-gradient(135deg,#1a3a6a,#2a5090);color:#fff" onclick="go('nm')">
+                Créer ma LLC au Nouveau-Mexique →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATE TABS -->
+        <div class="hp-state-tabs">
+          <div class="hp-stab sel" id="stab-nm" style="--stab-color:#2a5090" onclick="hpSelect('nm')">
+            <span class="hp-stab-dot"></span>
+            <span class="hp-stab-name">Nouveau-Mexique</span>
+            <span class="hp-stab-abbr">NM</span>
+          </div>
+          <div class="hp-stab" id="stab-co" style="--stab-color:#1a7850" onclick="hpSelect('co')">
+            <span class="hp-stab-dot"></span>
+            <span class="hp-stab-name">Colorado</span>
+            <span class="hp-stab-abbr">CO</span>
+          </div>
+          <div class="hp-stab" id="stab-wy" style="--stab-color:#7a50a0" onclick="hpSelect('wy')">
+            <span class="hp-stab-dot"></span>
+            <span class="hp-stab-name">Wyoming</span>
+            <span class="hp-stab-abbr">WY</span>
+          </div>
+          <div class="hp-stab" id="stab-de" style="--stab-color:#9a3a58" onclick="hpSelect('de')">
+            <span class="hp-stab-dot"></span>
+            <span class="hp-stab-name">Delaware</span>
+            <span class="hp-stab-abbr">DE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- §10 DOUBLE CTA -->
+      <div class="cta-dual">
+        <div class="cta-card primary" onclick="go('cal')">
+          <div class="cta-card-label">Vous êtes prêt</div>
+          <h3 class="cta-card-h">Réserver mon entretien gratuit</h3>
+          <p class="cta-card-p">15 min · Sans engagement · Expert dédié non-résidents</p>
+          <button class="cta-card-btn" onclick="go('cal')">Prendre rendez-vous →</button>
+        </div>
+        <div class="cta-card">
+          <div class="cta-card-label">Vous hésitez encore</div>
+          <h3 class="cta-card-h">Formation gratuite</h3>
+          <p class="cta-card-p">7 modules · Comprendre la LLC avant de se lancer</p>
+          <button class="cta-card-btn">Accéder à la formation →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CREER — interactive state map -->
+    <div class="pv" id="pv-creer">
+      <div class="inner" style="min-height:auto;padding-bottom:28px">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><strong>Choisir mon État</strong></div>
+        <h1 class="i-h1">Choisissez votre État</h1>
+        <p class="i-sub">4 juridictions, 4 profils. Survolez un État sur la carte pour voir ses atouts.</p>
+      </div>
+
+      <div class="map-layout">
+        <!-- SVG US MAP -->
+        <div class="map-panel">
+          <svg class="us-map" viewBox="0 0 760 480">
+            <rect width="760" height="480" fill="#e8f0f8" rx="14"/>
+            <!-- WA --><polygon class="s" points="0,28 93,28 93,85 5,85"/>
+            <!-- OR --><polygon class="s" points="0,85 93,85 97,150 0,150"/>
+            <!-- CA --><polygon class="s" points="0,150 97,150 118,207 108,315 75,320 58,380 0,380"/>
+            <!-- NV --><polygon class="s" points="97,118 173,92 176,278 118,207"/>
+            <!-- ID --><polygon class="s" points="93,28 173,28 173,92 156,126 93,150"/>
+            <!-- MT --><rect class="s" x="109" y="0" width="158" height="92"/>
+            <!-- WY KEY --><rect class="s key wy" id="wy-shape" x="173" y="92" width="94" height="74" onmouseenter="selectState('wy')" onclick="go('wy')"/>
+            <!-- UT --><rect class="s" x="134" y="150" width="66" height="90"/>
+            <!-- AZ --><polygon class="s" points="134,240 222,240 222,348 175,382 134,382"/>
+            <!-- CO KEY --><rect class="s key co" id="co-shape" x="200" y="166" width="93" height="74" onmouseenter="selectState('co')" onclick="go('co')"/>
+            <!-- NM KEY --><rect class="s key nm" id="nm-shape" x="200" y="240" width="82" height="108" onmouseenter="selectState('nm')" onclick="go('nm')"/>
+            <!-- ND --><rect class="s" x="267" y="0" width="108" height="72"/>
+            <!-- SD --><rect class="s" x="267" y="72" width="108" height="68"/>
+            <!-- NE --><rect class="s" x="267" y="140" width="122" height="66"/>
+            <!-- KS --><rect class="s" x="267" y="206" width="130" height="66"/>
+            <!-- OK --><rect class="s" x="267" y="272" width="152" height="68"/>
+            <!-- TX --><polygon class="s" points="267,340 422,340 440,382 420,452 308,462 268,422 258,382"/>
+            <!-- MN --><polygon class="s" points="375,0 470,0 472,46 460,96 415,100 375,100"/>
+            <!-- IA --><rect class="s" x="375" y="100" width="89" height="66"/>
+            <!-- MO --><rect class="s" x="375" y="166" width="93" height="86"/>
+            <!-- AR --><rect class="s" x="380" y="252" width="90" height="72"/>
+            <!-- LA --><polygon class="s" points="380,324 470,324 475,362 450,402 410,422 380,402"/>
+            <!-- WI --><rect class="s" x="457" y="8" width="82" height="106"/>
+            <!-- IL --><rect class="s" x="457" y="114" width="66" height="114"/>
+            <!-- MS --><rect class="s" x="457" y="252" width="65" height="96"/>
+            <!-- KY --><polygon class="s" points="462,230 590,196 594,214 580,230 462,250"/>
+            <!-- TN --><rect class="s" x="462" y="250" width="128" height="54"/>
+            <!-- IN --><rect class="s" x="522" y="114" width="58" height="100"/>
+            <!-- MI --><polygon class="s" points="522,66 598,66 600,78 582,102 580,114 522,114"/>
+            <!-- OH --><rect class="s" x="580" y="80" width="78" height="100"/>
+            <!-- AL --><rect class="s" x="520" y="284" width="66" height="92"/>
+            <!-- GA --><rect class="s" x="584" y="258" width="80" height="100"/>
+            <!-- SC --><polygon class="s" points="584,220 664,220 672,262 632,282 584,258"/>
+            <!-- NC --><polygon class="s" points="580,192 696,184 704,212 672,262 584,220"/>
+            <!-- WV+VA --><polygon class="s" points="578,142 666,142 680,152 696,184 584,192 560,188 558,166"/>
+            <!-- FL --><polygon class="s" points="520,376 662,358 665,392 648,432 622,462 580,472 560,462 532,442 520,422"/>
+            <!-- NE states block --><polygon class="s" points="627,62 760,0 760,162 665,162 627,142"/>
+            <!-- MD+NJ --><polygon class="s" points="627,142 665,142 666,192 648,202 644,190 627,186"/>
+            <!-- DE KEY (tiny, with callout) -->
+            <rect class="s key de" id="de-shape" x="648" y="156" width="18" height="30" onmouseenter="selectState('de')" onclick="go('de')"/>
+            <line class="de-line" x1="666" y1="163" x2="708" y2="128"/>
+            <rect class="de-badge" x="696" y="112" width="54" height="28" rx="8" style="fill:#ebd4e0;stroke:#fff;stroke-width:1.5"/>
+            <text class="de-badge-txt" x="723" y="131">DE ★</text>
+
+            <!-- Labels for non-key states -->
+            <text class="map-lbl" x="46" y="62">WA</text>
+            <text class="map-lbl" x="46" y="122">OR</text>
+            <text class="map-lbl" x="44" y="268">CA</text>
+            <text class="map-lbl" x="136" y="198">NV</text>
+            <text class="map-lbl" x="130" y="100">ID</text>
+            <text class="map-lbl" x="186" y="50">MT</text>
+            <text class="map-lbl" x="166" y="198">UT</text>
+            <text class="map-lbl" x="168" y="318">AZ</text>
+            <text class="map-lbl" x="318" y="40">ND</text>
+            <text class="map-lbl" x="318" y="110">SD</text>
+            <text class="map-lbl" x="326" y="177">NE</text>
+            <text class="map-lbl" x="330" y="242">KS</text>
+            <text class="map-lbl" x="340" y="308">OK</text>
+            <text class="map-lbl" x="338" y="405">TX</text>
+            <text class="map-lbl" x="416" y="52">MN</text>
+            <text class="map-lbl" x="418" y="136">IA</text>
+            <text class="map-lbl" x="420" y="212">MO</text>
+            <text class="map-lbl" x="422" y="290">AR</text>
+            <text class="map-lbl" x="418" y="362">LA</text>
+            <text class="map-lbl" x="496" y="60">WI</text>
+            <text class="map-lbl" x="488" y="176">IL</text>
+            <text class="map-lbl" x="486" y="300">MS</text>
+            <text class="map-lbl" x="522" y="272">TN</text>
+            <text class="map-lbl" x="520" y="216">KY</text>
+            <text class="map-lbl" x="550" y="166">IN</text>
+            <text class="map-lbl" x="556" y="102">MI</text>
+            <text class="map-lbl" x="617" y="132">OH</text>
+            <text class="map-lbl" x="552" y="336">AL</text>
+            <text class="map-lbl" x="622" y="310">GA</text>
+            <text class="map-lbl" x="638" y="246">SC</text>
+            <text class="map-lbl" x="640" y="210">NC</text>
+            <text class="map-lbl" x="618" y="170">VA</text>
+            <text class="map-lbl" x="595" y="422">FL</text>
+            <text class="map-lbl" x="697" y="80">NY</text>
+            <text class="map-lbl" x="688" y="154">PA</text>
+
+            <!-- KEY STATE LABELS (bold, colored) -->
+            <text class="map-key-lbl" x="220" y="135" style="fill:#5a9fd4">WY</text>
+            <text class="map-key-lbl" x="246" y="210" style="fill:#2a9a68">CO</text>
+            <text class="map-key-lbl" x="241" y="298" style="fill:#3a5aaa">NM</text>
+          </svg>
+        </div>
+
+        <!-- DETAIL PANEL -->
+        <div class="map-detail" id="map-detail">
+          <div class="md-placeholder">
+            <div class="md-icon">🗺</div>
+            <div>Survolez un État sur la carte<br>pour voir ses atouts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <div class="inner" style="min-height:auto;padding-top:32px">
+        <div class="cmp-wrap">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th>Critère</th>
+                <th style="color:#2a5090">Nouveau-Mexique</th>
+                <th style="color:#1a7850">Colorado</th>
+                <th style="color:#7a50a0">Wyoming</th>
+                <th style="color:#a05a14">Delaware</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Anonymat</td><td><span class="cmp-star">★★★</span> Total</td><td><span class="cmp-star">★</span> Limité</td><td><span class="cmp-star">★★</span> Bon</td><td><span class="cmp-star">★</span> Standard</td></tr>
+              <tr><td>Délai création</td><td>5–7 jours</td><td><strong style="color:#1a7850">24 heures</strong></td><td>3–5 jours</td><td>2–3 jours</td></tr>
+              <tr><td>Crypto / DAO</td><td>Favorable</td><td>Favorable</td><td><strong style="color:#7a50a0">Optimal — DAO légales</strong></td><td>Standard</td></tr>
+              <tr><td>Levée de fonds</td><td>Non adapté</td><td>Possible</td><td>Possible</td><td><strong style="color:#a05a14">Standard VC</strong></td></tr>
+              <tr><td>Coût annuel État</td><td>$50</td><td>$50</td><td>$60</td><td>$300+</td></tr>
+              <tr><td>Idéal pour</td><td>Freelances · Créateurs</td><td>E-commerce · SaaS</td><td>Crypto · Web3 · NFT</td><td>Startups · VC</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="i-cta">
+          <div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button>
+        </div>
+      </div>
+      <div class="admin-bar">
+        <div class="an-section">§9 — Carte des États + Tableau comparatif</div>
+        <div class="an-pillars"><span class="an-p cp">Compétence ✓</span><span class="an-p si">Simplicité ✓</span><span class="an-p cf">Confiance ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Expertise visible — "ils connaissent vraiment les nuances, je peux leur faire confiance"<div class="an-critique">⚠ Section la plus forte en termes de démonstration d'expertise — mais trop tardive. La décision d'État est un moment clé du parcours client : doit intervenir plus tôt. Section MANQUANTE : Socle d'Excellence (Équipe + Infrastructure + Réseau Bancaire).</div></div>
+        <div class="an-status solid">SOLIDE — À REMONTER</div>
+      </div>
+
+      <div class="admin-bar" style="border-top:1.5px dashed rgba(180,50,50,.4);background:repeating-linear-gradient(-45deg,rgba(180,50,50,.04),rgba(180,50,50,.04) 5px,transparent 5px,transparent 14px)">
+        <div class="an-section" style="color:rgba(180,50,50,.6)">⚠ SECTIONS MANQUANTES</div>
+        <div class="an-emotion" style="flex:1">
+          <strong style="color:rgba(180,50,50,.7)">Non implémentées — gaps critiques vs site actuel</strong>
+          <div class="an-critique">🔴 <b>Socle d'Excellence</b> — Équipe (Christophe + CPA IRS + 11 collab.), Infrastructure (portail client), Réseau bancaire (5 fintechs). Pilier Compétence actuellement à 0 sur la homepage.</div>
+          <div class="an-critique" style="margin-top:4px">🔴 <b>Formation gratuite</b> — 2e chemin de conversion pour les 50% de visiteurs tièdes. Absent = perte directe de leads nurturables.</div>
+          <div class="an-critique" style="margin-top:4px">🟠 <b>§10 Double CTA final</b> — Deux options égales créent de l'hésitation. Hiérarchiser : primaire (Calendly) nettement dominant.</div>
+        </div>
+        <div class="an-status warn">ABSENT</div>
+      </div>
+    </div>
+
+    <!-- STATE template -->
+    <div class="pv" id="pv-state">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb" id="st-crumb"></div>
+        <h1 class="i-h1" id="st-h1"></h1>
+        <p class="i-sub" id="st-sub"></p>
+        <div class="cards-grid" id="st-cards"></div>
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:12px">Le processus de création</div>
+          <div class="process-steps">
+            <div class="process-step"><div class="ps-num a-chrome">1</div><div class="ps-content"><div class="ps-title">Entretien découverte — 15 min</div><div class="ps-desc">On valide que cet État correspond à votre situation, votre profil et vos objectifs.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">2</div><div class="ps-content"><div class="ps-title">Préparation du dossier — J+1 à J+3</div><div class="ps-desc">Votre chargé d'affaires constitue le dossier d'immatriculation et les documents légaux.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">3</div><div class="ps-content"><div class="ps-title">Immatriculation Secretary of State — J+14</div><div class="ps-desc">Dépôt officiel, obtention de l'EIN IRS, transmission des documents dans votre portail.</div></div></div>
+          </div>
+        </div>
+        <div class="confort-teaser" style="margin-bottom:24px" onclick="go('offres')">
+          <div>
+            <div class="ct-label">Étape suivante</div>
+            <div class="ct-title">Choisir votre offre</div>
+            <div class="ct-desc">Pack LLC $997 · Pack Premium $1 597 — comparatif côte à côte</div>
+          </div>
+          <div class="ct-arrow">Voir les offres →</div>
+        </div>
+        <div class="i-cta"><div><h3>Cet État vous correspond ?</h3><p>15 min — on confirme le bon choix pour votre situation.</p></div><button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button></div>
+      </div>
+    </div>
+
+    <!-- OFFRES — Pack comparison (merged) -->
+    <div class="pv" id="pv-offres">
+      <div class="inner" style="min-height:auto;padding-bottom:36px">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('creer')" style="cursor:pointer">Créer ma LLC</span><span class="bc-sep">›</span><strong>Nos offres</strong></div>
+        <h1 class="i-h1">Deux offres,<br><em>un seul objectif.</em></h1>
+        <p class="i-sub">LLC créée en 14 jours dans les deux cas. La différence : est-ce que votre compte bancaire US est ouvert en même temps ?</p>
+
+        <div class="pack-grid">
+          <!-- Pack LLC -->
+          <div class="pack-col a-card">
+            <div class="pack-name">Pack LLC</div>
+            <div class="pack-price">$997<span> USD</span></div>
+            <div class="pack-tagline">Création complète · Sans le banking</div>
+            <ul class="pack-list">
+              <li class="pl-yes">LLC immatriculée en 14 jours</li>
+              <li class="pl-yes">EIN IRS obtenu</li>
+              <li class="pl-yes">Documents légaux (modèles fournis)</li>
+              <li class="pl-yes">Chargé d'affaires dédié</li>
+              <li class="pl-yes">2 entretiens inclus / an</li>
+              <li class="pl-yes">Portail client sécurisé</li>
+              <li class="pl-no">Compte bancaire US</li>
+              <li class="pl-no">Carte Visa pro</li>
+            </ul>
+            <button class="pack-cta-sec" onclick="go('cal')">Choisir le Pack LLC</button>
+            <p class="pack-note">Idéal si vous gérez le banking séparément</p>
+          </div>
+
+          <!-- Pack Premium -->
+          <div class="pack-col pack-col-premium a-card">
+            <div class="pack-rec-badge a-badge">Recommandé</div>
+            <div class="pack-name">Pack Premium</div>
+            <div class="pack-price">$1 597<span> USD</span></div>
+            <div class="pack-tagline">Création + compte bancaire ouvert</div>
+            <ul class="pack-list">
+              <li class="pl-yes">LLC immatriculée en 14 jours</li>
+              <li class="pl-yes">EIN IRS obtenu</li>
+              <li class="pl-yes">Documents légaux (modèles fournis)</li>
+              <li class="pl-yes">Chargé d'affaires dédié</li>
+              <li class="pl-yes">2 entretiens inclus / an</li>
+              <li class="pl-yes">Portail client sécurisé</li>
+              <li class="pl-highlight">Compte Mercury ou Relay ouvert</li>
+              <li class="pl-highlight">Carte Visa pro multi-devises</li>
+            </ul>
+            <button class="pack-cta-main" onclick="go('cal')">Choisir le Pack Premium</button>
+            <p class="pack-savings">Économie : $600 vs achat séparé du banking</p>
+          </div>
+        </div>
+
+        <!-- Aide au choix -->
+        <div class="pack-helper">
+          <div class="pack-helper-h">Comment choisir ?</div>
+          <div class="ph-grid">
+            <div class="ph-col">
+              <div class="ph-col-label">Pack LLC si vous…</div>
+              Avez déjà un compte étranger compatible (Wise, PayPal, etc.) · Souhaitez choisir vous-même votre banque US · N'avez pas besoin d'un compte US immédiatement
+            </div>
+            <div class="ph-col rec">
+              <div class="ph-col-label" style="color:var(--blue)">Pack Premium si vous…</div>
+              Voulez être opérationnel dès la création · Cherchez à facturer en dollars immédiatement · Souhaitez une solution clé en main sans étape supplémentaire
+            </div>
+          </div>
+        </div>
+
+        <!-- Ce qui est inclus -->
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:16px">Ce qui est inclus dans les deux packs</div>
+          <div class="process-steps">
+            <div class="process-step"><div class="ps-num a-chrome">1</div><div class="ps-content"><div class="ps-title">Entretien découverte + choix de l'État</div><div class="ps-desc">15 min avec votre chargé d'affaires pour choisir la bonne juridiction selon votre profil.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">2</div><div class="ps-content"><div class="ps-title">Immatriculation LLC + EIN IRS</div><div class="ps-desc">Dépôt auprès du Secretary of State, obtention de l'EIN, rédaction des documents légaux.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">3</div><div class="ps-content"><div class="ps-title">Accès au portail client sécurisé</div><div class="ps-desc">Tous vos documents en ligne, suivi de dossier en temps réel, 2 entretiens annuels inclus.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">4</div><div class="ps-content"><div class="ps-title">Pack Premium uniquement — Compte bancaire ouvert</div><div class="ps-desc">Mercury ou Relay ouvert dans la foulée. Carte Visa pro. Vous facturez en dollars dès J+14.</div></div></div>
+          </div>
+        </div>
+
+        <!-- Option Confort teaser -->
+        <div class="confort-teaser" onclick="go('gestion')">
+          <div>
+            <div class="ct-label">Add-on disponible après création</div>
+            <div class="ct-title">Option Confort</div>
+            <div class="ct-desc">Domiciliation · Veille fiscale · Rappels échéances · Support mail illimité</div>
+          </div>
+          <div class="ct-arrow">Sur devis →</div>
+        </div>
+
+        <div class="i-cta">
+          <div><h3>Besoin d'un conseil avant de choisir ?</h3><p>15 min — on vous aide à identifier la bonne formule.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BANKING — comparison page -->
+    <div class="pv" id="pv-fintech">
+      <div class="inner" style="min-height:auto;padding-bottom:36px">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><span onclick="go('home')" style="cursor:pointer">Services</span><span class="bc-sep">›</span><strong>Compte bancaire USA</strong></div>
+        <h1 class="i-h1">Compte bancaire USA</h1>
+        <p class="i-sub">Deux options selon votre situation. La fintech si vous démarrez et voulez aller vite. La banque physique si vous visez un ancrage institutionnel durable aux États-Unis.</p>
+
+        <div class="pack-grid">
+          <!-- Fintech -->
+          <div class="pack-col pack-col-premium a-card">
+            <div class="pack-rec-badge a-badge">Recommandé</div>
+            <div class="pack-name">Banque en ligne (Fintech)</div>
+            <div class="pack-price">dès $600<span> USD</span></div>
+            <div class="pack-tagline">Mercury · Relay · 100% à distance</div>
+            <ul class="pack-list">
+              <li class="pl-yes">100% à distance, pas de déplacement</li>
+              <li class="pl-yes">Compte ouvert en 48h–7 jours</li>
+              <li class="pl-highlight">Multi-devises, carte Visa/Mastercard</li>
+              <li class="pl-yes">Compatible Stripe, PayPal, Wise</li>
+              <li class="pl-yes">Dépôt initial faible</li>
+              <li class="pl-highlight">Inclus dans le Pack Premium</li>
+            </ul>
+            <button class="pack-cta-main" onclick="go('cal-banking')">Ouvrir mon compte Fintech →</button>
+            <p class="pack-savings">Inclus dans le Pack Premium ($1 597)</p>
+          </div>
+
+          <!-- Banque physique -->
+          <div class="pack-col a-card">
+            <div class="pack-name">Banque physique USA</div>
+            <div class="pack-price" style="font-size:28px">Sur devis</div>
+            <div class="pack-tagline">Bank of America · Chase · Wells Fargo</div>
+            <ul class="pack-list">
+              <li class="pl-no">Déplacement en agence US obligatoire</li>
+              <li class="pl-no">Délai d'ouverture 2–3 mois</li>
+              <li class="pl-yes">Accès aux financements et crédits US</li>
+              <li class="pl-yes">Stabilité institutionnelle</li>
+              <li class="pl-yes">Relations bancaires long terme</li>
+              <li class="pl-no">Dépôt initial important requis</li>
+            </ul>
+            <button class="pack-cta-sec" onclick="go('cal-banking')">Demander un devis →</button>
+            <p class="pack-note">Idéal pour les entreprises établies avec besoin de crédit US</p>
+          </div>
+        </div>
+
+        <!-- Comment choisir -->
+        <div class="pack-helper">
+          <div class="pack-helper-h">Comment choisir ?</div>
+          <div class="ph-grid">
+            <div class="ph-col rec">
+              <div class="ph-col-label" style="color:var(--blue)">Fintech si vous…</div>
+              Démarrez votre activité · Voulez aller vite · N'avez pas besoin de crédit US · Facturez en ligne (Stripe, PayPal, Wise)
+            </div>
+            <div class="ph-col">
+              <div class="ph-col-label">Banque physique si vous…</div>
+              Avez besoin d'un financement US · Cherchez des relations institutionnelles durables · Envisagez un établissement physique aux USA
+            </div>
+          </div>
+        </div>
+
+        <!-- Process steps fintech -->
+        <div class="process-steps-wrap" style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:12px">3 étapes pour ouvrir votre compte Fintech</div>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="ps-num a-chrome">1</div>
+              <div class="ps-content">
+                <div class="ps-title">Entretien 15 min — on analyse votre profil</div>
+                <div class="ps-desc">On identifie la meilleure solution (Mercury, Relay ou autre) selon votre activité, votre volume et vos intégrations requises.</div>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num a-chrome">2</div>
+              <div class="ps-content">
+                <div class="ps-title">Constitution du dossier — on prépare tout</div>
+                <div class="ps-desc">Votre chargé d'affaires rassemble les documents requis par la fintech et soumet votre dossier en votre nom.</div>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num a-chrome">3</div>
+              <div class="ps-content">
+                <div class="ps-title">Compte ouvert — vous recevez votre IBAN US et votre carte</div>
+                <div class="ps-desc">Accès au dashboard en ligne, carte Visa pro envoyée, intégrations activées. Vous facturez en dollars dès J+7.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="i-cta">
+          <div><h3>Appel banking dédié</h3><p>Conseil personnalisé · Fintech ou physique — on analyse ensemble.</p></div>
+          <button class="i-cta-btn" onclick="go('cal-banking')">Appel gratuit →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GESTION & MAINTENANCE -->
+    <div class="pv" id="pv-gestion">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><span onclick="go('home')" style="cursor:pointer">Services</span><span class="bc-sep">›</span><strong>Gestion &amp; Maintenance</strong></div>
+        <h1 class="i-h1">Gérez votre LLC<br><em>sans y penser.</em></h1>
+        <p class="i-sub">Pour les entrepreneurs qui ont déjà une LLC et souhaitent déléguer les obligations courantes.</p>
+
+        <!-- Option Confort -->
+        <div class="gestion-block">
+          <div class="gestion-block-h">Option Confort — abonnement</div>
+          <div class="gestion-block-sub">Idéal pour les clients existants qui veulent déléguer l'administratif. Prix sur devis.</div>
+          <div class="cards-grid">
+            <div class="card a-card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Registered Agent + domiciliation</div><div class="card-p">Adresse commerciale US autorisée · Scan 5 courriers/an</div></div>
+            <div class="card a-card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Veille &amp; rappels</div><div class="card-p">Rappels d'échéances fiscales · Veille juridique et fiscale</div></div>
+            <div class="card a-card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Support mail illimité</div><div class="card-p">Réponse sous 48h · Interlocuteur francophone dédié</div></div>
+          </div>
+        </div>
+
+        <div class="i-cta" style="margin-bottom:32px;background:linear-gradient(135deg,#1a4a2a,#2a7850)">
+          <div><h3>Option Confort — tarif sur devis</h3><p>Abonnement annuel · Tarif selon la complexité de votre situation</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Obtenir un devis →</button>
+        </div>
+
+        <!-- Prestations à la carte -->
+        <div class="gestion-block">
+          <div class="gestion-block-h">Prestations à la carte</div>
+          <div class="gestion-block-sub">Services ponctuels facturés à l'acte.</div>
+          <div class="presta-grid">
+            <div class="presta-item"><div class="presta-name">Annual Report</div><div class="presta-price">dès $299</div></div>
+            <div class="presta-item"><div class="presta-name">Operating Agreement</div><div class="presta-price">dès $600</div></div>
+            <div class="presta-item"><div class="presta-name">Certificate of Good Standing</div><div class="presta-price">dès $100</div></div>
+            <div class="presta-item"><div class="presta-name">Banking Member Resolution</div><div class="presta-price">dès $135</div></div>
+            <div class="presta-item"><div class="presta-name">Gestion Pilotée LLC (1 an)</div><div class="presta-price">$399</div></div>
+            <div class="presta-item"><div class="presta-name">Dissolution de LLC</div><div class="presta-price">dès $699</div></div>
+            <div class="presta-item"><div class="presta-name">Modifications capitalistiques</div><div class="presta-price">dès $1 100</div></div>
+            <div class="presta-item"><div class="presta-name">Rédaction CGV/CGU/PC (RGPD)</div><div class="presta-price">~$1 200</div></div>
+            <div class="presta-item"><div class="presta-name">Identification dépenses déductibles</div><div class="presta-price">dès $400</div></div>
+          </div>
+        </div>
+
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:20px 24px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:8px">Pour les clients existants</div>
+          <p style="font-size:13px;color:rgba(14,30,56,.5);line-height:1.6">Ces prestations sont disponibles pour tout entrepreneur ayant déjà une LLC — qu'elle ait été créée avec nous ou non. Notre CPA agréé IRS reprend votre dossier et assure la conformité.</p>
+        </div>
+
+        <div class="i-cta">
+          <div><h3>Vous avez déjà une LLC ?</h3><p>On reprend votre dossier et on prend en charge la gestion courante.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Discuter de ma situation →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENERIC pages (filled by JS) -->
+    <div class="pv" id="pv-generic">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb" id="g-crumb"></div>
+        <h1 class="i-h1" id="g-h1"></h1>
+        <p class="i-sub" id="g-sub"></p>
+        <div class="cards-grid" id="g-cards"></div>
+        <div style="margin-top:8px;padding:20px 24px;background:rgba(42,80,144,.05);border-radius:14px;border:1px solid rgba(42,80,144,.1);margin-bottom:24px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#2a5090;margin-bottom:6px">CPA agréé IRS</div>
+          <p style="font-size:13px;color:rgba(14,30,56,.6);line-height:1.6">Toutes nos prestations fiscales sont réalisées et signées par notre CPA agréé IRS. Votre protection en cas de contrôle ou redressement.</p>
+        </div>
+        <div class="i-cta"><div><h3>Une question sur ce service ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="go('cal')">Réserver →</button></div>
+      </div>
+    </div>
+
+    <!-- CAL -->
+    <div class="pv" id="pv-cal">
+      <div class="cal-wrap"><div class="cal-card">
+        <div class="cal-icon">📅</div>
+        <h2 class="cal-h">Réserver votre entretien</h2>
+        <p class="cal-p">15 min · Gratuit · Sans engagement<br>Expert franco-américain</p>
+        <div class="cal-url">→ calendly.com/ypls/decouverte-site</div>
+        <div class="cal-mock">Widget Calendly dans la vraie implémentation.</div>
+      </div></div>
+    </div>
+    <div class="pv" id="pv-cal-banking">
+      <div class="cal-wrap"><div class="cal-card">
+        <div class="cal-icon">🏦</div>
+        <h2 class="cal-h">Appel banking gratuit</h2>
+        <p class="cal-p">Conseil sur votre solution bancaire US.<br>Fintech ou banque physique.</p>
+        <div class="cal-url">→ calendly.com/ypls/entretien-telephonique-compte-bancaire</div>
+        <div class="cal-mock">Widget Calendly dédié banking.</div>
+      </div></div>
+    </div>
+
+  </div><!-- /page-frame -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-chrome"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="MA SOCIÉTÉ US" class="footer-logo">
+          <p class="footer-tagline">Cabinet franco-américain spécialisé dans la création et la gestion de sociétés aux États-Unis. Marque déposée Yes Please LLC. Profession comptable et juridique réglementée.</p>
+          <div class="footer-socials">
+            <span class="footer-social">YouTube</span>
+            <span class="footer-social">Facebook</span>
+            <span class="footer-social">Instagram</span>
+          </div>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <div class="footer-col-label">Services</div>
+            <ul>
+              <li onclick="go('offres')">Pack LLC — $997</li>
+              <li onclick="go('offres')">Pack Premium — $1 597</li>
+              <li onclick="go('fintech')">Compte bancaire USA</li>
+              <li onclick="go('gestion')">Déclaration LLC</li>
+              <li onclick="go('gestion')">Gestion & Maintenance</li>
+              <li onclick="go('tarifs')">Tous les tarifs</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-label">Cabinet</div>
+            <ul>
+              <li onclick="go('apropos')">À propos</li>
+              <li onclick="go('creer')">Créer ma LLC</li>
+              <li onclick="go('blog')">Blog</li>
+              <li onclick="go('cal')">Contact</li>
+              <li>Portail client ↗</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-label">Légal</div>
+            <ul>
+              <li>Mentions légales</li>
+              <li>CGV</li>
+              <li>Confidentialité</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-label">Contact</div>
+            <ul>
+              <li>contact@ma-societe-us.com</li>
+              <li onclick="go('cal')">Réserver un entretien →</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">Copyright 2026 — YES PLEASE LLC. Tous droits réservés.</div>
+    </div>
+  </footer>
+</div><!-- /browser-wrap -->
+
+<!-- ANALYSIS -->
+<div class="analysis-toggle" onclick="toggleAn()">
+  <span class="at-lbl">↓ Analyse comparée — 7 options de navigation testées</span>
+  <span class="at-arr" id="atarr">▾</span>
+</div>
+<div class="analysis" id="anlys">
+  <h2 class="an-h">Comparaison — 7 options + option retenue</h2>
+  <p class="an-sub">Score /10 pondéré · Clarté offre ×2 · Autorité premium ×2 · Accès Banking ×1.5 · Conversion ×1.5 · SEO ×1 · Mobile ×1</p>
+  <div class="opts">
+    <div class="opt"><div class="oid">A</div><div><div class="on2">Flat 4 items</div><div class="oitems">LLC · Services · À propos · Blog</div></div><div><div class="opro">Simple, mobile-first</div><div class="ocon">Banking et Déclaration invisibles</div></div><div class="overdict">Cache l'offre. Clients banking perdus.</div><div><div class="oscore lo">5.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">B</div><div><div class="on2">Flat 6 items</div><div class="oitems">LLC · Banking · Décl · E2 · Tarifs · Contact</div></div><div><div class="opro">Tout visible directement</div><div class="ocon">Surcharge, register cheap</div></div><div class="overdict">Dilue l'autorité. Ressemble à un comparateur.</div><div><div class="oscore lo">6.2</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">C</div><div><div class="on2">Dropdown classique</div><div class="oitems">LLC ▾ · Services ▾ · Tarifs · Blog</div></div><div><div class="opro">Familier, bon SEO</div><div class="ocon">Visuellement daté</div></div><div class="overdict">Correct, zéro signal premium.</div><div><div class="oscore mi">6.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">D</div><div><div class="on2">Tab navigation</div><div class="oitems">[ LLC ] [ Banking ] [ Décl ] [ E2 ]</div></div><div><div class="opro">Clarté absolue</div><div class="ocon">Register SaaS, pas cabinet</div></div><div class="overdict">Ressemble à une app. Mauvais signal autorité.</div><div><div class="oscore lo">5.4</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">E</div><div><div class="on2">Mega dropdown 2 col.</div><div class="oitems">LLC ▾ · Services ▾ (Création|Gestion+Banking)</div></div><div><div class="opro">Premium visuellement</div><div class="ocon">Banking noyé dans Gestion · LLC ▾ sans contenu</div></div><div class="overdict">Bien. LLC vide + banking mal servi.</div><div><div class="oscore mi">7.2</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">F</div><div><div class="on2">Sidebar + drawer</div><div class="oitems">Hamburger → drawer latéral desktop</div></div><div><div class="opro">Moderne mobile</div><div class="ocon">Contre-intuitif desktop</div></div><div class="overdict">Mobile OK, desktop non.</div><div><div class="oscore lo">5.1</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">G</div><div><div class="on2">Progressive disclosure</div><div class="oitems">Hero → scroll → anchor nav</div></div><div><div class="opro">Storytelling immersif</div><div class="ocon">Navigation directe impossible</div></div><div class="overdict">Landing page, pas site multi-services.</div><div><div class="oscore mi">6.9</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">H</div><div><div class="on2">Mega 3 col. · Services surchargé</div><div class="oitems">LLC (vide) · Services ▾ (Création|Gestion|Banking)</div></div><div><div class="opro">Banking visible en colonne</div><div class="ocon">LLC sans dropdown · Services trop lourd</div></div><div class="overdict">Incohérent. LLC vide ne fait rien.</div><div><div class="oscore mi">7.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt rec"><div class="oid r">★</div><div><div class="on2">Créer ma LLC ▾ + Services ▾</div><span class="obadge">Version testée ici</span><div class="oitems" style="margin-top:5px;font-weight:500">LLC ▾ (Offres|États) · Services ▾ (Banking|Gestion) · À propos · Blog</div></div><div><div class="opro">LLC ▾ : 2 offres + 4 États avec argument</div><div class="opro" style="margin-top:3px">Services ▾ : Banking + toute la Gestion — rien de skippé</div><div class="opro" style="margin-top:3px">2 dropdowns équilibrés, cohérents, aérés</div><div class="ocon">2 dropdowns à implémenter (vs 1)</div></div><div class="overdict r">Architecture par intention visiteur. Aucun service skippé. Propre, premium, cohérent.</div><div><div class="oscore hi">9.2</div><div class="oscore-l">/10</div></div></div>
+  </div>
+</div>
+
+<script>
+// ─── Data ───────────────────────────────────────────
+const urls = {
+  home:'ma-societe-us.com', creer:'ma-societe-us.com/creer-llc',
+  'pack-llc':'ma-societe-us.com/creer-llc/pack-llc',
+  'pack-premium':'ma-societe-us.com/creer-llc/pack-premium',
+  nm:'ma-societe-us.com/creer-llc/nouveau-mexique',
+  co:'ma-societe-us.com/creer-llc/colorado',
+  wy:'ma-societe-us.com/creer-llc/wyoming',
+  de:'ma-societe-us.com/creer-llc/delaware',
+  fintech:'ma-societe-us.com/services/compte-bancaire',
+  bphysique:'ma-societe-us.com/services/compte-bancaire',
+  decl:'ma-societe-us.com/services/declaration-llc',
+  confort:'ma-societe-us.com/services/option-confort',
+  e2:'ma-societe-us.com/services/visa-e2',
+  presta:'ma-societe-us.com/tarifs',
+  tarifs:'ma-societe-us.com/tarifs',
+  apropos:'ma-societe-us.com/a-propos',
+  blog:'ma-societe-us.com/blog',
+  cal:'ma-societe-us.com/contact',
+  'cal-banking':'ma-societe-us.com/contact/banking',
+};
+
+const states = {
+  nm:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Nouveau-Mexique</strong>', h1:'LLC au Nouveau-Mexique<br><span style="color:#2a5090">Anonymat total</span>', sub:"Votre nom n'apparaît dans aucun registre public américain. Idéal pour les entrepreneurs discrets.", cards:[{t:'#2a5090',l:'Avantage clé',h:'0 registre public',p:"Ni votre nom ni votre adresse dans les registres du Nouveau-Mexique."},{t:'#2a5090',l:'Avantage',h:'Pas de rapport annuel',p:"Aucun rapport annuel requis. Administration minimale."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Consultant · Coach · Prestataire de services · Entrepreneurs discrets."}]},
+  co:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Colorado</strong>', h1:'LLC au Colorado<br><span style="color:#1a7850">En 24 heures</span>', sub:"Le délai le plus rapide des États-Unis. Une opportunité urgente ? La LLC Colorado est prête en un jour ouvré.", cards:[{t:'#1a7850',l:'Avantage clé',h:'Traitement en 24h',p:"Le Secretary of State du Colorado traite les immatriculations en 24h ouvrées."},{t:'#1a7850',l:'Fiscalité',h:'Pas de franchise tax',p:"Aucune taxe annuelle fixe. Impôt étatique plafonné à 4.4%."},{t:'#2a5090',l:'Idéal pour',h:'Votre profil',p:"E-commerce · SaaS · Freelance digital · Prestataire pressé."}]},
+  wy:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Wyoming</strong>', h1:'LLC au Wyoming<br><span style="color:#7a50a0">Pro-crypto &amp; Web3</span>', sub:"L'État le plus favorable aux actifs numériques aux USA. Crypto, NFT, DAO — reconnus légalement.", cards:[{t:'#7a50a0',l:'Avantage clé',h:'DAOs reconnues légalement',p:"1er État à légiférer sur les DAO. Structure robuste pour tout projet Web3."},{t:'#7a50a0',l:'Fiscalité',h:'0% impôt crypto étatique',p:"Le Wyoming ne taxe pas les plus-values crypto au niveau étatique."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Trader crypto · DeFi · NFT · Projets blockchain."}]},
+  de:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Delaware</strong>', h1:'LLC au Delaware<br><span style="color:#a05a14">Levée de fonds</span>', sub:"68% des Fortune 500 incorporées au Delaware. Le signal qu'attendent les investisseurs.", cards:[{t:'#a05a14',l:'Avantage clé',h:'Référence des investisseurs',p:"Les VC exigent souvent une structure Delaware. Indispensable pour lever des fonds en Amérique."},{t:'#a05a14',l:'Juridique',h:'Court of Chancery',p:"Tribunal spécialisé en droit des sociétés, le plus expérimenté du monde."},{t:'#1a7850',l:'Idéal pour',h:'Votre profil',p:"Startup · SaaS · Entrepreneurs ciblant des investisseurs américains."}]},
+};
+
+const generics = {
+  decl:{ crumb:'Services / <strong>Déclaration LLC</strong>', h1:'Déclaration LLC<br><em>dès $800</em>', sub:'CPA agréé IRS qui signe personnellement. Protection contre redressement IRS. Guide déclaration française inclus.', cards:[{t:'#2a5090',l:'Différenciant',h:'CPA agréé IRS',p:"Notre CPA signe personnellement chaque déclaration. Pas un prestataire offshore."},{t:'#1a7850',l:'Inclus',h:'Guide déclaration française',p:"Optimisation fiscale des deux côtés de l'Atlantique. Comment déclarer vos revenus LLC en France."}]},
+  confort:{ crumb:'Services / <strong>Option Confort</strong>', h1:'Option Confort<br><em>Domiciliation & Veille</em>', sub:'Registered Agent + adresse commerciale + scan courriers + rappels échéances + veille fiscale + support mail 48h.', cards:[{t:'#1a7850',l:'Inclus',h:'Domiciliation complète',p:"Adresse commerciale + Registered Agent + scan 5 courriers/an."},{t:'#2a5090',l:'Inclus',h:'Veille &amp; rappels',p:"Rappels automatiques des échéances. Support mail réponse 48h."}]},
+  e2:{ crumb:'Services / <strong>Visa E2</strong>', h1:'Visa E2<br><em>Immigration USA</em>', sub:"Immigrer aux USA par l'entrepreneuriat. Taux de succès quasi 100%. 150 000 Français aux USA.", cards:[{t:'#2a5090',l:'Service complet',h:'A à Z visa E2',p:"Business plan + dossier + avocat immigration + préparation entretien + suivi ambassade."},{t:'#1a7850',l:'Chiffres clés',h:'~100% de succès',p:"10+ ans d'expérience visa E2. Pas de déplacement US requis pendant le traitement."}]},
+  presta:{ crumb:'Services / <strong>Prestations additionnelles</strong>', h1:'Prestations\nadditionnelles', sub:'Annual report, Operating Agreement, Certificate of Good Standing, dissolution, CGV/CGU, modifications capitalistiques.', cards:[{t:'#2a5090',l:'Maintenance',h:'Annual Report — $299',p:"Obligatoire dans certains États pour maintenir la LLC en règle."},{t:'#1a7850',l:'Juridique',h:'Operating Agreement — $600',p:"Document fondateur qui régit le fonctionnement de votre LLC."},{t:'#a05a14',l:'Dissolution',h:'Dissolution — $699',p:"Fermeture propre et légale de votre LLC aux États-Unis."}]},
+  apropos:{ crumb:'<strong>À propos</strong>', h1:'Cabinet franco-américain<br><em>depuis 2014</em>', sub:"500+ sociétés créées. 15M€ d'économies générées. CPA agréé IRS. Une équipe franco-américaine à Miami et Paris.", cards:[{t:'#2a5090',l:'Notre différence',h:'CPA agréé IRS',p:"L'un des rares cabinets francophones avec un CPA agréé IRS qui signe personnellement les déclarations."},{t:'#1a7850',l:'10 ans',h:'500+ LLC · 15M€',p:"500+ sociétés créées depuis 2014. 15M€ d'économies générées. Chargé dédié pour chaque dossier."}]},
+  blog:{ crumb:'<strong>Blog</strong>', h1:'Blog<br><em>Ressources & Guides</em>', sub:"Tout savoir sur la LLC américaine, la fiscalité franco-américaine et l'immigration entrepreneuriale.", cards:[{t:'#2a5090',l:'Populaire',h:'LLC et fiscalité française',p:"Comment déclarer vos revenus d'une LLC américaine en France. Guide complet 2026."},{t:'#1a7850',l:'Guide',h:'Quel État choisir ?',p:"NM vs CO vs WY vs DE — comparaison complète."}]},
+  bphysique:{ crumb:'Services / Banking / <strong>Banque physique</strong>', h1:'Banque physique USA<br><em>Stabilité institutionnelle</em>', sub:'Pour les entreprises nécessitant crédit, financement ou relations institutionnelles. Délai 2-3 mois.', cards:[{t:'#a05a14',l:'Avantage',h:'Accès aux financements',p:"Crédits commerciaux, lignes de crédit, relations bancaires long terme."},{t:'#2a5090',l:'À noter',h:'Déplacement requis',p:"Rendez-vous physique en agence US obligatoire. Dépôt initial important. Délai 2-3 mois."}]},
+  tarifs:{ crumb:'<strong>Tarifs</strong>', h1:'Tous nos tarifs', sub:'Pack LLC $997 · Pack Premium $1 597 · Déclaration LLC dès $800 · Banking dès $600 · Prestations dès $100.', cards:[{t:'#2a5090',l:'Création',h:'Pack LLC — $997',p:"LLC + EIN + documents légaux + chargé dédié + portail client"},{t:'#1a7850',l:'Création + Banking',h:'Pack Premium — $1 597',p:"Tout le Pack LLC + compte Mercury ouvert. Carte Visa incluse."},{t:'#a05a14',l:'Gestion',h:'Déclaration LLC — dès $800',p:"CPA agréé IRS · Signature personnelle · Guide FR"},{t:'#2a5090',l:'Gestion',h:'Confort · E2 · Prestations',p:"Domiciliation · Visa E2 · Annual report · CGV · Dissolution"}]},
+};
+
+// ─── State ──────────────────────────────────────────
+let openDD = null;
+let pageHistory = ['home'];
+
+function goBack() {
+  if (pageHistory.length > 1) {
+    pageHistory.pop();
+    const prev = pageHistory[pageHistory.length - 1];
+    showPage(prev, true);
+    updateBackBtns();
+  }
+}
+function updateBackBtns() {
+  const show = pageHistory.length > 1;
+  document.querySelectorAll('.back-btn').forEach(b => b.style.display = show ? 'flex' : 'none');
+}
+
+const HP_STATES = {
+  nm: {
+    name: 'Nouveau-Mexique', abbr: 'NM', tag: 'Anonymat total',
+    color: '#2a5090', colorBg: '#dce8fb',
+    pitch: 'La juridiction la plus discrète des USA. Aucun registre public des associés — votre identité reste confidentielle.',
+    perks: ['Aucun registre public des associés','Identité du fondateur 100% protégée','Frais de création parmi les plus bas des USA','Idéal pour les activités digitales et e-commerce'],
+    highlight: 'Anonymat', timing: '14 jours', page: 'nm'
+  },
+  co: {
+    name: 'Colorado', abbr: 'CO', tag: 'LLC en 24 heures',
+    color: '#1a7850', colorBg: '#d4f0e2',
+    pitch: 'La LLC la plus rapide à obtenir. Opérationnelle en moins de 24h, avec un environnement fiscal très favorable.',
+    perks: ['Immatriculation express en moins de 24h','Environnement business pro-entrepreneur','Taxes d\'État compétitives','Idéal pour freelances et startups en croissance'],
+    highlight: 'Rapidité', timing: '24 heures', page: 'co'
+  },
+  wy: {
+    name: 'Wyoming', abbr: 'WY', tag: 'Pro-crypto & Web3',
+    color: '#7a50a0', colorBg: '#ede4f8',
+    pitch: 'Le seul État américain à avoir légalisé les DAO. Protection maximale des actifs crypto et patrimoine personnel.',
+    perks: ['DAO (organisations crypto) juridiquement reconnues','Actifs crypto légalement protégés','Aucune taxe d\'État sur le revenu','Idéal pour projets Web3 et blockchain'],
+    highlight: 'Crypto/DAO', timing: '14 jours', page: 'wy'
+  },
+  de: {
+    name: 'Delaware', abbr: 'DE', tag: 'Standard levée de fonds',
+    color: '#9a3a58', colorBg: '#f5dde6',
+    pitch: 'La référence mondiale pour les VC et investisseurs. Si vous levez des fonds, le Delaware est un standard incontournable.',
+    perks: ['Référence n°1 pour les investisseurs et VC','Tribunal spécialisé (Court of Chancery)','Structure optimale pour lever des fonds','Idéal pour startups visant une levée ou une IPO'],
+    highlight: 'Levée fonds', timing: '14 jours', page: 'de'
+  }
+};
+
+let activeHpState = 'nm';
+let hpPanelTimer = null;
+
+function _hpMapActivate(key) {
+  const map = document.getElementById('us-map-hp');
+  if (!map) return;
+  map.classList.add('has-hover');
+  map.querySelectorAll('.key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-hp');
+  if (el) el.classList.add('active');
+}
+
+function _hpPanelUpdate(key, animate) {
+  if (!HP_STATES[key]) return;
+  const d = HP_STATES[key];
+  // Tabs
+  document.querySelectorAll('.hp-stab').forEach(t => t.classList.remove('sel'));
+  const tab = document.getElementById('stab-' + key);
+  if (tab) tab.classList.add('sel');
+  const inner = document.getElementById('hd-inner');
+  if (!inner) return;
+  const doUpdate = () => {
+    document.getElementById('hd-abbr').textContent = d.abbr;
+    document.getElementById('hd-abbr').style.background = d.colorBg;
+    document.getElementById('hd-abbr').style.color = d.color;
+    document.getElementById('hd-tag').textContent = d.tag;
+    document.getElementById('hd-name').textContent = d.name;
+    document.getElementById('hd-pitch').textContent = d.pitch;
+    document.getElementById('hd-highlight').textContent = d.highlight;
+    document.getElementById('hd-highlight').style.color = d.color;
+    document.getElementById('hd-perks').innerHTML = d.perks.map(p =>
+      `<div class="hd-perk"><span class="hd-perk-check" style="background:${d.color}">✓</span>${p}</div>`
+    ).join('');
+    const cta = document.getElementById('hd-cta');
+    cta.style.background = `linear-gradient(135deg, ${d.color}dd, ${d.color})`;
+    cta.textContent = `Créer ma LLC au ${d.name} →`;
+    cta.onclick = () => go(d.page);
+    inner.classList.remove('fade');
+    inner.classList.add('in');
+    setTimeout(() => inner.classList.remove('in'), 250);
+  };
+  if (animate) {
+    inner.classList.add('fade');
+    clearTimeout(hpPanelTimer);
+    hpPanelTimer = setTimeout(doUpdate, 130);
+  } else {
+    doUpdate();
+  }
+}
+
+/* Hover: highlight map only (quick preview) */
+function hpHover(key) {
+  _hpMapActivate(key);
+}
+
+/* Click (or tab click): lock selection + update panel */
+function hpSelect(key) {
+  if (!HP_STATES[key]) return;
+  const changed = activeHpState !== key;
+  activeHpState = key;
+  _hpMapActivate(key);
+  _hpPanelUpdate(key, changed);
+}
+
+/* Mouse leaves map area: restore locked selection */
+function hpMapLeave() {
+  if (activeHpState) {
+    _hpMapActivate(activeHpState);
+  } else {
+    const map = document.getElementById('us-map-hp');
+    if (map) { map.classList.remove('has-hover'); map.querySelectorAll('.key').forEach(el => el.classList.remove('active')); }
+  }
+}
+function hpLeave() { /* individual state leave — handled by map container */ }
+
+function toggleDD(id) {
+  openDD === id ? closeAll() : openDD_(id);
+}
+function openDD_(id) {
+  closeAll(false);
+  openDD = id;
+  document.getElementById('dd-' + id).classList.add('show');
+  document.getElementById('backdrop').classList.add('show');
+  document.getElementById('nl-' + id).classList.add('dd-active');
+}
+function closeAll(resetOpen = true) {
+  document.querySelectorAll('.dd-panel').forEach(p => p.classList.remove('show'));
+  document.getElementById('backdrop').classList.remove('show');
+  document.querySelectorAll('.nl').forEach(l => l.classList.remove('dd-active'));
+  document.querySelectorAll('.dd-offer.hl,.dd-state.hl,.dd-service.hl').forEach(e => e.classList.remove('hl'));
+  if (resetOpen) openDD = null;
+}
+
+function prev(key, el) {
+  document.querySelectorAll('.dd-offer.hl,.dd-state.hl,.dd-service.hl').forEach(e => e.classList.remove('hl'));
+  el.classList.add('hl');
+  showPage(key, false);
+}
+
+function go(key) {
+  closeAll();
+  if (pageHistory[pageHistory.length - 1] !== key) pageHistory.push(key);
+  showPage(key, true);
+  updateBackBtns();
+}
+
+function showPage(key, updateNav) {
+  document.querySelectorAll('.pv').forEach(v => v.classList.remove('on'));
+
+  if (updateNav) {
+    document.querySelectorAll('.nl').forEach(l => l.classList.remove('active'));
+    if (['creer','pack-llc','pack-premium','offres','nm','co','wy','de'].includes(key)) document.getElementById('nl-llc').classList.add('active');
+    else if (['fintech','bphysique','decl','confort','e2','presta','gestion','tarifs','cal-banking'].includes(key)) document.getElementById('nl-svc').classList.add('active');
+    else if (key === 'apropos') document.getElementById('nl-apropos').classList.add('active');
+    else if (key === 'blog') document.getElementById('nl-blog').classList.add('active');
+  }
+
+  if (key === 'home') { document.getElementById('pv-home').classList.add('on'); }
+  else if (key === 'creer') { document.getElementById('pv-creer').classList.add('on'); }
+  else if (key === 'pack-llc' || key === 'offres') { document.getElementById('pv-offres').classList.add('on'); }
+  else if (key === 'pack-premium') { document.getElementById('pv-offres').classList.add('on'); }
+  else if (key === 'gestion') { document.getElementById('pv-gestion').classList.add('on'); }
+  else if (key === 'fintech') { document.getElementById('pv-fintech').classList.add('on'); }
+  else if (key === 'cal') { document.getElementById('pv-cal').classList.add('on'); }
+  else if (key === 'cal-banking') { document.getElementById('pv-cal-banking').classList.add('on'); }
+  else if (states[key]) {
+    const s = states[key];
+    document.getElementById('st-crumb').innerHTML = s.crumb;
+    document.getElementById('st-h1').innerHTML = s.h1;
+    document.getElementById('st-sub').textContent = s.sub;
+    document.getElementById('st-cards').innerHTML = s.cards.map(c => `<div class="card a-card"><div class="card-tag" style="color:${c.t}">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    document.getElementById('pv-state').classList.add('on');
+  } else if (generics[key]) {
+    const g = generics[key];
+    document.getElementById('g-crumb').innerHTML = g.crumb;
+    document.getElementById('g-h1').innerHTML = g.h1.replace('\n','<br>');
+    document.getElementById('g-sub').textContent = g.sub;
+    document.getElementById('g-cards').innerHTML = g.cards.map(c => `<div class="card a-card"><div class="card-tag" style="color:${c.t}">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    document.getElementById('pv-generic').classList.add('on');
+  } else { document.getElementById('pv-home').classList.add('on'); }
+}
+
+function toggleAn() {
+  const a = document.getElementById('anlys'), arr = document.getElementById('atarr');
+  const open = a.classList.toggle('open');
+  arr.classList.toggle('open', open);
+  if (open) setTimeout(() => a.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+function msTab(el, goAnalysis) {
+  document.querySelectorAll('.ms-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  if (goAnalysis) {
+    document.getElementById('anlys').classList.add('open');
+    document.getElementById('atarr').classList.add('open');
+    setTimeout(() => document.getElementById('anlys').scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+function initTimelineMobile() {
+  if (window.innerWidth > 768) return;
+  const wrap = document.getElementById('tl-wrap');
+  if (!wrap) return;
+
+  // Inject beam elements
+  const track = document.createElement('div');
+  track.className = 'tl-beam-track';
+  const fill = document.createElement('div');
+  fill.className = 'tl-beam-fill';
+  wrap.appendChild(track); wrap.appendChild(fill);
+
+  const steps = Array.from(wrap.querySelectorAll('.tl-step'));
+
+  // IntersectionObserver — fade+slide each step in
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('tl-visible'); });
+  }, { threshold: 0.25 });
+  steps.forEach(s => obs.observe(s));
+
+  // Scroll — smoothly draw the beam
+  function updateBeam() {
+    const wrapRect = wrap.getBoundingClientRect();
+    const trigger = window.innerHeight * 0.70;
+    const progress = Math.min(1, Math.max(0, (trigger - wrapRect.top) / wrapRect.height));
+    const totalH = wrapRect.height - 46;
+    fill.style.height = Math.max(0, progress * totalH) + 'px';
+  }
+  window.addEventListener('scroll', updateBeam, { passive: true });
+  updateBeam();
+}
+
+async function buildUSMap() {
+  const W = 760, H = 480;
+  const FIPS_MAP = {'35':'nm','08':'co','56':'wy','10':'de'};
+
+  let topo;
+  try {
+    topo = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r => r.json());
+  } catch(e) { return; }
+
+  const geojson = topojson.feature(topo, topo.objects.states);
+  const projection = d3.geoAlbersUsa().fitSize([W, H], geojson);
+  const pathGen = d3.geoPath(projection);
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('id', 'us-map-hp');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.cssText = 'display:block;width:100%';
+  svg.addEventListener('mouseleave', hpMapLeave);
+
+  const bg = document.createElementNS(NS, 'rect');
+  bg.setAttribute('width', W); bg.setAttribute('height', H); bg.setAttribute('fill', '#dde8f4');
+  svg.appendChild(bg);
+
+  const defs = document.createElementNS(NS, 'defs');
+  defs.innerHTML = `
+    <radialGradient id="fog-hp" cx="50%" cy="50%" r="52%">
+      <stop offset="55%" stop-color="rgba(238,244,251,0)" stop-opacity="0"/>
+      <stop offset="100%" stop-color="rgba(238,244,251,1)" stop-opacity="1"/>
+    </radialGradient>`;
+  svg.appendChild(defs);
+
+  const bgGroup = document.createElementNS(NS, 'g');
+  bgGroup.style.pointerEvents = 'none';
+  const keyGroup = document.createElementNS(NS, 'g');
+  const centroids = {};
+
+  geojson.features.forEach(feat => {
+    const fips = String(feat.id).padStart(2, '0');
+    const key = FIPS_MAP[fips];
+    const d = pathGen(feat);
+    if (!d) return;
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', d);
+    if (key) {
+      path.setAttribute('class', `key ${key}`);
+      path.setAttribute('id', `${key}-hp`);
+      path.addEventListener('mouseenter', () => hpHover(key));
+      path.addEventListener('click', () => hpSelect(key));
+      const c = pathGen.centroid(feat);
+      if (c && !isNaN(c[0])) centroids[key] = c;
+      keyGroup.appendChild(path);
+    } else {
+      path.setAttribute('fill', 'rgba(140,175,215,0.62)');
+      path.setAttribute('stroke', 'rgba(255,255,255,0.88)');
+      path.setAttribute('stroke-width', '0.8');
+      bgGroup.appendChild(path);
+    }
+  });
+
+  svg.appendChild(bgGroup);
+  svg.appendChild(keyGroup);
+
+  const lblGroup = document.createElementNS(NS, 'g');
+  lblGroup.style.pointerEvents = 'none';
+  Object.entries(centroids).forEach(([key, [cx, cy]]) => {
+    const s = HP_STATES[key];
+    const t = document.createElementNS(NS, 'text');
+    t.setAttribute('class', 'kl');
+    t.setAttribute('x', cx); t.setAttribute('y', cy + 4);
+    t.setAttribute('fill', s.color + 'cc');
+    t.textContent = s.abbr;
+    lblGroup.appendChild(t);
+  });
+  svg.appendChild(lblGroup);
+
+  const fog = document.createElementNS(NS, 'rect');
+  fog.setAttribute('width', W); fog.setAttribute('height', H);
+  fog.setAttribute('fill', 'url(#fog-hp)');
+  fog.style.pointerEvents = 'none';
+  svg.appendChild(fog);
+
+  const container = document.getElementById('hp-map-container');
+  if (container) container.appendChild(svg);
+  _hpMapActivate(activeHpState);
+  _hpPanelUpdate(activeHpState, false);
+}
+
+// Reset map hover when mouse leaves the map panel
+document.addEventListener('DOMContentLoaded', () => {
+  const panel = document.querySelector('.map-panel');
+  if (panel) panel.addEventListener('mouseleave', () => {
+    const map = document.querySelector('#pv-creer .us-map');
+    if (map) map.classList.remove('has-hover');
+    document.querySelectorAll('#pv-creer .us-map .key').forEach(el => el.classList.remove('active'));
+    const detail = document.getElementById('map-detail');
+    if (detail) detail.innerHTML = '<div class="md-placeholder"><div class="md-icon">🗺</div><div>Survolez un État sur la carte<br>pour voir ses atouts</div></div>';
+  });
+  buildUSMap();
+  initTimelineMobile();
+});
+
+const stateDetails = {
+  wy: { name:'Wyoming', label:'Pro-Crypto & Web3', tag:'DAO légalisées', tagBg:'#f0e8f8', tagColor:'#7a50a0', accent:'#7a50a0',
+    tagline:'La juridiction la plus favorable aux actifs numériques',
+    desc:'Le Wyoming est le seul État américain à reconnaître légalement les DAO. Réglementation crypto-native, confidentialité renforcée, frais parmi les plus bas.',
+    feats:['DAO légalement reconnues (loi 2021)','Aucun impôt sur les revenus des LLC','Confidentialité : gérant non public','Frais annuels : $60/an'] },
+  co: { name:'Colorado', label:'LLC en 24 Heures', tag:'Opérationnelle en 24h', tagBg:'#e8f8f0', tagColor:'#1a7850', accent:'#1a7850',
+    tagline:'Le délai de traitement le plus rapide des États-Unis',
+    desc:'Le Colorado propose un service de traitement accéléré permettant d\'immatriculer votre LLC en moins de 24h ouvrées. Idéal pour lancer vite.',
+    feats:['LLC opérationnelle en moins de 24h','Écosystème startup dynamique (Denver)','Frais d\'État : $50/an','Idéal pour e-commerce et SaaS'] },
+  nm: { name:'Nouveau-Mexique', label:'Anonymat Total', tag:'0 registre public', tagBg:'#ebf2ff', tagColor:'#2a5090', accent:'#2a5090',
+    tagline:'Votre identité n\'apparaît dans aucun registre public américain',
+    desc:'Au Nouveau-Mexique, ni les gérants ni les associés n\'ont l\'obligation d\'apparaître dans les documents publics. Le maximum d\'anonymat disponible aux USA.',
+    feats:['Gérant et associés non publics','Pas de registered agent public','Frais d\'État parmi les plus bas ($50)','Idéal pour freelances et créateurs de contenu'] },
+  de: { name:'Delaware', label:'Levée de Fonds', tag:'Référence VC', tagBg:'#fff5e6', tagColor:'#a05a14', accent:'#a05a14',
+    tagline:'Le standard des investisseurs américains et Fortune 500',
+    desc:'68% des sociétés Fortune 500 et la quasi-totalité des startups levant des fonds aux USA s\'incorporent au Delaware. Signal immédiat pour les investisseurs.',
+    feats:['Standard des fonds VC américains','Court of Chancery — tribunal spécialisé','Structure C-Corp possible','Indispensable pour lever des fonds aux USA'] },
+};
+
+function selectState(key) {
+  const map = document.querySelector('#pv-creer .us-map');
+  if (map) map.classList.add('has-hover');
+  document.querySelectorAll('#pv-creer .us-map .key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-shape');
+  if (el) el.classList.add('active');
+  const d = stateDetails[key];
+  if (!d) return;
+  document.getElementById('map-detail').innerHTML = `
+    <div class="md-label" style="color:${d.accent}">${d.label}</div>
+    <div class="md-name">${d.name}</div>
+    <span class="md-tag" style="background:${d.tagBg};color:${d.tagColor}">${d.tag}</span>
+    <div class="md-tagline">${d.tagline}</div>
+    <div class="md-desc">${d.desc}</div>
+    <div class="md-features">${d.feats.map(f=>`<div class="md-feat"><span class="md-feat-arrow" style="color:${d.accent}">›</span><span>${f}</span></div>`).join('')}</div>
+    <button class="md-cta" onclick="go('${key}')">Créer ma LLC au ${d.name} →</button>
+  `;
+}
+
+/* ── Design control bar ── */
+// Theme switcher — charge le fichier CSS du thème
+function setTheme(name, btn) {
+  document.getElementById('theme-css').href = 'css/' + name + '.css';
+  document.documentElement.setAttribute('data-theme', name);
+  document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+}
+
+function setHeroVariant(n, btn) {
+  document.querySelectorAll('.hero-variant').forEach(el => { el.style.display = 'none'; });
+  const target = document.getElementById('hv-' + n);
+  if (target) {
+    target.style.display = '';
+    if (n === 2) { target.style.display = 'flex'; }
+    if (n === 3) { target.style.display = 'flex'; }
+  }
+  document.querySelectorAll('.db-btn').forEach(b => {
+    if (b.onclick && b.onclick.toString().includes('setHeroVariant')) b.classList.remove('on');
+  });
+  btn.classList.add('on');
+}
+</script>
+</body>
+
+</html>
