@@ -1714,6 +1714,9 @@ async function buildHeroMap() {
     </radialGradient>`;
   svg.appendChild(defs);
 
+  // West→East stagger order for intro animation
+  const HM_STAGGER = { ca:0, wy:1, nm:2, co:3, de:4, fl:5 };
+
   const centroids = {};
   const allPaths = [], keyPaths = [];
 
@@ -1732,6 +1735,9 @@ async function buildHeroMap() {
       if (c.glow) el.setAttribute('filter', 'url(#hm-state-glow)');
       el.classList.add('hm-state-path');
       el.style.cursor = 'pointer';
+      // Intro animation: staggered west→east
+      const sIdx = HM_STAGGER[key] ?? 0;
+      el.style.animation = `hm-state-in 0.75s cubic-bezier(.2,.8,.2,1) ${0.2 + sIdx * 0.11}s both`;
       hmKeyPaths[key] = el;
       el.addEventListener('mouseenter', () => hmActivate(key));
       el.addEventListener('mouseleave', () => hmReset());
@@ -1806,6 +1812,13 @@ function _drawHeroLines(centroids, W, H) {
     const sy = cy * scaleY + mapOffY;
 
     const NS2 = 'http://www.w3.org/2000/svg';
+
+    // Line stagger: lines draw after states, west→east
+    const lineOrder = { ca:0, wy:1, nm:2, co:3, de:4, fl:5 };
+    const lIdx = lineOrder[key] ?? 0;
+    const lineDelay = 0.92 + lIdx * 0.09;
+    const cardDelay = lineDelay + 0.42;
+
     const path = document.createElementNS(NS2, 'path');
     path.setAttribute('d', `M ${ax} ${ay} L ${sx} ${ay} L ${sx} ${sy}`);
     path.setAttribute('fill', 'none');
@@ -1813,21 +1826,36 @@ function _drawHeroLines(centroids, W, H) {
     path.setAttribute('stroke-width', '1.2');
     path.setAttribute('stroke-linecap', 'round');
     lineSvg.appendChild(path);
+    // Draw animation — must be after append so getTotalLength works
+    requestAnimationFrame(() => {
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      path.style.animation = `hm-line-draw 0.55s ease-out ${lineDelay}s forwards`;
+    });
 
     const cardDot = document.createElementNS(NS2, 'circle');
     cardDot.setAttribute('cx', ax); cardDot.setAttribute('cy', ay);
     cardDot.setAttribute('r', '2.5');
     cardDot.setAttribute('fill', lc.cDot);
+    cardDot.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both`;
     lineSvg.appendChild(cardDot);
 
     const dotOuter = document.createElementNS(NS2, 'circle');
     dotOuter.setAttribute('cx', sx); dotOuter.setAttribute('cy', sy); dotOuter.setAttribute('r', '5');
     dotOuter.setAttribute('fill', lc.sRing);
+    dotOuter.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both`;
     lineSvg.appendChild(dotOuter);
+
     const dot = document.createElementNS(NS2, 'circle');
     dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '2.5');
     dot.setAttribute('fill', lc.sDot);
+    dot.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both, hm-dot-pulse 2s ease-in-out ${cardDelay + 0.5}s infinite`;
     lineSvg.appendChild(dot);
+
+    // Annotation card appears after its line finishes
+    const annEl = document.getElementById('hm-ann-' + key);
+    if (annEl) annEl.style.animation = `hm-card-in 0.55s cubic-bezier(.2,.8,.3,1.2) ${cardDelay}s both`;
   });
 }
 
