@@ -1225,8 +1225,9 @@ body {
   transition: box-shadow .2s, transform .18s;
 }
 .op-card:hover { transform: translateY(-3px); }
-.op-rec-badge { position: absolute; top: 16px; right: 20px; left: auto; transform: none; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; white-space: nowrap; }
-.op-name { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; }
+.op-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.op-rec-badge { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+.op-name { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .op-price { font-family: var(--font-head); font-size: 48px; font-weight: 700; letter-spacing: -.04em; line-height: 1; margin-bottom: 4px; }
 .op-price span { font-size: 20px; }
 .op-tagline { font-size: 13px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid transparent; }
