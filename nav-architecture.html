@@ -85,7 +85,7 @@ html[data-theme="vault"] {
   --c-border:    rgba(155,163,185,.16);
   background: #FFFFFF; color: #0D1117;
 }
-/* Vault — fond blanc pur + override global sections */
+/* ── Fond blanc pur global ── */
 html[data-theme="vault"] { background: #FFFFFF !important; }
 html[data-theme="vault"] body { background: #FFFFFF !important; }
 html[data-theme="vault"] .section,
@@ -96,26 +96,121 @@ html[data-theme="vault"] .hp-map-section {
   border-top-color: rgba(155,163,185,.12) !important;
 }
 html[data-theme="vault"] .hero-bg {
-  background: linear-gradient(160deg, #FFFFFF 0%, #F2F4FA 50%, #F6F8FD 100%) !important;
+  background: linear-gradient(160deg, #FFFFFF 0%, #F4F5F9 60%, #F0F2F8 100%) !important;
 }
-/* Cards — glass chrome global */
+
+/* ── HERO: éliminer tous les bleus hardcodés ── */
+/* Glow bleu → halo blanc lumineux (backlight vault) */
+html[data-theme="vault"] .hero-glow {
+  background: radial-gradient(ellipse, rgba(255,255,255,.85) 0%, transparent 65%) !important;
+}
+/* Dot bleu dans la pill → silver */
+html[data-theme="vault"] .hp-dot { background: #B8BCC8 !important; }
+html[data-theme="vault"] .hero-pill {
+  color: rgba(13,17,23,.45) !important;
+  border-color: rgba(200,203,215,.5) !important;
+}
+/* Em "Créée en 14 jours" — gradient bleu → dark institutional */
+html[data-theme="vault"] .hero-h1 em {
+  background: linear-gradient(90deg, #0e1e38, #1a2e52) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+html[data-theme="vault"] .hero-h1 { color: #0D1117 !important; }
+html[data-theme="vault"] .hero-sub { color: rgba(13,17,23,.52) !important; }
+html[data-theme="vault"] .hero-legal { color: rgba(13,17,23,.32) !important; }
+html[data-theme="vault"] .hero-cta-s { color: rgba(13,17,23,.38) !important; }
+html[data-theme="vault"] .hero-cta-s:hover { color: rgba(13,17,23,.7) !important; }
+/* CTA btn — navy profond, ombre neutre */
+html[data-theme="vault"] .hero-cta-p {
+  background: linear-gradient(135deg, #0e2454 0%, #1a3a72 100%) !important;
+  box-shadow: 0 6px 24px rgba(14,36,84,.2), 0 2px 8px rgba(14,36,84,.1) !important;
+}
+html[data-theme="vault"] .hero-cta-p:hover {
+  box-shadow: 0 8px 32px rgba(14,36,84,.28) !important;
+}
+
+/* ── PANEL-BIG (grande stat card 0%) — vault glass ── */
+html[data-theme="vault"] .panel-big {
+  background: rgba(255,255,255,.97) !important;
+  border: 1px solid rgba(200,205,218,.4) !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,1),
+    inset 0 0 0 1px rgba(215,218,228,.35),
+    0 20px 60px rgba(17,22,45,.07),
+    0 6px 20px rgba(17,22,45,.04) !important;
+  backdrop-filter: blur(32px) saturate(1.1) !important;
+}
+/* Shine → chrome pur (argent) */
+html[data-theme="vault"] .pb-shine {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(215,218,228,.8) 25%,
+    rgba(255,255,255,1) 50%,
+    rgba(215,218,228,.8) 75%,
+    transparent) !important;
+}
+html[data-theme="vault"] .pb-num { color: #0D1117 !important; }
+html[data-theme="vault"] .pb-num span { color: #1a3060 !important; } /* dark navy, pas bleu */
+html[data-theme="vault"] .pb-lbl { color: rgba(13,17,23,.38) !important; }
+html[data-theme="vault"] .pb-badge {
+  background: rgba(255,255,255,.85) !important;
+  border-color: rgba(200,205,218,.45) !important;
+}
+html[data-theme="vault"] .pb-badge-dot {
+  background: linear-gradient(135deg, #B8BCC8, #D0D4E0) !important; /* chrome silver */
+}
+html[data-theme="vault"] .pb-badge-txt { color: rgba(13,17,23,.36) !important; }
+
+/* ── PANEL-GRID (2x2 stats) — vault glass tiles ── */
+html[data-theme="vault"] .pg-item {
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(200,205,218,.32) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 4px 16px rgba(17,22,45,.05),
+    0 1px 4px rgba(17,22,45,.03) !important;
+  backdrop-filter: blur(20px) !important;
+}
+html[data-theme="vault"] .pgi-val { color: #0D1117 !important; }
+html[data-theme="vault"] .pgi-lbl { color: rgba(13,17,23,.36) !important; }
+
+/* ── Cards globales — glass chrome ── */
 html[data-theme="vault"] .op-card,
 html[data-theme="vault"] .testi-card,
 html[data-theme="vault"] .chemin-card,
 html[data-theme="vault"] .non-item {
   background: rgba(255,255,255,.92) !important;
-  border-color: rgba(155,163,185,.18) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 8px 32px rgba(13,17,30,.05), 0 2px 8px rgba(13,17,30,.03) !important;
+  border-color: rgba(195,200,215,.2) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 8px 32px rgba(17,22,45,.05),
+    0 2px 8px rgba(17,22,45,.03) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-/* Accent buttons / pills — dark navy au lieu de bleu */
-html[data-theme="vault"] .hero-cta-p {
-  background: linear-gradient(135deg, #0e2454, #1a3a72) !important;
+html[data-theme="vault"] .non-q { color: #0D1117 !important; }
+html[data-theme="vault"] .non-a { color: rgba(13,17,23,.5) !important; }
+html[data-theme="vault"] .chemin-h { color: #0D1117 !important; }
+html[data-theme="vault"] .chemin-p { color: rgba(13,17,23,.5) !important; }
+html[data-theme="vault"] .testi-nm { color: #0D1117 !important; }
+html[data-theme="vault"] .testi-text { color: rgba(13,17,23,.5) !important; }
+
+/* ── Timeline dots — chrome ── */
+html[data-theme="vault"] .tl-dot {
+  background: linear-gradient(135deg, #C8CDDE, #E0E3EE) !important;
+  border-color: rgba(155,163,185,.3) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9) !important;
 }
-/* Chrome accent — fine ligne sous les titres de section */
-html[data-theme="vault"] .section-h2::after,
-html[data-theme="vault"] .i-h1::after {
+html[data-theme="vault"] .tl-h { color: #0D1117 !important; }
+html[data-theme="vault"] .tl-p { color: rgba(13,17,23,.5) !important; }
+
+/* ── Section headings ── */
+html[data-theme="vault"] .section-h2 { color: #0D1117 !important; display: block; }
+html[data-theme="vault"] .section-tag { color: #0D1117 !important; }
+html[data-theme="vault"] .section-sub { color: rgba(13,17,23,.5) !important; }
+/* Accent chrome sous titres */
+html[data-theme="vault"] .section-h2::after {
   content: '';
   display: block;
   margin-top: 10px;
@@ -123,12 +218,12 @@ html[data-theme="vault"] .i-h1::after {
   background: linear-gradient(90deg, transparent, #B8BDCC 30%, #D8DCE8 50%, #B8BDCC 70%, transparent);
   border-radius: 2px;
 }
-html[data-theme="vault"] .section-h2 { display: block; }
-/* Timeline dots — chrome */
-html[data-theme="vault"] .tl-dot {
-  background: linear-gradient(135deg, #C8CDDE, #E0E3EE) !important;
-  border-color: rgba(155,163,185,.3) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9) !important;
+
+/* ── hp-detail (detail block) ── */
+html[data-theme="vault"] .hp-detail {
+  background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(248,249,252,.95)) !important;
+  border-color: rgba(200,205,218,.25) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 4px 16px rgba(17,22,45,.04) !important;
 }
 
 /* ════ THEME SURFACE OVERRIDES ════ */
