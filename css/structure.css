@@ -551,6 +551,12 @@ body {
   border-radius: 16px; padding: 32px 36px;
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
 }
+.i-cta-dark {
+  background: linear-gradient(135deg, var(--c-accent-d, #1a3a6a), var(--c-accent, #2a5090));
+  color: #fff;
+}
+.i-cta-dark h3, .i-cta-dark p { color: #fff; }
+.i-cta-dark p { opacity: .7; }
 .i-cta h3 { font-family: var(--font-head); font-size: 20px; font-weight: 600; margin-bottom: 4px; }
 .i-cta p { font-size: 13px; }
 .i-cta-btn {
