@@ -71,79 +71,83 @@ html[data-theme="liquid"] .pack-price {
   --blue:  #2a5090;
   --blue-l:#4a80b8;
   --white: #fff;
-  --bg: linear-gradient(160deg, #eef3f9 0%, #e4ecf6 30%, #eaf1f8 60%, #f2f6fb 100%);
-  --border-light: rgba(26,42,64,0.07);
-  --border-glass: rgba(255,255,255,0.6);
+  --bg: linear-gradient(160deg, #f7f9fc 0%, #f3f7fb 40%, #f6f9fd 70%, #f9fbfd 100%);
+  --border-light: rgba(26,42,64,0.06);
+  --border-glass: rgba(255,255,255,0.72);
   /* ── semantic tokens ── */
-  --c-bg:        #eef3f9;
-  --c-bg-2:      #e4ecf6;
-  --c-bg-3:      #e8f0f9;
+  --c-bg:        #f7f9fc;
+  --c-bg-2:      #f3f7fb;
+  --c-bg-3:      #f5f8fc;
   --c-text:      #0e1e38;
-  --c-text-2:    rgba(14,30,56,.55);
-  --c-text-3:    rgba(14,30,56,.35);
+  --c-text-2:    rgba(14,30,56,.52);
+  --c-text-3:    rgba(14,30,56,.32);
   --c-accent:    #2a5090;
   --c-accent-d:  #1a3a6a;
   --c-accent-l:  #4a80b8;
-  --c-surface:   rgba(255,255,255,.82);
-  --c-surface-b: rgba(255,255,255,.88);
-  --c-border:    rgba(26,42,64,.07);
+  --c-surface:   rgba(255,255,255,.88);
+  --c-surface-b: rgba(255,255,255,.94);
+  --c-border:    rgba(26,42,64,.06);
   /* ── element tokens ── */
   --c-em-from:      #3a6898;
   --c-em-to:        #5a90c8;
-  --c-hero-glow:    rgba(80,130,200,.08);
+  --c-hero-glow:    rgba(80,130,200,.06);
   --c-dot:          #4a80b8;
   --c-grid:         transparent;
-  --c-panel-bg:     linear-gradient(160deg,rgba(255,255,255,.85) 0%,rgba(235,244,255,.70) 100%);
-  --c-panel-shadow: rgba(80,120,180,.14);
-  --c-panel-inset:  rgba(255,255,255,.95);
-  --c-pg-tint:      rgba(235,244,255,.55);
-  --c-pg-shadow:    rgba(80,120,180,.09);
-  --c-shine-edge:   rgba(180,200,225,.3);
+  --c-panel-bg:     linear-gradient(160deg,rgba(255,255,255,.92) 0%,rgba(242,248,255,.80) 100%);
+  --c-panel-shadow: rgba(80,120,180,.10);
+  --c-panel-inset:  rgba(255,255,255,.97);
+  --c-pg-tint:      rgba(242,247,255,.60);
+  --c-pg-shadow:    rgba(80,120,180,.07);
+  --c-shine-edge:   rgba(180,200,225,.25);
   --c-chrome:       linear-gradient(135deg,#1a3a6a,#2a5090);
   --c-chrome-text:  #fff;
 
-  /* ══ CHROME CARD SYSTEM — Liquid Glass signature component ══
-     Bord argenté gradient via padding-box / border-box.
-     Trois niveaux d'intensité: standard · elevated · premium  */
-  --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.96) 0%, rgba(246,251,255,.92) 100%);
+  /* ══ CHROME CARD SYSTEM — Liquid Glass signature ══
+     Shimmer iridescent prismatique — inspiré verre cristallin Apple Vision Pro.
+     Fond quasi-transparent, bord avec reflet arc-en-ciel très subtil.         */
+  --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.80) 0%, rgba(248,252,255,.72) 100%);
   --lq-chrome-border:   linear-gradient(145deg,
-                          rgba(255,255,255,.98)   0%,
-                          rgba(195,210,228,.85)  18%,
-                          rgba(155,178,205,.72)  40%,
-                          rgba(175,196,220,.80)  62%,
-                          rgba(220,232,245,.90)  80%,
-                          rgba(255,255,255,.96) 100%);
-  --lq-chrome-shadow:   0 2px 18px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.04);
-  --lq-chrome-shadow-h: 0 6px 28px rgba(14,30,56,.10), 0 1px 6px rgba(14,30,56,.06);
+                          rgba(255,255,255,.99)    0%,
+                          rgba(150,200,255,.92)   10%,
+                          rgba(200,155,255,.85)   24%,
+                          rgba(140,230,210,.85)   40%,
+                          rgba(255,200,155,.82)   58%,
+                          rgba(155,210,255,.90)   74%,
+                          rgba(210,180,255,.88)   88%,
+                          rgba(255,255,255,.99)  100%);
+  --lq-chrome-shadow:   0 2px 20px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.03);
+  --lq-chrome-shadow-h: 0 10px 40px rgba(14,30,56,.10), 0 2px 8px rgba(14,30,56,.05);
 
-  /* elevated — pour les grandes cards */
-  --lq-chrome-fill-el:    linear-gradient(160deg, rgba(255,255,255,.98) 0%, rgba(242,249,255,.94) 100%);
-  --lq-chrome-shadow-el:  0 4px 24px rgba(14,30,56,.08), 0 1px 6px rgba(14,30,56,.04);
+  /* elevated */
+  --lq-chrome-fill-el:    linear-gradient(160deg, rgba(255,255,255,.85) 0%, rgba(245,251,255,.78) 100%);
+  --lq-chrome-shadow-el:  0 8px 36px rgba(14,30,56,.08), 0 2px 6px rgba(14,30,56,.04);
 
   /* premium — hero panel, featured pack */
-  --lq-chrome-fill-pm:    linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(238,247,255,.97) 100%);
+  --lq-chrome-fill-pm:    linear-gradient(160deg, rgba(255,255,255,.92) 0%, rgba(242,250,255,.86) 100%);
   --lq-chrome-border-pm:  linear-gradient(145deg,
-                            rgba(255,255,255,1)    0%,
-                            rgba(175,198,222,.95)  18%,
-                            rgba(128,163,198,.88)  40%,
-                            rgba(160,188,218,.92)  62%,
-                            rgba(210,228,245,.95)  80%,
+                            rgba(255,255,255,1)     0%,
+                            rgba(130,195,255,1)     8%,
+                            rgba(195,140,255,.96)  22%,
+                            rgba(130,230,205,.96)  38%,
+                            rgba(255,195,130,.94)  55%,
+                            rgba(130,205,255,.98)  72%,
+                            rgba(200,170,255,.96)  86%,
                             rgba(255,255,255,1)   100%);
-  --lq-chrome-shadow-pm:  0 8px 40px rgba(14,30,56,.11), 0 2px 8px rgba(14,30,56,.06);
+  --lq-chrome-shadow-pm:  0 14px 60px rgba(14,30,56,.11), 0 3px 10px rgba(14,30,56,.05);
 }
 
 /* ══ SLICE 01 · NAVBAR ══ */
 html[data-theme="liquid"] body {
-  background: linear-gradient(160deg, #eef3f9 0%, #e4ecf6 100%);
+  background: linear-gradient(160deg, #f7f9fc 0%, #f3f7fb 50%, #f8fafd 100%);
   color: #0e1e38;
 }
 
 html[data-theme="liquid"] .navbar {
-  background: rgba(238,243,249,0.96);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border-bottom: 1px solid rgba(26,42,64,0.08);
-  box-shadow: 0 2px 20px rgba(80,120,180,0.07);
+  background: rgba(247,249,252,0.94);
+  backdrop-filter: blur(24px) saturate(1.6) brightness(1.04);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.04);
+  border-bottom: 1px solid rgba(26,42,64,0.06);
+  box-shadow: 0 1px 0 rgba(255,255,255,.8), 0 2px 16px rgba(80,120,180,0.05);
 }
 
 html[data-theme="liquid"] .nl { color: rgba(14,30,56,.68); }
@@ -512,34 +516,34 @@ html[data-theme="liquid"] .hero-glow {
 
 /* ══ SLICE 03 · SECTIONS ══ */
 html[data-theme="liquid"] .section {
-  background: linear-gradient(160deg, #eef3f9 0%, #e8f0f9 100%);
-  border-top: 1px solid rgba(14,30,56,.06);
+  background: linear-gradient(160deg, #f5f8fc 0%, #f0f5fb 100%);
+  border-top: 1px solid rgba(14,30,56,.05);
 }
 html[data-theme="liquid"] .timeline-section {
-  background: linear-gradient(160deg, #eef3f9, #e8f0f9);
+  background: linear-gradient(160deg, #f6f9fd, #f1f6fb);
 }
 html[data-theme="liquid"] .offers-section {
-  background: linear-gradient(160deg, #e8f0f9, #e4ecf6);
-  border-top: 1px solid rgba(14,30,56,.06);
+  background: linear-gradient(160deg, #f3f7fc, #eef4fa);
+  border-top: 1px solid rgba(14,30,56,.05);
 }
 html[data-theme="liquid"] .hp-map-section {
-  background: linear-gradient(160deg, #e8f0f9 0%, #eef3f9 100%);
-  border-top: 1px solid rgba(14,30,56,.06);
+  background: linear-gradient(160deg, #f2f6fb 0%, #f5f8fd 100%);
+  border-top: 1px solid rgba(14,30,56,.05);
 }
 html[data-theme="liquid"] .inner {
-  background: linear-gradient(160deg, #eef3f9 0%, #e8f0f9 100%);
+  background: linear-gradient(160deg, #f5f8fc 0%, #f1f6fb 100%);
 }
 html[data-theme="liquid"] .banking-hero {
-  background: linear-gradient(160deg, #eef3f9 0%, #e0eefa 50%, #e8f1fa 100%);
+  background: linear-gradient(160deg, #f5f8fc 0%, #eef5fb 50%, #f2f7fb 100%);
 }
 html[data-theme="liquid"] .cal-wrap {
-  background: linear-gradient(160deg, #eef3f9 0%, #e4ecf6 100%);
+  background: linear-gradient(160deg, #f5f8fc 0%, #f0f5fb 100%);
 }
 html[data-theme="liquid"] .map-layout {
-  background: linear-gradient(160deg, #eef3f9 0%, #e8f0f9 100%);
+  background: linear-gradient(160deg, #f3f7fc 0%, #f0f5fb 100%);
 }
 html[data-theme="liquid"] .cta-dual {
-  background: linear-gradient(160deg, #eef3f9, #e8f0f9);
+  background: linear-gradient(160deg, #f4f7fc, #f0f5fb);
 }
 
 /* Section headings */
@@ -570,6 +574,8 @@ html[data-theme="liquid"] .chemin-card {
               var(--lq-chrome-border) border-box;
   border: 1px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
+  backdrop-filter: blur(10px) saturate(1.3);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
 }
 html[data-theme="liquid"] .card:hover,
 html[data-theme="liquid"] .state-card:hover,
@@ -587,6 +593,8 @@ html[data-theme="liquid"] .testi-card {
               var(--lq-chrome-border) border-box;
   border: 1px solid transparent;
   box-shadow: var(--lq-chrome-shadow-el);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
 }
 
 /* ── Premium chrome card (hero panel, pack featured) ── */
@@ -596,8 +604,35 @@ html[data-theme="liquid"] .hv2-credential,
 html[data-theme="liquid"] .hv2-photo-frame {
   background: var(--lq-chrome-fill-pm) padding-box,
               var(--lq-chrome-border-pm) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
   box-shadow: var(--lq-chrome-shadow-pm);
+  position: relative;
+  overflow: hidden;
+}
+/* Prismatic light streak on premium cards */
+html[data-theme="liquid"] .panel-big::before,
+html[data-theme="liquid"] .pack-col-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(200,220,255,.18) 42%,
+    rgba(220,195,255,.14) 46%,
+    rgba(180,240,220,.12) 50%,
+    rgba(255,210,180,.10) 54%,
+    transparent 58%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+html[data-theme="liquid"] .panel-big > *,
+html[data-theme="liquid"] .pack-col-premium > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── CTA card variants ── */
@@ -1269,16 +1304,16 @@ html[data-theme="liquid"] .pq-card-bad .pqc-tag { color: rgba(14,30,56,.28); }
 
 /* ══ HERO MAP — Liquid Glass ══ */
 html[data-theme="liquid"] .hm-bg {
-  background: linear-gradient(160deg, #eef3f9 0%, #e4edf8 55%, #dde8f5 100%);
+  background: linear-gradient(160deg, #f7f9fc 0%, #f3f7fb 55%, #f0f5fa 100%);
 }
 html[data-theme="liquid"] .hm-fade-l {
-  background: linear-gradient(to right, #e8f0f9, rgba(232,240,249,0));
+  background: linear-gradient(to right, #f5f8fc, rgba(245,248,252,0));
 }
 html[data-theme="liquid"] .hm-fade-t {
-  background: linear-gradient(to bottom, #eef3f9, rgba(238,243,249,0));
+  background: linear-gradient(to bottom, #f7f9fc, rgba(247,249,252,0));
 }
 html[data-theme="liquid"] .hm-fade-b {
-  background: linear-gradient(to top, #dde8f5, rgba(221,232,245,0));
+  background: linear-gradient(to top, #f0f5fa, rgba(240,245,250,0));
 }
 html[data-theme="liquid"] .hm-logo-badge {
   background: rgba(42,80,144,.06);
@@ -1296,19 +1331,12 @@ html[data-theme="liquid"] .hm-sl { color: rgba(14,30,56,.5); }
 html[data-theme="liquid"] .hm-stat-sep { background: rgba(14,30,56,.15); }
 /* Annotation cards — chrome glass identique aux hp-co callouts */
 html[data-theme="liquid"] .hm-ann-card {
-  background:
-    linear-gradient(rgba(255,255,255,.97), rgba(247,251,255,.94)) padding-box,
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.98)   0%,
-      rgba(195,210,228,.90)  18%,
-      rgba(155,178,205,.78)  40%,
-      rgba(175,196,220,.84)  62%,
-      rgba(220,232,245,.92)  80%,
-      rgba(255,255,255,.96) 100%
-    ) border-box;
+  background: var(--lq-chrome-fill-el) padding-box,
+              var(--lq-chrome-border) border-box;
   border: 1.5px solid transparent;
-  box-shadow: 0 4px 22px rgba(14,30,56,.10), 0 1px 4px rgba(14,30,56,.05);
+  box-shadow: var(--lq-chrome-shadow-el);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
 }
 html[data-theme="liquid"] .hm-ann-state {
   font-family: 'Playfair Display', Georgia, serif;

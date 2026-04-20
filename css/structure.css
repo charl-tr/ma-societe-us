@@ -100,6 +100,7 @@ body {
   display: flex; align-items: center; text-decoration: none;
 }
 .nav-logo img { height: 40px; width: auto; display: block; }
+.nav-logo-text { display: none; }
 .nav-links { display: flex; align-items: center; gap: 2px; margin-right: 24px; }
 .nl {
   font-family: var(--font-body); font-size: 14px; font-weight: 500;
@@ -529,7 +530,7 @@ body {
   cursor: pointer; transition: box-shadow .15s, transform .15s;
 }
 .card:hover { transform: translateY(-2px); }
-.card-tag { font-size: 9.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px; }
+.card-tag { font-size: 9.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px; color: var(--c-accent, #2a5090); }
 .card-h { font-family: var(--font-head); font-size: 17px; font-weight: 600; margin-bottom: 7px; }
 .card-p { font-size: 13px; line-height: 1.55; }
 .card-price { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin-top: 14px; }
@@ -1320,6 +1321,7 @@ body.admin-hidden .section-admin-badge { display: none; }
 .hm-left { width: 44%; }
 .hm-logo-block { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
 .hm-logo { height: 56px; width: auto; }
+.hm-logo-text { display: none; }
 .hm-logo-badge {
   font-size: 10.5px; font-weight: 600; letter-spacing: .08em;
   text-transform: uppercase; padding: 5px 12px; border-radius: 20px;

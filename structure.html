@@ -69,7 +69,7 @@
     <div class="dp-row dp-row-col">
       <span class="dp-lbl">Mode démo</span>
       <div class="dp-btns">
-        <button class="dp-btn on" id="dp-lock-btn" onclick="toggleLockAll(this)">🔓 Déverrouiller tout</button>
+        <button class="dp-btn on" id="dp-lock-btn" onclick="toggleLockAll(this)"><span class="dp-emoji">🔓</span> Déverrouiller tout</button>
       </div>
     </div>
 
@@ -79,7 +79,8 @@
 <!-- NAVBAR -->
 <nav class="navbar" id="nav">
   <div class="nav-logo" onclick="go('home')">
-    <img src="logo.png" alt="MA SOCIÉTÉ US">
+    <img src="logo.png" alt="MA SOCIÉTÉ US" class="nav-logo-img">
+    <span class="nav-logo-text">MA SOCIÉTÉ US</span>
   </div>
   <div class="nav-links">
     <div class="nl" id="nl-llc" onclick="toggleDD('llc')">
@@ -318,6 +319,7 @@
           <div class="hm-left">
             <div class="hm-logo-block">
               <img src="logo.png" alt="MA SOCIÉTÉ US" class="hm-logo">
+              <div class="hm-logo-text">MA SOCIÉTÉ US</div>
               <div class="hm-logo-badge">CPA agréé IRS · Depuis 2014</div>
             </div>
             <div class="hm-eyebrow">
@@ -1593,7 +1595,7 @@ function showPage(key, updateNav) {
     document.getElementById('st-crumb').innerHTML = s.crumb;
     document.getElementById('st-h1').innerHTML = s.h1;
     document.getElementById('st-sub').textContent = s.sub;
-    document.getElementById('st-cards').innerHTML = s.cards.map(c => `<div class="card a-card"><div class="card-tag" style="color:${c.t}">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    document.getElementById('st-cards').innerHTML = s.cards.map(c => `<div class="card a-card"><div class="card-tag">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
     document.getElementById('pv-state').classList.add('on');
   } else if (key === 'apropos') {
     document.getElementById('pv-apropos').classList.add('on');
@@ -1602,7 +1604,7 @@ function showPage(key, updateNav) {
     document.getElementById('g-crumb').innerHTML = g.crumb;
     document.getElementById('g-h1').innerHTML = g.h1.replace('\n','<br>');
     document.getElementById('g-sub').textContent = g.sub;
-    document.getElementById('g-cards').innerHTML = g.cards.map(c => `<div class="card a-card"><div class="card-tag" style="color:${c.t}">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    document.getElementById('g-cards').innerHTML = g.cards.map(c => `<div class="card a-card"><div class="card-tag">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
     document.getElementById('pv-generic').classList.add('on');
   } else { document.getElementById('pv-home').classList.add('on'); }
 }
@@ -1659,17 +1661,27 @@ async function buildHeroMap() {
   const container = document.getElementById('hm-map-svg');
   if (!container) return;
 
-  // 6 états interactifs : 4 annotés + CA + FL
-  const KEY_STATES = {
-    'wy': { color: '#2a5090', tag: 'wy', clickable: true },
-    'co': { color: '#2a5090', tag: 'co', clickable: true },
-    'nm': { color: '#2a5090', tag: 'nm', clickable: true },
-    'de': { color: '#2a5090', tag: 'de', clickable: true },
-    'ca': { color: '#2a5090', tag: 'ca', clickable: true },
-    'fl': { color: '#2a5090', tag: 'fl', clickable: true },
+  const theme = document.documentElement.getAttribute('data-theme') || 'liquid';
+  const TC = {
+    liquid: {
+      grad0: 'rgba(80,130,200,.72)', grad1: 'rgba(42,80,144,.42)',
+      stroke: 'rgba(42,80,144,.52)', strokeH: 'rgba(42,80,144,.92)',
+      bgFill: 'rgba(42,80,144,.04)', bgStroke: 'rgba(42,80,144,.09)', glow: true
+    },
+    dark: {
+      grad0: 'rgba(225,190,105,.78)', grad1: 'rgba(160,130,60,.44)',
+      stroke: 'rgba(225,190,105,.5)', strokeH: 'rgba(225,190,105,.9)',
+      bgFill: 'rgba(244,242,238,.055)', bgStroke: 'rgba(244,242,238,.12)', glow: false
+    },
+    vault: {
+      grad0: 'rgba(160,120,68,.72)', grad1: 'rgba(100,70,28,.44)',
+      stroke: 'rgba(120,88,48,.52)', strokeH: 'rgba(120,88,48,.9)',
+      bgFill: 'rgba(100,70,28,.05)', bgStroke: 'rgba(100,70,28,.10)', glow: true
+    }
   };
+  const c = TC[theme] || TC.liquid;
+
   const FIPS = { '56':'wy','08':'co','35':'nm','10':'de','06':'ca','12':'fl' };
-  const ANNOTATED = ['wy','co','nm','de'];
 
   let topo;
   try {
@@ -1694,12 +1706,8 @@ async function buildHeroMap() {
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <radialGradient id="hm-state-grad" cx="50%" cy="40%" r="60%">
-      <stop offset="0%"   stop-color="rgba(80,130,200,.72)"/>
-      <stop offset="100%" stop-color="rgba(42,80,144,.42)"/>
-    </radialGradient>
-    <radialGradient id="hm-fog" cx="50%" cy="50%" r="50%">
-      <stop offset="40%" stop-color="rgba(238,243,249,0)"/>
-      <stop offset="100%" stop-color="rgba(238,243,249,.88)"/>
+      <stop offset="0%"   stop-color="${c.grad0}"/>
+      <stop offset="100%" stop-color="${c.grad1}"/>
     </radialGradient>`;
   svg.appendChild(defs);
 
@@ -1716,25 +1724,25 @@ async function buildHeroMap() {
     if (key) {
       el.setAttribute('data-key', key);
       el.setAttribute('fill', 'url(#hm-state-grad)');
-      el.setAttribute('stroke', 'rgba(42,80,144,.5)');
+      el.setAttribute('stroke', c.stroke);
       el.setAttribute('stroke-width', '1.2');
-      el.setAttribute('filter', 'url(#hm-state-glow)');
+      if (c.glow) el.setAttribute('filter', 'url(#hm-state-glow)');
       el.style.cursor = 'pointer';
       el.addEventListener('mouseenter', () => {
-        el.setAttribute('stroke', 'rgba(42,80,144,.9)');
+        el.setAttribute('stroke', c.strokeH);
         el.setAttribute('stroke-width', '2');
       });
       el.addEventListener('mouseleave', () => {
-        el.setAttribute('stroke', 'rgba(42,80,144,.5)');
+        el.setAttribute('stroke', c.stroke);
         el.setAttribute('stroke-width', '1.2');
       });
       el.addEventListener('click', () => go(key));
-      const c = pathGen.centroid(feat);
-      if (c && !isNaN(c[0])) centroids[key] = c;
+      const ct = pathGen.centroid(feat);
+      if (ct && !isNaN(ct[0])) centroids[key] = ct;
       keyPaths.push(el);
     } else {
-      el.setAttribute('fill', 'rgba(42,80,144,.04)');
-      el.setAttribute('stroke', 'rgba(42,80,144,.09)');
+      el.setAttribute('fill', c.bgFill);
+      el.setAttribute('stroke', c.bgStroke);
       el.setAttribute('stroke-width', '0.4');
       allPaths.push(el);
     }
@@ -1762,13 +1770,20 @@ function _drawHeroLines(centroids, W, H) {
   const mapRect   = mapSvg.getBoundingClientRect();
   if (!outerRect.width || !mapRect.width) return;
 
+  const theme = document.documentElement.getAttribute('data-theme') || 'liquid';
+  const LC = {
+    liquid: { line: 'rgba(42,80,144,.55)', cDot: 'rgba(42,80,144,.42)', sRing: 'rgba(42,80,144,.16)', sDot: 'rgba(42,80,144,.62)' },
+    dark:   { line: 'rgba(225,190,105,.58)', cDot: 'rgba(225,190,105,.48)', sRing: 'rgba(225,190,105,.20)', sDot: 'rgba(225,190,105,.70)' },
+    vault:  { line: 'rgba(120,88,48,.55)', cDot: 'rgba(120,88,48,.42)', sRing: 'rgba(120,88,48,.16)', sDot: 'rgba(120,88,48,.62)' }
+  };
+  const lc = LC[theme] || LC.liquid;
+
   // Scale factors: SVG coords → screen → outer-relative
   const scaleX = mapRect.width  / W;
   const scaleY = mapRect.height / H;
   const mapOffX = mapRect.left - outerRect.left;
   const mapOffY = mapRect.top  - outerRect.top;
 
-  // Set overlay viewBox to match outer container pixel size
   lineSvg.setAttribute('viewBox', `0 0 ${outerRect.width} ${outerRect.height}`);
 
   const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', ca:'hm-ann-ca', de:'hm-ann-de', nm:'hm-ann-nm', fl:'hm-ann-fl' };
@@ -1783,41 +1798,36 @@ function _drawHeroLines(centroids, W, H) {
     const aRect = ann.getBoundingClientRect();
     const edge  = edgeMap[key] || 'right';
 
-    // Card anchor point (outer-relative px)
     const ax = edge === 'right'
       ? aRect.right  - outerRect.left
       : aRect.left   - outerRect.left;
     const ay = (aRect.top + aRect.bottom) / 2 - outerRect.top;
 
-    // State centroid in outer-relative px
     const sx = cx * scaleX + mapOffX;
     const sy = cy * scaleY + mapOffY;
 
-    // L-shape: horizontal from ax to sx, then vertical to sy
     const NS2 = 'http://www.w3.org/2000/svg';
     const path = document.createElementNS(NS2, 'path');
     path.setAttribute('d', `M ${ax} ${ay} L ${sx} ${ay} L ${sx} ${sy}`);
     path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', 'rgba(42,80,144,.32)');
-    path.setAttribute('stroke-width', '1');
+    path.setAttribute('stroke', lc.line);
+    path.setAttribute('stroke-width', '1.2');
     path.setAttribute('stroke-linecap', 'round');
     lineSvg.appendChild(path);
 
-    // Small dot at card anchor
     const cardDot = document.createElementNS(NS2, 'circle');
     cardDot.setAttribute('cx', ax); cardDot.setAttribute('cy', ay);
     cardDot.setAttribute('r', '2.5');
-    cardDot.setAttribute('fill', 'rgba(42,80,144,.35)');
+    cardDot.setAttribute('fill', lc.cDot);
     lineSvg.appendChild(cardDot);
 
-    // State dot — outer ring + inner fill
     const dotOuter = document.createElementNS(NS2, 'circle');
     dotOuter.setAttribute('cx', sx); dotOuter.setAttribute('cy', sy); dotOuter.setAttribute('r', '5');
-    dotOuter.setAttribute('fill', 'rgba(42,80,144,.14)');
+    dotOuter.setAttribute('fill', lc.sRing);
     lineSvg.appendChild(dotOuter);
     const dot = document.createElementNS(NS2, 'circle');
     dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '2.5');
-    dot.setAttribute('fill', 'rgba(42,80,144,.55)');
+    dot.setAttribute('fill', lc.sDot);
     lineSvg.appendChild(dot);
   });
 }
@@ -2006,7 +2016,7 @@ function selectState(key) {
 // Font URLs par thème
 const THEME_FONTS = {
   liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap',
-  dark:   'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap',
+  dark:   'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap',
   vault:  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap',
 };
 
@@ -2079,7 +2089,7 @@ function toggleLockAll(btn) {
   const isLocked = btn.classList.contains('on');
   sections.forEach(s => s.classList.toggle('locked', !isLocked));
   btn.classList.toggle('on', !isLocked);
-  btn.textContent = isLocked ? '🔓 Déverrouiller tout' : '🔒 Tout verrouiller';
+  btn.innerHTML = isLocked ? '<span class="dp-emoji">🔓</span> Déverrouiller tout' : '<span class="dp-emoji">🔒</span> Tout verrouiller';
 }
 
 function unlockSection(unlockBtn) {
@@ -2088,7 +2098,7 @@ function unlockSection(unlockBtn) {
   const remaining = document.querySelectorAll('.lockable.locked').length;
   if (remaining === 0) {
     const dpLock = document.getElementById('dp-lock-btn');
-    if (dpLock) { dpLock.classList.remove('on'); dpLock.textContent = '🔒 Verrouiller sections'; }
+    if (dpLock) { dpLock.classList.remove('on'); dpLock.innerHTML = '<span class="dp-emoji">🔒</span> Verrouiller sections'; }
   }
 }
 
@@ -2155,13 +2165,19 @@ function toggleDP() {
   });
 })();
 
-// Theme switcher — swap CSS + fonts + data-theme + map
+// Theme switcher — swap CSS + fonts + data-theme + maps
 function setTheme(name, btn) {
   document.getElementById('theme-css').href = 'css/' + name + '.css';
   document.documentElement.setAttribute('data-theme', name);
   const fontUrl = THEME_FONTS[name];
   if (fontUrl) document.getElementById('theme-fonts').href = fontUrl;
   repaintHpMap(name);
+  // Rebuild hero map with theme-aware colors
+  const hm = document.getElementById('hm-map-svg');
+  const ls = document.getElementById('hm-lines-svg');
+  if (hm) hm.innerHTML = '';
+  if (ls) ls.innerHTML = '';
+  if (hm) buildHeroMap();
   dpActivate(btn);
 }
 
