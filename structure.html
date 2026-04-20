@@ -270,37 +270,37 @@
         <div class="hm-map-bg" id="hm-map-bg">
           <div id="hm-map-svg"></div>
           <!-- 6 cartes annotées — positionnées près de chaque état -->
-          <div class="hm-ann hm-ann-wy" id="hm-ann-wy">
+          <div class="hm-ann hm-ann-wy" id="hm-ann-wy" onclick="go('wy')" onmouseenter="hmActivate('wy')" onmouseleave="hmReset()">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Wyoming</div>
               <div class="hm-ann-tag">Pro-Crypto &amp; Web3<br>Aucune taxe d'État.</div>
             </div>
           </div>
-          <div class="hm-ann hm-ann-co" id="hm-ann-co">
+          <div class="hm-ann hm-ann-co" id="hm-ann-co" onclick="go('co')" onmouseenter="hmActivate('co')" onmouseleave="hmReset()">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Colorado</div>
               <div class="hm-ann-tag">Création en 24h<br>EIN en 3 semaines.</div>
             </div>
           </div>
-          <div class="hm-ann hm-ann-ca" id="hm-ann-ca">
+          <div class="hm-ann hm-ann-ca" id="hm-ann-ca" onclick="go('ca')" onmouseenter="hmActivate('ca')" onmouseleave="hmReset()">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Californie</div>
               <div class="hm-ann-tag">Hub tech &amp; VC<br>Idéal pour les startups.</div>
             </div>
           </div>
-          <div class="hm-ann hm-ann-de" id="hm-ann-de">
+          <div class="hm-ann hm-ann-de" id="hm-ann-de" onclick="go('de')" onmouseenter="hmActivate('de')" onmouseleave="hmReset()">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Delaware</div>
               <div class="hm-ann-tag">Standard levée de fonds<br>62% des Fortune 500.</div>
             </div>
           </div>
-          <div class="hm-ann hm-ann-nm" id="hm-ann-nm">
+          <div class="hm-ann hm-ann-nm" id="hm-ann-nm" onclick="go('nm')" onmouseenter="hmActivate('nm')" onmouseleave="hmReset()">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Nouveau-Mexique</div>
               <div class="hm-ann-tag">EIN en 5 à 6 jours<br>Frais parmi les plus bas.</div>
             </div>
           </div>
-          <div class="hm-ann hm-ann-fl" id="hm-ann-fl">
+          <div class="hm-ann hm-ann-fl" id="hm-ann-fl" onclick="go('fl')" onmouseenter="hmActivate('fl')" onmouseleave="hmReset()">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Floride</div>
               <div class="hm-ann-tag">0% impôt d'État<br>Idéal e-commerce &amp; SaaS.</div>
@@ -1443,6 +1443,30 @@ const HP_STATES = {
 let activeHpState = 'nm';
 let hpPanelTimer = null;
 
+/* ── Hero map interactivity ── */
+const hmKeyPaths = {};
+
+function hmActivate(key) {
+  document.querySelectorAll('.hm-ann').forEach(el => {
+    const k = el.id.replace('hm-ann-', '');
+    el.classList.toggle('hm-active', k === key);
+    el.classList.toggle('hm-dimmed', k !== key);
+  });
+  Object.entries(hmKeyPaths).forEach(([k, el]) => {
+    el.classList.toggle('hm-state-active', k === key);
+    el.classList.toggle('hm-state-dimmed', k !== key);
+    el.setAttribute('stroke-width', k === key ? '2.5' : '1.2');
+  });
+}
+
+function hmReset() {
+  document.querySelectorAll('.hm-ann').forEach(el => el.classList.remove('hm-active', 'hm-dimmed'));
+  Object.values(hmKeyPaths).forEach(el => {
+    el.classList.remove('hm-state-active', 'hm-state-dimmed');
+    el.setAttribute('stroke-width', '1.2');
+  });
+}
+
 function _hpMapActivate(key) {
   const map = document.getElementById('us-map-hp');
   if (!map) return;
@@ -1706,15 +1730,11 @@ async function buildHeroMap() {
       el.setAttribute('stroke', c.stroke);
       el.setAttribute('stroke-width', '1.2');
       if (c.glow) el.setAttribute('filter', 'url(#hm-state-glow)');
+      el.classList.add('hm-state-path');
       el.style.cursor = 'pointer';
-      el.addEventListener('mouseenter', () => {
-        el.setAttribute('stroke', c.strokeH);
-        el.setAttribute('stroke-width', '2');
-      });
-      el.addEventListener('mouseleave', () => {
-        el.setAttribute('stroke', c.stroke);
-        el.setAttribute('stroke-width', '1.2');
-      });
+      hmKeyPaths[key] = el;
+      el.addEventListener('mouseenter', () => hmActivate(key));
+      el.addEventListener('mouseleave', () => hmReset());
       el.addEventListener('click', () => go(key));
       const ct = pathGen.centroid(feat);
       if (ct && !isNaN(ct[0])) centroids[key] = ct;

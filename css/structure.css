@@ -1358,7 +1358,19 @@ body.admin-hidden .section-admin-badge { display: none; }
 .hm-legal { font-size: 11px; opacity: .4; letter-spacing: .02em; }
 
 /* Annotation cards — 6 états, positionnés près de leur état sur la carte */
-.hm-ann { position: absolute; width: 148px; z-index: 6; pointer-events: auto; }
+.hm-ann {
+  position: absolute; width: 148px; z-index: 6; pointer-events: auto; cursor: pointer;
+  transition: transform .22s ease, opacity .22s ease;
+}
+.hm-ann-card { cursor: pointer; }
+.hm-ann.hm-active { transform: scale(1.07); z-index: 10; }
+.hm-ann.hm-dimmed { opacity: 0.32; transform: scale(0.96); pointer-events: none; }
+.hm-state-path {
+  transform-box: fill-box; transform-origin: center;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.hm-state-path.hm-state-active { transform: scale(1.07); }
+.hm-state-path.hm-state-dimmed { opacity: 0.35; }
 /* Gauche : CA / WY / NM (états côté ouest et centre) */
 .hm-ann-wy { top: 18%; left: 18%; text-align: right; }
 .hm-ann-ca { top: 37%; left: 18%; text-align: right; }
