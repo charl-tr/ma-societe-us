@@ -1593,19 +1593,83 @@ function selectState(key) {
 }
 
 /* ── Design control bar ── */
-// Font URLs par thème — chaque thème charge sa propre typographie
+// Font URLs par thème
 const THEME_FONTS = {
   liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&display=swap',
   dark:   'https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap',
   vault:  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
 };
 
-// Theme switcher — swape CSS + fonts + data-theme
+// Couleurs de la carte SVG par thème — les fills sont des attributs SVG, pas CSS
+const MAP_COLORS = {
+  liquid: {
+    bg:          '#dde8f4',
+    fogFrom:     'rgba(238,244,251,0)',
+    fogTo:       'rgba(238,244,251,1)',
+    stateFill:   'rgba(140,175,215,0.62)',
+    stateStroke: 'rgba(255,255,255,0.88)',
+    labelFill:   null, // utilise s.color natif
+  },
+  dark: {
+    bg:          '#0a0f1a',
+    fogFrom:     'rgba(10,15,26,0)',
+    fogTo:       'rgba(10,15,26,1)',
+    stateFill:   'rgba(60,72,95,0.55)',
+    stateStroke: 'rgba(255,255,255,0.12)',
+    labelFill:   'rgba(232,237,248,0.5)',
+  },
+  vault: {
+    bg:          '#ede8e0',
+    fogFrom:     'rgba(242,237,230,0)',
+    fogTo:       'rgba(242,237,230,1)',
+    stateFill:   'rgba(200,195,188,0.45)',
+    stateStroke: 'rgba(255,255,255,0.85)',
+    labelFill:   'rgba(28,32,40,0.45)',
+  },
+};
+
+// Repaint la carte SVG quand on change de thème
+function repaintHpMap(theme) {
+  const svg = document.getElementById('us-map-hp');
+  if (!svg) return;
+  const c = MAP_COLORS[theme] || MAP_COLORS.liquid;
+
+  // Fond rectangulaire
+  const bgRect = svg.querySelector('rect');
+  if (bgRect) bgRect.setAttribute('fill', c.bg);
+
+  // Gradient fog
+  const fogStop0 = svg.querySelector('#fog-hp stop:first-child');
+  const fogStop1 = svg.querySelector('#fog-hp stop:last-child');
+  if (fogStop0) { fogStop0.setAttribute('stop-color', c.fogFrom); fogStop0.setAttribute('stop-opacity', '0'); }
+  if (fogStop1) { fogStop1.setAttribute('stop-color', c.fogTo);   fogStop1.setAttribute('stop-opacity', '1'); }
+
+  // Tous les paths sans classe = états de fond
+  svg.querySelectorAll('path:not([class])').forEach(p => {
+    p.setAttribute('fill', c.stateFill);
+    p.setAttribute('stroke', c.stateStroke);
+  });
+
+  // Labels des états clés
+  if (c.labelFill) {
+    svg.querySelectorAll('.kl').forEach(t => t.setAttribute('fill', c.labelFill));
+  } else {
+    // Restaure les couleurs natives (liquid)
+    svg.querySelectorAll('.kl').forEach(t => {
+      const key = t.textContent?.toLowerCase();
+      const state = Object.values(HP_STATES).find(s => s.abbr === t.textContent);
+      if (state) t.setAttribute('fill', state.color + 'cc');
+    });
+  }
+}
+
+// Theme switcher — swape CSS + fonts + data-theme + map
 function setTheme(name, btn) {
   document.getElementById('theme-css').href = 'css/' + name + '.css';
   document.documentElement.setAttribute('data-theme', name);
   const fontUrl = THEME_FONTS[name];
   if (fontUrl) document.getElementById('theme-fonts').href = fontUrl;
+  repaintHpMap(name);
   document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('on'));
   if (btn) btn.classList.add('on');
 }
