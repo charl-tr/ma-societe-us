@@ -106,14 +106,19 @@ html[data-theme="liquid"] .pack-price {
      Shimmer iridescent prismatique — inspiré verre cristallin Apple Vision Pro.
      Fond quasi-transparent, bord avec reflet arc-en-ciel très subtil.         */
   --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,252,255,.76) 100%);
-  --lq-chrome-border:   linear-gradient(145deg,
+  /* ── American Chrome — token réutilisable ──
+     Argenté avec micro-reflets bleu US (#2a5090) et rouge US (#bf0a30).
+     Usage : border: 1px solid transparent + background: var(--chrome-us) border-box */
+  --chrome-us:          linear-gradient(145deg,
                           rgba(255,255,255,.99)    0%,
-                          rgba(195,215,248,.88)   14%,
-                          rgba(225,225,230,.78)   32%,
-                          rgba(240,235,235,.82)   52%,
-                          rgba(235,222,225,.80)   66%,
-                          rgba(218,225,242,.86)   82%,
+                          rgba(175,205,250,.92)   10%,   /* bleu US froid */
+                          rgba(220,220,226,.82)   28%,   /* argent pur */
+                          rgba(234,230,230,.80)   46%,   /* argent neutre */
+                          rgba(238,210,210,.84)   62%,   /* rouge US pâle */
+                          rgba(210,222,245,.88)   80%,   /* bleu argenté */
                           rgba(255,255,255,.98)  100%);
+
+  --lq-chrome-border:   var(--chrome-us);
   --lq-chrome-shadow:   0 2px 20px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.03);
   --lq-chrome-shadow-h: 0 10px 40px rgba(14,30,56,.10), 0 2px 8px rgba(14,30,56,.05);
 
