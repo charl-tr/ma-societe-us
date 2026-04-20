@@ -566,7 +566,6 @@ html[data-theme="liquid"] .pack-helper,
 html[data-theme="liquid"] .confort-teaser,
 html[data-theme="liquid"] .non-item,
 html[data-theme="liquid"] .chemin-card,
-html[data-theme="liquid"] .hp-stab,
 html[data-theme="liquid"] .hp-detail,
 html[data-theme="liquid"] .sl-card {
   background: var(--lq-chrome-fill) padding-box,
@@ -984,10 +983,17 @@ html[data-theme] .hp-detail { background: linear-gradient(160deg, var(--c-surfac
 .hd-meta-item { background: rgba(14,30,56,.04); }
 .hd-meta-val { color: var(--navy); }
 .hd-meta-lbl { color: rgba(14,30,56,.4); }
-.hp-stab { background: rgba(255,255,255,.6); border: 1.5px solid rgba(14,30,56,.08); }
-.hp-stab:hover { background: rgba(255,255,255,.9); border-color: rgba(14,30,56,.15); }
-.hp-stab.sel { background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+html[data-theme="liquid"] .hp-stab {
+  background: var(--lq-chrome-fill-el) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1.5px solid transparent;
+  backdrop-filter: blur(10px) saturate(1.3);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+}
+html[data-theme="liquid"] .hp-stab:hover { filter: brightness(1.02); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+html[data-theme="liquid"] .hp-stab.sel { box-shadow: 0 4px 16px rgba(0,0,0,.09); filter: brightness(1.03); }
 .hp-stab-name { color: var(--navy); }
+.hp-stab-tag  { color: rgba(14,30,56,.5); }
 
 /* ══ SLICE 09 · COMPARE TABLE ══ */
 .cmp-wrap { border: 1px solid rgba(14,30,56,.07); }
