@@ -268,29 +268,41 @@
         <!-- ── Carte US — fond absolu, demi-droite, pleine hauteur ── -->
         <div class="hm-map-bg" id="hm-map-bg">
           <div id="hm-map-svg"></div>
-          <!-- 4 cartes annotées aux coins de la zone carte -->
+          <!-- 6 cartes annotées — positionnées près de chaque état -->
           <div class="hm-ann hm-ann-wy" id="hm-ann-wy">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Wyoming</div>
-              <div class="hm-ann-tag">L'état de prédilection<br>pour les structures Crypto.</div>
+              <div class="hm-ann-tag">Pro-Crypto &amp; Web3<br>Aucune taxe d'État.</div>
             </div>
           </div>
           <div class="hm-ann hm-ann-co" id="hm-ann-co">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Colorado</div>
-              <div class="hm-ann-tag">Rapidité absolue<br>(Création en 24h)</div>
+              <div class="hm-ann-tag">Création en 24h<br>EIN en 3 semaines.</div>
             </div>
           </div>
-          <div class="hm-ann hm-ann-nm" id="hm-ann-nm">
+          <div class="hm-ann hm-ann-ca" id="hm-ann-ca">
             <div class="hm-ann-card">
-              <div class="hm-ann-state">Nouveau-Mexique</div>
-              <div class="hm-ann-tag">Obtention de l'EIN<br>en 5 à 6 jours</div>
+              <div class="hm-ann-state">Californie</div>
+              <div class="hm-ann-tag">Hub tech &amp; VC<br>Idéal pour les startups.</div>
             </div>
           </div>
           <div class="hm-ann hm-ann-de" id="hm-ann-de">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Delaware</div>
-              <div class="hm-ann-tag">Le standard indispensable<br>pour la levée de fonds.</div>
+              <div class="hm-ann-tag">Standard levée de fonds<br>62% des Fortune 500.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-nm" id="hm-ann-nm">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Nouveau-Mexique</div>
+              <div class="hm-ann-tag">EIN en 5 à 6 jours<br>Frais parmi les plus bas.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-fl" id="hm-ann-fl">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Floride</div>
+              <div class="hm-ann-tag">0% impôt d'État<br>Idéal e-commerce &amp; SaaS.</div>
             </div>
           </div>
           <!-- Lignes de connexion -->
@@ -1682,8 +1694,8 @@ async function buildHeroMap() {
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <radialGradient id="hm-state-grad" cx="50%" cy="40%" r="60%">
-      <stop offset="0%"   stop-color="rgba(80,130,200,.55)"/>
-      <stop offset="100%" stop-color="rgba(42,80,144,.25)"/>
+      <stop offset="0%"   stop-color="rgba(80,130,200,.72)"/>
+      <stop offset="100%" stop-color="rgba(42,80,144,.42)"/>
     </radialGradient>
     <radialGradient id="hm-fog" cx="50%" cy="50%" r="50%">
       <stop offset="40%" stop-color="rgba(238,243,249,0)"/>
@@ -1759,8 +1771,8 @@ function _drawHeroLines(centroids, W, H) {
   // Set overlay viewBox to match outer container pixel size
   lineSvg.setAttribute('viewBox', `0 0 ${outerRect.width} ${outerRect.height}`);
 
-  const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', nm:'hm-ann-nm', de:'hm-ann-de' };
-  const edgeMap = { wy:'right', co:'left', nm:'right', de:'left' };
+  const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', ca:'hm-ann-ca', de:'hm-ann-de', nm:'hm-ann-nm', fl:'hm-ann-fl' };
+  const edgeMap = { wy:'right', co:'left', ca:'right', de:'left', nm:'right', fl:'left' };
 
   Object.entries(centroids).forEach(([key, [cx, cy]]) => {
     const annId = annMap[key];
@@ -1786,14 +1798,26 @@ function _drawHeroLines(centroids, W, H) {
     const path = document.createElementNS(NS2, 'path');
     path.setAttribute('d', `M ${ax} ${ay} L ${sx} ${ay} L ${sx} ${sy}`);
     path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', 'rgba(42,80,144,.22)');
-    path.setAttribute('stroke-width', '0.8');
+    path.setAttribute('stroke', 'rgba(42,80,144,.32)');
+    path.setAttribute('stroke-width', '1');
+    path.setAttribute('stroke-linecap', 'round');
     lineSvg.appendChild(path);
 
-    // State dot
+    // Small dot at card anchor
+    const cardDot = document.createElementNS(NS2, 'circle');
+    cardDot.setAttribute('cx', ax); cardDot.setAttribute('cy', ay);
+    cardDot.setAttribute('r', '2.5');
+    cardDot.setAttribute('fill', 'rgba(42,80,144,.35)');
+    lineSvg.appendChild(cardDot);
+
+    // State dot — outer ring + inner fill
+    const dotOuter = document.createElementNS(NS2, 'circle');
+    dotOuter.setAttribute('cx', sx); dotOuter.setAttribute('cy', sy); dotOuter.setAttribute('r', '5');
+    dotOuter.setAttribute('fill', 'rgba(42,80,144,.14)');
+    lineSvg.appendChild(dotOuter);
     const dot = document.createElementNS(NS2, 'circle');
-    dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '3');
-    dot.setAttribute('fill', 'rgba(42,80,144,.45)');
+    dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '2.5');
+    dot.setAttribute('fill', 'rgba(42,80,144,.55)');
     lineSvg.appendChild(dot);
   });
 }

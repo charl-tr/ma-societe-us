@@ -1338,7 +1338,7 @@ body.admin-hidden .section-admin-badge { display: none; }
 .hm-stat { display: flex; flex-direction: column; gap: 3px; padding: 0 22px; }
 .hm-stat:first-child { padding-left: 0; }
 .hm-stat-sep { width: 1px; height: 36px; align-self: center; opacity: .15; flex-shrink: 0; padding: 0; }
-.hm-sv { font-family: var(--font-head); font-size: 32px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
+.hm-sv { font-family: var(--font-head); font-size: 32px; font-weight: 700; line-height: 1; letter-spacing: -.02em; white-space: nowrap; }
 .hm-su { font-size: 18px; }
 .hm-sl { font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; opacity: .45; }
 
@@ -1350,12 +1350,16 @@ body.admin-hidden .section-admin-badge { display: none; }
 }
 .hm-legal { font-size: 11px; opacity: .4; letter-spacing: .02em; }
 
-/* Annotation cards — 4 états aux coins de la zone carte */
+/* Annotation cards — 6 états, positionnés près de leur état sur la carte */
 .hm-ann { position: absolute; width: 148px; z-index: 6; pointer-events: auto; }
-.hm-ann-wy { top: 16%; left: 8%; text-align: right; }
-.hm-ann-co { top: 16%; right: 14%; text-align: left; }
-.hm-ann-nm { bottom: 22%; left: 8%; text-align: right; }
-.hm-ann-de { bottom: 22%; right: 14%; text-align: left; }
+/* Gauche : CA / WY / NM (états côté ouest et centre) */
+.hm-ann-wy { top: 18%; left: 18%; text-align: right; }
+.hm-ann-ca { top: 37%; left: 18%; text-align: right; }
+.hm-ann-nm { bottom: 22%; left: 18%; text-align: right; }
+/* Droite : CO / DE / FL (états côté est et centre) */
+.hm-ann-co { top: 18%; right: 20%; text-align: left; }
+.hm-ann-de { top: 37%; right: 13%; text-align: left; }
+.hm-ann-fl { bottom: 18%; right: 15%; text-align: left; }
 .hm-ann-card {
   border-radius: 10px; padding: 11px 14px 10px; display: inline-block;
   width: 100%;
@@ -1364,6 +1368,29 @@ body.admin-hidden .section-admin-badge { display: none; }
   font-size: 13.5px; font-weight: 600; line-height: 1.25; margin-bottom: 4px;
 }
 .hm-ann-tag { font-size: 10.5px; line-height: 1.55; }
+
+/* ══ HERO MAP — Responsive ══ */
+@media (max-width: 900px) {
+  .hero-map { min-height: auto; display: flex; flex-direction: column; overflow: hidden; }
+  .hm-map-bg {
+    position: relative; order: 2;
+    left: auto; right: auto; top: auto; bottom: auto;
+    width: 100%; height: 56vw; overflow: hidden;
+  }
+  .hm-map-bg #hm-map-svg {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 140%; left: -20%;
+  }
+  .hm-ann { display: none; }
+  .hm-lines-svg { display: none; }
+  .hm-fade-l { display: none; }
+  .hm-fade-t { display: none; }
+  .hm-body { order: 1; position: relative; z-index: 10; padding: 52px 24px 36px; }
+  .hm-left { width: 100%; }
+  .hm-cta-block { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hm-h1 { font-size: clamp(36px, 9vw, 52px); }
+  .hm-sub { font-size: 14px; }
+}
 
 /* ══ MOBILE — 768px ══ */
 @media (max-width: 768px) {
