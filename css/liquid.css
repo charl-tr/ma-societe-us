@@ -1046,26 +1046,43 @@ html[data-theme="liquid"] .cal-card {
 .cal-url { color: var(--blue); }
 .cal-mock { background: rgba(14,30,56,.04); color: rgba(14,30,56,.35); }
 
-/* ══ ADMIN ANNOTATIONS ══ */
-.admin-bar {
-  background: rgba(255,251,222,.97);
-  color: #1e1600;
+/* ══ ADMIN ANNOTATIONS — Liquid Glass ══
+   Fond blanc/gris clair, texte navy discret, chrome border */
+html[data-theme="liquid"] .admin-bar {
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
+  color: rgba(14,30,56,.7);
 }
-.an-section { color: rgba(140,90,0,.9); }
-.an-p.cf { background: rgba(42,80,144,.13); color: #1a3a6a; }
-.an-p.cp { background: rgba(42,80,144,.10); color: #1e508a; }
-.an-p.si { background: rgba(42,70,130,.12); color: #2a4a88; }
-.an-p.cv { background: rgba(14,30,56,.08); color: rgba(14,30,56,.6); }
-.an-p.miss { background: rgba(200,145,0,.13); color: #8a5800; border: 1px dashed rgba(200,145,0,.4); }
-.an-emotion strong { color: rgba(120,80,0,.75); }
-.an-critique { color: rgba(140,50,0,.9); }
-.an-status.draft   { background: rgba(230,168,0,.22); color: #7a4e00; border: 1px solid rgba(200,145,0,.5); }
-.an-status.solid   { background: rgba(42,80,144,.14); color: #1a3a6a; border: 1px solid rgba(42,80,144,.3); }
-.an-status.warn    { background: rgba(160,60,0,.12); color: #8a3200; border: 1px solid rgba(160,60,0,.3); }
-.an-status.missing { background: rgba(42,80,144,.1); color: #2a4a88; border: 1px solid rgba(42,80,144,.25); }
-.section-admin-badge {
-  background: rgba(255,251,222,.96); color: rgba(120,80,0,.85);
-  border: 1px solid rgba(200,145,0,.4);
+html[data-theme="liquid"] .an-section {
+  color: rgba(14,30,56,.38);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+html[data-theme="liquid"] .an-p.cf  { background: rgba(42,80,144,.08);  color: #1a3a6a;           border: none; }
+html[data-theme="liquid"] .an-p.cp  { background: rgba(42,80,144,.06);  color: #2a508a;           border: none; }
+html[data-theme="liquid"] .an-p.si  { background: rgba(42,70,130,.07);  color: #2a4a80;           border: none; }
+html[data-theme="liquid"] .an-p.cv  { background: rgba(14,30,56,.05);   color: rgba(14,30,56,.5); border: none; }
+html[data-theme="liquid"] .an-p.miss {
+  background: rgba(14,30,56,.04);
+  color: rgba(14,30,56,.45);
+  border: 1px dashed rgba(14,30,56,.18);
+}
+html[data-theme="liquid"] .an-emotion strong { color: rgba(14,30,56,.65); }
+html[data-theme="liquid"] .an-critique       { color: rgba(14,30,56,.52); }
+
+html[data-theme="liquid"] .an-status.draft   { background: rgba(14,30,56,.06);  color: rgba(14,30,56,.45); border: 1px solid rgba(14,30,56,.14); }
+html[data-theme="liquid"] .an-status.solid   { background: rgba(42,80,144,.08); color: #1a3a6a;            border: 1px solid rgba(42,80,144,.2); }
+html[data-theme="liquid"] .an-status.warn    { background: rgba(14,30,56,.05);  color: rgba(14,30,56,.42); border: 1px solid rgba(14,30,56,.12); }
+html[data-theme="liquid"] .an-status.missing { background: rgba(42,80,144,.06); color: #2a4a80;            border: 1px solid rgba(42,80,144,.16); }
+
+html[data-theme="liquid"] .section-admin-badge {
+  background: rgba(255,255,255,.9);
+  color: rgba(14,30,56,.45);
+  border: 1px solid rgba(14,30,56,.1);
 }
 /* (admin-toggle absorbed into dp-panel) */
 
