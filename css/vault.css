@@ -590,6 +590,29 @@ html[data-theme="vault"] .de-line      { stroke: rgba(106,80,90,.38); }
 html[data-theme="vault"] .de-badge     { fill: rgba(215,208,212,.8); stroke: rgba(255,255,255,.8); }
 html[data-theme="vault"] .de-badge-txt { fill: #6a505a; }
 
+/* ══ SECTION LOCK — Vault Glass ══ */
+html[data-theme="vault"] .section-lock {
+  background: rgba(230,225,218,.5);
+}
+html[data-theme="vault"] .sl-card {
+  background: rgba(255,255,255,.88);
+  border: 1px solid var(--v-border);
+  box-shadow: var(--v-shadow-h), inset 0 1px 0 rgba(255,255,255,.95);
+}
+html[data-theme="vault"] .sl-lock-svg,
+html[data-theme="vault"] .sl-ring    { color: #3a3f4a; }
+html[data-theme="vault"] .sl-label   { color: rgba(42,48,60,.45); }
+html[data-theme="vault"] .sl-title   { color: #1a1c20; }
+html[data-theme="vault"] .sl-sub     { color: rgba(26,28,32,.5); }
+html[data-theme="vault"] .sl-unlock-btn {
+  background: rgba(255,255,255,.8); color: rgba(26,28,32,.55);
+  border-color: var(--v-border);
+  box-shadow: var(--v-bevel);
+}
+html[data-theme="vault"] .sl-unlock-btn:hover {
+  background: #fff; color: #1a1c20; border-color: var(--v-border-h);
+}
+
 /* ══ COMPARE TABLE ══ */
 html[data-theme="vault"] .cmp-wrap  { border-color: var(--v-border); }
 html[data-theme="vault"] .cmp-table { background: var(--v-bg-card); }

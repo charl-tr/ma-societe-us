@@ -267,6 +267,30 @@ html[data-theme="dark"] .tl-h { color: #e8edf8; font-weight: 300; }
 html[data-theme="dark"] .tl-p { color: rgba(232,237,248,.4); font-weight: 300; }
 html[data-theme="dark"] .tl-tag { background: rgba(77,142,255,.1); color: #4d8eff; }
 
+/* ══ SECTION LOCK — Harvey Dark ══ */
+html[data-theme="dark"] .section-lock {
+  background: rgba(4,8,18,.45);
+}
+html[data-theme="dark"] .sl-card {
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border: 1px solid rgba(77,142,255,.2);
+  box-shadow: 0 12px 48px rgba(0,0,0,.5), 0 0 0 1px rgba(77,142,255,.05), inset 0 1px 0 rgba(255,255,255,.08);
+}
+html[data-theme="dark"] .sl-lock-svg,
+html[data-theme="dark"] .sl-ring    { color: #4d8eff; }
+html[data-theme="dark"] .sl-label   { color: rgba(77,142,255,.6); }
+html[data-theme="dark"] .sl-title   { color: #e8edf8; }
+html[data-theme="dark"] .sl-sub     { color: rgba(232,237,248,.5); }
+html[data-theme="dark"] .sl-unlock-btn {
+  background: rgba(77,142,255,.1); color: rgba(77,142,255,.8);
+  border-color: rgba(77,142,255,.25);
+}
+html[data-theme="dark"] .sl-unlock-btn:hover {
+  background: rgba(77,142,255,.2); color: #7aaeff;
+}
+
 /* ══ SLICE 07 · FOOTER ══ */
 html[data-theme="dark"] .site-footer { background: #06080f; }
 html[data-theme="dark"] .footer-chrome {

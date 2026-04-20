@@ -73,6 +73,16 @@
       </div>
     </div>
 
+    <div class="dp-sep"></div>
+
+    <!-- Sections lock -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Mode démo</span>
+      <div class="dp-btns">
+        <button class="dp-btn" id="dp-lock-btn" onclick="toggleLockAll(this)">🔒 Verrouiller sections</button>
+      </div>
+    </div>
+
   </div><!-- /dp-body -->
 </div><!-- /dp -->
 
@@ -320,7 +330,7 @@
       </div>
 
       <!-- §2 STATS BAR -->
-      <div class="stats-bar">
+      <div class="stats-bar" data-lockable data-lock-label="Statistiques">
         <div class="stat-item"><div class="stat-val">500<em>+</em></div><div class="stat-lbl">Sociétés créées</div></div>
         <div class="stat-sep"></div>
         <div class="stat-item"><div class="stat-val">10<em> ans</em></div><div class="stat-lbl">D'expertise</div></div>
@@ -338,7 +348,7 @@
       </div>
 
       <!-- §3 LÉGALITÉ 5 NON -->
-      <div class="section">
+      <div class="section" data-lockable data-lock-label="Légalité">
         <div class="section-tag">Légalité</div>
         <h2 class="section-h2">5 idées reçues.<br>5 fois non.</h2>
         <p class="section-sub">Créer une LLC en tant que résident français est 100% légal. Voici les 5 objections que nous entendons le plus souvent — réfutées.</p>
@@ -360,7 +370,7 @@
       </div>
 
       <!-- §4 TIMELINE COMMENT ÇA MARCHE -->
-      <div class="timeline-section">
+      <div class="timeline-section" data-lockable data-lock-label="Processus">
         <div style="text-align:center">
           <div class="section-tag">Comment ça marche</div>
           <h2 class="section-h2">De zéro à LLC opérationnelle<br>en 4 étapes.</h2>
@@ -410,7 +420,7 @@
       </div>
 
       <!-- §5 3 CHEMINS -->
-      <div class="section">
+      <div class="section" data-lockable data-lock-label="Points d'entrée">
         <div class="section-tag">Par où commencer</div>
         <h2 class="section-h2">Où en êtes-vous ?</h2>
         <p class="section-sub">Trois situations, trois points d'entrée. Choisissez celui qui vous correspond.</p>
@@ -444,7 +454,7 @@
       </div>
 
       <!-- §6 OFFRES APERÇU -->
-      <div class="offers-section">
+      <div class="offers-section" data-lockable data-lock-label="Offres">
         <div class="section-tag" style="text-align:center">Nos offres</div>
         <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">Deux packs, un seul objectif :<br>votre LLC opérationnelle.</h2>
         <p class="section-sub" style="text-align:center;margin:0 auto 40px">Pas de frais cachés. Pas de mauvaise surprise.</p>
@@ -491,7 +501,7 @@
       </div>
 
       <!-- §7 DIFFÉRENCIANTS -->
-      <div class="section">
+      <div class="section" data-lockable data-lock-label="Différenciants">
         <div class="section-tag">Pourquoi nous</div>
         <h2 class="section-h2">Pas juste un enregistrement.<br>Un accompagnement complet.</h2>
         <p class="section-sub">De nombreux sites créent votre LLC pour quelques centaines de dollars. C'est tout ce qu'ils font.</p>
@@ -523,7 +533,7 @@
       </div>
 
       <!-- §8 TÉMOIGNAGES -->
-      <div class="section">
+      <div class="section" data-lockable data-lock-label="Témoignages">
         <div class="section-tag" style="text-align:center">Témoignages</div>
         <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">500+ entrepreneurs<br>nous font confiance.</h2>
         <p class="section-sub" style="text-align:center;margin:0 auto 36px">Depuis 2014, chaque LLC est unique. Voici ce que nos clients en disent.</p>
@@ -653,7 +663,7 @@
       </div>
 
       <!-- §10 DOUBLE CTA -->
-      <div class="cta-dual">
+      <div class="cta-dual" data-lockable data-lock-label="Call to Action">
         <div class="cta-card primary" onclick="go('cal')">
           <div class="cta-card-label">Vous êtes prêt</div>
           <h3 class="cta-card-h">Réserver mon entretien gratuit</h3>
@@ -1633,6 +1643,32 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   buildUSMap();
   initTimelineMobile();
+
+  // ── Section Lock Overlay — inject une seule fois au chargement ──
+  document.querySelectorAll('[data-lockable]').forEach(section => {
+    section.classList.add('lockable');
+    const lbl = section.dataset.lockLabel || 'Section';
+    const overlay = document.createElement('div');
+    overlay.className = 'section-lock';
+    overlay.innerHTML = `
+      <div class="sl-card">
+        <div class="sl-lock-wrap">
+          <svg class="sl-lock-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="15" width="20" height="14" rx="4" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M10 15V10.5a6 6 0 0112 0V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="16" cy="22" r="2" fill="currentColor"/>
+            <line x1="16" y1="22" x2="16" y2="25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="sl-ring sl-ring-1"></div>
+          <div class="sl-ring sl-ring-2"></div>
+        </div>
+        <div class="sl-label">${lbl}</div>
+        <div class="sl-title">En cours de développement</div>
+        <div class="sl-sub">Cette section sera intégrée<br>dans la version finale.</div>
+        <button class="sl-unlock-btn" onclick="unlockSection(this)">Déverrouiller cette section</button>
+      </div>`;
+    section.appendChild(overlay);
+  });
 });
 
 const stateDetails = {
@@ -1741,6 +1777,25 @@ function repaintHpMap(theme) {
       const state = Object.values(HP_STATES).find(s => s.abbr === t.textContent);
       if (state) t.setAttribute('fill', state.color + 'cc');
     });
+  }
+}
+
+// ── Section Lock helpers ──────────────────────────────────────
+function toggleLockAll(btn) {
+  const sections = document.querySelectorAll('.lockable');
+  const isLocked = btn.classList.contains('on');
+  sections.forEach(s => s.classList.toggle('locked', !isLocked));
+  btn.classList.toggle('on', !isLocked);
+  btn.textContent = isLocked ? '🔒 Verrouiller sections' : '🔓 Déverrouiller tout';
+}
+
+function unlockSection(unlockBtn) {
+  unlockBtn.closest('.lockable').classList.remove('locked');
+  // Si plus aucune section verrouillée, réinitialiser le bouton du panel
+  const remaining = document.querySelectorAll('.lockable.locked').length;
+  if (remaining === 0) {
+    const dpLock = document.getElementById('dp-lock-btn');
+    if (dpLock) { dpLock.classList.remove('on'); dpLock.textContent = '🔒 Verrouiller sections'; }
   }
 }
 

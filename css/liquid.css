@@ -670,6 +670,30 @@ html[data-theme="liquid"] .cal-card {
 }
 /* (admin-toggle absorbed into dp-panel) */
 
+/* ══ SECTION LOCK — Liquid Glass ══ */
+.section-lock {
+  background: rgba(14,30,56,.28);
+}
+.sl-card {
+  background: rgba(255,255,255,.13);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 12px 48px rgba(14,30,56,.25), inset 0 1px 0 rgba(255,255,255,.3);
+}
+.sl-lock-svg,
+.sl-ring    { color: rgba(255,255,255,.9); }
+.sl-label   { color: rgba(255,255,255,.55); }
+.sl-title   { color: #fff; }
+.sl-sub     { color: rgba(255,255,255,.6); }
+.sl-unlock-btn {
+  background: rgba(255,255,255,.12); color: rgba(255,255,255,.7);
+  border-color: rgba(255,255,255,.18);
+}
+.sl-unlock-btn:hover {
+  background: rgba(255,255,255,.22); color: #fff;
+}
+
 /* ══ DECORATIVE OPACITY — Liquid Glass ══ */
 /* These values were moved from structure.css — visually meaningful, not accessibility-related */
 html[data-theme="liquid"] .nl-chev             { opacity: .4; }
