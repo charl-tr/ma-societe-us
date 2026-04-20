@@ -776,6 +776,93 @@ body {
 .footer-col li { font-size: 13px; cursor: pointer; transition: color .15s; }
 .footer-bottom { border-top: 1px solid transparent; padding-top: 20px; font-size: 11px; }
 
+/* ══ VAULT SHIELD ARTEFACT ══ */
+.vault-shield {
+  margin: 0 0 48px;
+  text-align: center;
+}
+.vault-shield-title {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: 40px;
+}
+.vault-shield-body {
+  display: grid;
+  grid-template-columns: 1fr 320px 1fr;
+  gap: 0;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+/* Lignes horizontales reliant les panneaux au coffre */
+.vault-shield-panel {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 22px 24px;
+  text-align: left;
+  position: relative;
+}
+.vault-side-weak  { margin-right: 24px; }
+.vault-side-force { margin-left: 24px; }
+.vsp-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.vsp-text { font-size: 13.5px; line-height: 1.65; }
+/* Centre — image ou CSS placeholder */
+.vault-shield-center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vault-door-img {
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  filter: drop-shadow(0 12px 40px rgba(0,0,0,.12));
+}
+/* CSS vault door placeholder */
+.vault-door-css {
+  width: 260px;
+  height: 260px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+}
+.vd-ring {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 2px solid transparent; position: relative;
+}
+.vd-r1 { width: 220px; height: 220px; }
+.vd-r2 { width: 160px; height: 160px; }
+.vd-r3 { width: 90px;  height: 90px; }
+.vd-hub {
+  width: 50px; height: 50px; border-radius: 50%;
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.vd-spoke {
+  position: absolute; width: 2px; height: 40px;
+  transform-origin: bottom center;
+  top: -40px; left: 50%;
+}
+.vd-s1 { transform: translateX(-50%) rotate(0deg); }
+.vd-s2 { transform: translateX(-50%) rotate(120deg); }
+.vd-s3 { transform: translateX(-50%) rotate(240deg); }
+.vd-glow {
+  position: absolute; inset: 0; border-radius: 18px;
+  pointer-events: none;
+}
+
 /* ══ SLICE 14 · STATS BAR ══ */
 .stats-bar {
   padding: 20px 72px;
