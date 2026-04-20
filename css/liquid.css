@@ -108,15 +108,15 @@ html[data-theme="liquid"] .pack-price {
   --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,252,255,.76) 100%);
   /* ── American Chrome — token réutilisable ──
      Argenté avec micro-reflets bleu US (#2a5090) et rouge US (#bf0a30).
-     Usage : border: 1.5px solid transparent + background: var(--chrome-us) border-box */
+     Usage : border: 2px solid transparent + background: var(--chrome-us) border-box */
   --chrome-us:          linear-gradient(145deg,
-                          rgba(255,255,255,1)      0%,
-                          rgba(148,190,252,.96)    9%,   /* bleu US vif */
-                          rgba(210,214,224,.90)   26%,   /* argent */
-                          rgba(228,224,224,.88)   44%,   /* argent neutre */
-                          rgba(240,196,196,.92)   60%,   /* rouge US */
-                          rgba(195,215,252,.94)   78%,   /* bleu argenté */
-                          rgba(255,255,255,1)    100%);
+                          rgba(220,232,255,1)      0%,
+                          rgba(60,120,230,1)       7%,   /* bleu US */
+                          rgba(140,158,188,1)     23%,   /* argent foncé */
+                          rgba(200,200,205,1)     43%,   /* argent */
+                          rgba(200,80,95,1)       59%,   /* rouge US */
+                          rgba(110,160,240,1)     77%,   /* bleu argenté */
+                          rgba(220,232,255,1)    100%);
 
   --lq-chrome-border:     var(--chrome-us);
   --lq-chrome-shadow:     0 2px 20px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.03);
@@ -295,7 +295,7 @@ html[data-theme="liquid"] .hero-cred {
   gap: 13px;
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
   border-radius: 10px;
   padding: 12px 18px;
@@ -451,7 +451,7 @@ html[data-theme="liquid"] .hero-glow {
 .pg-item {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 .pgi-val { color: var(--navy); }
@@ -570,7 +570,7 @@ html[data-theme="liquid"] .hp-detail,
 html[data-theme="liquid"] .sl-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
   backdrop-filter: blur(10px) saturate(1.3);
   -webkit-backdrop-filter: blur(10px) saturate(1.3);
@@ -589,7 +589,7 @@ html[data-theme="liquid"] .op-card,
 html[data-theme="liquid"] .testi-card {
   background: var(--lq-chrome-fill-el) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow-el);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
@@ -614,7 +614,7 @@ html[data-theme="liquid"] .hv2-photo-frame {
 html[data-theme="liquid"] .cta-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 html[data-theme="liquid"] .cta-card.primary {
@@ -683,7 +683,7 @@ html[data-theme] .op-card     { background: var(--c-surface); border-color: var(
 html[data-theme="liquid"] .op-card.featured {
   background: var(--lq-chrome-fill-pm) padding-box,
               var(--lq-chrome-border-pm) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow-pm);
 }
 .op-rec-badge { background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; }
@@ -712,7 +712,7 @@ html[data-theme="liquid"] .op-card.featured {
 html[data-theme="liquid"] .pack-col {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 /* pack-col-premium → already covered by premium chrome in SLICE 04 */
@@ -850,7 +850,7 @@ html[data-theme="liquid"] .hp-co {
       rgba(220,232,245,.90)  80%,
       rgba(255,255,255,.96) 100%
     ) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   border-radius: 9px;
   box-shadow:
     0 2px 18px rgba(14,30,56,.06),
@@ -986,7 +986,8 @@ html[data-theme] .hp-detail { background: linear-gradient(160deg, var(--c-surfac
 html[data-theme="liquid"] .hp-stab {
   background: var(--lq-chrome-fill-el) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 10px rgba(14,30,56,.07);
   backdrop-filter: blur(10px) saturate(1.3);
   -webkit-backdrop-filter: blur(10px) saturate(1.3);
 }
@@ -1068,7 +1069,7 @@ html[data-theme="liquid"] .cal-card {
 html[data-theme="liquid"] .admin-bar {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
   color: rgba(14,30,56,.7);
 }
@@ -1121,7 +1122,7 @@ html[data-theme="liquid"] .sl-card {
       rgba(220,232,245,.92) 80%,
       rgba(255,255,255,1)  100%
     ) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow:
     0 8px 40px rgba(14,30,56,.10),
     0 2px 8px rgba(14,30,56,.06),
@@ -1193,19 +1194,19 @@ html[data-theme="liquid"] .i-crumb .bc-sep     { opacity: .35; }
 .a-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 .a-stat-panel {
   background: var(--lq-chrome-fill-pm) padding-box,
               var(--lq-chrome-border-pm) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow-pm);
 }
 .a-stat-tile {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 .a-chrome { background: var(--c-chrome); color: var(--c-chrome-text); }
@@ -1269,7 +1270,7 @@ html[data-theme="liquid"] .pq-card {
       rgba(220,232,245,.90)  80%,
       rgba(255,255,255,.96) 100%
     ) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: 0 2px 12px rgba(14,30,56,.06), 0 1px 3px rgba(14,30,56,.04);
 }
 html[data-theme="liquid"] .pqc-h {
@@ -1315,7 +1316,7 @@ html[data-theme="liquid"] .hm-stat-sep { background: rgba(14,30,56,.15); }
 html[data-theme="liquid"] .hm-ann-card {
   background: var(--lq-chrome-fill-el) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   box-shadow: var(--lq-chrome-shadow-el);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
