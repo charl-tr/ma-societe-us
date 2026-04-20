@@ -105,34 +105,29 @@ html[data-theme="liquid"] .pack-price {
   /* ══ CHROME CARD SYSTEM — Liquid Glass signature ══
      Shimmer iridescent prismatique — inspiré verre cristallin Apple Vision Pro.
      Fond quasi-transparent, bord avec reflet arc-en-ciel très subtil.         */
-  --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.80) 0%, rgba(248,252,255,.72) 100%);
+  --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,252,255,.76) 100%);
   --lq-chrome-border:   linear-gradient(145deg,
-                          rgba(255,255,255,.99)    0%,
-                          rgba(150,200,255,.92)   10%,
-                          rgba(200,155,255,.85)   24%,
-                          rgba(140,230,210,.85)   40%,
-                          rgba(255,200,155,.82)   58%,
-                          rgba(155,210,255,.90)   74%,
-                          rgba(210,180,255,.88)   88%,
-                          rgba(255,255,255,.99)  100%);
+                          rgba(255,255,255,.95)    0%,
+                          rgba(210,222,238,.80)   30%,
+                          rgba(195,210,230,.72)   55%,
+                          rgba(215,225,240,.82)   78%,
+                          rgba(255,255,255,.94)  100%);
   --lq-chrome-shadow:   0 2px 20px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.03);
   --lq-chrome-shadow-h: 0 10px 40px rgba(14,30,56,.10), 0 2px 8px rgba(14,30,56,.05);
 
   /* elevated */
-  --lq-chrome-fill-el:    linear-gradient(160deg, rgba(255,255,255,.85) 0%, rgba(245,251,255,.78) 100%);
+  --lq-chrome-fill-el:    linear-gradient(160deg, rgba(255,255,255,.86) 0%, rgba(245,251,255,.80) 100%);
   --lq-chrome-shadow-el:  0 8px 36px rgba(14,30,56,.08), 0 2px 6px rgba(14,30,56,.04);
 
   /* premium — hero panel, featured pack */
-  --lq-chrome-fill-pm:    linear-gradient(160deg, rgba(255,255,255,.92) 0%, rgba(242,250,255,.86) 100%);
+  --lq-chrome-fill-pm:    linear-gradient(160deg, rgba(255,255,255,.92) 0%, rgba(242,250,255,.88) 100%);
   --lq-chrome-border-pm:  linear-gradient(145deg,
-                            rgba(255,255,255,1)     0%,
-                            rgba(130,195,255,1)     8%,
-                            rgba(195,140,255,.96)  22%,
-                            rgba(130,230,205,.96)  38%,
-                            rgba(255,195,130,.94)  55%,
-                            rgba(130,205,255,.98)  72%,
-                            rgba(200,170,255,.96)  86%,
-                            rgba(255,255,255,1)   100%);
+                            rgba(255,255,255,.98)    0%,
+                            rgba(205,218,238,.90)   20%,
+                            rgba(188,206,228,.82)   42%,
+                            rgba(200,215,235,.86)   65%,
+                            rgba(220,230,245,.90)   82%,
+                            rgba(255,255,255,.97)  100%);
   --lq-chrome-shadow-pm:  0 14px 60px rgba(14,30,56,.11), 0 3px 10px rgba(14,30,56,.05);
 }
 
@@ -610,29 +605,6 @@ html[data-theme="liquid"] .hv2-photo-frame {
   box-shadow: var(--lq-chrome-shadow-pm);
   position: relative;
   overflow: hidden;
-}
-/* Prismatic light streak on premium cards */
-html[data-theme="liquid"] .panel-big::before,
-html[data-theme="liquid"] .pack-col-premium::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg,
-    transparent 0%,
-    transparent 35%,
-    rgba(200,220,255,.18) 42%,
-    rgba(220,195,255,.14) 46%,
-    rgba(180,240,220,.12) 50%,
-    rgba(255,210,180,.10) 54%,
-    transparent 58%,
-    transparent 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-html[data-theme="liquid"] .panel-big > *,
-html[data-theme="liquid"] .pack-col-premium > * {
-  position: relative;
-  z-index: 1;
 }
 
 /* ── CTA card variants ── */
