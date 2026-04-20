@@ -79,28 +79,22 @@ html[data-theme="dark"] .nav-cta {
   font-weight: 400;
 }
 
-/* Design bar */
-html[data-theme="dark"] .design-bar {
-  background: #060a12;
-  border-bottom: 1px solid rgba(255,255,255,.05);
+/* Floating design panel — Harvey Dark */
+html[data-theme="dark"] .dp-panel {
+  background: rgba(6,10,18,.95);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.4);
 }
-html[data-theme="dark"] .db-label { color: rgba(255,255,255,.2); }
-html[data-theme="dark"] .db-btn {
-  color: rgba(255,255,255,.32);
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.06);
-}
-html[data-theme="dark"] .db-btn:hover { color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); }
-html[data-theme="dark"] .db-btn.on { color: #fff; background: rgba(77,142,255,.4); border-color: rgba(77,142,255,.6); }
-html[data-theme="dark"] .db-sep { background: rgba(255,255,255,.06); }
-
-/* Meta strip */
-html[data-theme="dark"] .meta-strip { background: #060a12; }
-html[data-theme="dark"] .ms-label { color: rgba(255,255,255,.25); }
-html[data-theme="dark"] .ms-label strong { color: rgba(255,255,255,.55); }
-html[data-theme="dark"] .ms-tab { color: rgba(255,255,255,.28); }
-html[data-theme="dark"] .ms-tab:hover { color: rgba(255,255,255,.65); background: rgba(255,255,255,.05); }
-html[data-theme="dark"] .ms-tab.on { color: #fff; background: rgba(255,255,255,.08); }
+html[data-theme="dark"] .dp-bar { background: rgba(255,255,255,.03); border-bottom: 1px solid rgba(255,255,255,.05); }
+html[data-theme="dark"] .dp-title { color: rgba(232,237,248,.45); }
+html[data-theme="dark"] .dp-icon  { color: #4d8eff; }
+html[data-theme="dark"] .dp-min-btn { background: rgba(255,255,255,.07); color: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.08); }
+html[data-theme="dark"] .dp-lbl   { color: rgba(232,237,248,.4); }
+html[data-theme="dark"] .dp-sep   { background: rgba(255,255,255,.07); }
+html[data-theme="dark"] .dp-btn   { color: rgba(232,237,248,.32); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.06); }
+html[data-theme="dark"] .dp-btn:hover { color: rgba(232,237,248,.7); background: rgba(255,255,255,.08); }
+html[data-theme="dark"] .dp-btn.on    { color: #fff; background: rgba(77,142,255,.4); border-color: rgba(77,142,255,.6); }
 
 /* Dropdown */
 html[data-theme="dark"] .dd-backdrop { background: rgba(0,0,0,.4); backdrop-filter: blur(2px); }

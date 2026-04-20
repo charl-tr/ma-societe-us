@@ -75,26 +75,22 @@ html[data-theme="liquid"] .nav-cta {
   box-shadow: 0 4px 16px rgba(42,80,144,0.25);
 }
 
-/* Design bar */
-.design-bar {
-  background: #0a1220; border-bottom: 1px solid rgba(255,255,255,.06);
+/* Floating design panel */
+.dp-panel {
+  background: rgba(8,18,36,.94);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,.4), 0 2px 8px rgba(0,0,0,.3);
 }
-.db-label { color: rgba(255,255,255,.28); }
-.db-btn {
-  color: rgba(255,255,255,.38); background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.08);
-}
-.db-btn:hover { color: rgba(255,255,255,.75); background: rgba(255,255,255,.1); }
-.db-btn.on { color: #fff; background: rgba(42,80,144,.55); border-color: rgba(42,80,144,.7); }
-.db-sep { background: rgba(255,255,255,.08); }
-
-/* Meta strip */
-.meta-strip { background: var(--navy); }
-.ms-label { color: rgba(255,255,255,.38); }
-.ms-label strong { color: rgba(255,255,255,.7); }
-.ms-tab { color: rgba(255,255,255,.38); }
-.ms-tab:hover { color: rgba(255,255,255,.75); background: rgba(255,255,255,.07); }
-.ms-tab.on { color: #fff; background: rgba(255,255,255,.12); }
+.dp-bar { background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.06); }
+.dp-title { color: rgba(255,255,255,.55); }
+.dp-icon  { color: var(--accent,#1a9a60); }
+.dp-min-btn { background: rgba(255,255,255,.08); color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1); }
+.dp-lbl   { color: rgba(255,255,255,.45); }
+.dp-sep   { background: rgba(255,255,255,.12); }
+.dp-btn   { color: rgba(255,255,255,.38); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.08); }
+.dp-btn:hover { color: rgba(255,255,255,.75); background: rgba(255,255,255,.1); }
+.dp-btn.on    { color: #fff; background: rgba(26,154,96,.45); border-color: rgba(26,154,96,.7); }
 
 /* Dropdown backdrop */
 .dd-backdrop {
@@ -657,13 +653,7 @@ html[data-theme="liquid"] .cal-card {
   background: rgba(240,180,0,.18); color: #a06800;
   border: 1px dashed rgba(200,150,0,.4);
 }
-#admin-toggle {
-  background: rgba(14,30,56,.9); color: rgba(255,255,255,.75);
-  border: 1px solid rgba(255,255,255,.12);
-}
-#admin-toggle:hover { background: rgba(14,30,56,1); color: #fff; }
-#admin-toggle .at-dot { background: #f0b400; }
-body.admin-hidden #admin-toggle .at-dot { background: rgba(255,255,255,.3); }
+/* (admin-toggle absorbed into dp-panel) */
 
 /* ══ DECORATIVE OPACITY — Liquid Glass ══ */
 /* These values were moved from structure.css — visually meaningful, not accessibility-related */

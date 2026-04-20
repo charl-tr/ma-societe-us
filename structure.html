@@ -14,36 +14,67 @@
 </head>
 <body>
 
-<!-- ADMIN TOGGLE -->
-<button id="admin-toggle" onclick="document.body.classList.toggle('admin-hidden');this.querySelector('.at-lbl').textContent=document.body.classList.contains('admin-hidden')?'Annotations OFF':'Annotations ON'">
-  <span class="at-dot"></span><span class="at-lbl">Annotations ON</span>
-</button>
+<!-- ═══════════════════════════════════════
+     FLOATING DESIGN PANEL — surcouche indépendante
+     Draggable · Minimizable · Thème-agnostique
+     ═══════════════════════════════════════ -->
+<div id="dp" class="dp-panel">
 
-<!-- DESIGN CONTROL BAR -->
-<div class="design-bar">
-  <div class="db-group">
-    <span class="db-label">Hero</span>
-    <button class="db-btn on" onclick="setHeroVariant(1,this)">V1 · Actuel</button>
-    <button class="db-btn" onclick="setHeroVariant(2,this)">V2 · Cabinet</button>
-    <button class="db-btn" onclick="setHeroVariant(3,this)">V3 · Minimal</button>
+  <!-- TITLEBAR (drag handle) -->
+  <div class="dp-bar" id="dp-bar">
+    <span class="dp-icon">◈</span>
+    <span class="dp-title">Prototype Controls</span>
+    <button class="dp-min-btn" id="dp-min-btn" onclick="toggleDP()" title="Minimiser">−</button>
   </div>
-  <div class="db-sep"></div>
-  <div class="db-group">
-    <span class="db-label">Thème</span>
-    <button class="db-btn on" onclick="setTheme('liquid',this)">Liquid Glass</button>
-    <button class="db-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
-    <button class="db-btn" onclick="setTheme('vault',this)">Vault Glass</button>
-  </div>
-</div>
 
-<!-- META -->
-<div class="meta-strip">
-  <div class="ms-label">MA SOCIÉTÉ US · <strong>Architecture Navigation</strong></div>
-  <div class="ms-nav">
-    <div class="ms-tab on" onclick="msTab(this,false)">Démo interactive</div>
-    <div class="ms-tab" onclick="msTab(this,true)">Analyse 7 options ↓</div>
-  </div>
-</div>
+  <!-- BODY (collapsible) -->
+  <div class="dp-body" id="dp-body">
+
+    <!-- Annotations -->
+    <div class="dp-row">
+      <span class="dp-lbl">Annotations</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" id="dp-annot" onclick="toggleAnnot(this)">ON</button>
+      </div>
+    </div>
+
+    <div class="dp-sep"></div>
+
+    <!-- Hero variant -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Hero</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" onclick="setHeroVariant(1,this)">V1 · Actuel</button>
+        <button class="dp-btn" onclick="setHeroVariant(2,this)">V2 · Cabinet</button>
+        <button class="dp-btn" onclick="setHeroVariant(3,this)">V3 · Minimal</button>
+      </div>
+    </div>
+
+    <div class="dp-sep"></div>
+
+    <!-- Thème -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Thème</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" onclick="setTheme('liquid',this)">Liquid Glass</button>
+        <button class="dp-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
+        <button class="dp-btn" onclick="setTheme('vault',this)">Vault Glass</button>
+      </div>
+    </div>
+
+    <div class="dp-sep"></div>
+
+    <!-- Vue -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Vue</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" onclick="msTab(this,false)">Démo interactive</button>
+        <button class="dp-btn" onclick="msTab(this,true)">Analyse 7 options</button>
+      </div>
+    </div>
+
+  </div><!-- /dp-body -->
+</div><!-- /dp -->
 
 <!-- NAVBAR -->
 <nav class="navbar" id="nav">
@@ -1434,8 +1465,7 @@ function toggleAn() {
   if (open) setTimeout(() => a.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 }
 function msTab(el, goAnalysis) {
-  document.querySelectorAll('.ms-tab').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
+  dpActivate(el);
   if (goAnalysis) {
     document.getElementById('anlys').classList.add('open');
     document.getElementById('atarr').classList.add('open');
@@ -1687,15 +1717,77 @@ function repaintHpMap(theme) {
   }
 }
 
-// Theme switcher — swape CSS + fonts + data-theme + map
+// ── Design Panel helpers ──────────────────────────────────────
+// Activate a dp-btn and deactivate its siblings within .dp-btns
+function dpActivate(btn) {
+  if (!btn) return;
+  const group = btn.closest('.dp-btns');
+  if (group) group.querySelectorAll('.dp-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// Toggle annotations
+function toggleAnnot(btn) {
+  const hidden = document.body.classList.toggle('admin-hidden');
+  btn.textContent = hidden ? 'OFF' : 'ON';
+  btn.classList.toggle('on', !hidden);
+}
+
+// Minimize / maximize panel
+function toggleDP() {
+  const body = document.getElementById('dp-body');
+  const minBtn = document.getElementById('dp-min-btn');
+  const panel = document.getElementById('dp');
+  const isMin = panel.classList.toggle('dp-minimized');
+  minBtn.textContent = isMin ? '+' : '−';
+}
+
+// Draggable panel
+(function initDrag() {
+  const panel = document.getElementById('dp');
+  const bar   = document.getElementById('dp-bar');
+  let dragging = false, ox = 0, oy = 0;
+
+  bar.addEventListener('mousedown', e => {
+    if (e.target.closest('.dp-min-btn')) return;
+    dragging = true;
+    // Switch from CSS right/bottom anchoring to left/top absolute
+    const rect = panel.getBoundingClientRect();
+    panel.style.right  = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.left   = rect.left + 'px';
+    panel.style.top    = rect.top  + 'px';
+    ox = e.clientX - rect.left;
+    oy = e.clientY - rect.top;
+    panel.style.transition = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    let nx = e.clientX - ox;
+    let ny = e.clientY - oy;
+    // Clamp to viewport
+    nx = Math.max(0, Math.min(nx, window.innerWidth  - panel.offsetWidth));
+    ny = Math.max(0, Math.min(ny, window.innerHeight - panel.offsetHeight));
+    panel.style.left = nx + 'px';
+    panel.style.top  = ny + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    panel.style.transition = '';
+  });
+})();
+
+// Theme switcher — swap CSS + fonts + data-theme + map
 function setTheme(name, btn) {
   document.getElementById('theme-css').href = 'css/' + name + '.css';
   document.documentElement.setAttribute('data-theme', name);
   const fontUrl = THEME_FONTS[name];
   if (fontUrl) document.getElementById('theme-fonts').href = fontUrl;
   repaintHpMap(name);
-  document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('on'));
-  if (btn) btn.classList.add('on');
+  dpActivate(btn);
 }
 
 function setHeroVariant(n, btn) {
@@ -1706,10 +1798,7 @@ function setHeroVariant(n, btn) {
     if (n === 2) { target.style.display = 'flex'; }
     if (n === 3) { target.style.display = 'flex'; }
   }
-  document.querySelectorAll('.db-btn').forEach(b => {
-    if (b.onclick && b.onclick.toString().includes('setHeroVariant')) b.classList.remove('on');
-  });
-  btn.classList.add('on');
+  dpActivate(btn);
 }
 </script>
 </body>

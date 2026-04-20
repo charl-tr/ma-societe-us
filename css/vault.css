@@ -117,39 +117,21 @@ html[data-theme="vault"] .nav-cta:hover {
   box-shadow: 0 4px 18px rgba(26,28,32,.26);
 }
 
-/* Design bar */
-html[data-theme="vault"] .design-bar {
-  background: rgba(237,233,226,.95);
-  border-bottom: 1px solid var(--v-border);
-}
-html[data-theme="vault"] .db-label { color: rgba(26,28,32,.3); }
-html[data-theme="vault"] .db-btn {
-  color: rgba(26,28,32,.42);
-  background: rgba(255,255,255,.7);
+/* Floating design panel — Vault Glass */
+html[data-theme="vault"] .dp-panel {
+  background: rgba(247,244,240,.97);
   border: 1px solid var(--v-border);
+  box-shadow: var(--v-shadow-h), inset 0 1px 0 rgba(255,255,255,.9);
 }
-html[data-theme="vault"] .db-btn:hover {
-  color: #1a1c20;
-  background: #fff;
-  border-color: var(--v-border-h);
-}
-html[data-theme="vault"] .db-btn.on {
-  color: #fff;
-  background: linear-gradient(135deg,#252830,#363b46);
-  border-color: transparent;
-}
-html[data-theme="vault"] .db-sep { background: var(--v-border); }
-
-/* Meta strip */
-html[data-theme="vault"] .meta-strip {
-  background: rgba(228,224,216,.9);
-  border-bottom: 1px solid var(--v-border);
-}
-html[data-theme="vault"] .ms-label { color: rgba(26,28,32,.35); }
-html[data-theme="vault"] .ms-label strong { color: rgba(26,28,32,.6); }
-html[data-theme="vault"] .ms-tab { color: rgba(26,28,32,.38); }
-html[data-theme="vault"] .ms-tab:hover { color: #1a1c20; background: rgba(255,255,255,.4); }
-html[data-theme="vault"] .ms-tab.on  { color: #1a1c20; background: rgba(255,255,255,.6); }
+html[data-theme="vault"] .dp-bar { background: rgba(255,255,255,.6); border-bottom: 1px solid var(--v-border); }
+html[data-theme="vault"] .dp-title { color: rgba(26,28,32,.5); }
+html[data-theme="vault"] .dp-icon  { color: rgba(140,135,128,.7); }
+html[data-theme="vault"] .dp-min-btn { background: rgba(255,255,255,.8); color: rgba(26,28,32,.5); border: 1px solid var(--v-border); box-shadow: var(--v-bevel); }
+html[data-theme="vault"] .dp-lbl   { color: rgba(26,28,32,.35); }
+html[data-theme="vault"] .dp-sep   { background: var(--v-border); opacity: 1; }
+html[data-theme="vault"] .dp-btn   { color: rgba(26,28,32,.42); background: rgba(255,255,255,.7); border-color: var(--v-border); }
+html[data-theme="vault"] .dp-btn:hover { color: #1a1c20; background: #fff; border-color: var(--v-border-h); }
+html[data-theme="vault"] .dp-btn.on    { color: #fff; background: linear-gradient(135deg,#252830,#363b46); border-color: transparent; }
 
 /* Dropdown */
 html[data-theme="vault"] .dd-backdrop {
@@ -724,9 +706,3 @@ html[data-theme="vault"] .section-admin-badge {
   color: rgba(26,28,32,.5);
   border: 1px dashed rgba(185,182,178,.4);
 }
-html[data-theme="vault"] #admin-toggle {
-  background: rgba(37,40,48,.88);
-  color: rgba(247,244,240,.72);
-  border: 1px solid rgba(255,255,255,.08);
-}
-html[data-theme="vault"] #admin-toggle .at-dot { background: rgba(185,182,178,.65); }
