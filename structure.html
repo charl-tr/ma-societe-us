@@ -34,7 +34,7 @@
     <div class="dp-row">
       <span class="dp-lbl">Annotations</span>
       <div class="dp-btns">
-        <button class="dp-btn on" id="dp-annot" onclick="toggleAnnot(this)">ON</button>
+        <button class="dp-btn" id="dp-annot" onclick="toggleAnnot(this)">OFF</button>
       </div>
     </div>
 
@@ -1805,6 +1805,9 @@ async function buildUSMap() {
 
 // Reset map hover when mouse leaves the map panel
 document.addEventListener('DOMContentLoaded', () => {
+  // Annotations OFF par défaut
+  document.body.classList.add('admin-hidden');
+
   const panel = document.querySelector('.map-panel');
   if (panel) panel.addEventListener('mouseleave', () => {
     const map = document.querySelector('#pv-creer .us-map');
