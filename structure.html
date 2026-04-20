@@ -104,6 +104,38 @@
     <div class="nl" id="nl-blog" onclick="go('blog')">Blog</div>
   </div>
   <button class="nav-cta" onclick="go('cal')">Réserver mon entretien gratuit</button>
+
+  <!-- MON ESPACE — mockup démo -->
+  <div class="nav-space" onclick="this.classList.toggle('open')" title="Mon espace client">
+    <div class="ns-avatar">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="7.5" r="3" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M3.5 17c0-3.314 2.91-6 6.5-6s6.5 2.686 6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="ns-label">Mon espace</span>
+    <svg class="ns-chev" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- Dropdown mock -->
+    <div class="ns-dropdown">
+      <div class="ns-dd-header">
+        <div class="ns-dd-avatar-lg">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="ns-dd-name">Client Demo</div>
+          <div class="ns-dd-email">demo@ma-societe.us</div>
+        </div>
+      </div>
+      <div class="ns-dd-sep"></div>
+      <div class="ns-dd-item">📋 Mon dossier LLC</div>
+      <div class="ns-dd-item">📄 Mes documents</div>
+      <div class="ns-dd-item">📅 Mes rendez-vous</div>
+      <div class="ns-dd-item">💬 Support</div>
+      <div class="ns-dd-sep"></div>
+      <div class="ns-dd-item ns-dd-logout">Déconnexion</div>
+    </div>
+  </div>
+
 </nav>
 
 <!-- BACKDROP -->
@@ -1713,7 +1745,7 @@ function selectState(key) {
 // Font URLs par thème
 const THEME_FONTS = {
   liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&display=swap',
-  dark:   'https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap',
+  dark:   'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap',
   vault:  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap',
 };
 

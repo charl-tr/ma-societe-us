@@ -721,6 +721,38 @@ html[data-theme="dark"]   .vsp-text  { color: rgba(232,237,248,.5); }
   50%       { box-shadow: 0 0 0 5px rgba(90,122,80,0); }
 }
 
+/* ══ MON ESPACE — Vault Glass ══ */
+html[data-theme="vault"] .nav-space {
+  color: var(--v-text);
+  border: 1px solid var(--v-border);
+}
+html[data-theme="vault"] .nav-space:hover {
+  background: rgba(242,239,234,.8);
+  border-color: rgba(185,182,178,.55);
+}
+html[data-theme="vault"] .ns-avatar {
+  background: rgba(90,85,75,.1);
+  color: rgba(26,28,32,.6);
+}
+html[data-theme="vault"] .ns-dropdown {
+  background: rgba(248,246,242,.96);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(185,182,178,.45);
+  box-shadow: var(--v-shadow-h), inset 0 1px 0 rgba(255,255,255,.9);
+}
+html[data-theme="vault"] .ns-drop-head {
+  background: rgba(90,85,75,.05);
+  border-bottom-color: rgba(185,182,178,.3);
+}
+html[data-theme="vault"] .ns-drop-name { color: var(--v-text); }
+html[data-theme="vault"] .ns-drop-email { color: rgba(26,28,32,.45); }
+html[data-theme="vault"] .ns-drop-item { color: var(--v-text); }
+html[data-theme="vault"] .ns-drop-item:hover { background: rgba(90,85,75,.06); }
+html[data-theme="vault"] .ns-drop-sep { border-color: rgba(185,182,178,.3); }
+html[data-theme="vault"] .ns-drop-logout { color: rgba(26,28,32,.4); }
+html[data-theme="vault"] .ns-drop-logout:hover { color: var(--v-text); background: rgba(90,85,75,.05); }
+
 /* ══ DECORATIVE OPACITY ══ */
 html[data-theme="vault"] .nl-chev         { opacity: .32; }
 html[data-theme="vault"] .i-crumb .bc-sep { opacity: .28; }
