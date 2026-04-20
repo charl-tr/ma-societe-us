@@ -79,7 +79,7 @@
     <div class="dp-row dp-row-col">
       <span class="dp-lbl">Mode démo</span>
       <div class="dp-btns">
-        <button class="dp-btn" id="dp-lock-btn" onclick="toggleLockAll(this)">🔒 Verrouiller sections</button>
+        <button class="dp-btn on" id="dp-lock-btn" onclick="toggleLockAll(this)">🔓 Déverrouiller tout</button>
       </div>
     </div>
 
@@ -1646,7 +1646,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Section Lock Overlay — inject une seule fois au chargement ──
   document.querySelectorAll('[data-lockable]').forEach(section => {
-    section.classList.add('lockable');
+    section.classList.add('lockable', 'locked'); // verrouillé par défaut en mode démo
     const lbl = section.dataset.lockLabel || 'Section';
     const overlay = document.createElement('div');
     overlay.className = 'section-lock';
@@ -1786,7 +1786,7 @@ function toggleLockAll(btn) {
   const isLocked = btn.classList.contains('on');
   sections.forEach(s => s.classList.toggle('locked', !isLocked));
   btn.classList.toggle('on', !isLocked);
-  btn.textContent = isLocked ? '🔒 Verrouiller sections' : '🔓 Déverrouiller tout';
+  btn.textContent = isLocked ? '🔓 Déverrouiller tout' : '🔒 Tout verrouiller';
 }
 
 function unlockSection(unlockBtn) {
