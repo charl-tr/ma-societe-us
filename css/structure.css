@@ -9,11 +9,12 @@
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── ROOT FONT TOKENS (non-couleur) ── */
+/* ── ROOT FONT TOKENS — fallback neutre ── */
+/* Chaque thème redéfinit ces variables sur html[data-theme="X"] */
 :root {
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-head: var(--font-heading);
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-heading: system-ui, sans-serif;
+  --font-head:    var(--font-heading);
+  --font-body:    system-ui, sans-serif;
 }
 
 /* ── BASE HTML/BODY ── */

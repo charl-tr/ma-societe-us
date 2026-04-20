@@ -3,7 +3,15 @@
    MA SOCIÉTÉ US · gh-pages prototype
    ════════════════════════════════════════ */
 
-/* ── TOKENS ── */
+/* ── FONT TOKENS — Liquid Glass ── */
+/* Space Grotesk (titres) + DM Sans (corps) */
+html[data-theme="liquid"] {
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-head:    var(--font-heading);
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+/* ── COLOR TOKENS ── */
 :root {
   --navy:  #0e1e38;
   --blue:  #2a5090;

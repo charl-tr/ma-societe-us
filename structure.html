@@ -6,7 +6,7 @@
 <title>Navigation Demo — MA SOCIÉTÉ US</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link id="theme-fonts" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <link rel="stylesheet" href="css/structure.css">
@@ -32,7 +32,6 @@
     <span class="db-label">Thème</span>
     <button class="db-btn on" onclick="setTheme('liquid',this)">Liquid Glass</button>
     <button class="db-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
-    <button class="db-btn" onclick="setTheme('premium',this)">Manhattan</button>
     <button class="db-btn" onclick="setTheme('vault',this)">Vault Glass</button>
   </div>
 </div>
@@ -1594,10 +1593,19 @@ function selectState(key) {
 }
 
 /* ── Design control bar ── */
-// Theme switcher — charge le fichier CSS du thème
+// Font URLs par thème — chaque thème charge sa propre typographie
+const THEME_FONTS = {
+  liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&display=swap',
+  dark:   'https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap',
+  vault:  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+};
+
+// Theme switcher — swape CSS + fonts + data-theme
 function setTheme(name, btn) {
   document.getElementById('theme-css').href = 'css/' + name + '.css';
   document.documentElement.setAttribute('data-theme', name);
+  const fontUrl = THEME_FONTS[name];
+  if (fontUrl) document.getElementById('theme-fonts').href = fontUrl;
   document.querySelectorAll('.db-btn').forEach(b => b.classList.remove('on'));
   if (btn) btn.classList.add('on');
 }
