@@ -11,7 +11,7 @@
 
 /* ── FONT TOKENS ── */
 html[data-theme="dark"] {
-  --font-heading: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+  --font-heading: 'Spectral', 'Georgia', 'Times New Roman', serif;
   --font-head:    var(--font-heading);
   --font-body:    'Inter', system-ui, sans-serif;
 }
@@ -101,7 +101,7 @@ html[data-theme="dark"] .navbar {
 html[data-theme="dark"] .nav-logo-img  { display: none; }
 html[data-theme="dark"] .nav-logo-text {
   display: block;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Spectral', Georgia, serif;
   font-size: 16px; font-weight: 400; letter-spacing: .12em;
   text-transform: uppercase; color: var(--h-white);
   line-height: 1; white-space: nowrap;
@@ -182,7 +182,7 @@ html[data-theme="dark"] .dd-col-head {
   padding: 16px 20px 12px;
 }
 html[data-theme="dark"] .dch-label {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Spectral', Georgia, serif;
   color: var(--h-white); font-weight: 300;
   font-size: 16px; letter-spacing: .02em;
 }
@@ -194,7 +194,7 @@ html[data-theme="dark"] .dd-col { border-right-color: rgba(244,242,238,.06); }
 
 /* Offers */
 html[data-theme="dark"] .ddo-name {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Spectral', Georgia, serif;
   color: var(--h-white); font-weight: 300;
   font-size: 17px; letter-spacing: .01em;
 }
@@ -381,7 +381,7 @@ html[data-theme="dark"] .hm-fade-b { background: linear-gradient(to top, #080808
 html[data-theme="dark"] .hm-logo { display: none; }
 html[data-theme="dark"] .hm-logo-text {
   display: block;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Spectral', Georgia, serif;
   font-size: 22px; font-weight: 400; letter-spacing: .1em;
   color: var(--h-white); line-height: 1;
   text-transform: uppercase;
@@ -417,7 +417,7 @@ html[data-theme="dark"] .hm-ann-card {
   -webkit-backdrop-filter: blur(8px);
 }
 html[data-theme="dark"] .hm-ann-state {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Spectral', Georgia, serif;
   color: var(--h-white); font-weight: 400; font-size: 15px; letter-spacing: .02em;
 }
 html[data-theme="dark"] .hm-ann-tag {
