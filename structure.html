@@ -657,7 +657,7 @@
           <!-- MAP -->
           <div class="hp-map-col">
             <div class="hp-map-wrap">
-              <div id="hp-map-container" style="display:block;width:100%;min-height:340px;"></div>
+              <div id="hp-map-container" style="display:block;width:100%;"></div>
             </div>
           </div>
 
@@ -1807,7 +1807,7 @@ function selectState(key) {
 /* ── Design control bar ── */
 // Font URLs par thème
 const THEME_FONTS = {
-  liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&display=swap',
+  liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap',
   dark:   'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap',
   vault:  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap',
 };
@@ -1815,12 +1815,12 @@ const THEME_FONTS = {
 // Couleurs de la carte SVG par thème — les fills sont des attributs SVG, pas CSS
 const MAP_COLORS = {
   liquid: {
-    bg:          '#e8eef6',                    // silver-blue clair — proche référence
-    fogFrom:     'rgba(232,238,246,0)',
-    fogTo:       'rgba(232,238,246,1)',
-    stateFill:   'rgba(185,200,222,0.42)',      // états neutres: très légers
-    stateStroke: 'rgba(255,255,255,0.92)',
-    labelFill:   null, // utilise s.color natif
+    bg:          '#ecf2f8',                    // correspond au fond de section pour seamless
+    fogFrom:     'rgba(236,242,248,0)',
+    fogTo:       'rgba(236,242,248,1)',
+    stateFill:   'rgba(185,200,222,0.38)',
+    stateStroke: 'rgba(255,255,255,0.9)',
+    labelFill:   null,
   },
   dark: {
     bg:          '#080808',
