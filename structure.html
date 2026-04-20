@@ -268,7 +268,7 @@
         <!-- ── Carte US — fond absolu, demi-droite, pleine hauteur ── -->
         <div class="hm-map-bg" id="hm-map-bg">
           <div id="hm-map-svg"></div>
-          <!-- 4 cartes flottantes sur la carte -->
+          <!-- 4 cartes annotées aux coins de la zone carte -->
           <div class="hm-ann hm-ann-wy" id="hm-ann-wy">
             <div class="hm-ann-card">
               <div class="hm-ann-state">Wyoming</div>
@@ -291,18 +291,6 @@
             <div class="hm-ann-card">
               <div class="hm-ann-state">Delaware</div>
               <div class="hm-ann-tag">Le standard indispensable<br>pour la levée de fonds.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-ca" id="hm-ann-ca">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Californie</div>
-              <div class="hm-ann-tag">Idéal pour les startups<br>tech &amp; VC-backed.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-fl" id="hm-ann-fl">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Floride</div>
-              <div class="hm-ann-tag">0% d'impôt sur le revenu<br>pour les résidents.</div>
             </div>
           </div>
           <!-- Lignes de connexion -->
@@ -331,7 +319,7 @@
               <div class="hm-stat hm-stat-sep"></div>
               <div class="hm-stat"><div class="hm-sv">500<span class="hm-su">+</span></div><div class="hm-sl">clients</div></div>
               <div class="hm-stat hm-stat-sep"></div>
-              <div class="hm-stat"><div class="hm-sv">14<span class="hm-su">j</span></div><div class="hm-sl">création</div></div>
+              <div class="hm-stat"><div class="hm-sv">10<span class="hm-su"> ans</span></div><div class="hm-sl">d'expertise</div></div>
             </div>
             <div class="hm-cta-block">
               <button class="hm-cta-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
@@ -1771,8 +1759,8 @@ function _drawHeroLines(centroids, W, H) {
   // Set overlay viewBox to match outer container pixel size
   lineSvg.setAttribute('viewBox', `0 0 ${outerRect.width} ${outerRect.height}`);
 
-  const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', nm:'hm-ann-nm', de:'hm-ann-de', ca:'hm-ann-ca', fl:'hm-ann-fl' };
-  const edgeMap = { wy:'right', co:'left', nm:'right', de:'left', ca:'right', fl:'right' };
+  const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', nm:'hm-ann-nm', de:'hm-ann-de' };
+  const edgeMap = { wy:'right', co:'left', nm:'right', de:'left' };
 
   Object.entries(centroids).forEach(([key, [cx, cy]]) => {
     const annId = annMap[key];

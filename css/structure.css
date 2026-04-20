@@ -1291,14 +1291,14 @@ body.admin-hidden .section-admin-badge { display: none; }
 /* Map: fond absolu sur la moitié droite, pleine hauteur */
 .hm-map-bg {
   position: absolute;
-  left: 36%; right: -8%;
+  left: 44%; right: -8%;
   top: -12%; bottom: -12%;
   pointer-events: none;
 }
 .hm-map-bg #hm-map-svg {
   position: absolute;
   top: 50%; transform: translateY(-50%);
-  width: 108%; left: -4%;
+  width: 112%; left: -6%;
   pointer-events: auto;
 }
 .hm-map-bg #hm-map-svg svg { width: 100%; height: auto; display: block; }
@@ -1317,7 +1317,7 @@ body.admin-hidden .section-admin-badge { display: none; }
   padding: 80px 0 80px 64px;
   position: relative; z-index: 10;
 }
-.hm-left { width: 47%; }
+.hm-left { width: 44%; }
 .hm-logo-block { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
 .hm-logo { height: 56px; width: auto; }
 .hm-logo-badge {
@@ -1350,14 +1350,12 @@ body.admin-hidden .section-admin-badge { display: none; }
 }
 .hm-legal { font-size: 11px; opacity: .4; letter-spacing: .02em; }
 
-/* Annotation cards flottantes sur la carte — 6 états, 2 colonnes */
-.hm-ann { position: absolute; width: 142px; z-index: 6; pointer-events: auto; }
-.hm-ann-wy { top: 14%; left: 4%; text-align: right; }
-.hm-ann-co { top: 14%; right: 14%; text-align: left; }
-.hm-ann-ca { top: 44%; left: 4%; text-align: right; }
-.hm-ann-de { top: 44%; right: 14%; text-align: left; }
-.hm-ann-nm { bottom: 16%; left: 4%; text-align: right; }
-.hm-ann-fl { bottom: 16%; right: 14%; text-align: left; }
+/* Annotation cards — 4 états aux coins de la zone carte */
+.hm-ann { position: absolute; width: 148px; z-index: 6; pointer-events: auto; }
+.hm-ann-wy { top: 16%; left: 8%; text-align: right; }
+.hm-ann-co { top: 16%; right: 14%; text-align: left; }
+.hm-ann-nm { bottom: 22%; left: 8%; text-align: right; }
+.hm-ann-de { bottom: 22%; right: 14%; text-align: left; }
 .hm-ann-card {
   border-radius: 10px; padding: 11px 14px 10px; display: inline-block;
   width: 100%;
