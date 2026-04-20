@@ -107,11 +107,13 @@ html[data-theme="liquid"] .pack-price {
      Fond quasi-transparent, bord avec reflet arc-en-ciel très subtil.         */
   --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,252,255,.76) 100%);
   --lq-chrome-border:   linear-gradient(145deg,
-                          rgba(255,255,255,.95)    0%,
-                          rgba(210,222,238,.80)   30%,
-                          rgba(195,210,230,.72)   55%,
-                          rgba(215,225,240,.82)   78%,
-                          rgba(255,255,255,.94)  100%);
+                          rgba(255,255,255,.99)    0%,
+                          rgba(195,215,248,.88)   14%,
+                          rgba(225,225,230,.78)   32%,
+                          rgba(240,235,235,.82)   52%,
+                          rgba(235,222,225,.80)   66%,
+                          rgba(218,225,242,.86)   82%,
+                          rgba(255,255,255,.98)  100%);
   --lq-chrome-shadow:   0 2px 20px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.03);
   --lq-chrome-shadow-h: 0 10px 40px rgba(14,30,56,.10), 0 2px 8px rgba(14,30,56,.05);
 
