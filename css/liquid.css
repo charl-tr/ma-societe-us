@@ -1285,32 +1285,34 @@ html[data-theme="liquid"] .hm-sub { color: rgba(14,30,56,.65); }
 html[data-theme="liquid"] .hm-sv { color: #0e1e38; }
 html[data-theme="liquid"] .hm-sl { color: rgba(14,30,56,.5); }
 html[data-theme="liquid"] .hm-stat-sep { background: rgba(14,30,56,.15); }
+/* Annotation cards — chrome glass identique aux hp-co callouts */
 html[data-theme="liquid"] .hm-ann-card {
   background:
     linear-gradient(rgba(255,255,255,.97), rgba(247,251,255,.94)) padding-box,
     linear-gradient(
       145deg,
       rgba(255,255,255,.98)   0%,
-      rgba(195,210,228,.88)  18%,
-      rgba(155,178,205,.75)  40%,
-      rgba(175,196,220,.82)  62%,
+      rgba(195,210,228,.90)  18%,
+      rgba(155,178,205,.78)  40%,
+      rgba(175,196,220,.84)  62%,
       rgba(220,232,245,.92)  80%,
       rgba(255,255,255,.96) 100%
     ) border-box;
   border: 1.5px solid transparent;
-  box-shadow: 0 4px 20px rgba(14,30,56,.09), 0 1px 4px rgba(14,30,56,.05);
+  box-shadow: 0 4px 22px rgba(14,30,56,.10), 0 1px 4px rgba(14,30,56,.05);
 }
 html[data-theme="liquid"] .hm-ann-state {
   font-family: 'Playfair Display', Georgia, serif;
   color: #0d1c35;
+  font-weight: 500;
 }
 html[data-theme="liquid"] .hm-ann-tag {
   font-family: 'Georgia', serif;
-  color: rgba(14,30,56,.55);
+  font-style: italic;
+  color: rgba(14,30,56,.5);
 }
 html[data-theme="liquid"] .hm-cta-btn {
-  background: #0e1e38;
-  color: #fff;
+  background: #0e1e38; color: #fff;
   box-shadow: 0 4px 24px rgba(14,30,56,.22);
 }
 html[data-theme="liquid"] .hm-cta-btn:hover {

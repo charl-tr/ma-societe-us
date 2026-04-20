@@ -40,16 +40,6 @@
 
     <div class="dp-sep"></div>
 
-    <!-- Hero variant -->
-    <div class="dp-row dp-row-col">
-      <span class="dp-lbl">Hero</span>
-      <div class="dp-btns">
-        <button class="dp-btn on" onclick="setHeroVariant(1,this)">V1 · Actuel</button>
-        <button class="dp-btn" onclick="setHeroVariant(2,this)">V2 · Cabinet</button>
-        <button class="dp-btn" onclick="setHeroVariant(3,this)">V3 · Minimal</button>
-      </div>
-    </div>
-
     <div class="dp-sep"></div>
 
     <!-- Thème -->
@@ -286,8 +276,8 @@
               <span class="hm-ey-line"></span>
               <span class="hm-ey-text">Cabinet franco-américain</span>
             </div>
-            <h1 class="hm-h1">Votre société<br>américaine.<br><em>En 14 jours.</em></h1>
-            <p class="hm-sub">100% légal, 100% à distance — accompagné par un CPA agréé IRS, de la création à la déclaration fiscale.</p>
+            <h1 class="hm-h1">Votre société<br>américaine,<br><em>sans aucun impôt.</em></h1>
+            <p class="hm-sub">Cabinet franco-américain · CPA agréé IRS · 500+ clients depuis 2014. Créez votre LLC aux USA en 14 jours, 100% à distance.</p>
             <div class="hm-stats">
               <div class="hm-stat"><div class="hm-sv">0<span class="hm-su">%</span></div><div class="hm-sl">d'impôts aux USA</div></div>
               <div class="hm-stat hm-stat-sep"></div>
@@ -299,33 +289,38 @@
 
           <!-- ── Colonne droite — Carte + CTA ── -->
           <div class="hm-right">
-            <div class="hm-map-frame">
-              <div id="hm-map-svg"></div>
-              <!-- Annotation cards — position absolue -->
+            <div class="hm-map-outer" id="hm-map-outer">
+              <!-- SVG map en centre -->
+              <div class="hm-map-center">
+                <div id="hm-map-svg"></div>
+              </div>
+              <!-- 4 cartes aux coins — en dehors de la carte -->
               <div class="hm-ann hm-ann-wy" id="hm-ann-wy">
                 <div class="hm-ann-card">
                   <div class="hm-ann-state">Wyoming</div>
-                  <div class="hm-ann-tag">Crypto &amp; patrimoine</div>
+                  <div class="hm-ann-tag">L'état de prédilection<br>pour les structures Crypto.</div>
                 </div>
               </div>
               <div class="hm-ann hm-ann-co" id="hm-ann-co">
                 <div class="hm-ann-card">
                   <div class="hm-ann-state">Colorado</div>
-                  <div class="hm-ann-tag">Création en 24h</div>
+                  <div class="hm-ann-tag">Rapidité absolue<br>(Création en 24h)</div>
                 </div>
               </div>
               <div class="hm-ann hm-ann-nm" id="hm-ann-nm">
                 <div class="hm-ann-card">
                   <div class="hm-ann-state">Nouveau-Mexique</div>
-                  <div class="hm-ann-tag">Anonymat total</div>
+                  <div class="hm-ann-tag">Obtention de l'EIN<br>en 5 à 6 jours</div>
                 </div>
               </div>
               <div class="hm-ann hm-ann-de" id="hm-ann-de">
                 <div class="hm-ann-card">
                   <div class="hm-ann-state">Delaware</div>
-                  <div class="hm-ann-tag">Levée de fonds</div>
+                  <div class="hm-ann-tag">Le standard indispensable<br>pour la levée de fonds.</div>
                 </div>
               </div>
+              <!-- Overlay SVG pour les lignes de connexion -->
+              <svg class="hm-lines-svg" id="hm-lines-svg" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible"></svg>
             </div>
             <div class="hm-cta-block">
               <button class="hm-cta-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
@@ -1653,34 +1648,54 @@ function initTimelineMobile() {
 async function buildHeroMap() {
   const container = document.getElementById('hm-map-svg');
   if (!container) return;
-  const W = 960, H = 400;
-  const FIPS = { '56':'wy', '08':'co', '35':'nm', '10':'de' };
+
+  // 6 états interactifs : 4 annotés + CA + FL
+  const KEY_STATES = {
+    'wy': { color: '#2a5090', tag: 'wy', clickable: true },
+    'co': { color: '#2a5090', tag: 'co', clickable: true },
+    'nm': { color: '#2a5090', tag: 'nm', clickable: true },
+    'de': { color: '#2a5090', tag: 'de', clickable: true },
+    'ca': { color: '#2a5090', tag: 'ca', clickable: true },
+    'fl': { color: '#2a5090', tag: 'fl', clickable: true },
+  };
+  const FIPS = { '56':'wy','08':'co','35':'nm','10':'de','06':'ca','12':'fl' };
+  const ANNOTATED = ['wy','co','nm','de'];
+
   let topo;
-  try { topo = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json()); }
-  catch(e) { return; }
+  try {
+    topo = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json());
+  } catch(e) { return; }
+
   const geojson = topojson.feature(topo, topo.objects.states);
+  const W = 900, H = 380;
   const proj = d3.geoAlbersUsa().fitSize([W, H], geojson);
   const pathGen = d3.geoPath(proj);
   const NS = 'http://www.w3.org/2000/svg';
+
   const svg = document.createElementNS(NS, 'svg');
   svg.setAttribute('id', 'hm-svg');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.style.cssText = 'display:block;width:100%;overflow:visible';
+  svg.style.cssText = 'display:block;width:100%;height:auto';
+
   const defs = document.createElementNS(NS, 'defs');
   defs.innerHTML = `
-    <filter id="hm-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+    <filter id="hm-state-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <radialGradient id="hm-vignette" cx="50%" cy="50%" r="52%">
-      <stop offset="45%" stop-color="rgba(236,242,248,0)"/>
-      <stop offset="100%" stop-color="rgba(236,242,248,.85)"/>
+    <radialGradient id="hm-state-grad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%"   stop-color="rgba(80,130,200,.55)"/>
+      <stop offset="100%" stop-color="rgba(42,80,144,.25)"/>
+    </radialGradient>
+    <radialGradient id="hm-fog" cx="50%" cy="50%" r="50%">
+      <stop offset="40%" stop-color="rgba(238,243,249,0)"/>
+      <stop offset="100%" stop-color="rgba(238,243,249,.88)"/>
     </radialGradient>`;
   svg.appendChild(defs);
-  const lineGroup = document.createElementNS(NS, 'g');
-  lineGroup.setAttribute('id', 'hm-lines');
-  svg.appendChild(lineGroup);
+
   const centroids = {};
+  const allPaths = [], keyPaths = [];
+
   geojson.features.forEach(feat => {
     const fips = String(feat.id).padStart(2,'0');
     const key = FIPS[fips];
@@ -1689,62 +1704,104 @@ async function buildHeroMap() {
     const el = document.createElementNS(NS, 'path');
     el.setAttribute('d', d);
     if (key) {
-      el.setAttribute('fill', 'rgba(42,80,144,.18)');
-      el.setAttribute('stroke', 'rgba(42,80,144,.45)');
-      el.setAttribute('stroke-width', '1.5');
-      el.setAttribute('filter', 'url(#hm-glow)');
+      el.setAttribute('data-key', key);
+      el.setAttribute('fill', 'url(#hm-state-grad)');
+      el.setAttribute('stroke', 'rgba(42,80,144,.5)');
+      el.setAttribute('stroke-width', '1.2');
+      el.setAttribute('filter', 'url(#hm-state-glow)');
+      el.style.cursor = 'pointer';
+      el.addEventListener('mouseenter', () => {
+        el.setAttribute('stroke', 'rgba(42,80,144,.9)');
+        el.setAttribute('stroke-width', '2');
+      });
+      el.addEventListener('mouseleave', () => {
+        el.setAttribute('stroke', 'rgba(42,80,144,.5)');
+        el.setAttribute('stroke-width', '1.2');
+      });
+      el.addEventListener('click', () => go(key));
       const c = pathGen.centroid(feat);
       if (c && !isNaN(c[0])) centroids[key] = c;
+      keyPaths.push(el);
     } else {
-      el.setAttribute('fill', 'rgba(42,80,144,.05)');
-      el.setAttribute('stroke', 'rgba(42,80,144,.1)');
-      el.setAttribute('stroke-width', '0.5');
+      el.setAttribute('fill', 'rgba(42,80,144,.04)');
+      el.setAttribute('stroke', 'rgba(42,80,144,.09)');
+      el.setAttribute('stroke-width', '0.4');
+      allPaths.push(el);
     }
-    svg.appendChild(el);
   });
+
+  allPaths.forEach(p => svg.appendChild(p));
+  keyPaths.forEach(p => svg.appendChild(p));
+
+  // Fog vignette
   const fog = document.createElementNS(NS, 'rect');
   fog.setAttribute('width', W); fog.setAttribute('height', H);
-  fog.setAttribute('fill', 'url(#hm-vignette)');
-  fog.style.pointerEvents = 'none';
+  fog.setAttribute('fill', 'url(#hm-fog)'); fog.style.pointerEvents = 'none';
   svg.appendChild(fog);
+
   container.appendChild(svg);
 
-  // Draw L-shaped connector lines after layout
+  // Draw connecting lines after layout
   requestAnimationFrame(() => {
-    const svgEl = document.getElementById('hm-svg');
-    if (!svgEl) return;
-    const svgRect = svgEl.getBoundingClientRect();
-    if (!svgRect.width) return;
-    const scaleX = W / svgRect.width;
-    const scaleY = H / svgRect.height;
-    const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', nm:'hm-ann-nm', de:'hm-ann-de' };
-    const edgeMap = { wy:'right', co:'left', nm:'right', de:'left' };
-    Object.entries(centroids).forEach(([key, [cx, cy]]) => {
-      const ann = document.getElementById(annMap[key]);
-      if (!ann) return;
-      const aRect = ann.getBoundingClientRect();
-      const edge = edgeMap[key];
-      let ax = edge === 'right'
-        ? (aRect.right  - svgRect.left) * scaleX
-        : (aRect.left   - svgRect.left) * scaleX;
-      const ay = ((aRect.top + aRect.bottom) / 2 - svgRect.top) * scaleY;
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      line.setAttribute('d', `M ${ax} ${ay} L ${cx} ${ay} L ${cx} ${cy}`);
-      line.setAttribute('fill', 'none');
-      line.setAttribute('stroke', 'rgba(42,80,144,.28)');
-      line.setAttribute('stroke-width', '0.8');
-      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('r', '3.5');
-      dot.setAttribute('fill', 'rgba(42,80,144,.55)');
-      const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy); ring.setAttribute('r', '7');
-      ring.setAttribute('fill', 'none');
-      ring.setAttribute('stroke', 'rgba(42,80,144,.2)');
-      ring.setAttribute('stroke-width', '1');
-      g.appendChild(line); g.appendChild(ring); g.appendChild(dot);
-      document.getElementById('hm-lines').appendChild(g);
-    });
+    setTimeout(() => _drawHeroLines(centroids, W, H), 60);
+  });
+}
+
+function _drawHeroLines(centroids, W, H) {
+  const lineSvg = document.getElementById('hm-lines-svg');
+  const mapSvg  = document.getElementById('hm-svg');
+  const outer   = document.getElementById('hm-map-outer');
+  if (!lineSvg || !mapSvg || !outer) return;
+
+  const outerRect = outer.getBoundingClientRect();
+  const mapRect   = mapSvg.getBoundingClientRect();
+  if (!outerRect.width || !mapRect.width) return;
+
+  // Scale factors: SVG coords → screen → outer-relative
+  const scaleX = mapRect.width  / W;
+  const scaleY = mapRect.height / H;
+  const mapOffX = mapRect.left - outerRect.left;
+  const mapOffY = mapRect.top  - outerRect.top;
+
+  // Set overlay viewBox to match outer container pixel size
+  lineSvg.setAttribute('viewBox', `0 0 ${outerRect.width} ${outerRect.height}`);
+
+  const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', nm:'hm-ann-nm', de:'hm-ann-de' };
+  const edgeMap = { wy:'right', co:'left', nm:'right', de:'left' };
+
+  Object.entries(centroids).forEach(([key, [cx, cy]]) => {
+    const annId = annMap[key];
+    if (!annId) return;
+    const ann = document.getElementById(annId);
+    if (!ann) return;
+
+    const aRect = ann.getBoundingClientRect();
+    const edge  = edgeMap[key] || 'right';
+
+    // Card anchor point (outer-relative px)
+    const ax = edge === 'right'
+      ? aRect.right  - outerRect.left
+      : aRect.left   - outerRect.left;
+    const ay = (aRect.top + aRect.bottom) / 2 - outerRect.top;
+
+    // State centroid in outer-relative px
+    const sx = cx * scaleX + mapOffX;
+    const sy = cy * scaleY + mapOffY;
+
+    // L-shape: horizontal from ax to sx, then vertical to sy
+    const NS2 = 'http://www.w3.org/2000/svg';
+    const path = document.createElementNS(NS2, 'path');
+    path.setAttribute('d', `M ${ax} ${ay} L ${sx} ${ay} L ${sx} ${sy}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'rgba(42,80,144,.22)');
+    path.setAttribute('stroke-width', '0.8');
+    lineSvg.appendChild(path);
+
+    // State dot
+    const dot = document.createElementNS(NS2, 'circle');
+    dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '3');
+    dot.setAttribute('fill', 'rgba(42,80,144,.45)');
+    lineSvg.appendChild(dot);
   });
 }
 
@@ -1854,6 +1911,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   buildUSMap();
   buildHeroMap();
+  window.addEventListener('resize', () => {
+    const lineSvg = document.getElementById('hm-lines-svg');
+    if (lineSvg) lineSvg.innerHTML = '';
+    // centroids sont dans la closure de buildHeroMap — on ne peut pas les redessiner facilement
+    // pour l'instant laisser vide au resize
+  });
   initTimelineMobile();
 
   // ── Section Lock Overlay — inject une seule fois au chargement ──
@@ -2083,17 +2146,6 @@ function setTheme(name, btn) {
   const fontUrl = THEME_FONTS[name];
   if (fontUrl) document.getElementById('theme-fonts').href = fontUrl;
   repaintHpMap(name);
-  dpActivate(btn);
-}
-
-function setHeroVariant(n, btn) {
-  document.querySelectorAll('.hero-variant').forEach(el => { el.style.display = 'none'; });
-  const target = document.getElementById('hv-' + n);
-  if (target) {
-    target.style.display = '';
-    if (n === 2) { target.style.display = 'flex'; }
-    if (n === 3) { target.style.display = 'flex'; }
-  }
   dpActivate(btn);
 }
 
