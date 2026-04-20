@@ -1112,11 +1112,9 @@ html[data-theme="liquid"] .sl-card {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-html[data-theme="liquid"] .sl-lock-svg,
-html[data-theme="liquid"] .sl-ring    { color: rgba(42,80,144,.6); }
-html[data-theme="liquid"] .sl-label   { color: rgba(14,30,56,.35); }
-html[data-theme="liquid"] .sl-title   { color: #0e1e38; font-family: 'Playfair Display', Georgia, serif; }
-html[data-theme="liquid"] .sl-sub     { color: rgba(14,30,56,.45); }
+html[data-theme="liquid"] .sl-lock-svg { color: rgba(42,80,144,.5); }
+html[data-theme="liquid"] .sl-divider { background: rgba(42,80,144,.3); }
+html[data-theme="liquid"] .sl-label   { color: rgba(14,30,56,.38); }
 html[data-theme="liquid"] .sl-unlock-btn {
   background: rgba(42,80,144,.07);
   color: rgba(42,80,144,.8);
@@ -1268,3 +1266,55 @@ html[data-theme="liquid"] .pqc-tag {
 }
 html[data-theme="liquid"] .pq-card-bad .pqc-h  { color: rgba(14,30,56,.4); }
 html[data-theme="liquid"] .pq-card-bad .pqc-tag { color: rgba(14,30,56,.28); }
+
+/* ══ HERO MAP — Liquid Glass ══ */
+html[data-theme="liquid"] .hm-bg {
+  background: linear-gradient(160deg, #eef3f9 0%, #e4edf8 55%, #dde8f5 100%);
+}
+html[data-theme="liquid"] .hm-logo-badge {
+  background: rgba(42,80,144,.06);
+  color: rgba(42,80,144,.65);
+  border: 1px solid rgba(42,80,144,.12);
+}
+html[data-theme="liquid"] .hm-ey-line {
+  background: linear-gradient(90deg, rgba(42,80,144,.5), rgba(42,80,144,0));
+}
+html[data-theme="liquid"] .hm-h1 { color: #0e1e38; }
+html[data-theme="liquid"] .hm-h1 em { color: #2a5090; font-style: italic; }
+html[data-theme="liquid"] .hm-sub { color: rgba(14,30,56,.65); }
+html[data-theme="liquid"] .hm-sv { color: #0e1e38; }
+html[data-theme="liquid"] .hm-sl { color: rgba(14,30,56,.5); }
+html[data-theme="liquid"] .hm-stat-sep { background: rgba(14,30,56,.15); }
+html[data-theme="liquid"] .hm-ann-card {
+  background:
+    linear-gradient(rgba(255,255,255,.97), rgba(247,251,255,.94)) padding-box,
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.98)   0%,
+      rgba(195,210,228,.88)  18%,
+      rgba(155,178,205,.75)  40%,
+      rgba(175,196,220,.82)  62%,
+      rgba(220,232,245,.92)  80%,
+      rgba(255,255,255,.96) 100%
+    ) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 20px rgba(14,30,56,.09), 0 1px 4px rgba(14,30,56,.05);
+}
+html[data-theme="liquid"] .hm-ann-state {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #0d1c35;
+}
+html[data-theme="liquid"] .hm-ann-tag {
+  font-family: 'Georgia', serif;
+  color: rgba(14,30,56,.55);
+}
+html[data-theme="liquid"] .hm-cta-btn {
+  background: #0e1e38;
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(14,30,56,.22);
+}
+html[data-theme="liquid"] .hm-cta-btn:hover {
+  background: #1a3055;
+  box-shadow: 0 8px 32px rgba(14,30,56,.3);
+  transform: translateY(-1px);
+}

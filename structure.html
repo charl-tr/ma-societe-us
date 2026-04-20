@@ -271,130 +271,68 @@
 
     <!-- HOME -->
     <div class="pv on" id="pv-home">
-      <div class="hero hero-variant" id="hv-1">
-        <div class="hero-bg"></div>
-        <div class="hero-glow"></div>
+      <!-- HERO UNIQUE — Map glass -->
+      <div class="hero-map" id="hv-main">
+        <div class="hm-bg"></div>
+        <div class="hm-body">
 
-        <div class="hero-body">
-
-          <!-- ── Left column ── -->
-          <div class="hero-left">
-
-            <!-- Authority eyebrow -->
-            <div class="hero-eyebrow">
-              <span class="hero-ey-line"></span>
-              <span class="hero-ey-text">Cabinet franco-américain · CPA agréé IRS · Depuis 2014</span>
+          <!-- ── Colonne gauche — Brand + Copy ── -->
+          <div class="hm-left">
+            <div class="hm-logo-block">
+              <img src="logo.png" alt="MA SOCIÉTÉ US" class="hm-logo">
+              <div class="hm-logo-badge">CPA agréé IRS · Depuis 2014</div>
             </div>
+            <div class="hm-eyebrow">
+              <span class="hm-ey-line"></span>
+              <span class="hm-ey-text">Cabinet franco-américain</span>
+            </div>
+            <h1 class="hm-h1">Votre société<br>américaine.<br><em>En 14 jours.</em></h1>
+            <p class="hm-sub">100% légal, 100% à distance — accompagné par un CPA agréé IRS, de la création à la déclaration fiscale.</p>
+            <div class="hm-stats">
+              <div class="hm-stat"><div class="hm-sv">0<span class="hm-su">%</span></div><div class="hm-sl">d'impôts aux USA</div></div>
+              <div class="hm-stat hm-stat-sep"></div>
+              <div class="hm-stat"><div class="hm-sv">500<span class="hm-su">+</span></div><div class="hm-sl">clients</div></div>
+              <div class="hm-stat hm-stat-sep"></div>
+              <div class="hm-stat"><div class="hm-sv">14<span class="hm-su">j</span></div><div class="hm-sl">création</div></div>
+            </div>
+          </div>
 
-            <!-- Editorial headline -->
-            <h1 class="hero-h1">Votre société<br>américaine.<br><em>En 14 jours.</em></h1>
-
-            <!-- Subline -->
-            <p class="hero-sub">100% légal, 100% à distance — accompagné par un CPA agréé IRS, de la création à la déclaration fiscale.</p>
-
-            <!-- Credential chrome card -->
-            <div class="hero-cred">
-              <div class="hero-cred-icon">✦</div>
-              <div class="hero-cred-body">
-                <div class="hero-cred-name">Christophe · CPA agréé IRS</div>
-                <div class="hero-cred-role">Signe personnellement chaque déclaration · Depuis 2014</div>
+          <!-- ── Colonne droite — Carte + CTA ── -->
+          <div class="hm-right">
+            <div class="hm-map-frame">
+              <div id="hm-map-svg"></div>
+              <!-- Annotation cards — position absolue -->
+              <div class="hm-ann hm-ann-wy" id="hm-ann-wy">
+                <div class="hm-ann-card">
+                  <div class="hm-ann-state">Wyoming</div>
+                  <div class="hm-ann-tag">Crypto &amp; patrimoine</div>
+                </div>
+              </div>
+              <div class="hm-ann hm-ann-co" id="hm-ann-co">
+                <div class="hm-ann-card">
+                  <div class="hm-ann-state">Colorado</div>
+                  <div class="hm-ann-tag">Création en 24h</div>
+                </div>
+              </div>
+              <div class="hm-ann hm-ann-nm" id="hm-ann-nm">
+                <div class="hm-ann-card">
+                  <div class="hm-ann-state">Nouveau-Mexique</div>
+                  <div class="hm-ann-tag">Anonymat total</div>
+                </div>
+              </div>
+              <div class="hm-ann hm-ann-de" id="hm-ann-de">
+                <div class="hm-ann-card">
+                  <div class="hm-ann-state">Delaware</div>
+                  <div class="hm-ann-tag">Levée de fonds</div>
+                </div>
               </div>
             </div>
-
-            <!-- CTAs -->
-            <div class="hero-btns">
-              <button class="hero-cta-p" onclick="go('cal')">Réserver mon entretien gratuit</button>
-              <span class="hero-cta-s" onclick="go('pack-llc')">Voir comment ça marche →</span>
-            </div>
-            <p class="hero-legal">Sans engagement · 15 min · Conforme OCDE</p>
-
-          </div>
-
-          <!-- ── Right column — chrome stats ── -->
-          <div class="hero-panel">
-
-            <!-- Main stat — premium chrome -->
-            <div class="panel-big a-stat-panel">
-              <div class="pb-shine a-shine"></div>
-              <div class="pb-num">0<span>%</span></div>
-              <div class="pb-lbl">d'impôts aux USA</div>
-              <div class="pb-badge"><span class="pb-badge-dot"></span><span class="pb-badge-txt">100% légal · Conforme OCDE</span></div>
-            </div>
-
-            <!-- 3 chrome stat tiles -->
-            <div class="panel-grid">
-              <div class="pg-item a-stat-tile"><div class="pgi-val">14j</div><div class="pgi-lbl">Création</div></div>
-              <div class="pg-item a-stat-tile"><div class="pgi-val">500+</div><div class="pgi-lbl">Clients</div></div>
-              <div class="pg-item a-stat-tile"><div class="pgi-val">10<span class="pgi-unit">ans</span></div><div class="pgi-lbl">Expertise</div></div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-      <!-- HERO V2 — Cabinet Split -->
-      <div class="hv2-wrap hero-variant" id="hv-2" style="display:none">
-        <div class="hv2-bg"></div>
-        <div class="hv2-inner">
-          <div class="hv2-left">
-            <div class="hv2-eyebrow"><span class="hv2-dot"></span>Cabinet franco-américain depuis 2014</div>
-            <h1 class="hv2-h1">Votre LLC aux USA.<br><em>En 14 jours.</em></h1>
-            <p class="hv2-sub">CPA agréé IRS. Chargé d'affaires dédié. Suivi complet A à Z — pas juste un formulaire en ligne.</p>
-            <div class="hv2-credential">
-              <div class="hv2-cred-icon">🏛</div>
-              <div>
-                <div class="hv2-cred-title">Christophe — CPA agréé IRS</div>
-                <div class="hv2-cred-sub">Signe personnellement chaque déclaration fiscale</div>
-              </div>
-            </div>
-            <div>
-              <button class="hv2-cta" onclick="window.open('https://calendly.com/ypls/decouverte-site','_blank')">
-                Réserver mon entretien gratuit <span>→</span>
-              </button>
-              <p class="hv2-note">Sans engagement · 15 min · 100% à distance</p>
+            <div class="hm-cta-block">
+              <button class="hm-cta-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
+              <span class="hm-legal">Sans engagement · 15 min · Conforme OCDE</span>
             </div>
           </div>
-          <div class="hv2-photo-frame">
-            <div class="hv2-photo-placeholder">
-              <div class="hv2-photo-icon">📸</div>
-              <div class="hv2-photo-label">Photo Christophe<br><strong>+ équipe bureau NYC</strong></div>
-            </div>
-            <div class="hv2-photo-badge">
-              <div>
-                <div class="hv2-badge-name">Christophe</div>
-                <div class="hv2-badge-role">Fondateur · CPA agréé IRS</div>
-              </div>
-              <div class="hv2-badge-stats">
-                <div class="hv2-bstat"><div class="hv2-bstat-val">500+</div><div class="hv2-bstat-lbl">Clients</div></div>
-                <div class="hv2-bstat"><div class="hv2-bstat-val">10</div><div class="hv2-bstat-lbl">Années</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- HERO V3 — Minimal Conviction -->
-      <div class="hv3-wrap hero-variant" id="hv-3" style="display:none">
-        <div class="hv3-bg"></div>
-        <div class="hv3-inner">
-          <div class="hv3-proof"><span class="hv3-proof-dot"></span>500+ entrepreneurs. 15M€ d'économies. 0% d'impôts US.</div>
-          <h1 class="hv3-h1">Votre société<br>américaine.<br><em>Sans visa.<br>Sans avion.</em></h1>
-          <p class="hv3-sub">Cabinet franco-américain. CPA agréé IRS. Accompagnement complet A à Z.</p>
-          <div>
-            <button class="hv3-cta" onclick="window.open('https://calendly.com/ypls/decouverte-site','_blank')">
-              Réserver mon entretien gratuit · 15 min <span>→</span>
-            </button>
-          </div>
-          <div class="hv3-trust">
-            <span class="hv3-trust-item">100% légal</span>
-            <span class="hv3-trust-sep"></span>
-            <span class="hv3-trust-item">Conforme OCDE</span>
-            <span class="hv3-trust-sep"></span>
-            <span class="hv3-trust-item">CPA agréé IRS</span>
-            <span class="hv3-trust-sep"></span>
-            <span class="hv3-trust-item">Depuis 2014</span>
-          </div>
         </div>
       </div>
 
@@ -1712,6 +1650,104 @@ function initTimelineMobile() {
   updateBeam();
 }
 
+async function buildHeroMap() {
+  const container = document.getElementById('hm-map-svg');
+  if (!container) return;
+  const W = 960, H = 400;
+  const FIPS = { '56':'wy', '08':'co', '35':'nm', '10':'de' };
+  let topo;
+  try { topo = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json()); }
+  catch(e) { return; }
+  const geojson = topojson.feature(topo, topo.objects.states);
+  const proj = d3.geoAlbersUsa().fitSize([W, H], geojson);
+  const pathGen = d3.geoPath(proj);
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('id', 'hm-svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.cssText = 'display:block;width:100%;overflow:visible';
+  const defs = document.createElementNS(NS, 'defs');
+  defs.innerHTML = `
+    <filter id="hm-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="hm-vignette" cx="50%" cy="50%" r="52%">
+      <stop offset="45%" stop-color="rgba(236,242,248,0)"/>
+      <stop offset="100%" stop-color="rgba(236,242,248,.85)"/>
+    </radialGradient>`;
+  svg.appendChild(defs);
+  const lineGroup = document.createElementNS(NS, 'g');
+  lineGroup.setAttribute('id', 'hm-lines');
+  svg.appendChild(lineGroup);
+  const centroids = {};
+  geojson.features.forEach(feat => {
+    const fips = String(feat.id).padStart(2,'0');
+    const key = FIPS[fips];
+    const d = pathGen(feat);
+    if (!d) return;
+    const el = document.createElementNS(NS, 'path');
+    el.setAttribute('d', d);
+    if (key) {
+      el.setAttribute('fill', 'rgba(42,80,144,.18)');
+      el.setAttribute('stroke', 'rgba(42,80,144,.45)');
+      el.setAttribute('stroke-width', '1.5');
+      el.setAttribute('filter', 'url(#hm-glow)');
+      const c = pathGen.centroid(feat);
+      if (c && !isNaN(c[0])) centroids[key] = c;
+    } else {
+      el.setAttribute('fill', 'rgba(42,80,144,.05)');
+      el.setAttribute('stroke', 'rgba(42,80,144,.1)');
+      el.setAttribute('stroke-width', '0.5');
+    }
+    svg.appendChild(el);
+  });
+  const fog = document.createElementNS(NS, 'rect');
+  fog.setAttribute('width', W); fog.setAttribute('height', H);
+  fog.setAttribute('fill', 'url(#hm-vignette)');
+  fog.style.pointerEvents = 'none';
+  svg.appendChild(fog);
+  container.appendChild(svg);
+
+  // Draw L-shaped connector lines after layout
+  requestAnimationFrame(() => {
+    const svgEl = document.getElementById('hm-svg');
+    if (!svgEl) return;
+    const svgRect = svgEl.getBoundingClientRect();
+    if (!svgRect.width) return;
+    const scaleX = W / svgRect.width;
+    const scaleY = H / svgRect.height;
+    const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', nm:'hm-ann-nm', de:'hm-ann-de' };
+    const edgeMap = { wy:'right', co:'left', nm:'right', de:'left' };
+    Object.entries(centroids).forEach(([key, [cx, cy]]) => {
+      const ann = document.getElementById(annMap[key]);
+      if (!ann) return;
+      const aRect = ann.getBoundingClientRect();
+      const edge = edgeMap[key];
+      let ax = edge === 'right'
+        ? (aRect.right  - svgRect.left) * scaleX
+        : (aRect.left   - svgRect.left) * scaleX;
+      const ay = ((aRect.top + aRect.bottom) / 2 - svgRect.top) * scaleY;
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      line.setAttribute('d', `M ${ax} ${ay} L ${cx} ${ay} L ${cx} ${cy}`);
+      line.setAttribute('fill', 'none');
+      line.setAttribute('stroke', 'rgba(42,80,144,.28)');
+      line.setAttribute('stroke-width', '0.8');
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('r', '3.5');
+      dot.setAttribute('fill', 'rgba(42,80,144,.55)');
+      const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy); ring.setAttribute('r', '7');
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', 'rgba(42,80,144,.2)');
+      ring.setAttribute('stroke-width', '1');
+      g.appendChild(line); g.appendChild(ring); g.appendChild(dot);
+      document.getElementById('hm-lines').appendChild(g);
+    });
+  });
+}
+
 async function buildUSMap() {
   const W = 1200, H = 460;   /* taller: ~305px at 800px viewport */
   const FIPS_MAP = {'35':'nm','08':'co','56':'wy','10':'de','06':'ca','12':'fl'};
@@ -1817,6 +1853,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (detail) detail.innerHTML = '<div class="md-placeholder"><div class="md-icon">🗺</div><div>Survolez un État sur la carte<br>pour voir ses atouts</div></div>';
   });
   buildUSMap();
+  buildHeroMap();
   initTimelineMobile();
 
   // ── Section Lock Overlay — inject une seule fois au chargement ──
@@ -1827,20 +1864,14 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.className = 'section-lock';
     overlay.innerHTML = `
       <div class="sl-card">
-        <div class="sl-lock-wrap">
-          <svg class="sl-lock-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="15" width="20" height="14" rx="4" stroke="currentColor" stroke-width="2.2"/>
-            <path d="M10 15V10.5a6 6 0 0112 0V15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-            <circle cx="16" cy="22" r="2" fill="currentColor"/>
-            <line x1="16" y1="22" x2="16" y2="25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <div class="sl-ring sl-ring-1"></div>
-          <div class="sl-ring sl-ring-2"></div>
-        </div>
+        <svg class="sl-lock-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="11" width="16" height="11" rx="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 11V7.5a4 4 0 018 0V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="16.5" r="1.5" fill="currentColor"/>
+        </svg>
+        <div class="sl-divider"></div>
         <div class="sl-label">${lbl}</div>
-        <div class="sl-title">En cours de développement</div>
-        <div class="sl-sub">Cette section sera intégrée<br>dans la version finale.</div>
-        <button class="sl-unlock-btn" onclick="unlockSection(this)">Déverrouiller cette section</button>
+        <button class="sl-unlock-btn" onclick="unlockSection(this)">Déverrouiller →</button>
       </div>`;
     section.appendChild(overlay);
   });

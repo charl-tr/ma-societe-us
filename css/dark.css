@@ -564,11 +564,9 @@ html[data-theme="dark"] .sl-card {
   box-shadow: 0 12px 48px rgba(0,0,0,.5), inset 0 1px 0 rgba(244,242,238,.06);
   backdrop-filter: none; -webkit-backdrop-filter: none;
 }
-html[data-theme="dark"] .sl-lock-svg,
-html[data-theme="dark"] .sl-ring    { color: rgba(244,242,238,.7); }
+html[data-theme="dark"] .sl-lock-svg { color: rgba(244,242,238,.45); }
+html[data-theme="dark"] .sl-divider { background: rgba(244,242,238,.15); }
 html[data-theme="dark"] .sl-label   { color: var(--h-gray-2); }
-html[data-theme="dark"] .sl-title   { color: var(--h-white); }
-html[data-theme="dark"] .sl-sub     { color: var(--h-gray-1); }
 html[data-theme="dark"] .sl-unlock-btn {
   background: rgba(244,242,238,.06); color: var(--h-gray-1); border-color: var(--h-border);
 }
