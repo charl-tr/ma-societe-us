@@ -1359,9 +1359,9 @@ body.admin-hidden .section-admin-badge { display: none; }
 .hm-ann-ca { top: 37%; left: 18%; text-align: right; }
 .hm-ann-nm { bottom: 22%; left: 18%; text-align: right; }
 /* Droite : CO / DE / FL (états côté est et centre) */
-.hm-ann-co { top: 18%; right: 20%; text-align: left; }
-.hm-ann-de { top: 37%; right: 13%; text-align: left; }
-.hm-ann-fl { bottom: 18%; right: 15%; text-align: left; }
+.hm-ann-co { top: 18%; right: 24%; text-align: left; }
+.hm-ann-de { top: 37%; right: 17%; text-align: left; }
+.hm-ann-fl { bottom: 18%; right: 19%; text-align: left; }
 .hm-ann-card {
   border-radius: 10px; padding: 11px 14px 10px; display: inline-block;
   width: 100%;
