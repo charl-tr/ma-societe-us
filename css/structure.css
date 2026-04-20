@@ -1322,8 +1322,9 @@ body.admin-hidden .section-admin-badge { display: none; }
   width: 100%; max-width: 1400px; margin: 0 auto;
   padding: 80px 0 80px 64px;
   position: relative; z-index: 10;
+  pointer-events: none;
 }
-.hm-left { width: 44%; }
+.hm-left { width: 44%; pointer-events: auto; }
 .hm-logo-block { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
 .hm-logo { height: 56px; width: auto; }
 .hm-logo-text { display: none; }
