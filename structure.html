@@ -1628,7 +1628,7 @@ function initTimelineMobile() {
 }
 
 async function buildUSMap() {
-  const W = 1200, H = 260;   /* panoramique — ~310px à 1440px de large */
+  const W = 1200, H = 460;   /* taller: ~305px at 800px viewport */
   const FIPS_MAP = {'35':'nm','08':'co','56':'wy','10':'de','06':'ca','12':'fl'};
 
   let topo;
@@ -1815,7 +1815,7 @@ const THEME_FONTS = {
 // Couleurs de la carte SVG par thème — les fills sont des attributs SVG, pas CSS
 const MAP_COLORS = {
   liquid: {
-    bg:          '#ecf2f8',                    // correspond au fond de section pour seamless
+    bg:          'none',                       // transparent — CSS section gradient shows through
     fogFrom:     'rgba(236,242,248,0)',
     fogTo:       'rgba(236,242,248,1)',
     stateFill:   'rgba(185,200,222,0.38)',

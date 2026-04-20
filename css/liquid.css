@@ -4,11 +4,65 @@
    ════════════════════════════════════════ */
 
 /* ── FONT TOKENS — Liquid Glass ── */
-/* Space Grotesk (titres) + DM Sans (corps) */
+/* Playfair Display (headings éditoriaux) + Space Grotesk (UI/labels) + DM Sans (corps) */
 html[data-theme="liquid"] {
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-head:    var(--font-heading);
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-heading:   'Playfair Display', 'Georgia', serif;
+  --font-head:      var(--font-heading);
+  --font-ui:        'Space Grotesk', system-ui, sans-serif;
+  --font-body:      'DM Sans', system-ui, sans-serif;
+  --font-label:     var(--font-ui);
+}
+
+/* ── Playfair Display — titres éditoriaux ── */
+html[data-theme="liquid"] h1,
+html[data-theme="liquid"] h2,
+html[data-theme="liquid"] h3,
+html[data-theme="liquid"] .section-h2,
+html[data-theme="liquid"] .section-h3,
+html[data-theme="liquid"] .hero-h1,
+html[data-theme="liquid"] .hv2-h1,
+html[data-theme="liquid"] .hv3-h1,
+html[data-theme="liquid"] .card-h,
+html[data-theme="liquid"] .sc-h,
+html[data-theme="liquid"] .op-name,
+html[data-theme="liquid"] .pack-name,
+html[data-theme="liquid"] .hd-name,
+html[data-theme="liquid"] .md-name,
+html[data-theme="liquid"] .md-tagline,
+html[data-theme="liquid"] .ct-title,
+html[data-theme="liquid"] .chemin-h,
+html[data-theme="liquid"] .testi-quote,
+html[data-theme="liquid"] .gestion-block-h,
+html[data-theme="liquid"] .an-h,
+html[data-theme="liquid"] .i-h1 {
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+/* ── Space Grotesk — UI, labels, nav ── */
+html[data-theme="liquid"] .navbar,
+html[data-theme="liquid"] .nl,
+html[data-theme="liquid"] .nav-cta,
+html[data-theme="liquid"] .section-tag,
+html[data-theme="liquid"] .section-sub,
+html[data-theme="liquid"] .card-p,
+html[data-theme="liquid"] .tl-tag,
+html[data-theme="liquid"] .pill-b,
+html[data-theme="liquid"] .pill-g,
+html[data-theme="liquid"] .pill-a,
+html[data-theme="liquid"] .dp-title,
+html[data-theme="liquid"] .dp-lbl,
+html[data-theme="liquid"] .dp-btn,
+html[data-theme="liquid"] .stat-lbl {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* ── Stat values — Playfair italic pour les chiffres ── */
+html[data-theme="liquid"] .stat-val,
+html[data-theme="liquid"] .pb-num,
+html[data-theme="liquid"] .pgi-val,
+html[data-theme="liquid"] .op-price,
+html[data-theme="liquid"] .pack-price {
+  font-family: 'Playfair Display', 'Georgia', serif;
 }
 
 /* ── COLOR TOKENS ── */
@@ -47,6 +101,35 @@ html[data-theme="liquid"] {
   --c-shine-edge:   rgba(180,200,225,.3);
   --c-chrome:       linear-gradient(135deg,#1a3a6a,#2a5090);
   --c-chrome-text:  #fff;
+
+  /* ══ CHROME CARD SYSTEM — Liquid Glass signature component ══
+     Bord argenté gradient via padding-box / border-box.
+     Trois niveaux d'intensité: standard · elevated · premium  */
+  --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.96) 0%, rgba(246,251,255,.92) 100%);
+  --lq-chrome-border:   linear-gradient(145deg,
+                          rgba(255,255,255,.98)   0%,
+                          rgba(195,210,228,.85)  18%,
+                          rgba(155,178,205,.72)  40%,
+                          rgba(175,196,220,.80)  62%,
+                          rgba(220,232,245,.90)  80%,
+                          rgba(255,255,255,.96) 100%);
+  --lq-chrome-shadow:   0 2px 18px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.04);
+  --lq-chrome-shadow-h: 0 6px 28px rgba(14,30,56,.10), 0 1px 6px rgba(14,30,56,.06);
+
+  /* elevated — pour les grandes cards */
+  --lq-chrome-fill-el:    linear-gradient(160deg, rgba(255,255,255,.98) 0%, rgba(242,249,255,.94) 100%);
+  --lq-chrome-shadow-el:  0 4px 24px rgba(14,30,56,.08), 0 1px 6px rgba(14,30,56,.04);
+
+  /* premium — hero panel, featured pack */
+  --lq-chrome-fill-pm:    linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(238,247,255,.97) 100%);
+  --lq-chrome-border-pm:  linear-gradient(145deg,
+                            rgba(255,255,255,1)    0%,
+                            rgba(175,198,222,.95)  18%,
+                            rgba(128,163,198,.88)  40%,
+                            rgba(160,188,218,.92)  62%,
+                            rgba(210,228,245,.95)  80%,
+                            rgba(255,255,255,1)   100%);
+  --lq-chrome-shadow-pm:  0 8px 40px rgba(14,30,56,.11), 0 2px 8px rgba(14,30,56,.06);
 }
 
 /* ══ SLICE 01 · NAVBAR ══ */
@@ -181,11 +264,7 @@ html[data-theme="liquid"] .hero-glow {
   filter: blur(60px);
 }
 
-/* Hero panel */
-.panel-big {
-  background: var(--c-panel-bg);
-  box-shadow: 0 12px 48px var(--c-panel-shadow), 0 2px 0 var(--c-panel-inset) inset;
-}
+/* Hero panel — chrome premium (border défini dans SLICE 04) */
 .pb-shine {
   background: linear-gradient(90deg, var(--c-shine-edge), rgba(255,255,255,1) 30%, rgba(255,255,255,1) 70%, var(--c-shine-edge));
 }
@@ -196,8 +275,10 @@ html[data-theme="liquid"] .hero-glow {
 .pb-badge-dot { background: var(--c-dot); }
 .pb-badge-txt { color: rgba(14,30,56,.4); }
 .pg-item {
-  background: linear-gradient(160deg, rgba(255,255,255,.75) 0%, var(--c-pg-tint) 100%);
-  box-shadow: 0 4px 20px var(--c-pg-shadow), 0 1px 0 rgba(255,255,255,.95) inset;
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
 }
 .pgi-val { color: var(--navy); }
 .pgi-lbl { color: rgba(14,30,56,.45); }
@@ -297,22 +378,65 @@ html[data-theme="liquid"] .i-sub { color: rgba(14,30,56,.55); }
 html[data-theme="liquid"] .i-crumb { color: rgba(14,30,56,.38); }
 html[data-theme="liquid"] .i-crumb strong { color: var(--blue); }
 
-/* ══ SLICE 04 · CARDS ══ */
+/* ══ SLICE 04 · CARDS — Chrome system ══
+   Composant signature Liquid Glass: bord argenté gradient.
+   Standard cards → var(--lq-chrome-*)
+   Featured/hero   → var(--lq-chrome-*-pm)                  */
+
+/* ── Standard chrome cards ── */
 html[data-theme="liquid"] .card,
 html[data-theme="liquid"] .state-card,
-html[data-theme="liquid"] .cta-card,
 html[data-theme="liquid"] .diff-col,
 html[data-theme="liquid"] .presta-item,
 html[data-theme="liquid"] .pack-helper,
+html[data-theme="liquid"] .confort-teaser,
+html[data-theme="liquid"] .non-item,
+html[data-theme="liquid"] .chemin-card {
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
+}
+html[data-theme="liquid"] .card:hover,
+html[data-theme="liquid"] .state-card:hover,
+html[data-theme="liquid"] .chemin-card:hover {
+  box-shadow: var(--lq-chrome-shadow-h);
+  transform: translateY(-2px);
+  transition: box-shadow .22s ease, transform .22s ease;
+}
+
+/* ── Elevated chrome cards (grandes surfaces) ── */
 html[data-theme="liquid"] .testimonial-wrap,
-html[data-theme="liquid"] .confort-teaser {
-  background: linear-gradient(160deg,rgba(255,255,255,.85),rgba(235,244,255,.6));
-  border: 1px solid rgba(255,255,255,.8);
-  box-shadow: 0 4px 20px rgba(80,120,180,.08);
+html[data-theme="liquid"] .op-card,
+html[data-theme="liquid"] .testi-card {
+  background: var(--lq-chrome-fill-el) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow-el);
+}
+
+/* ── Premium chrome card (hero panel, pack featured) ── */
+html[data-theme="liquid"] .panel-big,
+html[data-theme="liquid"] .pack-col-premium,
+html[data-theme="liquid"] .hv2-credential,
+html[data-theme="liquid"] .hv2-photo-frame {
+  background: var(--lq-chrome-fill-pm) padding-box,
+              var(--lq-chrome-border-pm) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: var(--lq-chrome-shadow-pm);
+}
+
+/* ── CTA card variants ── */
+html[data-theme="liquid"] .cta-card {
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
 }
 html[data-theme="liquid"] .cta-card.primary {
   background: linear-gradient(135deg,#1a3a6a,#2a5090);
-  border-color: transparent;
+  border: none;
+  box-shadow: 0 8px 32px rgba(26,58,106,.28);
 }
 
 html[data-theme="liquid"] .card-h { color: var(--navy); }
@@ -328,12 +452,8 @@ html[data-theme="liquid"] .cta-card.primary .cta-card-h { color: #fff; }
 html[data-theme="liquid"] .cta-card.primary .cta-card-p { color: rgba(255,255,255,.55); }
 html[data-theme="liquid"] .cta-card.primary .cta-card-btn { background: rgba(255,255,255,.95); color: var(--blue); }
 
-.state-card {
-  background: linear-gradient(160deg, rgba(255,255,255,.88) 0%, rgba(235,244,255,.65) 100%);
-  backdrop-filter: blur(20px); border: 1.5px solid rgba(255,255,255,.8);
-  box-shadow: 0 4px 20px rgba(80,120,180,.07);
-}
-.state-card:hover { box-shadow: 0 10px 32px rgba(80,120,180,.14); }
+/* state-card hover — chrome upgrade in SLICE 04 */
+.state-card { backdrop-filter: blur(20px); }
 .sc-h { color: var(--navy); }
 .sc-p { color: rgba(14,30,56,.5); }
 
@@ -373,10 +493,15 @@ html[data-theme="liquid"] .testi-av {
 .testi-result { background: #ebf2ff; color: var(--blue); }
 .testi-stars { color: #f5a623; }
 
-/* Op cards */
+/* Op cards — chrome elevated */
 html[data-theme] .op-card     { background: var(--c-surface); border-color: var(--c-border); }
 .op-card { background: rgba(255,255,255,.8); border: 1.5px solid rgba(14,30,56,.08); }
-.op-card.featured { background: linear-gradient(160deg, rgba(255,255,255,.98), rgba(235,244,255,.85)); border-color: rgba(42,80,144,.3); box-shadow: 0 8px 32px rgba(42,80,144,.12); }
+html[data-theme="liquid"] .op-card.featured {
+  background: var(--lq-chrome-fill-pm) padding-box,
+              var(--lq-chrome-border-pm) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: var(--lq-chrome-shadow-pm);
+}
 .op-rec-badge { background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; }
 .op-name { color: rgba(14,30,56,.4); }
 .op-price { color: var(--navy); }
@@ -399,16 +524,14 @@ html[data-theme] .op-card     { background: var(--c-surface); border-color: var(
 .ct-desc { color: rgba(14,30,56,.48); }
 .ct-arrow { color: var(--blue); }
 
-/* Pack comparison */
+/* Pack comparison — chrome system */
 html[data-theme="liquid"] .pack-col {
-  background: rgba(255,255,255,.75);
-  border-color: rgba(14,30,56,.08);
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
 }
-html[data-theme="liquid"] .pack-col-premium {
-  background: linear-gradient(160deg,rgba(255,255,255,.95),rgba(235,244,255,.8));
-  border-color: rgba(42,80,144,.25);
-  box-shadow: 0 8px 32px rgba(42,80,144,.12);
-}
+/* pack-col-premium → already covered by premium chrome in SLICE 04 */
 html[data-theme="liquid"] .pack-cta-main {
   background: linear-gradient(135deg,#1a3a6a,#2a5090);
   color: #fff;
@@ -511,11 +634,11 @@ html[data-theme="liquid"] .hp-map-section {
 /* 3-column layout */
 html[data-theme="liquid"] .hp-map-body {
   display: grid;
-  grid-template-columns: 190px 1fr 190px;
-  gap: 24px;
+  grid-template-columns: 168px 1fr 168px;
+  gap: 20px;
   align-items: center;
-  padding: 0 48px;
-  max-width: 1320px;
+  padding: 0 40px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 html[data-theme="liquid"] .hp-lq-left  { grid-column: 1; }
@@ -842,22 +965,24 @@ html[data-theme="liquid"] .i-crumb .bc-sep     { opacity: .35; }
 }
 
 /* ══ ARTEFACTS — THEME-AWARE CLASSES ══ */
-/* .a-xxx classes respond to theme tokens */
+/* .a-xxx classes inherit the chrome system in Liquid Glass */
 .a-card {
-  background: rgba(255,255,255,.82);
-  border: 1px solid rgba(26,42,64,.07);
-  box-shadow: 0 4px 20px rgba(80,120,180,.08);
-  backdrop-filter: blur(16px);
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
 }
 .a-stat-panel {
-  background: var(--c-panel-bg);
-  border: 1px solid rgba(255,255,255,.85);
-  box-shadow: 0 12px 48px rgba(80,120,180,.12), 0 2px 0 rgba(255,255,255,.95) inset;
+  background: var(--lq-chrome-fill-pm) padding-box,
+              var(--lq-chrome-border-pm) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: var(--lq-chrome-shadow-pm);
 }
 .a-stat-tile {
-  background: rgba(255,255,255,.75);
-  border: 1px solid rgba(255,255,255,.85);
-  box-shadow: 0 4px 16px rgba(80,120,180,.08);
+  background: var(--lq-chrome-fill) padding-box,
+              var(--lq-chrome-border) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--lq-chrome-shadow);
 }
 .a-chrome { background: var(--c-chrome); color: var(--c-chrome-text); }
 .a-badge {
