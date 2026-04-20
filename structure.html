@@ -625,14 +625,33 @@
         </div>
 
         <div class="hp-map-body">
-          <!-- LEFT: MAP -->
+          <!-- Liquid Glass: left callout column -->
+          <div class="hp-lq-callouts hp-lq-left">
+            <div class="hp-co" id="lq-ca" onclick="hpSelect('ca')">
+              <div class="hco-abbr">CA</div>
+              <div class="hco-name">Californie</div>
+              <div class="hco-tag">Marques & Tech premium</div>
+            </div>
+            <div class="hp-co" id="lq-nm" onclick="hpSelect('nm')">
+              <div class="hco-abbr">NM</div>
+              <div class="hco-name">Nouveau-Mexique</div>
+              <div class="hco-tag">Anonymat total</div>
+            </div>
+            <div class="hp-co" id="lq-wy" onclick="hpSelect('wy')">
+              <div class="hco-abbr">WY</div>
+              <div class="hco-name">Wyoming</div>
+              <div class="hco-tag">Pro-crypto & Web3</div>
+            </div>
+          </div>
+
+          <!-- MAP -->
           <div class="hp-map-col">
             <div class="hp-map-wrap">
               <div id="hp-map-container" style="display:block;width:100%;min-height:340px;"></div>
             </div>
           </div>
 
-          <!-- RIGHT: DETAIL PANEL -->
+          <!-- DETAIL PANEL (vault / dark themes) -->
           <div class="hp-detail a-card" id="hp-detail">
             <div class="hd-inner" id="hd-inner">
               <div class="hd-accent">
@@ -655,6 +674,25 @@
               <button class="hd-cta" id="hd-cta" style="background:linear-gradient(135deg,#1a3a6a,#2a5090);color:#fff" onclick="go('nm')">
                 Créer ma LLC au Nouveau-Mexique →
               </button>
+            </div>
+          </div>
+
+          <!-- Liquid Glass: right callout column -->
+          <div class="hp-lq-callouts hp-lq-right">
+            <div class="hp-co" id="lq-co" onclick="hpSelect('co')">
+              <div class="hco-abbr">CO</div>
+              <div class="hco-name">Colorado</div>
+              <div class="hco-tag">LLC en 24 heures</div>
+            </div>
+            <div class="hp-co" id="lq-de" onclick="hpSelect('de')">
+              <div class="hco-abbr">DE</div>
+              <div class="hco-name">Delaware</div>
+              <div class="hco-tag">Standard levée de fonds</div>
+            </div>
+            <div class="hp-co" id="lq-fl" onclick="hpSelect('fl')">
+              <div class="hco-abbr">FL</div>
+              <div class="hco-name">Floride</div>
+              <div class="hco-tag">Zéro impôt d'État</div>
             </div>
           </div>
         </div>
@@ -1340,42 +1378,42 @@ function updateBackBtns() {
 const HP_STATES = {
   nm: {
     name: 'Nouveau-Mexique', abbr: 'NM', tag: 'Anonymat total',
-    color: '#264e9a', colorBg: '#dce8fb',
+    color: '#1a3a6a', colorBg: '#dce8f5',
     pitch: 'La juridiction la plus discrète des USA. Aucun registre public des associés — votre identité reste confidentielle.',
     perks: ['Aucun registre public des associés','Identité du fondateur 100% protégée','Frais de création parmi les plus bas des USA','Idéal pour les activités digitales et e-commerce'],
     highlight: 'Anonymat', timing: '14 jours', page: 'nm'
   },
   co: {
     name: 'Colorado', abbr: 'CO', tag: 'LLC en 24 heures',
-    color: '#1e5890', colorBg: '#d4e4f5',
+    color: '#1a3a6a', colorBg: '#dce8f5',
     pitch: 'La LLC la plus rapide à obtenir. Opérationnelle en moins de 24h, avec un environnement fiscal très favorable.',
     perks: ['Immatriculation express en moins de 24h','Environnement business pro-entrepreneur','Taxes d\'État compétitives','Idéal pour freelances et startups en croissance'],
     highlight: 'Rapidité', timing: '24 heures', page: 'co'
   },
   wy: {
     name: 'Wyoming', abbr: 'WY', tag: 'Pro-crypto & Web3',
-    color: '#2a3d78', colorBg: '#d8e2f8',
+    color: '#1a3a6a', colorBg: '#dce8f5',
     pitch: 'Le seul État américain à avoir légalisé les DAO. Protection maximale des actifs crypto et patrimoine personnel.',
     perks: ['DAO (organisations crypto) juridiquement reconnues','Actifs crypto légalement protégés','Aucune taxe d\'État sur le revenu','Idéal pour projets Web3 et blockchain'],
     highlight: 'Crypto/DAO', timing: '14 jours', page: 'wy'
   },
   de: {
     name: 'Delaware', abbr: 'DE', tag: 'Standard levée de fonds',
-    color: '#0f3d6e', colorBg: '#d0dff0',
+    color: '#1a3a6a', colorBg: '#dce8f5',
     pitch: 'La référence mondiale pour les VC et investisseurs. Si vous levez des fonds, le Delaware est un standard incontournable.',
     perks: ['Référence n°1 pour les investisseurs et VC','Tribunal spécialisé (Court of Chancery)','Structure optimale pour lever des fonds','Idéal pour startups visant une levée ou une IPO'],
     highlight: 'Levée fonds', timing: '14 jours', page: 'de'
   },
   ca: {
     name: 'Californie', abbr: 'CA', tag: 'Marques & Tech premium',
-    color: '#1a4a88', colorBg: '#d5e5fc',
+    color: '#1a3a6a', colorBg: '#dce8f5',
     pitch: 'La plus grande économie des USA. Le choix stratégique pour les marques premium, le media, la tech et les entreprises à forte croissance.',
     perks: ['Écosystème VC et investisseurs au niveau mondial','Prestige de la Silicon Valley pour vos clients','Accès direct aux marchés financiers américains','Idéal pour les marques digitales et startups tech'],
     highlight: 'Tech & Prestige', timing: '10 jours', page: 'ca'
   },
   fl: {
     name: 'Floride', abbr: 'FL', tag: 'Zéro impôt d\'État',
-    color: '#205580', colorBg: '#cee0f5',
+    color: '#1a3a6a', colorBg: '#dce8f5',
     pitch: 'Pas d\'impôt sur le revenu des particuliers. Un paradis fiscal légal pour les entrepreneurs en croissance rapide.',
     perks: ['Aucun impôt sur le revenu des particuliers','Fiscalité parmi les plus favorables des USA','Hub international Miami — accès Amérique Latine','Idéal pour e-commerce, finance et entrepreneurs nomades'],
     highlight: 'Zéro impôt', timing: '10 jours', page: 'fl'
@@ -1401,6 +1439,10 @@ function _hpPanelUpdate(key, animate) {
   document.querySelectorAll('.hp-stab').forEach(t => t.classList.remove('sel'));
   const tab = document.getElementById('stab-' + key);
   if (tab) tab.classList.add('sel');
+  // Liquid callout cards
+  document.querySelectorAll('.hp-co').forEach(c => c.classList.remove('sel'));
+  const coCard = document.getElementById('lq-' + key);
+  if (coCard) coCard.classList.add('sel');
   const inner = document.getElementById('hd-inner');
   if (!inner) return;
   const doUpdate = () => {
@@ -1760,12 +1802,12 @@ const MAP_COLORS = {
     labelFill:   null, // utilise s.color natif
   },
   dark: {
-    bg:          '#0a0f1a',
-    fogFrom:     'rgba(10,15,26,0)',
-    fogTo:       'rgba(10,15,26,1)',
-    stateFill:   'rgba(60,72,95,0.55)',
-    stateStroke: 'rgba(255,255,255,0.12)',
-    labelFill:   'rgba(232,237,248,0.5)',
+    bg:          '#080808',
+    fogFrom:     'rgba(8,8,8,0)',
+    fogTo:       'rgba(8,8,8,1)',
+    stateFill:   'rgba(244,242,238,.07)',
+    stateStroke: 'rgba(244,242,238,.14)',
+    labelFill:   'rgba(244,242,238,.38)',
   },
   vault: {
     bg:          '#ede8e0',

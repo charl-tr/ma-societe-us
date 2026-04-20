@@ -1123,32 +1123,42 @@ body {
 /* ══ ADMIN ANNOTATIONS ══ */
 .admin-bar {
   position: relative;
-  padding: 10px 20px 10px 16px;
-  border-top: none;
-  display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap;
-  font-family: 'DM Sans', monospace; font-size: 11px;
+  padding: 16px 20px 16px 18px;
+  border-left: 4px solid rgba(200,145,0,.9);
+  display: block;          /* stacked, not flex */
+  font-family: 'Inter', 'DM Sans', system-ui, sans-serif;
+  font-size: 13px; line-height: 1.6;
   transition: opacity .2s;
 }
 body.admin-hidden .admin-bar { display: none; }
-.an-section { font-weight: 700; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; padding-top: 1px; }
-.an-pillars { display: flex; gap: 5px; flex-wrap: wrap; }
-.an-p { padding: 2px 8px; border-radius: 20px; font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
-.an-emotion { flex: 1; min-width: 200px; }
-.an-emotion strong { display: block; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 3px; }
-.an-critique { font-style: italic; margin-top: 3px; font-size: 10.5px; }
+.an-section {
+  font-weight: 700; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 8px; display: block;
+}
+.an-pillars { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+.an-p { padding: 3px 10px; border-radius: 20px; font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.an-emotion { margin-bottom: 6px; }
+.an-emotion strong {
+  display: block; font-size: 11px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px;
+}
+.an-critique { font-style: italic; font-size: 13px; line-height: 1.55; margin-top: 4px; }
 .an-status {
-  margin-left: auto; white-space: nowrap; align-self: flex-start;
-  font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  padding: 3px 10px; border-radius: 20px;
+  display: inline-block; margin-top: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
 }
 .section-admin-badge {
-  position: absolute; top: 12px; right: 16px; z-index: 10;
-  font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  padding: 3px 10px; border-radius: 20px;
-  pointer-events: none;
-  transition: opacity .2s;
+  position: absolute; top: 14px; right: 18px; z-index: 10;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  pointer-events: none; transition: opacity .2s;
 }
 body.admin-hidden .section-admin-badge { display: none; }
+
+/* Liquid callout cards — hidden by default, shown in liquid theme via liquid.css */
+.hp-lq-callouts { display: none; }
+.hp-co { cursor: pointer; }
 
 /* ══ MOBILE — 768px ══ */
 @media (max-width: 768px) {

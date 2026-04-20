@@ -329,6 +329,32 @@ html[data-theme="dark"] .i-cta-btn {
   background: var(--h-white); color: var(--h-bg);
 }
 
+/* ══ ADMIN ANNOTATIONS — Harvey Dark ══ */
+html[data-theme="dark"] .admin-bar {
+  background: rgba(244,242,238,.04);
+  border-left-color: rgba(244,242,238,.3);
+  color: var(--h-gray-1);
+}
+html[data-theme="dark"] .an-section { color: var(--h-gray-2); }
+html[data-theme="dark"] .an-p.cf    { background: rgba(244,242,238,.08); color: var(--h-gray-1); }
+html[data-theme="dark"] .an-p.cp    { background: rgba(244,242,238,.06); color: var(--h-gray-1); }
+html[data-theme="dark"] .an-p.si    { background: rgba(244,242,238,.06); color: var(--h-gray-1); }
+html[data-theme="dark"] .an-p.cv    { background: rgba(244,242,238,.05); color: var(--h-gray-2); }
+html[data-theme="dark"] .an-p.miss  { background: rgba(244,242,238,.05); color: var(--h-gray-2); border-color: var(--h-border); }
+html[data-theme="dark"] .an-emotion strong { color: var(--h-gray-2); }
+html[data-theme="dark"] .an-critique { color: rgba(244,242,238,.45); }
+html[data-theme="dark"] .an-status.draft   { background: rgba(244,242,238,.07); color: var(--h-gray-2); border-color: var(--h-border); }
+html[data-theme="dark"] .an-status.solid   { background: rgba(244,242,238,.1);  color: var(--h-white); border-color: rgba(244,242,238,.25); }
+html[data-theme="dark"] .an-status.warn    { background: rgba(244,242,238,.05); color: var(--h-gray-2); border-color: var(--h-border); }
+html[data-theme="dark"] .an-status.missing { background: rgba(244,242,238,.05); color: var(--h-gray-2); border-color: var(--h-border); }
+html[data-theme="dark"] .section-admin-badge {
+  background: rgba(244,242,238,.06); color: var(--h-gray-2);
+  border: 1px solid var(--h-border);
+}
+
+/* Liquid callout cards — monochrome dark version */
+html[data-theme="dark"] .hp-lq-callouts { display: none; }
+
 /* ══ DECORATIVE OPACITY ══ */
 html[data-theme="dark"] .nl-chev         { opacity: .3; }
 html[data-theme="dark"] .i-crumb .bc-sep { opacity: .22; }

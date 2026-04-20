@@ -757,17 +757,27 @@ html[data-theme="vault"] .ns-drop-logout:hover { color: var(--v-text); backgroun
 html[data-theme="vault"] .nl-chev         { opacity: .32; }
 html[data-theme="vault"] .i-crumb .bc-sep { opacity: .28; }
 
-/* ══ ADMIN ══ */
+/* ══ ADMIN ANNOTATIONS — Vault ══ */
 html[data-theme="vault"] .admin-bar {
-  background: repeating-linear-gradient(
-    -45deg, rgba(185,182,178,.04), rgba(185,182,178,.04) 5px,
-    transparent 5px, transparent 14px
-  );
-  border: 1.5px dashed rgba(185,182,178,.35);
-  color: rgba(26,28,32,.42);
+  background: rgba(255,252,240,.95);
+  border-left-color: rgba(160,140,100,.7);
+  color: rgba(26,22,10,.8);
 }
+html[data-theme="vault"] .an-section { color: rgba(120,95,40,.85); }
+html[data-theme="vault"] .an-p.cf    { background: rgba(90,85,75,.12); color: rgba(26,28,32,.7); }
+html[data-theme="vault"] .an-p.cp    { background: rgba(90,85,75,.10); color: rgba(26,28,32,.65); }
+html[data-theme="vault"] .an-p.si    { background: rgba(90,85,75,.10); color: rgba(26,28,32,.65); }
+html[data-theme="vault"] .an-p.cv    { background: rgba(90,85,75,.08); color: rgba(26,28,32,.5); }
+html[data-theme="vault"] .an-p.miss  { background: rgba(160,130,60,.12); color: rgba(90,60,0,.75); border-color: rgba(160,130,60,.3); }
+html[data-theme="vault"] .an-emotion strong { color: rgba(100,75,25,.75); }
+html[data-theme="vault"] .an-critique { color: rgba(110,45,10,.85); }
+html[data-theme="vault"] .an-status.draft   { background: rgba(200,168,80,.18); color: rgba(80,55,0,.8); border-color: rgba(180,148,60,.4); }
+html[data-theme="vault"] .an-status.solid   { background: rgba(90,85,75,.14); color: rgba(26,28,32,.7); border-color: rgba(90,85,75,.3); }
+html[data-theme="vault"] .an-status.warn    { background: rgba(150,60,20,.1); color: rgba(100,38,10,.8); border-color: rgba(150,60,20,.3); }
+html[data-theme="vault"] .an-status.missing { background: rgba(90,85,75,.1); color: rgba(26,28,32,.55); border-color: var(--v-border); }
 html[data-theme="vault"] .section-admin-badge {
-  background: rgba(242,239,234,.9);
-  color: rgba(26,28,32,.5);
-  border: 1px dashed rgba(185,182,178,.4);
+  background: rgba(255,252,240,.95); color: rgba(100,75,25,.8);
+  border: 1px solid rgba(160,140,100,.45);
 }
+/* Liquid callout cards — hide in vault */
+html[data-theme="vault"] .hp-lq-callouts { display: none; }
