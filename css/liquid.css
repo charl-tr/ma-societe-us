@@ -108,15 +108,15 @@ html[data-theme="liquid"] .pack-price {
   --lq-chrome-fill:     linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,252,255,.76) 100%);
   /* ── American Chrome — token réutilisable ──
      Argenté avec micro-reflets bleu US (#2a5090) et rouge US (#bf0a30).
-     Usage : border: 1px solid transparent + background: var(--chrome-us) border-box */
+     Usage : border: 1.5px solid transparent + background: var(--chrome-us) border-box */
   --chrome-us:          linear-gradient(145deg,
-                          rgba(255,255,255,.99)    0%,
-                          rgba(175,205,250,.92)   10%,   /* bleu US froid */
-                          rgba(220,220,226,.82)   28%,   /* argent pur */
-                          rgba(234,230,230,.80)   46%,   /* argent neutre */
-                          rgba(238,210,210,.84)   62%,   /* rouge US pâle */
-                          rgba(210,222,245,.88)   80%,   /* bleu argenté */
-                          rgba(255,255,255,.98)  100%);
+                          rgba(255,255,255,1)      0%,
+                          rgba(148,190,252,.96)    9%,   /* bleu US vif */
+                          rgba(210,214,224,.90)   26%,   /* argent */
+                          rgba(228,224,224,.88)   44%,   /* argent neutre */
+                          rgba(240,196,196,.92)   60%,   /* rouge US */
+                          rgba(195,215,252,.94)   78%,   /* bleu argenté */
+                          rgba(255,255,255,1)    100%);
 
   --lq-chrome-border:     var(--chrome-us);
   --lq-chrome-shadow:     0 2px 20px rgba(14,30,56,.06), 0 1px 4px rgba(14,30,56,.03);
@@ -295,7 +295,7 @@ html[data-theme="liquid"] .hero-cred {
   gap: 13px;
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
   border-radius: 10px;
   padding: 12px 18px;
@@ -451,7 +451,7 @@ html[data-theme="liquid"] .hero-glow {
 .pg-item {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 .pgi-val { color: var(--navy); }
@@ -568,7 +568,7 @@ html[data-theme="liquid"] .non-item,
 html[data-theme="liquid"] .chemin-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
   backdrop-filter: blur(10px) saturate(1.3);
   -webkit-backdrop-filter: blur(10px) saturate(1.3);
@@ -587,7 +587,7 @@ html[data-theme="liquid"] .op-card,
 html[data-theme="liquid"] .testi-card {
   background: var(--lq-chrome-fill-el) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow-el);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
@@ -612,7 +612,7 @@ html[data-theme="liquid"] .hv2-photo-frame {
 html[data-theme="liquid"] .cta-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 html[data-theme="liquid"] .cta-card.primary {
@@ -710,7 +710,7 @@ html[data-theme="liquid"] .op-card.featured {
 html[data-theme="liquid"] .pack-col {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 /* pack-col-premium → already covered by premium chrome in SLICE 04 */
@@ -1059,7 +1059,7 @@ html[data-theme="liquid"] .cal-card {
 html[data-theme="liquid"] .admin-bar {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
   color: rgba(14,30,56,.7);
 }
@@ -1184,7 +1184,7 @@ html[data-theme="liquid"] .i-crumb .bc-sep     { opacity: .35; }
 .a-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 .a-stat-panel {
@@ -1196,7 +1196,7 @@ html[data-theme="liquid"] .i-crumb .bc-sep     { opacity: .35; }
 .a-stat-tile {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   box-shadow: var(--lq-chrome-shadow);
 }
 .a-chrome { background: var(--c-chrome); color: var(--c-chrome-text); }
