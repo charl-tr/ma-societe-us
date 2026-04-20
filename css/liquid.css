@@ -619,6 +619,9 @@ html[data-theme] .hp-detail { background: linear-gradient(160deg, var(--c-surfac
 }
 .md-placeholder { color: rgba(14,30,56,.22); }
 .md-name { color: var(--navy); }
+.md-label { color: var(--blue); }
+.md-tag { background: #dce8f5; color: var(--navy); }
+.md-feat-arrow { color: var(--blue); }
 .md-tagline { color: var(--navy); }
 .md-desc { color: rgba(14,30,56,.55); }
 .md-feat { color: rgba(14,30,56,.65); }

@@ -320,14 +320,118 @@ html[data-theme="dark"] #us-map-hp .fl.active {
 
 /* ══ CTA / BUTTONS ══ */
 html[data-theme="dark"] .i-cta {
-  background: transparent;
-  border: 1px solid rgba(244,242,238,.2);
+  background: transparent !important;   /* !important override inline gradients */
+  border: 1px solid rgba(244,242,238,.18);
 }
-html[data-theme="dark"] .i-cta h3 { color: var(--h-white); }
-html[data-theme="dark"] .i-cta p  { color: var(--h-gray-1); }
+html[data-theme="dark"] .i-cta h3 { color: var(--h-white) !important; }
+html[data-theme="dark"] .i-cta p  { color: var(--h-gray-1) !important; }
 html[data-theme="dark"] .i-cta-btn {
   background: var(--h-white); color: var(--h-bg);
 }
+html[data-theme="dark"] .back-btn { color: var(--h-gray-2); }
+html[data-theme="dark"] .back-btn:hover { color: var(--h-white); }
+
+/* Gestion & inner pages */
+html[data-theme="dark"] .gestion-block-h { color: var(--h-white) !important; font-weight: 400; }
+html[data-theme="dark"] .gestion-block-sub { color: var(--h-gray-1) !important; }
+html[data-theme="dark"] .presta-name { color: var(--h-white) !important; }
+html[data-theme="dark"] .presta-price { color: var(--h-gray-1) !important; }
+html[data-theme="dark"] .presta-item {
+  background: var(--h-bg-3) !important;
+  border-color: var(--h-border) !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .card-tag { color: var(--h-gray-2) !important; }
+html[data-theme="dark"] .section-h3 { color: var(--h-white) !important; font-weight: 400; }
+
+/* Map detail panel */
+html[data-theme="dark"] .hp-detail {
+  background: var(--h-bg-3) !important;
+  border-color: var(--h-border) !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .hd-name    { color: var(--h-white) !important; font-weight: 400; }
+html[data-theme="dark"] .hd-tag     { color: var(--h-gray-2) !important; }
+html[data-theme="dark"] .hd-pitch   { color: var(--h-gray-1) !important; border-bottom-color: var(--h-border) !important; }
+html[data-theme="dark"] .hd-perk    { color: var(--h-gray-1) !important; }
+html[data-theme="dark"] .hd-perk-check { background: rgba(244,242,238,.2) !important; color: var(--h-bg) !important; }
+html[data-theme="dark"] .hd-meta-item { background: rgba(244,242,238,.04) !important; }
+html[data-theme="dark"] .hd-meta-val  { color: var(--h-white) !important; }
+html[data-theme="dark"] .hd-meta-lbl  { color: var(--h-gray-2) !important; }
+html[data-theme="dark"] #hd-highlight  { color: var(--h-gray-1) !important; }
+html[data-theme="dark"] .hd-cta {
+  background: transparent !important;
+  border: 1px solid rgba(244,242,238,.25) !important;
+  color: var(--h-white) !important;
+}
+html[data-theme="dark"] .hd-abbr {
+  background: rgba(244,242,238,.08) !important;
+  color: var(--h-white) !important;
+}
+html[data-theme="dark"] .hp-stab {
+  background: var(--h-bg-3) !important;
+  border-color: var(--h-border) !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .hp-stab.sel  { background: rgba(244,242,238,.06) !important; }
+html[data-theme="dark"] .hp-stab-name { color: var(--h-gray-1) !important; }
+html[data-theme="dark"] .hp-stab-abbr { color: var(--h-gray-2) !important; }
+
+/* ══ INLINE STYLE ENFORCEMENT — Harvey Dark ══
+   CSS attribute selectors neutralize hardcoded blue/green/white inline styles.
+   Specificity: [style*="..."] is high enough to override element+class rules
+   but we still need !important to beat inline styles themselves. */
+
+/* Inline text colors → off-white */
+html[data-theme="dark"] [style*="color:#2a5090"],
+html[data-theme="dark"] [style*="color:#1a7850"],
+html[data-theme="dark"] [style*="color:#7a50a0"],
+html[data-theme="dark"] [style*="color:#a05a14"],
+html[data-theme="dark"] [style*="color:#6a3a90"],
+html[data-theme="dark"] [style*="color:#1a3a6a"],
+html[data-theme="dark"] [style*="color:#1a9a"] {
+  color: var(--h-gray-1) !important;
+}
+html[data-theme="dark"] [style*="color:rgba(14,30,56"] {
+  color: var(--h-gray-1) !important;
+}
+/* Table headers / strong highlights → bright white */
+html[data-theme="dark"] th[style*="color:"],
+html[data-theme="dark"] strong[style*="color:"] {
+  color: var(--h-white) !important;
+}
+
+/* Inline light backgrounds → dark surface */
+html[data-theme="dark"] [style*="background:rgba(255,255,255"] {
+  background: var(--h-bg-3) !important;
+  border-color: var(--h-border) !important;
+}
+html[data-theme="dark"] [style*="background:rgba(42,80,144"] {
+  background: rgba(244,242,238,.03) !important;
+  border-color: var(--h-border) !important;
+}
+/* Colored gradient backgrounds (avatars, badges, CTAs) → dark surface */
+html[data-theme="dark"] [style*="background:linear-gradient(135deg,#1a78"],
+html[data-theme="dark"] [style*="background:linear-gradient(135deg,#6a3a"],
+html[data-theme="dark"] [style*="background:linear-gradient(135deg,#1a3a"],
+html[data-theme="dark"] [style*="background:linear-gradient(135deg,#1a4a"],
+html[data-theme="dark"] [style*="background:linear-gradient(135deg,#2a78"] {
+  background: rgba(244,242,238,.07) !important;
+}
+/* Inline border/background for "Pour les clients existants" boxes */
+html[data-theme="dark"] [style*="border:1px solid rgba(255,255,255"] {
+  border-color: var(--h-border) !important;
+}
+/* Navigation state dots */
+html[data-theme="dark"] .ds-dot { background: rgba(244,242,238,.25) !important; }
+/* Comparison table */
+html[data-theme="dark"] .cmp-table th { color: var(--h-white) !important; }
+html[data-theme="dark"] .cmp-table td,
+html[data-theme="dark"] .cmp-table strong { color: var(--h-gray-1) !important; }
+html[data-theme="dark"] .cmp-table tbody tr:hover td { background: rgba(244,242,238,.04) !important; }
+html[data-theme="dark"] .cmp-wrap { border-color: var(--h-border) !important; }
+html[data-theme="dark"] .cmp-table { background: var(--h-bg-3) !important; }
+html[data-theme="dark"] .cmp-table th { background: var(--h-bg-2) !important; border-bottom-color: var(--h-border) !important; }
 
 /* ══ ADMIN ANNOTATIONS — Harvey Dark ══ */
 html[data-theme="dark"] .admin-bar {
@@ -351,6 +455,17 @@ html[data-theme="dark"] .section-admin-badge {
   background: rgba(244,242,238,.06); color: var(--h-gray-2);
   border: 1px solid var(--h-border);
 }
+
+/* Inner state map panel */
+html[data-theme="dark"] .md-label     { color: var(--h-gray-2); }
+html[data-theme="dark"] .md-tag       { background: rgba(244,242,238,.06); color: var(--h-gray-1); }
+html[data-theme="dark"] .md-feat-arrow { color: var(--h-gray-2); }
+html[data-theme="dark"] .md-name      { color: var(--h-white); }
+html[data-theme="dark"] .md-tagline   { color: var(--h-white); }
+html[data-theme="dark"] .md-desc      { color: var(--h-gray-1); }
+html[data-theme="dark"] .md-feat      { color: var(--h-gray-1); }
+html[data-theme="dark"] .md-cta       { background: rgba(244,242,238,.1); color: var(--h-white); }
+html[data-theme="dark"] .md-cta:hover { background: rgba(244,242,238,.18); }
 
 /* Liquid callout cards — monochrome dark version */
 html[data-theme="dark"] .hp-lq-callouts { display: none; }
