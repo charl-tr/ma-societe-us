@@ -565,7 +565,10 @@ html[data-theme="liquid"] .presta-item,
 html[data-theme="liquid"] .pack-helper,
 html[data-theme="liquid"] .confort-teaser,
 html[data-theme="liquid"] .non-item,
-html[data-theme="liquid"] .chemin-card {
+html[data-theme="liquid"] .chemin-card,
+html[data-theme="liquid"] .hp-stab,
+html[data-theme="liquid"] .hp-detail,
+html[data-theme="liquid"] .sl-card {
   background: var(--lq-chrome-fill) padding-box,
               var(--lq-chrome-border) border-box;
   border: 1.5px solid transparent;
