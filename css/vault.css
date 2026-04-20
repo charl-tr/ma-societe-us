@@ -566,15 +566,25 @@ html[data-theme="vault"] .md-tagline { color: #1a1c20; }
 html[data-theme="vault"] .md-desc    { color: rgba(26,28,32,.52); }
 html[data-theme="vault"] .md-cta     { background: linear-gradient(135deg,#252830,#363b46); color: #fff; }
 
-/* États SVG — map couleurs neutrales */
-html[data-theme="vault"] #us-map-hp .wy   { fill: rgba(100,108,120,.45); stroke: rgba(255,255,255,.7); stroke-width:1.5; }
-html[data-theme="vault"] #us-map-hp .wy.active { fill: #4a5060; stroke: #fff; stroke-width:2; filter: drop-shadow(0 4px 16px rgba(74,80,96,.38)); }
-html[data-theme="vault"] #us-map-hp .co   { fill: rgba(80,108,82,.45); stroke: rgba(255,255,255,.7); stroke-width:1.5; }
-html[data-theme="vault"] #us-map-hp .co.active { fill: #4a7050; stroke: #fff; stroke-width:2; filter: drop-shadow(0 4px 16px rgba(74,112,80,.38)); }
-html[data-theme="vault"] #us-map-hp .nm   { fill: rgba(80,95,120,.45); stroke: rgba(255,255,255,.7); stroke-width:1.5; }
-html[data-theme="vault"] #us-map-hp .nm.active { fill: #4a5878; stroke: #fff; stroke-width:2; filter: drop-shadow(0 4px 16px rgba(74,88,120,.38)); }
-html[data-theme="vault"] #us-map-hp .de   { fill: rgba(108,80,90,.45); stroke: rgba(255,255,255,.7); stroke-width:1.5; }
-html[data-theme="vault"] #us-map-hp .de.active { fill: #6a505a; stroke: #fff; stroke-width:2; filter: drop-shadow(0 4px 16px rgba(106,80,90,.38)); }
+/* États SVG — tous unifiés en anthracite vault, 6 états */
+html[data-theme="vault"] #us-map-hp .nm,
+html[data-theme="vault"] #us-map-hp .co,
+html[data-theme="vault"] #us-map-hp .wy,
+html[data-theme="vault"] #us-map-hp .de,
+html[data-theme="vault"] #us-map-hp .ca,
+html[data-theme="vault"] #us-map-hp .fl {
+  fill: rgba(78,90,108,.42); stroke: rgba(255,255,255,.75); stroke-width: 1.5;
+}
+html[data-theme="vault"] #us-map-hp .nm.active,
+html[data-theme="vault"] #us-map-hp .co.active,
+html[data-theme="vault"] #us-map-hp .wy.active,
+html[data-theme="vault"] #us-map-hp .de.active,
+html[data-theme="vault"] #us-map-hp .ca.active,
+html[data-theme="vault"] #us-map-hp .fl.active {
+  fill: #2a3040;
+  stroke: #fff; stroke-width: 2;
+  filter: drop-shadow(0 4px 16px rgba(42,48,64,.32));
+}
 html[data-theme="vault"] .map-lbl      { fill: rgba(26,28,32,.36); }
 html[data-theme="vault"] .de-line      { stroke: rgba(106,80,90,.38); }
 html[data-theme="vault"] .de-badge     { fill: rgba(215,208,212,.8); stroke: rgba(255,255,255,.8); }

@@ -166,6 +166,30 @@ html[data-theme="dark"] .hp-map-section {
   background: #0a0f1a;
   border-top: 1px solid rgba(255,255,255,.05);
 }
+html[data-theme="dark"] .hp-map-wrap {
+  background: #0a0f1a;
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,.4);
+}
+/* Tous les états-clés: même bleu électrique unifié */
+html[data-theme="dark"] #us-map-hp .nm,
+html[data-theme="dark"] #us-map-hp .co,
+html[data-theme="dark"] #us-map-hp .wy,
+html[data-theme="dark"] #us-map-hp .de,
+html[data-theme="dark"] #us-map-hp .ca,
+html[data-theme="dark"] #us-map-hp .fl {
+  fill: rgba(60,90,140,.55); stroke: rgba(255,255,255,.18); stroke-width: 1.5;
+}
+html[data-theme="dark"] #us-map-hp .nm.active,
+html[data-theme="dark"] #us-map-hp .co.active,
+html[data-theme="dark"] #us-map-hp .wy.active,
+html[data-theme="dark"] #us-map-hp .de.active,
+html[data-theme="dark"] #us-map-hp .ca.active,
+html[data-theme="dark"] #us-map-hp .fl.active {
+  fill: #3a5e9e;
+  stroke: rgba(77,142,255,.6); stroke-width: 2;
+  filter: drop-shadow(0 4px 20px rgba(77,142,255,.4));
+}
 html[data-theme="dark"] .inner { background: #0d1220; }
 html[data-theme="dark"] .banking-hero { background: linear-gradient(160deg,#0a0f1a,#0d1624); }
 html[data-theme="dark"] .cal-wrap { background: #0a0f1a; }

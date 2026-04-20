@@ -498,20 +498,35 @@ html[data-theme="liquid"] .tl-h { color: #0e1e38; }
 html[data-theme="liquid"] .tl-p { color: rgba(14,30,56,.48); }
 .tl-tag { background: rgba(42,80,144,.08); color: var(--blue); }
 
-/* ══ SLICE 08 · MAP ══ */
+/* ══ SLICE 08 · MAP — Liquid Glass ══
+   Référence: palette argent-bleu clair, états unifiés en navy.
+   Tous les états clés partagent la même couleur thème.
+   ════════════════════════════════════════════════ */
 .hp-map-wrap {
-  box-shadow: 0 12px 48px rgba(42,80,144,.10), 0 2px 0 rgba(255,255,255,.9) inset;
-  border: 1px solid rgba(180,210,235,.35);
-  background: #eef4fb;
+  box-shadow: 0 2px 24px rgba(42,80,144,.06), inset 0 1px 0 rgba(255,255,255,.8);
+  border: 1px solid rgba(200,215,235,.4);
+  background: #e8eef6;            /* silver-blue clair, proche référence */
 }
-#us-map-hp .wy { fill: rgba(114,76,172,.60); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
-#us-map-hp .wy.active { fill: #7a50b8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(114,76,172,.55)); }
-#us-map-hp .co { fill: rgba(24,108,60,.58); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
-#us-map-hp .co.active { fill: #1a8a50; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(24,138,80,.52)); }
-#us-map-hp .nm { fill: rgba(38,72,158,.60); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
-#us-map-hp .nm.active { fill: #2a5cc8; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(42,92,200,.52)); }
-#us-map-hp .de { fill: rgba(130,34,60,.60); stroke: rgba(255,255,255,.9); stroke-width: 1.5; }
-#us-map-hp .de.active { fill: #aa3058; stroke: #fff; stroke-width: 2; filter: drop-shadow(0 4px 18px rgba(160,48,80,.52)); }
+
+/* Tous les états-clés: même navy unifié */
+#us-map-hp .nm,
+#us-map-hp .co,
+#us-map-hp .wy,
+#us-map-hp .de,
+#us-map-hp .ca,
+#us-map-hp .fl {
+  fill: rgba(38,62,100,.58); stroke: rgba(255,255,255,.92); stroke-width: 1.5;
+}
+#us-map-hp .nm.active,
+#us-map-hp .co.active,
+#us-map-hp .wy.active,
+#us-map-hp .de.active,
+#us-map-hp .ca.active,
+#us-map-hp .fl.active {
+  fill: #263e64;
+  stroke: #fff; stroke-width: 2;
+  filter: drop-shadow(0 4px 20px rgba(38,62,100,.45));
+}
 
 .us-map .s { fill: #d8e4f0; stroke: #eef3f9; }
 .us-map .wy { fill: #b8d8ee; }
