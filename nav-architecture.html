@@ -198,6 +198,12 @@ html[data-theme="vault"] .tl-dot {
   border-color: rgba(155,163,185,.3);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
 }
+html[data-theme="vault"] .tl-step:first-child .tl-num,
+html[data-theme="vault"] .tl-step.done .tl-num {
+  background: var(--c-chrome);
+  color: var(--c-chrome-text);
+  border-color: transparent;
+}
 html[data-theme="vault"] .tl-h { color: #0D1117; }
 html[data-theme="vault"] .tl-p { color: rgba(13,17,23,.5); }
 
@@ -275,6 +281,12 @@ html[data-theme="dark"] .a-badge {
   color: rgba(230,240,255,.7);
   border: 1px solid rgba(255,255,255,.1);
 }
+html[data-theme="dark"] .tl-step:first-child .tl-num,
+html[data-theme="dark"] .tl-step.done .tl-num {
+  background: var(--c-chrome);
+  color: var(--c-chrome-text);
+  border-color: transparent;
+}
 
 /* ── PREMIUM MANHATTAN ── */
 html[data-theme="premium"] .a-card {
@@ -299,6 +311,12 @@ html[data-theme="premium"] .a-chrome {
 html[data-theme="premium"] .a-badge {
   background: linear-gradient(135deg, #1a1208, #3a2a18);
   color: #f3efe8;
+}
+html[data-theme="premium"] .tl-step:first-child .tl-num,
+html[data-theme="premium"] .tl-step.done .tl-num {
+  background: var(--c-chrome);
+  color: var(--c-chrome-text);
+  border-color: transparent;
 }
 
 /* ── VAULT GLASS ── */
@@ -2141,7 +2159,7 @@ body {
   box-shadow: 0 4px 16px rgba(42,80,144,.12);
 }
 .tl-step:first-child .tl-num,
-.tl-step.done .tl-num { background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; border-color: transparent; }
+.tl-step.done .tl-num { border-color: transparent; }
 .tl-h { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.2; }
 .tl-p { font-size: 12px; color: rgba(14,30,56,.48); line-height: 1.5; }
 .tl-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; background: rgba(42,80,144,.08); color: var(--blue); }
