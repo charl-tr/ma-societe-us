@@ -555,6 +555,11 @@ html[data-theme="dark"] .footer-col li   { color: var(--h-gray-2); }
 html[data-theme="dark"] .footer-col li:hover { color: var(--h-white); }
 html[data-theme="dark"] .footer-bottom   { color: var(--h-gray-3); border-top-color: var(--h-border); }
 
+/* ══ HERO MAP — Harvey Dark ══ */
+html[data-theme="dark"] .hm-fade-l { background: linear-gradient(to right, #080808, rgba(8,8,8,0)); }
+html[data-theme="dark"] .hm-fade-t { background: linear-gradient(to bottom, #080808, rgba(8,8,8,0)); }
+html[data-theme="dark"] .hm-fade-b { background: linear-gradient(to top, #080808, rgba(8,8,8,0)); }
+
 /* ══ SECTION LOCK ══ */
 /* Fond opaque — même couleur que le fond de section dark, aucune transparence */
 html[data-theme="dark"] .section-lock { background: var(--h-bg-2); }

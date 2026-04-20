@@ -590,6 +590,11 @@ html[data-theme="vault"] .de-line      { stroke: rgba(106,80,90,.38); }
 html[data-theme="vault"] .de-badge     { fill: rgba(215,208,212,.8); stroke: rgba(255,255,255,.8); }
 html[data-theme="vault"] .de-badge-txt { fill: #6a505a; }
 
+/* ══ HERO MAP — Vault Glass ══ */
+html[data-theme="vault"] .hm-fade-l { background: linear-gradient(to right, var(--v-bg), rgba(247,244,240,0)); }
+html[data-theme="vault"] .hm-fade-t { background: linear-gradient(to bottom, var(--v-bg), rgba(247,244,240,0)); }
+html[data-theme="vault"] .hm-fade-b { background: linear-gradient(to top, var(--v-bg-2), rgba(247,244,240,0)); }
+
 /* ══ SECTION LOCK — Vault Glass ══ */
 html[data-theme="vault"] .section-lock {
   background: var(--v-bg-2);

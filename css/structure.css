@@ -1287,16 +1287,37 @@ body.admin-hidden .section-admin-badge { display: none; }
 /* ══ HERO MAP ══ */
 .hero-map { min-height: 92vh; display: flex; align-items: center; position: relative; overflow: hidden; }
 .hm-bg { position: absolute; inset: 0; }
+
+/* Map: fond absolu sur la moitié droite, pleine hauteur */
+.hm-map-bg {
+  position: absolute;
+  left: 36%; right: -8%;
+  top: -12%; bottom: -12%;
+  pointer-events: none;
+}
+.hm-map-bg #hm-map-svg {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 108%; left: -4%;
+  pointer-events: auto;
+}
+.hm-map-bg #hm-map-svg svg { width: 100%; height: auto; display: block; }
+
+/* Fondu aux bords */
+.hm-fade-l, .hm-fade-t, .hm-fade-b {
+  position: absolute; pointer-events: none; z-index: 4;
+}
+.hm-fade-l { left: 0; top: 0; bottom: 0; width: 30%; }
+.hm-fade-t { top: 0; left: 0; right: 0; height: 24%; }
+.hm-fade-b { bottom: 0; left: 0; right: 0; height: 24%; }
+
+/* Contenu gauche */
 .hm-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
   width: 100%; max-width: 1400px; margin: 0 auto;
   padding: 80px 0 80px 64px;
-  position: relative; z-index: 1;
-  align-items: center;
+  position: relative; z-index: 10;
 }
-.hm-left { padding-right: 48px; }
+.hm-left { width: 47%; }
 .hm-logo-block { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
 .hm-logo { height: 56px; width: auto; }
 .hm-logo-badge {
@@ -1313,7 +1334,7 @@ body.admin-hidden .section-admin-badge { display: none; }
   letter-spacing: -.03em; margin-bottom: 20px;
 }
 .hm-sub { font-size: 15.5px; line-height: 1.7; max-width: 420px; margin-bottom: 36px; opacity: .65; }
-.hm-stats { display: flex; align-items: center; gap: 0; }
+.hm-stats { display: flex; align-items: center; gap: 0; margin-bottom: 40px; }
 .hm-stat { display: flex; flex-direction: column; gap: 3px; padding: 0 22px; }
 .hm-stat:first-child { padding-left: 0; }
 .hm-stat-sep { width: 1px; height: 36px; align-self: center; opacity: .15; flex-shrink: 0; padding: 0; }
@@ -1321,20 +1342,22 @@ body.admin-hidden .section-admin-badge { display: none; }
 .hm-su { font-size: 18px; }
 .hm-sl { font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; opacity: .45; }
 
-/* Right column */
-.hm-right { display: flex; flex-direction: column; gap: 16px; }
-.hm-map-outer {
-  position: relative;
-  width: 100%;
-  /* Padding pour les cartes d'annotation aux 4 coins */
-  padding: 52px 148px 52px 148px;
+/* CTA dans la colonne gauche */
+.hm-cta-block { display: flex; align-items: center; gap: 18px; }
+.hm-cta-btn {
+  padding: 14px 28px; border-radius: 32px; font-size: 14px; font-weight: 600;
+  letter-spacing: .01em; cursor: pointer; transition: all .2s; border: none;
 }
-.hm-map-center { width: 100%; }
-.hm-ann { position: absolute; width: 134px; }
-.hm-ann-wy { top: 6%;  left: 0; text-align: right; }
-.hm-ann-co { top: 6%;  right: 0; text-align: left; }
-.hm-ann-nm { bottom: 6%; left: 0; text-align: right; }
-.hm-ann-de { bottom: 6%; right: 0; text-align: left; }
+.hm-legal { font-size: 11px; opacity: .4; letter-spacing: .02em; }
+
+/* Annotation cards flottantes sur la carte — 6 états, 2 colonnes */
+.hm-ann { position: absolute; width: 142px; z-index: 6; pointer-events: auto; }
+.hm-ann-wy { top: 14%; left: 4%; text-align: right; }
+.hm-ann-co { top: 14%; right: 14%; text-align: left; }
+.hm-ann-ca { top: 44%; left: 4%; text-align: right; }
+.hm-ann-de { top: 44%; right: 14%; text-align: left; }
+.hm-ann-nm { bottom: 16%; left: 4%; text-align: right; }
+.hm-ann-fl { bottom: 16%; right: 14%; text-align: left; }
 .hm-ann-card {
   border-radius: 10px; padding: 11px 14px 10px; display: inline-block;
   width: 100%;
@@ -1342,18 +1365,7 @@ body.admin-hidden .section-admin-badge { display: none; }
 .hm-ann-state {
   font-size: 13.5px; font-weight: 600; line-height: 1.25; margin-bottom: 4px;
 }
-.hm-ann-tag {
-  font-size: 10.5px; line-height: 1.55;
-}
-.hm-cta-block {
-  display: flex; align-items: center; gap: 18px;
-  padding: 0 4px; justify-content: flex-end;
-}
-.hm-cta-btn {
-  padding: 14px 28px; border-radius: 32px; font-size: 14px; font-weight: 600;
-  letter-spacing: .01em; cursor: pointer; transition: all .2s; border: none;
-}
-.hm-legal { font-size: 11px; opacity: .4; letter-spacing: .02em; }
+.hm-ann-tag { font-size: 10.5px; line-height: 1.55; }
 
 /* ══ MOBILE — 768px ══ */
 @media (max-width: 768px) {

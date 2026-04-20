@@ -1271,6 +1271,15 @@ html[data-theme="liquid"] .pq-card-bad .pqc-tag { color: rgba(14,30,56,.28); }
 html[data-theme="liquid"] .hm-bg {
   background: linear-gradient(160deg, #eef3f9 0%, #e4edf8 55%, #dde8f5 100%);
 }
+html[data-theme="liquid"] .hm-fade-l {
+  background: linear-gradient(to right, #e8f0f9, rgba(232,240,249,0));
+}
+html[data-theme="liquid"] .hm-fade-t {
+  background: linear-gradient(to bottom, #eef3f9, rgba(238,243,249,0));
+}
+html[data-theme="liquid"] .hm-fade-b {
+  background: linear-gradient(to top, #dde8f5, rgba(221,232,245,0));
+}
 html[data-theme="liquid"] .hm-logo-badge {
   background: rgba(42,80,144,.06);
   color: rgba(42,80,144,.65);
