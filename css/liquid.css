@@ -3058,27 +3058,21 @@ html[data-theme="liquid"] .lqn-content {
 html[data-theme="liquid"] .lqn-counter {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   align-self: flex-start;
-  padding: 7px 14px;
+  padding: 6px 14px;
   border-radius: 22px;
   background: rgba(42,80,144,.07);
   border: 1px solid rgba(42,80,144,.18);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: .18em;
+  letter-spacing: .22em;
   text-transform: uppercase;
-  color: rgba(42,80,144,.78);
+  color: rgba(42,80,144,.7);
   margin-bottom: 4px;
   font-feature-settings: 'tnum';
 }
-html[data-theme="liquid"] .lqn-counter-icon {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #2a5090;
-  box-shadow: 0 0 0 3px rgba(42,80,144,.16);
-}
-html[data-theme="liquid"] .lqn-counter-num { color: #0a1730; }
+html[data-theme="liquid"] .lqn-counter-num { color: #0a1730; margin-right: 4px; }
 
 /* ZONE 1 : Accusation (the question) */
 html[data-theme="liquid"] .lqn-zone-accusation {
@@ -3188,29 +3182,12 @@ html[data-theme="liquid"] .lqn-a {
 
 /* ZONE 3 : Référence légale */
 html[data-theme="liquid"] .lqn-source {
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 16px;
-  align-items: center;
   padding: 16px 20px;
   border-radius: 12px;
   background: linear-gradient(160deg, rgba(42,80,144,.06) 0%, rgba(42,80,144,.02) 100%);
-  border: 1px solid rgba(42,80,144,.12);
+  border-left: 2px solid rgba(42,80,144,.5);
   transition: opacity .35s cubic-bezier(.4,0,.2,1);
 }
-html[data-theme="liquid"] .lqn-source-icon {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(160deg, rgba(255,255,255,.98) 0%, rgba(225,235,250,.94) 100%) padding-box,
-              var(--chrome-us) border-box;
-  border: 1.5px solid transparent;
-  color: #2a5090;
-  flex-shrink: 0;
-}
-html[data-theme="liquid"] .lqn-source-icon svg { width: 18px; height: 18px; }
 html[data-theme="liquid"] .lqn-source-body {
   display: flex;
   flex-direction: column;
