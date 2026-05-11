@@ -4538,3 +4538,11 @@ html[data-theme="liquid"] .lqo-row-head .lqo-cell-feat,
 html[data-theme="liquid"] .lqo-row-head .lqo-cell {
   font-size: 11px !important;
 }
+
+/* Sticky-friendly override : sections scroll-driven need overflow visible */
+html[data-theme="liquid"] .lqn.lockable,
+html[data-theme="liquid"] .lqps.lockable,
+html[data-theme="liquid"] section.lqn,
+html[data-theme="liquid"] section.lqps {
+  overflow: visible !important;
+}
