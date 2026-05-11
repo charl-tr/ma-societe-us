@@ -747,15 +747,18 @@ html[data-theme="liquid"] .op-name {
 }
 html[data-theme="liquid"] .op-price {
   font-family: 'Fraunces', Georgia, serif;
-  font-weight: 400; font-style: italic; color: var(--navy);
-  letter-spacing: -.02em;
+  font-weight: 500; font-style: normal; color: var(--navy);
+  letter-spacing: -.025em;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
 }
 html[data-theme="liquid"] .op-price span {
-  font-style: normal; font-weight: 300; color: rgba(14,30,56,.32);
+  font-style: normal; font-weight: 400; color: rgba(14,30,56,.36);
 }
 html[data-theme="liquid"] .op-tagline {
   font-family: 'Inter', system-ui, sans-serif;
-  font-style: italic; color: rgba(14,30,56,.45);
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(14,30,56,.55);
 }
 html[data-theme="liquid"] .op-feat {
   font-family: 'Inter', system-ui, sans-serif;
@@ -977,7 +980,7 @@ html[data-theme="liquid"] .hco-name {
 
 /* Sous-titre — léger, centré */
 html[data-theme="liquid"] .hco-tag {
-  font-family: 'Georgia', serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 11px;
   font-style: italic;
   color: rgba(14,30,56,.46);
@@ -1352,7 +1355,7 @@ html[data-theme="liquid"] .pqc-h {
   color: #0d1c35;
 }
 html[data-theme="liquid"] .pqc-tag {
-  font-family: 'Georgia', serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   color: rgba(14,30,56,.46);
 }
@@ -1515,7 +1518,7 @@ html[data-theme="liquid"] .hm-ann-state {
   font-weight: 500;
 }
 html[data-theme="liquid"] .hm-ann-tag {
-  font-family: 'Georgia', serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   color: rgba(14,30,56,.5);
 }
@@ -2092,4 +2095,146 @@ html[data-theme="liquid"] #pv-home .hp-cta-final {
     padding-top: 56px;
     padding-bottom: 56px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROCESS .lqp — Stepper 4 étapes, chrome cards, ultra clean
+   Typo : Fraunces (titres) + Inter (UI/body), JAMAIS d'autre.
+   Italic : seulement sur <em> du H2, nulle part ailleurs.
+   ═══════════════════════════════════════════════════════════ */
+html[data-theme="liquid"] .lqp {
+  padding: 120px 56px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,.5) 100%);
+}
+html[data-theme="liquid"] .lqp-head {
+  max-width: 780px;
+  margin: 0 auto 72px;
+  text-align: center;
+}
+html[data-theme="liquid"] .lqp-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(42,80,144,.65);
+  margin-bottom: 18px;
+}
+html[data-theme="liquid"] .lqp-h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-style: normal;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  color: #0a1730;
+  margin: 0 0 18px;
+}
+html[data-theme="liquid"] .lqp-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.62;
+  color: rgba(13,28,53,.6);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+html[data-theme="liquid"] .lqp-grid {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  counter-reset: lqp;
+}
+
+html[data-theme="liquid"] .lqp-step {
+  position: relative;
+  padding: 36px 28px 32px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255,255,255,.98) 0%, rgba(248,252,255,.97) 100%) padding-box,
+              var(--chrome-us) border-box;
+  border: 2px solid transparent;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 14px 36px rgba(13,28,53,.08),
+    0 4px 10px rgba(13,28,53,.05);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+html[data-theme="liquid"] .lqp-step:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 22px 48px rgba(13,28,53,.12),
+    0 6px 14px rgba(13,28,53,.07);
+}
+
+/* Numéro 01-04 — Fraunces 500, gros, calme */
+html[data-theme="liquid"] .lqp-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  font-style: normal;
+  letter-spacing: -.02em;
+  color: #2a5090;
+  margin-bottom: 28px;
+  line-height: 1;
+}
+
+/* Meta tag — micro-info au-dessus du titre */
+html[data-theme="liquid"] .lqp-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(13,28,53,.42);
+  margin-bottom: 10px;
+}
+
+/* Titre étape */
+html[data-theme="liquid"] .lqp-h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  font-variation-settings: "opsz" 96, "SOFT" 50;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: -.018em;
+  color: #0a1730;
+  margin: 0 0 12px;
+}
+
+/* Description étape */
+html[data-theme="liquid"] .lqp-p {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(13,28,53,.62);
+  margin: 0;
+}
+
+/* Force min-height homepage section */
+html[data-theme="liquid"] #pv-home .lqp {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 1100px) {
+  html[data-theme="liquid"] .lqp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  html[data-theme="liquid"] .lqp { padding: 64px 24px; }
+  html[data-theme="liquid"] .lqp-grid { grid-template-columns: 1fr; }
+  html[data-theme="liquid"] #pv-home .lqp { min-height: auto; }
 }
