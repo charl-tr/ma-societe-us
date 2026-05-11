@@ -267,85 +267,173 @@
 
     <!-- HOME -->
     <div class="pv on" id="pv-home">
-      <!-- HERO UNIQUE — Map glass -->
-      <div class="hero-map" id="hv-main">
-        <div class="hm-bg"></div>
+      <!-- ═══════════════════════════════════════════════════
+           HERO v2 — Magazine cabinet (institutionnel + SaaS)
+           Layout : 58% éditorial | 42% glass proof card
+           ═══════════════════════════════════════════════════ -->
+      <section class="lqh" id="hv-main">
+        <div class="lqh-grain"></div>
+        <div class="lqh-aurora lqh-aurora-tr"></div>
+        <div class="lqh-aurora lqh-aurora-bl"></div>
 
-        <!-- ── Carte US — fond absolu, demi-droite, pleine hauteur ── -->
-        <div class="hm-map-bg" id="hm-map-bg">
-          <div id="hm-map-svg"></div>
-          <!-- 6 cartes annotées — positionnées près de chaque état -->
-          <div class="hm-ann hm-ann-wy" id="hm-ann-wy" onclick="go('wy')" onmouseenter="hmActivate('wy')" onmouseleave="hmReset()">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Wyoming</div>
-              <div class="hm-ann-tag">Pro-Crypto &amp; Web3<br>Aucune taxe d'État.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-co" id="hm-ann-co" onclick="go('co')" onmouseenter="hmActivate('co')" onmouseleave="hmReset()">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Colorado</div>
-              <div class="hm-ann-tag">Création en 24h<br>EIN en 3 semaines.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-ca" id="hm-ann-ca" onclick="go('ca')" onmouseenter="hmActivate('ca')" onmouseleave="hmReset()">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Californie</div>
-              <div class="hm-ann-tag">Hub tech &amp; VC<br>Idéal pour les startups.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-de" id="hm-ann-de" onclick="go('de')" onmouseenter="hmActivate('de')" onmouseleave="hmReset()">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Delaware</div>
-              <div class="hm-ann-tag">Standard levée de fonds<br>62% des Fortune 500.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-nm" id="hm-ann-nm" onclick="go('nm')" onmouseenter="hmActivate('nm')" onmouseleave="hmReset()">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Nouveau-Mexique</div>
-              <div class="hm-ann-tag">EIN en 5 à 6 jours<br>Frais parmi les plus bas.</div>
-            </div>
-          </div>
-          <div class="hm-ann hm-ann-fl" id="hm-ann-fl" onclick="go('fl')" onmouseenter="hmActivate('fl')" onmouseleave="hmReset()">
-            <div class="hm-ann-card">
-              <div class="hm-ann-state">Floride</div>
-              <div class="hm-ann-tag">0% impôt d'État<br>Idéal e-commerce &amp; SaaS.</div>
-            </div>
-          </div>
-          <!-- Lignes de connexion -->
-          <svg class="hm-lines-svg" id="hm-lines-svg" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible"></svg>
-          <!-- Fondu aux bords -->
-          <div class="hm-fade-l"></div>
-          <div class="hm-fade-t"></div>
-          <div class="hm-fade-b"></div>
-        </div>
+        <div class="lqh-grid">
 
-        <!-- ── Contenu gauche — Brand + Copy + CTA ── -->
-        <div class="hm-body">
-          <div class="hm-left">
-            <div class="hm-eyebrow">
-              <span class="hm-ey-line"></span>
-              <span class="hm-ey-text">Cabinet franco-américain · CPA agréé IRS</span>
-              <span class="hm-ey-line hm-ey-line-r"></span>
+          <!-- ── COL GAUCHE : éditorial ── -->
+          <div class="lqh-left">
+
+            <div class="lqh-issue">
+              <span class="lqh-issue-bar"></span>
+              <span class="lqh-issue-txt">Cabinet franco-américain · Depuis 2014</span>
             </div>
-            <h1 class="hm-h1">Votre société américaine,<br><em>sans aucun impôt.</em></h1>
-            <p class="hm-sub">Créez votre LLC aux États-Unis en 14 jours. 100 % à distance, accompagné par un CPA agréé qui signe personnellement vos déclarations.</p>
-            <div class="hm-stats">
-              <div class="hm-stat"><div class="hm-sv">0<span class="hm-su">%</span></div><div class="hm-sl">d'impôts aux USA</div></div>
-              <div class="hm-stat hm-stat-sep"></div>
-              <div class="hm-stat"><div class="hm-sv">500<span class="hm-su">+</span></div><div class="hm-sl">clients</div></div>
-              <div class="hm-stat hm-stat-sep"></div>
-              <div class="hm-stat"><div class="hm-sv">10<span class="hm-su"> ans</span></div><div class="hm-sl">d'expertise</div></div>
-            </div>
-            <div class="hm-cta-block">
-              <button class="hm-cta-btn" onclick="go('cal')">
-                <span>Réserver mon entretien gratuit</span>
-                <span class="hm-cta-arrow">→</span>
+
+            <h1 class="lqh-h1">
+              La LLC américaine,<br>
+              <em>sans payer un dollar</em><br>
+              d'impôt fédéral.
+            </h1>
+
+            <p class="lqh-lede">
+              Convention bilatérale franco-américaine du 31 août 1994.
+              500 entrepreneurs accompagnés depuis 10 ans.
+              <strong>Un CPA agréé IRS signe personnellement</strong> vos déclarations.
+            </p>
+
+            <div class="lqh-cta-row">
+              <button class="lqh-cta-primary" onclick="go('cal')">
+                <span>Réserver un entretien</span>
+                <span class="lqh-cta-arrow">→</span>
               </button>
-              <span class="hm-legal">Sans engagement · 15 min · Conforme OCDE</span>
+              <button class="lqh-cta-secondary" onclick="document.querySelector('.lqm').scrollIntoView({behavior:'smooth',block:'start'})">
+                Voir les 6 juridictions
+              </button>
+            </div>
+
+            <div class="lqh-trust">
+              <div class="lqh-trust-item">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                CPA agréé IRS
+              </div>
+              <div class="lqh-trust-item">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                LLC en 14 jours
+              </div>
+              <div class="lqh-trust-item">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                100 % à distance
+              </div>
+              <div class="lqh-trust-item">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Conforme OCDE
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ── COL DROITE : Glass Proof Card ── -->
+          <div class="lqh-right">
+            <div class="lqh-proof">
+              <div class="lqh-proof-tag">
+                <span class="lqh-proof-dot"></span>
+                Impôt fédéral US
+              </div>
+
+              <div class="lqh-proof-fig">
+                <span class="lqh-proof-cur">$</span>
+                <span class="lqh-proof-num">0</span>
+              </div>
+
+              <div class="lqh-proof-cap">
+                Par convention bilatérale FR/US — vos bénéfices sont imposés en France uniquement.
+              </div>
+
+              <div class="lqh-proof-divider"></div>
+
+              <div class="lqh-proof-rows">
+                <div class="lqh-proof-row">
+                  <span class="lqh-proof-row-k">Entrepreneurs accompagnés</span>
+                  <span class="lqh-proof-row-v">500+</span>
+                </div>
+                <div class="lqh-proof-row">
+                  <span class="lqh-proof-row-k">Économies générées</span>
+                  <span class="lqh-proof-row-v">15 M€</span>
+                </div>
+                <div class="lqh-proof-row">
+                  <span class="lqh-proof-row-k">Sociétés créées</span>
+                  <span class="lqh-proof-row-v">500</span>
+                </div>
+                <div class="lqh-proof-row">
+                  <span class="lqh-proof-row-k">Années d'expertise</span>
+                  <span class="lqh-proof-row-v">10 ans</span>
+                </div>
+              </div>
+
+              <div class="lqh-proof-foot">
+                <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                Mis à jour ce mois-ci
+              </div>
             </div>
           </div>
+
         </div>
-      </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════
+           SECTION MAP — Acte 2, immersif pleine largeur
+           ═══════════════════════════════════════════════════ -->
+      <section class="lqm" id="lqm-section">
+        <div class="lqm-head">
+          <div class="lqm-tag">Six juridictions · le bon État, c'est des milliers d'euros d'écart</div>
+          <h2 class="lqm-h2">Choisissez votre point d'ancrage<br>sur le territoire américain.</h2>
+        </div>
+
+        <div class="hero-map lqm-map-wrap" id="hv-main-map">
+          <div class="hm-bg"></div>
+
+          <div class="hm-map-bg" id="hm-map-bg">
+            <div id="hm-map-svg"></div>
+            <div class="hm-ann hm-ann-wy" id="hm-ann-wy" onclick="go('wy')" onmouseenter="hmActivate('wy')" onmouseleave="hmReset()">
+              <div class="hm-ann-card">
+                <div class="hm-ann-state">Wyoming</div>
+                <div class="hm-ann-tag">Pro-Crypto &amp; Web3<br>Aucune taxe d'État.</div>
+              </div>
+            </div>
+            <div class="hm-ann hm-ann-co" id="hm-ann-co" onclick="go('co')" onmouseenter="hmActivate('co')" onmouseleave="hmReset()">
+              <div class="hm-ann-card">
+                <div class="hm-ann-state">Colorado</div>
+                <div class="hm-ann-tag">Création en 24h<br>EIN en 3 semaines.</div>
+              </div>
+            </div>
+            <div class="hm-ann hm-ann-ca" id="hm-ann-ca" onclick="go('ca')" onmouseenter="hmActivate('ca')" onmouseleave="hmReset()">
+              <div class="hm-ann-card">
+                <div class="hm-ann-state">Californie</div>
+                <div class="hm-ann-tag">Hub tech &amp; VC<br>Idéal pour les startups.</div>
+              </div>
+            </div>
+            <div class="hm-ann hm-ann-de" id="hm-ann-de" onclick="go('de')" onmouseenter="hmActivate('de')" onmouseleave="hmReset()">
+              <div class="hm-ann-card">
+                <div class="hm-ann-state">Delaware</div>
+                <div class="hm-ann-tag">Standard levée de fonds<br>62% des Fortune 500.</div>
+              </div>
+            </div>
+            <div class="hm-ann hm-ann-nm" id="hm-ann-nm" onclick="go('nm')" onmouseenter="hmActivate('nm')" onmouseleave="hmReset()">
+              <div class="hm-ann-card">
+                <div class="hm-ann-state">Nouveau-Mexique</div>
+                <div class="hm-ann-tag">EIN en 5 à 6 jours<br>Frais parmi les plus bas.</div>
+              </div>
+            </div>
+            <div class="hm-ann hm-ann-fl" id="hm-ann-fl" onclick="go('fl')" onmouseenter="hmActivate('fl')" onmouseleave="hmReset()">
+              <div class="hm-ann-card">
+                <div class="hm-ann-state">Floride</div>
+                <div class="hm-ann-tag">0% impôt d'État<br>Idéal e-commerce &amp; SaaS.</div>
+              </div>
+            </div>
+            <svg class="hm-lines-svg" id="hm-lines-svg" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible"></svg>
+            <div class="hm-fade-l"></div>
+            <div class="hm-fade-t"></div>
+            <div class="hm-fade-b"></div>
+          </div>
+        </div>
+      </section>
 
       <div class="admin-bar">
         <div class="an-section">§1 — Hero</div>
