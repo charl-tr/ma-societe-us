@@ -1646,15 +1646,15 @@ html[data-theme="liquid"] .lqh-tag {
 /* H1 — clean, no gradient, italic only on em */
 html[data-theme="liquid"] .lqh-h1 {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(48px, 5.8vw, 88px);
+  font-size: clamp(40px, 4.6vw, 68px);
   font-weight: 500;
   font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
-  line-height: 1.02;
-  letter-spacing: -.028em;
+  line-height: 1.06;
+  letter-spacing: -.024em;
   margin: 0 0 28px;
   color: #0a1730;
   animation: lqHeroFadeIn 1s ease-out 0.25s both;
-  max-width: 720px;
+  max-width: 640px;
 }
 html[data-theme="liquid"] .lqh-h1 em {
   font-style: italic;
