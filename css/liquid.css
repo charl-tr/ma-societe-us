@@ -2309,13 +2309,14 @@ html[data-theme="liquid"] #pv-home .offers-section > .section-sub {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   HERO ARTEFACT — Certificate of Formation (chrome, premium)
+   HERO ARTEFACT — Certificate of Formation (v11 — refined)
+   Pas de collision. Hiérarchie verticale propre.
    ═══════════════════════════════════════════════════════════ */
 html[data-theme="liquid"] .lqh-cert {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  padding: 32px 36px 28px;
+  max-width: 480px;
+  padding: 36px 40px 22px;
   border-radius: 18px;
   background: linear-gradient(160deg, rgba(255,255,255,.99) 0%, rgba(248,252,255,.97) 100%) padding-box,
               var(--chrome-us) border-box;
@@ -2327,84 +2328,103 @@ html[data-theme="liquid"] .lqh-cert {
     0 2px 6px rgba(13,28,53,.04);
 }
 
+/* HEADER — eyebrow tiny + state name, ZERO clutter */
 html[data-theme="liquid"] .lqh-cert-top {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 html[data-theme="liquid"] .lqh-cert-eyebrow {
   font-family: 'Inter', sans-serif;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: .28em;
+  letter-spacing: .32em;
   text-transform: uppercase;
-  color: rgba(13,28,53,.42);
-  margin-bottom: 6px;
+  color: rgba(13,28,53,.38);
+  margin-bottom: 7px;
 }
 html[data-theme="liquid"] .lqh-cert-state {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 500;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
   letter-spacing: -.005em;
   color: #0a1730;
 }
 
-html[data-theme="liquid"] .lqh-cert-rule {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(13,28,53,.18), transparent);
-  margin: 0;
+/* TITLE — flanked by subtle rules, the document's main statement */
+html[data-theme="liquid"] .lqh-cert-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 30px;
 }
-
+html[data-theme="liquid"] .lqh-cert-title-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(13,28,53,.16), transparent);
+}
 html[data-theme="liquid"] .lqh-cert-title {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 22px;
   font-weight: 500;
   font-variation-settings: "opsz" 96, "SOFT" 50;
   font-style: normal;
-  text-align: center;
-  letter-spacing: -.015em;
+  letter-spacing: -.018em;
   color: #0a1730;
-  margin: 18px 0 22px;
+  margin: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
+/* BODY — dl/dt/dd, label tnum-caps, value Fraunces */
 html[data-theme="liquid"] .lqh-cert-rows {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 22px;
+  gap: 11px;
+  margin: 0 0 28px;
 }
 html[data-theme="liquid"] .lqh-cert-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 96px 1fr;
   align-items: baseline;
-  gap: 16px;
+  gap: 18px;
+  margin: 0;
 }
 html[data-theme="liquid"] .lqh-cert-k {
   font-family: 'Inter', sans-serif;
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: .12em;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: rgba(13,28,53,.42);
-  flex-shrink: 0;
+  margin: 0;
 }
 html[data-theme="liquid"] .lqh-cert-v {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
-  letter-spacing: -.005em;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  letter-spacing: -.012em;
   color: #0a1730;
-  text-align: right;
+  text-align: left;
+  margin: 0;
+}
+html[data-theme="liquid"] .lqh-cert-v-tnum {
+  font-feature-settings: 'tnum';
+  letter-spacing: 0;
 }
 
+/* FOOTER — seal aligned left, signature aligned with seal text */
 html[data-theme="liquid"] .lqh-cert-foot {
   display: flex;
   align-items: center;
   gap: 18px;
-  padding-top: 18px;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(13,28,53,.06);
 }
 html[data-theme="liquid"] .lqh-cert-seal {
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 4px rgba(42,80,144,.18));
+  filter: drop-shadow(0 2px 6px rgba(42,80,144,.16));
 }
 html[data-theme="liquid"] .lqh-cert-signature {
   flex: 1;
@@ -2412,19 +2432,90 @@ html[data-theme="liquid"] .lqh-cert-signature {
 }
 html[data-theme="liquid"] .lqh-cert-sig-label {
   font-family: 'Inter', sans-serif;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: .14em;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: rgba(42,80,144,.7);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 html[data-theme="liquid"] .lqh-cert-sig-name {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 500;
-  letter-spacing: -.005em;
+  letter-spacing: -.008em;
   color: #0a1730;
+}
+
+/* METADATA FOOTER : live indicator + pager intégrés, plus de pill flottante */
+html[data-theme="liquid"] .lqh-cert-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(13,28,53,.06);
+}
+html[data-theme="liquid"] .lqh-cert-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: rgba(42,80,144,.85);
+  flex-shrink: 0;
+}
+html[data-theme="liquid"] .lqh-cert-live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #2a5090;
+  box-shadow: 0 0 0 0 rgba(42,80,144,.45);
+  animation: lqLivePulse 2.4s ease-in-out infinite;
+}
+html[data-theme="liquid"] .lqh-cert-count {
+  margin-left: auto;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  color: rgba(13,28,53,.42);
+  font-feature-settings: 'tnum';
+  flex-shrink: 0;
+}
+html[data-theme="liquid"] .lqh-cert-progress {
+  position: relative;
+  width: 90px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(13,28,53,.08);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+html[data-theme="liquid"] .lqh-cert-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: linear-gradient(90deg,
+    rgba(110,160,240,.85) 0%,
+    rgba(42,80,144,1)     50%,
+    rgba(200,80,95,.7)    100%);
+  border-radius: 2px;
+}
+
+/* On retire l'ancien pager + l'ancienne live pill (orphans) */
+html[data-theme="liquid"] .lqh-cert-pager,
+html[data-theme="liquid"] .lqh-cert-rule,
+html[data-theme="liquid"] .lqh-cert-label {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  html[data-theme="liquid"] .lqh-cert { padding: 28px 24px 18px; }
+  html[data-theme="liquid"] .lqh-cert-row { grid-template-columns: 84px 1fr; gap: 12px; }
+  html[data-theme="liquid"] .lqh-cert-foot { gap: 14px; }
+  html[data-theme="liquid"] .lqh-cert-progress { width: 60px; }
+  html[data-theme="liquid"] .lqh-cert-title { font-size: 19px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2719,28 +2810,7 @@ html[data-theme="liquid"] .lqh-cert:hover {
     0 2px 6px rgba(13,28,53,.06);
 }
 
-/* Live indicator */
-html[data-theme="liquid"] .lqh-cert-live {
-  position: absolute;
-  top: 14px; right: 14px;
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 5px 10px 5px 9px;
-  border-radius: 16px;
-  background: rgba(42,80,144,.06);
-  border: 1px solid rgba(42,80,144,.14);
-  font-family: 'Inter', sans-serif;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .02em;
-  color: rgba(42,80,144,.78);
-  z-index: 5;
-}
-html[data-theme="liquid"] .lqh-cert-live-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #2a5090;
-  box-shadow: 0 0 0 0 rgba(42,80,144,.5);
-  animation: lqLivePulse 2.2s ease-in-out infinite;
-}
+/* (Ancienne live pill flottante neutralisée — la live est intégrée dans .lqh-cert-meta v11) */
 @keyframes lqLivePulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(42,80,144,.5); }
   50%      { box-shadow: 0 0 0 7px rgba(42,80,144,0); }
@@ -2927,7 +2997,6 @@ html[data-theme="liquid"] #pv-home .hp-cta-final { display: none !important; }
   html[data-theme="liquid"] .lqh-orb,
   html[data-theme="liquid"] .lqh-orb-inner { display: none; }
   html[data-theme="liquid"] .lqh-cert { transform: none; }
-  html[data-theme="liquid"] .lqh-cert-live { position: static; margin-bottom: 14px; }
   html[data-theme="liquid"] .lqc { padding: 64px 24px; }
   html[data-theme="liquid"] #pv-home .lqc { min-height: auto; }
   html[data-theme="liquid"] .lqc-card-foot { flex-direction: column; align-items: stretch; }

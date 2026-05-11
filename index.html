@@ -315,51 +315,49 @@
           <div class="lqh-right">
             <article class="lqh-cert" id="lqh-cert" aria-label="Exemples de certificats de formation">
 
-              <!-- Live indicator -->
-              <div class="lqh-cert-live" aria-hidden="false">
-                <span class="lqh-cert-live-dot"></span>
-                <span class="lqh-cert-live-txt">4 LLC enregistrées cette semaine</span>
-              </div>
-
               <div class="lqh-cert-shimmer" aria-hidden="true"></div>
 
-              <div class="lqh-cert-top">
+              <!-- Header : eyebrow tiny + state name centered, no clutter -->
+              <header class="lqh-cert-top">
                 <div class="lqh-cert-eyebrow">United States of America</div>
                 <div class="lqh-cert-state" id="cert-state">State of New Mexico</div>
+              </header>
+
+              <!-- Title — the document's main statement -->
+              <div class="lqh-cert-title-wrap">
+                <span class="lqh-cert-title-rule" aria-hidden="true"></span>
+                <h3 class="lqh-cert-title">Certificate of Formation</h3>
+                <span class="lqh-cert-title-rule" aria-hidden="true"></span>
               </div>
 
-              <div class="lqh-cert-rule"></div>
+              <!-- Body : label / value rows -->
+              <dl class="lqh-cert-rows">
+                <div class="lqh-cert-row">
+                  <dt class="lqh-cert-k">Entity</dt>
+                  <dd class="lqh-cert-v" id="cert-entity" data-cell>Atelier Saint-Honoré LLC</dd>
+                </div>
+                <div class="lqh-cert-row">
+                  <dt class="lqh-cert-k">Jurisdiction</dt>
+                  <dd class="lqh-cert-v" id="cert-jurisdiction" data-cell>New Mexico · Filed</dd>
+                </div>
+                <div class="lqh-cert-row">
+                  <dt class="lqh-cert-k">EIN</dt>
+                  <dd class="lqh-cert-v lqh-cert-v-tnum" id="cert-ein" data-cell>88-3142559</dd>
+                </div>
+                <div class="lqh-cert-row">
+                  <dt class="lqh-cert-k">Member</dt>
+                  <dd class="lqh-cert-v" id="cert-member" data-cell>Antoine R. · Paris, France</dd>
+                </div>
+                <div class="lqh-cert-row">
+                  <dt class="lqh-cert-k">Filed on</dt>
+                  <dd class="lqh-cert-v lqh-cert-v-tnum" id="cert-filed" data-cell>12 · 03 · 2026</dd>
+                </div>
+              </dl>
 
-              <header class="lqh-cert-title">Certificate of Formation</header>
-
-              <div class="lqh-cert-rows">
-                <div class="lqh-cert-row">
-                  <span class="lqh-cert-k">Entity</span>
-                  <span class="lqh-cert-v" id="cert-entity" data-cell>Atelier Saint-Honoré LLC</span>
-                </div>
-                <div class="lqh-cert-row">
-                  <span class="lqh-cert-k">Jurisdiction</span>
-                  <span class="lqh-cert-v" id="cert-jurisdiction" data-cell>New Mexico · Filed</span>
-                </div>
-                <div class="lqh-cert-row">
-                  <span class="lqh-cert-k">EIN</span>
-                  <span class="lqh-cert-v" id="cert-ein" data-cell style="font-feature-settings:'tnum'">88-3142559</span>
-                </div>
-                <div class="lqh-cert-row">
-                  <span class="lqh-cert-k">Member</span>
-                  <span class="lqh-cert-v" id="cert-member" data-cell>Antoine R. · Paris, France</span>
-                </div>
-                <div class="lqh-cert-row">
-                  <span class="lqh-cert-k">Filed on</span>
-                  <span class="lqh-cert-v" id="cert-filed" data-cell style="font-feature-settings:'tnum'">12 · 03 · 2026</span>
-                </div>
-              </div>
-
-              <div class="lqh-cert-rule"></div>
-
+              <!-- Seal + signature footer -->
               <footer class="lqh-cert-foot">
                 <div class="lqh-cert-seal" aria-hidden="true">
-                  <svg viewBox="0 0 64 64" width="56" height="56">
+                  <svg viewBox="0 0 64 64" width="60" height="60">
                     <defs>
                       <linearGradient id="lqh-seal-grad" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%"  stop-color="#dceaff"/>
@@ -371,9 +369,9 @@
                     </defs>
                     <circle cx="32" cy="32" r="29" fill="none" stroke="url(#lqh-seal-grad)" stroke-width="2.5"/>
                     <circle cx="32" cy="32" r="23" fill="none" stroke="rgba(42,80,144,.4)" stroke-width="0.5"/>
-                    <text x="32" y="24" text-anchor="middle" font-family="Fraunces, serif" font-size="6.5" font-weight="600" letter-spacing="1.6" fill="#1a3a6a">CPA AGRÉÉ</text>
+                    <text x="32" y="24" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="700" letter-spacing="1.6" fill="#1a3a6a">CPA AGRÉÉ</text>
                     <text x="32" y="36" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" font-weight="500" fill="#0a1730">CPA</text>
-                    <text x="32" y="48" text-anchor="middle" font-family="Fraunces, serif" font-size="5.5" font-weight="600" letter-spacing="1.6" fill="#1a3a6a">IRS · 2014</text>
+                    <text x="32" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-size="5" font-weight="700" letter-spacing="1.6" fill="#1a3a6a">IRS · 2014</text>
                   </svg>
                 </div>
                 <div class="lqh-cert-signature">
@@ -382,11 +380,14 @@
                 </div>
               </footer>
 
-              <!-- Indicator + progress bar -->
-              <div class="lqh-cert-pager">
-                <span class="lqh-cert-count" id="cert-count">01 · 06</span>
+              <!-- Metadata footer : live + pager (intégrés, plus de collision haut) -->
+              <div class="lqh-cert-meta">
+                <div class="lqh-cert-live">
+                  <span class="lqh-cert-live-dot"></span>
+                  <span class="lqh-cert-live-txt">4&nbsp;cette&nbsp;semaine</span>
+                </div>
+                <span class="lqh-cert-count" id="cert-count">01&thinsp;·&thinsp;06</span>
                 <span class="lqh-cert-progress"><span class="lqh-cert-progress-fill" id="cert-progress"></span></span>
-                <span class="lqh-cert-label">Dossiers récents</span>
               </div>
 
             </article>
