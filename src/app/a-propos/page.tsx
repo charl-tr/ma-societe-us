@@ -2,7 +2,6 @@
 
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { BalanceScale } from "@/components/BalanceScale";
 import { STATS } from "@/lib/constants";
 
 export default function AProposPage() {
@@ -86,34 +85,6 @@ export default function AProposPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Balance Scale */}
-      <section
-        style={{
-          background: "linear-gradient(160deg, #eef3f9 0%, #e8eef6 40%, #f2f6fb 100%)",
-          borderTop: "1px solid rgba(14,30,56,0.06)",
-        }}
-        className="py-[100px] lg:py-[140px]"
-      >
-        <div className="px-6 lg:px-10 max-w-4xl mx-auto text-center">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-[#0e1e38]/25 mb-5">
-            Notre différence
-          </p>
-          <h2
-            className="text-[clamp(1.5rem,3vw,2.2rem)] font-bold tracking-[-0.025em] text-[#0e1e38] mb-16"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Un cabinet 100% dédié à votre réussite aux USA.
-          </h2>
-          <BalanceScale
-            driver="scroll"
-            ratio={0.15}
-            leftLabel={{ line1: "Cabinet généraliste", line2: "", caption: "90% marketing" }}
-            rightLabel={{ line1: "MA SOCIÉTÉ US", line2: "", caption: "100% expertise" }}
-            className="mx-auto"
-          />
         </div>
       </section>
 
