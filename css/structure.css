@@ -1034,6 +1034,51 @@ body {
 .hp-states-grid { display: none; }
 .hp-state-card { display: none; }
 
+/* ══ SLICE 12C · CTA FINAL ══ */
+.hp-cta-final {
+  padding: 80px 40px;
+  text-align: center;
+}
+.hp-cta-final-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.hp-cta-final-h {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+.hp-cta-final-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0;
+  opacity: .8;
+}
+.hp-cta-final-btn {
+  padding: 16px 40px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  letter-spacing: .02em;
+  transition: transform .18s, box-shadow .18s;
+}
+.hp-cta-final-btn:hover { transform: translateY(-2px); }
+.hp-cta-final-legal {
+  font-size: 11.5px;
+  opacity: .5;
+  letter-spacing: .04em;
+  margin: 0;
+}
+
 /* ══ SLICE 12B · SECTION LOCK OVERLAY ══
    Surcouche démo — backdrop-filter blur, padlock SVG premium, couleurs dans [theme].css
    ════════════════════════════════════════════════════════════════ */
