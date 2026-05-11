@@ -1,1283 +1,2201 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="liquid">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MA SOCIETE US — Architecture Stratégique</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:   #0f1e38;
-      --navy2:  #0a1628;
-      --blue:   #2a5090;
-      --blue-l: #4a80b8;
-      --amber:  #ca8a04;
-      --white:  #ffffff;
-      --ink:    #0e1e38;
-      --muted:  #5a6a80;
-      --line:   rgba(26,42,64,0.07);
-      --bg:     #eef3f9;
-      --sidebar-w: 260px;
-      --content-max: 820px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
-    }
-
-    /* ── Sidebar ── */
-    .sidebar {
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-      width: var(--sidebar-w);
-      background: var(--navy);
-      overflow-y: auto;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar-logo {
-      padding: 28px 24px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .sidebar-logo-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 4px;
-    }
-    .sidebar-logo-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
-
-    .sidebar-nav { padding: 20px 0 40px; flex: 1; }
-
-    .nav-group-label {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.2);
-      padding: 16px 24px 6px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 7px 24px;
-      font-size: 12.5px;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.15s, background 0.15s;
-      cursor: pointer;
-    }
-    .nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.04); }
-    .nav-item.active { color: #fff; background: rgba(255,255,255,0.07); }
-    .nav-item .dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      flex-shrink: 0;
-    }
-    .nav-item.active .dot { background: var(--blue-l); }
-
-    .sidebar-meta {
-      padding: 20px 24px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      font-size: 11px;
-      color: rgba(255,255,255,0.2);
-    }
-
-    /* ── Main ── */
-    .main {
-      margin-left: var(--sidebar-w);
-      min-height: 100vh;
-    }
-
-    /* ── Cover ── */
-    .cover {
-      background: var(--navy);
-      padding: 80px 64px 72px;
-      position: relative;
-      overflow: hidden;
-    }
-    .cover::before {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(42,80,144,0.2) 0%, transparent 70%);
-      top: -200px; right: -100px;
-      pointer-events: none;
-    }
-    .cover-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: rgba(255,255,255,0.3);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 5px 14px;
-      border-radius: 100px;
-      margin-bottom: 28px;
-    }
-    .cover-tag span { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; }
-    .cover h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      max-width: 700px;
-      margin-bottom: 20px;
-    }
-    .cover h1 em { font-style: normal; color: var(--blue-l); }
-    .cover-sub {
-      font-size: 15px;
-      color: rgba(255,255,255,0.4);
-      max-width: 560px;
-      line-height: 1.65;
-      margin-bottom: 40px;
-    }
-    .cover-meta {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .cover-meta-item { display: flex; flex-direction: column; gap: 3px; }
-    .cover-meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.2); }
-    .cover-meta-value { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); }
-
-    /* ── Content ── */
-    .content {
-      padding: 0 64px 100px;
-      max-width: calc(var(--content-max) + 128px);
-    }
-
-    /* ── Section ── */
-    .section {
-      padding-top: 72px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 0;
-    }
-    .section:last-child { border-bottom: none; }
-
-    .section-tag {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: var(--blue);
-      margin-bottom: 12px;
-      font-weight: 600;
-    }
-
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-      font-weight: 700;
-      color: var(--navy);
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-
-    h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-      margin: 28px 0 10px;
-    }
-
-    p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 14px; }
-    p strong { color: var(--ink); font-weight: 600; }
-
-    /* ── Callout ── */
-    .callout {
-      background: rgba(42,80,144,0.06);
-      border-left: 3px solid var(--blue);
-      border-radius: 0 8px 8px 0;
-      padding: 14px 20px;
-      margin: 20px 0;
-    }
-    .callout p { margin: 0; color: var(--ink); font-size: 13.5px; }
-
-    .callout-red {
-      background: rgba(202,138,4,0.05);
-      border-left-color: var(--amber);
-    }
-
-    /* ── Table ── */
-    .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--line); }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    thead tr { background: var(--navy); }
-    thead th {
-      text-align: left;
-      padding: 11px 16px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: rgba(255,255,255,0.5);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    tbody tr { border-bottom: 1px solid var(--line); transition: background 0.1s; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(42,80,144,0.03); }
-    tbody td { padding: 11px 16px; color: var(--muted); vertical-align: top; }
-    tbody td:first-child { color: var(--ink); font-weight: 500; }
-    tbody td strong { color: var(--ink); font-weight: 600; }
-
-    /* ── Pill ── */
-    .pill {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 100px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-    }
-    .pill-done   { background: rgba(34,197,94,0.1);  color: #16a34a; }
-    .pill-wip    { background: rgba(234,179,8,0.1);   color: #ca8a04; }
-    .pill-todo   { background: rgba(148,163,184,0.1); color: #64748b; }
-    .pill-crit   { background: rgba(202,138,4,0.1);   color: var(--amber); }
-    .pill-nav    { background: rgba(42,80,144,0.08);  color: var(--blue); }
-
-    /* ── Framework box ── */
-    .framework {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 24px 0;
-    }
-    .framework-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .framework-card .num {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--blue);
-      margin-bottom: 10px;
-    }
-    .framework-card h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
-    .framework-card p { font-size: 12.5px; margin: 0; color: var(--muted); line-height: 1.6; }
-
-    /* ── Lens cards ── */
-    .lenses {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 24px 0;
-    }
-    .lens-card {
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid transparent;
-    }
-    .lens-copy  { background: rgba(42,80,144,0.06);  border-color: rgba(42,80,144,0.12); }
-    .lens-visual{ background: rgba(42,80,144,0.04);   border-color: rgba(42,80,144,0.09); }
-    .lens-auth  { background: rgba(6,14,28,0.04);     border-color: rgba(6,14,28,0.08); }
-    .lens-card .lens-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 10px; }
-    .lens-copy  .lens-label { color: var(--blue); }
-    .lens-visual .lens-label { color: var(--blue-l); }
-    .lens-auth  .lens-label { color: var(--navy); }
-    .lens-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    .lens-card ul { padding-left: 14px; }
-    .lens-card li { font-size: 12px; color: var(--muted); line-height: 1.7; }
-
-    /* ── Page card ── */
-    .page-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 24px 0;
-    }
-    .page-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px 22px;
-      position: relative;
-    }
-    .page-card.primary { border-color: rgba(42,80,144,0.2); background: rgba(42,80,144,0.02); }
-    .page-card .page-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 8px; }
-    .page-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .page-card p { font-size: 12px; color: var(--muted); margin: 0 0 12px; line-height: 1.6; }
-    .page-card .page-goal {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .page-card .page-goal::before { content: '→'; }
-
-    /* ── Funnel ── */
-    .funnel {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin: 24px 0;
-    }
-    .funnel-step {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 20px;
-      border-radius: 8px;
-      background: #fff;
-      border: 1px solid var(--line);
-      position: relative;
-    }
-    .funnel-step::after {
-      content: '↓';
-      position: absolute;
-      bottom: -14px;
-      left: 28px;
-      font-size: 11px;
-      color: var(--muted);
-      z-index: 1;
-    }
-    .funnel-step:last-child::after { display: none; }
-    .funnel-num {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .funnel-step.highlight .funnel-num { background: var(--blue); }
-    .funnel-body { flex: 1; }
-    .funnel-title { font-size: 13px; font-weight: 600; color: var(--navy); }
-    .funnel-desc  { font-size: 12px; color: var(--muted); }
-    .funnel-kpi   { font-size: 11px; font-weight: 700; color: var(--blue); white-space: nowrap; }
-
-    /* ── Glass doctrine ── */
-    .glass-rule {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 18px;
-      border-radius: 10px;
-      background: #fff;
-      border: 1px solid var(--line);
-      margin-bottom: 8px;
-    }
-    .glass-rule .gr-icon {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .gr-ok  { background: rgba(34,197,94,0.1); }
-    .gr-no  { background: rgba(100,115,135,0.1); }
-    .gr-ctx { background: rgba(42,80,144,0.08); }
-    .glass-rule .gr-content strong { font-size: 13px; color: var(--navy); display: block; margin-bottom: 2px; }
-    .glass-rule .gr-content span   { font-size: 12px; color: var(--muted); }
-
-    /* ── Roadmap ── */
-    .roadmap-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .roadmap-row:last-child { border-bottom: none; }
-    .roadmap-row .rr-left { width: 160px; flex-shrink: 0; }
-    .roadmap-row .rr-name { font-size: 13px; font-weight: 600; color: var(--navy); }
-    .roadmap-row .rr-scope { font-size: 11px; color: var(--muted); margin-top: 2px; }
-    .roadmap-row .rr-desc { font-size: 12.5px; color: var(--muted); flex: 1; line-height: 1.65; }
-
-    /* ── Divider ── */
-    .divider { height: 1px; background: var(--line); margin: 0; }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .sidebar { display: none; }
-      .main { margin-left: 0; }
-      .content { padding: 0 24px 80px; }
-      .cover { padding: 48px 24px; }
-      .framework, .lenses, .page-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── Scroll indicator ── */
-    .progress-bar {
-      position: fixed;
-      top: 0; left: var(--sidebar-w); right: 0;
-      height: 2px;
-      background: rgba(42,80,144,0.15);
-      z-index: 200;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--blue), var(--blue-l));
-      width: 0%;
-      transition: width 0.1s;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation Demo — MA SOCIÉTÉ US</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="theme-fonts" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="css/structure.css">
+<link rel="stylesheet" href="css/liquid.css" id="theme-css">
 </head>
 <body>
 
-<!-- Progress bar -->
-<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<!-- ═══════════════════════════════════════
+     FLOATING DESIGN PANEL — surcouche indépendante
+     Draggable · Minimizable · Thème-agnostique
+     ═══════════════════════════════════════ -->
+<div id="dp" class="dp-panel">
 
-<!-- Sidebar -->
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="sidebar-logo-label">Document stratégique</div>
-    <div class="sidebar-logo-name">MA SOCIETE US</div>
+  <!-- TITLEBAR (drag handle) -->
+  <div class="dp-bar" id="dp-bar">
+    <span class="dp-icon">◈</span>
+    <span class="dp-title">Prototype Controls</span>
+    <button class="dp-min-btn" id="dp-min-btn" onclick="toggleDP()" title="Minimiser">−</button>
   </div>
 
-  <nav class="sidebar-nav">
-    <div class="nav-group-label">Vue d'ensemble</div>
-    <a class="nav-item active" href="#context"><span class="dot"></span>Contexte & objectifs</a>
-    <a class="nav-item" href="#audience"><span class="dot"></span>Audience cible</a>
-    <a class="nav-item" href="#architecture"><span class="dot"></span>Architecture site</a>
+  <!-- BODY (collapsible) -->
+  <div class="dp-body" id="dp-body">
 
-    <div class="nav-group-label">Conversion</div>
-    <a class="nav-item" href="#funnels"><span class="dot"></span>Parcours & funnels</a>
-    <a class="nav-item" href="#cta-hierarchy"><span class="dot"></span>Hiérarchie des CTAs</a>
+    <!-- Annotations -->
+    <div class="dp-row">
+      <span class="dp-lbl">Annotations</span>
+      <div class="dp-btns">
+        <button class="dp-btn" id="dp-annot" onclick="toggleAnnot(this)">OFF</button>
+      </div>
+    </div>
 
-    <div class="nav-group-label">Méthodologie</div>
-    <a class="nav-item" href="#framework"><span class="dot"></span>Framework 3Q × 3L</a>
-    <a class="nav-item" href="#sections"><span class="dot"></span>Analyse par section</a>
-    <a class="nav-item" href="#glassmorphism"><span class="dot"></span>Doctrine glassmorphism</a>
-    <a class="nav-item" href="#copy"><span class="dot"></span>Principes copy</a>
+    <div class="dp-sep"></div>
 
-    <div class="nav-group-label">Exécution</div>
-    <a class="nav-item" href="#roadmap"><span class="dot"></span>Roadmap</a>
+    <div class="dp-sep"></div>
 
-    <div class="nav-group-label" style="margin-top:20px;border-top:1px solid rgba(255,255,255,0.07);padding-top:16px;">Outils</div>
-    <a class="nav-item" href="nav-architecture.html"><span class="dot" style="background:#4a80b8"></span>Navigation — 7 options</a>
-    <a class="nav-item" href="decision-app.html"><span class="dot"></span>Decision app</a>
-    <a class="nav-item" href="site-audit.html"><span class="dot"></span>Audit site actuel</a>
-  </nav>
+    <!-- Thème -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Thème</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" onclick="setTheme('liquid',this)">Liquid Glass</button>
+        <button class="dp-btn" onclick="setTheme('dark',this)">Harvey Dark</button>
+        <button class="dp-btn" onclick="setTheme('vault',this)">Vault Glass</button>
+      </div>
+    </div>
 
-  <div class="sidebar-meta">
-    Mis à jour · Avril 2026<br>
-    Version 2.0 — Confidentiel
+    <div class="dp-sep"></div>
+
+    <!-- Vue -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Vue</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" onclick="msTab(this,false)">Démo interactive</button>
+        <button class="dp-btn" onclick="msTab(this,true)">Analyse 7 options</button>
+      </div>
+    </div>
+
+    <div class="dp-sep"></div>
+
+    <!-- Sections lock -->
+    <div class="dp-row dp-row-col">
+      <span class="dp-lbl">Mode démo</span>
+      <div class="dp-btns">
+        <button class="dp-btn on" id="dp-lock-btn" onclick="toggleLockAll(this)"><span class="dp-emoji">🔓</span> Déverrouiller tout</button>
+      </div>
+    </div>
+
+  </div><!-- /dp-body -->
+</div><!-- /dp -->
+
+<!-- NAVBAR -->
+<nav class="navbar" id="nav">
+  <div class="nav-logo" onclick="go('home')">
+    <img src="logo.png" alt="MA SOCIÉTÉ US" class="nav-logo-img">
+    <span class="nav-logo-text">MA SOCIÉTÉ US</span>
   </div>
-</aside>
+  <div class="nav-links">
+    <div class="nl" id="nl-llc" onclick="toggleDD('llc')">
+      Créer ma LLC
+      <svg class="nl-chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="nl" id="nl-svc" onclick="toggleDD('svc')">
+      Services
+      <svg class="nl-chev" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="nl" id="nl-apropos" onclick="go('apropos')">À propos</div>
+    <div class="nl" id="nl-blog" onclick="go('blog')">Blog</div>
+  </div>
+  <button class="nav-cta" onclick="go('cal')">Réserver mon entretien gratuit</button>
 
-<!-- Main -->
-<div class="main">
-
-  <!-- Cover -->
-  <div class="cover">
-    <div class="cover-tag"><span></span>Architecture stratégique</div>
-    <h1>Convertir l'autorité en <em>revenus.</em></h1>
-    <p class="cover-sub">
-      Ce document définit l'architecture complète du site MA SOCIETE US —
-      structure, conversion, copywriting, design system. Chaque décision répond
-      à un objectif business mesurable.
-    </p>
-    <div class="cover-meta">
-      <div class="cover-meta-item">
-        <span class="cover-meta-label">Projet</span>
-        <span class="cover-meta-value">MA SOCIETE US — Refonte</span>
+  <!-- MON ESPACE — mockup démo -->
+  <div class="nav-space" onclick="this.classList.toggle('open')" title="Mon espace client">
+    <div class="ns-avatar">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="7.5" r="3" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M3.5 17c0-3.314 2.91-6 6.5-6s6.5 2.686 6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="ns-label">Mon espace</span>
+    <svg class="ns-chev" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- Dropdown mock -->
+    <div class="ns-dropdown">
+      <div class="ns-dd-header">
+        <div class="ns-dd-avatar-lg">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="ns-dd-name">Client Demo</div>
+          <div class="ns-dd-email">demo@ma-societe.us</div>
+        </div>
       </div>
-      <div class="cover-meta-item">
-        <span class="cover-meta-label">Couche</span>
-        <span class="cover-meta-value">Vitrine (Layer 1/3)</span>
-      </div>
-      <div class="cover-meta-item">
-        <span class="cover-meta-label">Budget</span>
-        <span class="cover-meta-value">30–35K€</span>
-      </div>
-      <div class="cover-meta-item">
-        <span class="cover-meta-label">Stack</span>
-        <span class="cover-meta-value">Next.js · Tailwind · Framer Motion</span>
-      </div>
+      <div class="ns-dd-sep"></div>
+      <div class="ns-dd-item">📋 Mon dossier LLC</div>
+      <div class="ns-dd-item">📄 Mes documents</div>
+      <div class="ns-dd-item">📅 Mes rendez-vous</div>
+      <div class="ns-dd-item">💬 Support</div>
+      <div class="ns-dd-sep"></div>
+      <div class="ns-dd-item ns-dd-logout">Déconnexion</div>
     </div>
   </div>
 
-  <div class="content">
+</nav>
 
-    <!-- ── CONTEXT ── -->
-    <div class="section" id="context">
-      <div class="section-tag">01 — Contexte</div>
-      <h2>Pourquoi ce site existe</h2>
+<!-- BACKDROP -->
+<div class="dd-backdrop" id="backdrop" onclick="closeAll()"></div>
 
-      <p>
-        MA SOCIETE US est un cabinet franco-américain spécialisé dans la création
-        et la gestion de sociétés américaines (LLC). Fondé en 2014, il opère sous
-        la marque déposée <strong>Yes Please LLC</strong> et accompagne les entrepreneurs
-        européens dans l'optimisation fiscale légale via des structures américaines.
-      </p>
+<!-- DD: CRÉER MA LLC -->
+<div class="dd-panel" id="dd-llc">
+  <div class="dd-card">
+    <div class="dd-cols dd-2col-wide">
 
-      <div class="callout">
-        <p><strong>Objectif business n°1 :</strong> Générer des appels de consultation gratuits (15 min)
-        qualifiés. Tout le site doit converger vers ce micro-engagement unique.</p>
+      <div class="dd-col col-offres">
+        <div class="dd-col-head">
+          <span class="dch-label">Nos offres</span>
+          <span class="dch-tag">Démarrer</span>
+        </div>
+        <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
+          <div class="ddo-row"><span class="ddo-name">Pack LLC</span><span class="ddo-price">$997</span></div>
+          <div class="ddo-desc">LLC en 14 jours · EIN · Chargé dédié · Portail client</div>
+          <span class="ddo-pill pill-b">Le plus populaire</span>
+        </div>
+        <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
+          <div class="ddo-row"><span class="ddo-name">Pack Premium</span><span class="ddo-price">$1 597</span></div>
+          <div class="ddo-desc">LLC + compte Mercury ouvert · Carte Visa incluse</div>
+          <span class="ddo-pill pill-g">Recommandé</span>
+        </div>
+        <div class="dd-tarifs" onclick="go('tarifs');closeAll()">→ Voir tous les tarifs</div>
       </div>
 
-      <h3>Les 3 couches de la stratégie digitale</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Couche</th>
-              <th>Nom</th>
-              <th>Rôle</th>
-              <th>Traffic</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Layer 1</td>
-              <td><strong>La Vitrine</strong></td>
-              <td>Autorité, crédibilité, SEO, référence de marque</td>
-              <td>Organique, direct, bouche-à-oreille</td>
-              <td><span class="pill pill-wip">En cours</span></td>
-            </tr>
-            <tr>
-              <td>Layer 2</td>
-              <td><strong>L'Acquisition</strong></td>
-              <td>Landing pages dédiées pour le trafic payant (Google Ads, Meta)</td>
-              <td>Paid — NE JAMAIS croiser avec Layer 1</td>
-              <td><span class="pill pill-todo">À venir</span></td>
-            </tr>
-            <tr>
-              <td>Layer 3</td>
-              <td><strong>Le CRM</strong></td>
-              <td>Espace client, suivi, upsell, fidélisation</td>
-              <td>Interne — clients existants</td>
-              <td><span class="pill pill-todo">À venir</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="dd-col col-etats">
+        <div class="dd-col-head">
+          <span class="dch-label">Choisir son État</span>
+          <span class="dch-tag">6 juridictions</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('nm',this)" onclick="go('nm')">
+          <span class="ds-dot"></span>
+          <div><div class="ds-name">Nouveau-Mexique</div><div class="ds-tag">Anonymat total — 0 registre public</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('co',this)" onclick="go('co')">
+          <span class="ds-dot"></span>
+          <div><div class="ds-name">Colorado</div><div class="ds-tag">LLC opérationnelle en 24 heures</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('wy',this)" onclick="go('wy')">
+          <span class="ds-dot"></span>
+          <div><div class="ds-name">Wyoming</div><div class="ds-tag">Pro-crypto &amp; Web3 · DAO légalisées</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('de',this)" onclick="go('de')">
+          <span class="ds-dot"></span>
+          <div><div class="ds-name">Delaware</div><div class="ds-tag">Standard levée de fonds VC</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('ca',this)" onclick="go('ca')">
+          <span class="ds-dot"></span>
+          <div><div class="ds-name">Californie</div><div class="ds-tag">Marques &amp; Tech premium</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-state" onmouseenter="prev('fl',this)" onclick="go('fl')">
+          <span class="ds-dot"></span>
+          <div><div class="ds-name">Floride</div><div class="ds-tag">Zéro impôt d'État</div></div>
+          <span class="ds-arr">›</span>
+        </div>
+        <div class="dd-footer">
+          <span class="ddf-trust">CPA agréé IRS · Franco-américain depuis 2014</span>
+          <span class="ddf-link" onclick="go('creer');closeAll()">Comparer les États →</span>
+        </div>
       </div>
 
-      <div class="callout callout-red">
-        <p><strong>Règle absolue :</strong> Le trafic payant n'atterrit jamais sur la vitrine.
-        Les campagnes ont leurs propres landing pages optimisées pour la conversion directe.
-        La vitrine sert l'image et le SEO — pas la performance publicitaire.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DD: SERVICES -->
+<div class="dd-panel" id="dd-svc">
+  <div class="dd-card">
+    <div class="dd-cols dd-2col">
+
+      <div class="dd-col col-banking">
+        <div class="dd-col-head">
+          <span class="dch-label">Banking</span>
+          <span class="dch-tag">Encaisser</span>
+        </div>
+        <div class="dd-service" onmouseenter="prev('fintech',this)" onclick="go('fintech')">
+          <div class="ddo-row"><span class="ddo-name">Banque en ligne</span><span class="ddo-price">dès $600</span></div>
+          <div class="ddo-desc">Mercury · Relay · 100% à distance</div>
+          <span class="ddo-pill pill-a">Compte ouvert en 48h</span>
+        </div>
+        <div class="dd-service" onmouseenter="prev('bphysique',this)" onclick="go('bphysique')">
+          <div class="ddo-row"><span class="ddo-name">Banque physique</span><span class="ddo-price">sur devis</span></div>
+          <div class="ddo-desc">Stabilité institutionnelle · Financement</div>
+        </div>
+        <div style="padding:8px 26px 4px;font-size:11.5px;color:rgba(14,30,56,.38);line-height:1.55;">
+          Votre LLC a besoin d'un compte US dédié pour être pleinement opérationnelle.
+        </div>
+        <button class="dd-banking-cta" onclick="go('cal-banking');closeAll()">Appel banking gratuit →</button>
+      </div>
+
+      <div class="dd-col col-gestion">
+        <div class="dd-col-head">
+          <span class="dch-label">Gestion &amp; Fiscalité</span>
+          <span class="dch-tag">Optimiser</span>
+        </div>
+        <div class="dd-service" onmouseenter="prev('decl',this)" onclick="go('decl')">
+          <div class="ddo-row"><span class="ddo-name">Déclaration LLC</span><span class="ddo-price">dès $800</span></div>
+          <div class="ddo-desc">CPA agréé IRS · Signature personnelle · Protection redressement</div>
+        </div>
+        <div class="dd-service" onmouseenter="prev('gestion',this)" onclick="go('gestion')">
+          <div class="ddo-row"><span class="ddo-name">Option Confort</span><span class="ddo-price">sur devis</span></div>
+          <div class="ddo-desc">Domiciliation · Veille fiscale · Rappels échéances</div>
+        </div>
+        <div class="dd-service" onmouseenter="prev('e2',this)" onclick="go('e2')">
+          <div class="ddo-row"><span class="ddo-name">Visa E2</span><span class="ddo-price">sur devis</span></div>
+          <div class="ddo-desc">Immigrer aux USA par l'entrepreneuriat · ~100% de succès</div>
+        </div>
+        <div class="dd-service" onmouseenter="prev('gestion',this)" onclick="go('gestion')">
+          <div class="ddo-row"><span class="ddo-name">Prestations add.</span><span class="ddo-price">dès $100</span></div>
+          <div class="ddo-desc">Annual report · CGV · Operating Agreement · Dissolution</div>
+        </div>
+        <div class="dd-footer" style="grid-column:1">
+          <span class="ddf-trust">500+ sociétés créées · 15M€ d'économies</span>
+          <span class="ddf-link" onclick="go('tarifs');closeAll()">Tous les tarifs →</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PAGE FRAME -->
+<div class="browser-wrap">
+  <div class="page-frame">
+
+    <!-- HOME -->
+    <div class="pv on" id="pv-home">
+      <!-- HERO UNIQUE — Map glass -->
+      <div class="hero-map" id="hv-main">
+        <div class="hm-bg"></div>
+
+        <!-- ── Carte US — fond absolu, demi-droite, pleine hauteur ── -->
+        <div class="hm-map-bg" id="hm-map-bg">
+          <div id="hm-map-svg"></div>
+          <!-- 6 cartes annotées — positionnées près de chaque état -->
+          <div class="hm-ann hm-ann-wy" id="hm-ann-wy" onclick="go('wy')" onmouseenter="hmActivate('wy')" onmouseleave="hmReset()">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Wyoming</div>
+              <div class="hm-ann-tag">Pro-Crypto &amp; Web3<br>Aucune taxe d'État.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-co" id="hm-ann-co" onclick="go('co')" onmouseenter="hmActivate('co')" onmouseleave="hmReset()">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Colorado</div>
+              <div class="hm-ann-tag">Création en 24h<br>EIN en 3 semaines.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-ca" id="hm-ann-ca" onclick="go('ca')" onmouseenter="hmActivate('ca')" onmouseleave="hmReset()">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Californie</div>
+              <div class="hm-ann-tag">Hub tech &amp; VC<br>Idéal pour les startups.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-de" id="hm-ann-de" onclick="go('de')" onmouseenter="hmActivate('de')" onmouseleave="hmReset()">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Delaware</div>
+              <div class="hm-ann-tag">Standard levée de fonds<br>62% des Fortune 500.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-nm" id="hm-ann-nm" onclick="go('nm')" onmouseenter="hmActivate('nm')" onmouseleave="hmReset()">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Nouveau-Mexique</div>
+              <div class="hm-ann-tag">EIN en 5 à 6 jours<br>Frais parmi les plus bas.</div>
+            </div>
+          </div>
+          <div class="hm-ann hm-ann-fl" id="hm-ann-fl" onclick="go('fl')" onmouseenter="hmActivate('fl')" onmouseleave="hmReset()">
+            <div class="hm-ann-card">
+              <div class="hm-ann-state">Floride</div>
+              <div class="hm-ann-tag">0% impôt d'État<br>Idéal e-commerce &amp; SaaS.</div>
+            </div>
+          </div>
+          <!-- Lignes de connexion -->
+          <svg class="hm-lines-svg" id="hm-lines-svg" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible"></svg>
+          <!-- Fondu aux bords -->
+          <div class="hm-fade-l"></div>
+          <div class="hm-fade-t"></div>
+          <div class="hm-fade-b"></div>
+        </div>
+
+        <!-- ── Contenu gauche — Brand + Copy + CTA ── -->
+        <div class="hm-body">
+          <div class="hm-left">
+            <div class="hm-logo-block">
+              <img src="logo.png" alt="MA SOCIÉTÉ US" class="hm-logo">
+              <div class="hm-logo-text">MA SOCIÉTÉ US</div>
+              <div class="hm-logo-badge">CPA agréé IRS · Depuis 2014</div>
+            </div>
+            <div class="hm-eyebrow">
+              <span class="hm-ey-line"></span>
+              <span class="hm-ey-text">Cabinet franco-américain</span>
+            </div>
+            <h1 class="hm-h1">Votre société<br>américaine,<br><em>sans aucun impôt.</em></h1>
+            <p class="hm-sub">Cabinet franco-américain · CPA agréé IRS · 500+ clients depuis 2014. Créez votre LLC aux USA en 14 jours, 100% à distance.</p>
+            <div class="hm-stats">
+              <div class="hm-stat"><div class="hm-sv">0<span class="hm-su">%</span></div><div class="hm-sl">d'impôts aux USA</div></div>
+              <div class="hm-stat hm-stat-sep"></div>
+              <div class="hm-stat"><div class="hm-sv">500<span class="hm-su">+</span></div><div class="hm-sl">clients</div></div>
+              <div class="hm-stat hm-stat-sep"></div>
+              <div class="hm-stat"><div class="hm-sv">10<span class="hm-su"> ans</span></div><div class="hm-sl">d'expertise</div></div>
+            </div>
+            <div class="hm-cta-block">
+              <button class="hm-cta-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
+              <span class="hm-legal">Sans engagement · 15 min · Conforme OCDE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§1 — Hero</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ✓</span><span class="an-p cf miss">Confiance ~</span><span class="an-p cp miss">Compétence ✗</span><span class="an-p cv miss">Conviction ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Désir — "je veux cette LLC pour moi"<div class="an-critique">⚠ Zéro preuve de compétence above-the-fold. CTA secondaire (formation gratuite) absent. Le visiteur tiède n'a nulle part où aller.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
+      <!-- §2 STATS BAR -->
+      <div class="stats-bar" data-lockable data-lock-label="Statistiques">
+        <div class="stat-item"><div class="stat-val" style="font-size:18px;line-height:1.3">CPA agréé<em> IRS</em></div><div class="stat-lbl">Signe personnellement</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">500<em>+</em></div><div class="stat-lbl">Sociétés créées</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">10<em> ans</em></div><div class="stat-lbl">D'expertise</div></div>
+        <div class="stat-sep"></div>
+        <div class="stat-item"><div class="stat-val">15M<em>€</em></div><div class="stat-lbl">D'économies générées</div></div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§2 — Stats bar</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p cp">Compétence ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Réassurance — "500 sociétés, 10 ans, c'est sérieux"<div class="an-critique">⚠ Chiffres froids sans visage. "CPA agréé IRS" est le différenciant le plus fort — il est noyé en 4e position.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+
+      <!-- §9 CARTE DES ÉTATS -->
+      <div class="hp-map-section">
+        <div class="hp-map-header">
+          <div class="section-tag">Nos 6 juridictions</div>
+          <h2 class="section-h2">Le bon État, c'est<br>des milliers d'euros d'écart.</h2>
+          <p class="section-sub" style="margin:0 auto">Survolez ou cliquez un État pour découvrir ses avantages.</p>
+        </div>
+
+        <div class="hp-map-body">
+          <!-- Liquid Glass: left callout column -->
+          <div class="hp-lq-callouts hp-lq-left">
+            <div class="hp-co" id="lq-ca" onclick="hpSelect('ca')">
+              <div class="hco-abbr">CA</div>
+              <div class="hco-name">Californie</div>
+              <div class="hco-tag">Marques & Tech premium</div>
+            </div>
+            <div class="hp-co" id="lq-nm" onclick="hpSelect('nm')">
+              <div class="hco-abbr">NM</div>
+              <div class="hco-name">Nouveau-Mexique</div>
+              <div class="hco-tag">Anonymat total</div>
+            </div>
+            <div class="hp-co" id="lq-wy" onclick="hpSelect('wy')">
+              <div class="hco-abbr">WY</div>
+              <div class="hco-name">Wyoming</div>
+              <div class="hco-tag">Pro-crypto & Web3</div>
+            </div>
+          </div>
+
+          <!-- MAP -->
+          <div class="hp-map-col">
+            <div class="hp-map-wrap">
+              <div id="hp-map-container" style="display:block;width:100%;"></div>
+            </div>
+          </div>
+
+          <!-- DETAIL PANEL (vault / dark themes) -->
+          <div class="hp-detail a-card" id="hp-detail">
+            <div class="hd-inner" id="hd-inner">
+              <div class="hd-accent">
+                <span class="hd-abbr" id="hd-abbr">NM</span>
+                <span class="hd-tag" id="hd-tag">Anonymat total</span>
+              </div>
+              <div class="hd-name" id="hd-name">Nouveau-Mexique</div>
+              <p class="hd-pitch" id="hd-pitch">La juridiction la plus discrète des USA. Aucun registre public des associés — votre identité reste confidentielle.</p>
+              <div class="hd-perks" id="hd-perks">
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Aucun registre public des associés</div>
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Identité du fondateur 100% protégée</div>
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Frais de création parmi les plus bas des USA</div>
+                <div class="hd-perk"><span class="hd-perk-check" style="background:#2a5090">✓</span>Idéal pour les activités digitales et e-commerce</div>
+              </div>
+              <div class="hd-meta">
+                <div class="hd-meta-item"><div class="hd-meta-val">14 jours</div><div class="hd-meta-lbl">Création</div></div>
+                <div class="hd-meta-item"><div class="hd-meta-val">$997</div><div class="hd-meta-lbl">À partir de</div></div>
+                <div class="hd-meta-item"><div class="hd-meta-val" id="hd-highlight" style="color:#2a5090">Anonymat</div><div class="hd-meta-lbl">Atout clé</div></div>
+              </div>
+              <button class="hd-cta" id="hd-cta" style="background:linear-gradient(135deg,#1a3a6a,#2a5090);color:#fff" onclick="go('nm')">
+                Créer ma LLC au Nouveau-Mexique →
+              </button>
+            </div>
+          </div>
+
+          <!-- Liquid Glass: right callout column -->
+          <div class="hp-lq-callouts hp-lq-right">
+            <div class="hp-co" id="lq-co" onclick="hpSelect('co')">
+              <div class="hco-abbr">CO</div>
+              <div class="hco-name">Colorado</div>
+              <div class="hco-tag">LLC en 24 heures</div>
+            </div>
+            <div class="hp-co" id="lq-de" onclick="hpSelect('de')">
+              <div class="hco-abbr">DE</div>
+              <div class="hco-name">Delaware</div>
+              <div class="hco-tag">Standard levée de fonds</div>
+            </div>
+            <div class="hp-co" id="lq-fl" onclick="hpSelect('fl')">
+              <div class="hco-abbr">FL</div>
+              <div class="hco-name">Floride</div>
+              <div class="hco-tag">Zéro impôt d'État</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATE TABS -->
+        <div class="hp-state-tabs">
+          <div class="hp-stab sel" id="stab-nm" onclick="hpSelect('nm')">
+            <span class="hp-stab-name">Nouveau-Mexique</span>
+            <span class="hp-stab-tag">Anonymat total</span>
+          </div>
+          <div class="hp-stab" id="stab-co" onclick="hpSelect('co')">
+            <span class="hp-stab-name">Colorado</span>
+            <span class="hp-stab-tag">LLC en 24 heures</span>
+          </div>
+          <div class="hp-stab" id="stab-wy" onclick="hpSelect('wy')">
+            <span class="hp-stab-name">Wyoming</span>
+            <span class="hp-stab-tag">Pro-crypto &amp; Web3</span>
+          </div>
+          <div class="hp-stab" id="stab-de" onclick="hpSelect('de')">
+            <span class="hp-stab-name">Delaware</span>
+            <span class="hp-stab-tag">Référence VC</span>
+          </div>
+          <div class="hp-stab" id="stab-ca" onclick="hpSelect('ca')">
+            <span class="hp-stab-name">Californie</span>
+            <span class="hp-stab-tag">Silicon Valley</span>
+          </div>
+          <div class="hp-stab" id="stab-fl" onclick="hpSelect('fl')">
+            <span class="hp-stab-name">Floride</span>
+            <span class="hp-stab-tag">Paradis fiscal légal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- §3 LÉGALITÉ 5 NON -->
+      <div class="section" data-lockable data-lock-label="Légalité">
+        <div class="section-tag">Légalité</div>
+        <h2 class="section-h2">5 idées reçues.<br>5 fois non.</h2>
+        <p class="section-sub">Créer une LLC en tant que résident français est 100% légal. Voici les 5 objections que nous entendons le plus souvent — réfutées.</p>
+        <div class="non-grid">
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Détenir une LLC en étant résident français est illégal ?</div><div class="non-a">Convention franco-américaine du 31/08/1994 — parfaitement légal.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Risque de requalification par le fisc français ?</div><div class="non-a">Convention fiscale ratifiée FR/US protège les associés non-résidents.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Considérée comme fraude fiscale ?</div><div class="non-a">Parfaitement légal pour tout résident français — conforme OCDE.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Les bénéfices sont soumis à l'impôt américain ?</div><div class="non-a">Exonération si votre résidence fiscale est en France.</div></div></div>
+          <div class="non-item a-card"><span class="non-badge">NON</span><div><div class="non-q">Redevable à hauteur des rémunérations ?</div><div class="non-a">La LLC est transparente fiscalement — imposition directe des associés.</div></div></div>
+          <div class="non-item a-card" style="background:rgba(42,80,144,.05);border-color:rgba(42,80,144,.15)"><div><div class="non-q" style="color:var(--blue)">Vous avez une question spécifique ?</div><div class="non-a">Nos experts répondent en 15 min — entretien gratuit.</div><div style="margin-top:8px"><span style="font-size:12px;font-weight:600;color:var(--blue);cursor:pointer" onclick="go('cal')">Réserver →</span></div></div></div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§3 — 5×NON Légalité</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p si">Simplicité ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Soulagement — "je ne risque rien, c'est parfaitement légal"<div class="an-critique">⚠ Ton encyclopédique (sources juridiques citées). Doit sonner comme un avocat qui vous parle, pas une FAQ corporate. La 6e carte CTA est bonne.</div></div>
+        <div class="an-status solid">SOLIDE</div>
+      </div>
+      <!-- §4 TIMELINE COMMENT ÇA MARCHE -->
+      <div class="timeline-section" data-lockable data-lock-label="Processus">
+        <div style="text-align:center">
+          <div class="section-tag">Comment ça marche</div>
+          <h2 class="section-h2">De zéro à LLC opérationnelle<br>en 4 étapes.</h2>
+          <p class="section-sub" style="margin:0 auto 0;max-width:480px">Un processus rodé depuis 2014. Vous n'avez rien à gérer — on s'occupe de tout.</p>
+        </div>
+        <div class="timeline-wrap" id="tl-wrap">
+          <div class="tl-step done">
+            <div class="tl-num a-chrome">1</div>
+            <div class="tl-body">
+              <div class="tl-tag">Gratuit · 15 min</div>
+              <div class="tl-h">Entretien découverte</div>
+              <p class="tl-p">Un expert vous pose les bonnes questions pour définir la structure idéale.</p>
+            </div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num a-chrome">2</div>
+            <div class="tl-body">
+              <div class="tl-tag">NM · CO · WY · DE</div>
+              <div class="tl-h">Choix de l'État</div>
+              <p class="tl-p">On recommande l'État en fonction de votre activité, anonymat et fiscalité.</p>
+            </div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num a-chrome">3</div>
+            <div class="tl-body">
+              <div class="tl-tag">Sous 2 semaines</div>
+              <div class="tl-h">Immatriculation + EIN</div>
+              <p class="tl-p">LLC créée, EIN obtenu, documents légaux livrés dans votre portail client.</p>
+            </div>
+          </div>
+          <div class="tl-step">
+            <div class="tl-num a-chrome">4</div>
+            <div class="tl-body">
+              <div class="tl-tag">Optionnel · dès $600</div>
+              <div class="tl-h">Compte bancaire US</div>
+              <p class="tl-p">Mercury, Relay ou banque physique — 100% à distance, carte Visa incluse.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§4 — Timeline 4 étapes</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ✓</span><span class="an-p cf miss">Confiance ~</span><span class="an-p cp miss">Compétence ✗</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Tranquillité — "je n'ai rien à gérer, ils s'occupent de tout"<div class="an-critique">⚠ L'équipe est invisible dans le process. Qui fait l'étape 1 ? L'étape 3 ? Le chargé d'affaires dédié est le différenciant clé — il doit apparaître ici.</div></div>
+        <div class="an-status draft">BROUILLON</div>
+      </div>
+      <!-- §8 TÉMOIGNAGES -->
+      <div class="section" data-lockable data-lock-label="Témoignages">
+        <div class="section-tag" style="text-align:center">Témoignages</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">500+ entrepreneurs<br>nous font confiance.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 36px">Depuis 2014, chaque LLC est unique. Voici ce que nos clients en disent.</p>
+        <div class="testi-grid">
+          <div class="testi-card a-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"J'avais des dizaines de questions sur la légalité et le bon État. En 15 min d'appel, tout était clair. Ma LLC était prête en 12 jours, le compte Mercury ouvert dans la foulée."</p>
+            <div class="testi-meta">
+              <div class="testi-av">A</div>
+              <div>
+                <div class="testi-nm">Antoine R.</div>
+                <div class="testi-rl">Consultant indépendant · Paris</div>
+                <div class="testi-result">LLC opérationnelle en 12 jours</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card a-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Je craignais que ce soit compliqué ou illégal vis-à-vis du fisc français. L'équipe a tout expliqué avec des sources juridiques. Maintenant j'encaisse mes clients US en dollars, proprement."</p>
+            <div class="testi-meta">
+              <div class="testi-av" style="background:linear-gradient(135deg,#1a7850,#2a9a70)">S</div>
+              <div>
+                <div class="testi-nm">Sophie M.</div>
+                <div class="testi-rl">E-commerçante · Lyon → marché US</div>
+                <div class="testi-result">15 000 $ encaissés le 1er mois</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card a-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Le chargé d'affaires m'a accompagné à chaque étape — pas de formulaire en ligne, de vraies conversations. J'ai choisi le Wyoming pour ma DAO crypto et c'était le bon choix."</p>
+            <div class="testi-meta">
+              <div class="testi-av" style="background:linear-gradient(135deg,#6a3a90,#8a5ab0)">T</div>
+              <div>
+                <div class="testi-nm">Thomas K.</div>
+                <div class="testi-rl">Fondateur Web3 · Bordeaux</div>
+                <div class="testi-result">Wyoming DAO LLC · crypto-ready</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§8 — Témoignages</div>
+        <div class="an-pillars"><span class="an-p cf">Confiance ✓</span><span class="an-p cv">Conviction ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Projection — "si eux l'ont fait, moi aussi je peux"<div class="an-critique">⚠ Témoignages trop génériques (pas de photos réelles, résultats peu spécifiques). "15 000$ encaissés le 1er mois" de Sophie est le seul avec un chiffre concret — c'est le modèle à suivre pour tous. Avatars générés = signal de faiblesse.</div></div>
+        <div class="an-status missing">PLACEHOLDER</div>
+      </div>
+      <!-- §6 OFFRES APERÇU -->
+      <div class="offers-section" data-lockable data-lock-label="Offres">
+        <div class="section-tag" style="text-align:center">Nos offres</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">Deux packs, un seul objectif :<br>votre LLC opérationnelle.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 40px">Pas de frais cachés. Pas de mauvaise surprise.</p>
+        <div class="offers-preview-grid">
+          <div class="op-card a-card" onclick="go('offres')">
+            <div class="op-name">Pack LLC</div>
+            <div class="op-price">$997<span> USD</span></div>
+            <div class="op-tagline">LLC créée en 14 jours · EIN inclus · Chargé dédié</div>
+            <div class="op-features">
+              <div class="op-feat">LLC immatriculée sous 14 jours</div>
+              <div class="op-feat">EIN (numéro fiscal US) obtenu</div>
+              <div class="op-feat">Documents légaux (Operating Agreement)</div>
+              <div class="op-feat">Chargé d'affaires dédié (2 entretiens/an)</div>
+              <div class="op-feat">Portail client sécurisé</div>
+            </div>
+            <button class="op-btn op-btn-secondary" onclick="go('offres')">En savoir plus</button>
+          </div>
+          <div class="op-card featured a-card" onclick="go('offres')">
+            <div class="op-card-header">
+              <div class="op-name">Pack Premium</div>
+              <div class="op-rec-badge a-badge">Recommandé</div>
+            </div>
+            <div class="op-price">$1 597<span> USD</span></div>
+            <div class="op-tagline">Tout le Pack LLC + compte bancaire US ouvert</div>
+            <div class="op-features">
+              <div class="op-feat">Tout ce qui est inclus dans Pack LLC</div>
+              <div class="op-feat extra">Compte bancaire US ouvert (Mercury/Relay)</div>
+              <div class="op-feat extra">Carte Visa ou Mastercard incluse</div>
+              <div class="op-feat extra">Compatible Stripe, PayPal, Shopify</div>
+              <div class="op-feat extra">100% à distance — aucun déplacement</div>
+            </div>
+            <button class="op-btn op-btn-primary" onclick="go('offres')">Choisir ce pack</button>
+          </div>
+        </div>
+        <p class="offers-link">
+          Vous avez besoin d'un service spécifique ?
+          <a onclick="go('gestion')">Voir toutes les prestations →</a>
+        </p>
+      </div>
+
+      <div class="admin-bar">
+        <div class="an-section">§6 — Offres aperçu</div>
+        <div class="an-pillars"><span class="an-p si">Simplicité ~</span><span class="an-p cv">Conviction ~</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Valeur perçue — "$997 c'est rien comparé au risque"<div class="an-critique">🔴 Prix trop tôt dans le funnel. L'ancrage valeur (coût d'une erreur IRS, coût d'un concurrent à $200 qui ne signe pas) n'est PAS établi avant d'afficher le prix. Le visiteur n'a pas encore de référence pour juger si $997 est cher ou pas.</div></div>
+        <div class="an-status warn">À REPOSITIONNER</div>
+      </div>
+
+      <!-- §8 CTA FINAL -->
+      <div class="hp-cta-final">
+        <div class="hp-cta-final-inner">
+          <div class="section-tag" style="color:rgba(255,255,255,.5)">Prochaine étape</div>
+          <h2 class="hp-cta-final-h">Votre LLC en 14 jours.<br>L'entretien est gratuit.</h2>
+          <p class="hp-cta-final-sub">15 minutes avec un expert. Sans engagement. On définit ensemble la meilleure structure pour vous.</p>
+          <button class="hp-cta-final-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
+          <p class="hp-cta-final-legal">Conforme OCDE · CPA agréé IRS · 500+ clients depuis 2014</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CREER — interactive state map -->
+    <div class="pv" id="pv-creer">
+      <div class="inner" style="min-height:auto;padding-bottom:28px">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><strong>Choisir mon État</strong></div>
+        <h1 class="i-h1">Choisissez votre État</h1>
+        <p class="i-sub">4 juridictions, 4 profils. Survolez un État sur la carte pour voir ses atouts.</p>
+      </div>
+
+      <div class="map-layout">
+        <!-- SVG US MAP -->
+        <div class="map-panel">
+          <svg class="us-map" viewBox="0 0 760 480">
+            <rect width="760" height="480" fill="#e8f0f8" rx="14"/>
+            <!-- WA --><polygon class="s" points="0,28 93,28 93,85 5,85"/>
+            <!-- OR --><polygon class="s" points="0,85 93,85 97,150 0,150"/>
+            <!-- CA --><polygon class="s" points="0,150 97,150 118,207 108,315 75,320 58,380 0,380"/>
+            <!-- NV --><polygon class="s" points="97,118 173,92 176,278 118,207"/>
+            <!-- ID --><polygon class="s" points="93,28 173,28 173,92 156,126 93,150"/>
+            <!-- MT --><rect class="s" x="109" y="0" width="158" height="92"/>
+            <!-- WY KEY --><rect class="s key wy" id="wy-shape" x="173" y="92" width="94" height="74" onmouseenter="selectState('wy')" onclick="go('wy')"/>
+            <!-- UT --><rect class="s" x="134" y="150" width="66" height="90"/>
+            <!-- AZ --><polygon class="s" points="134,240 222,240 222,348 175,382 134,382"/>
+            <!-- CO KEY --><rect class="s key co" id="co-shape" x="200" y="166" width="93" height="74" onmouseenter="selectState('co')" onclick="go('co')"/>
+            <!-- NM KEY --><rect class="s key nm" id="nm-shape" x="200" y="240" width="82" height="108" onmouseenter="selectState('nm')" onclick="go('nm')"/>
+            <!-- ND --><rect class="s" x="267" y="0" width="108" height="72"/>
+            <!-- SD --><rect class="s" x="267" y="72" width="108" height="68"/>
+            <!-- NE --><rect class="s" x="267" y="140" width="122" height="66"/>
+            <!-- KS --><rect class="s" x="267" y="206" width="130" height="66"/>
+            <!-- OK --><rect class="s" x="267" y="272" width="152" height="68"/>
+            <!-- TX --><polygon class="s" points="267,340 422,340 440,382 420,452 308,462 268,422 258,382"/>
+            <!-- MN --><polygon class="s" points="375,0 470,0 472,46 460,96 415,100 375,100"/>
+            <!-- IA --><rect class="s" x="375" y="100" width="89" height="66"/>
+            <!-- MO --><rect class="s" x="375" y="166" width="93" height="86"/>
+            <!-- AR --><rect class="s" x="380" y="252" width="90" height="72"/>
+            <!-- LA --><polygon class="s" points="380,324 470,324 475,362 450,402 410,422 380,402"/>
+            <!-- WI --><rect class="s" x="457" y="8" width="82" height="106"/>
+            <!-- IL --><rect class="s" x="457" y="114" width="66" height="114"/>
+            <!-- MS --><rect class="s" x="457" y="252" width="65" height="96"/>
+            <!-- KY --><polygon class="s" points="462,230 590,196 594,214 580,230 462,250"/>
+            <!-- TN --><rect class="s" x="462" y="250" width="128" height="54"/>
+            <!-- IN --><rect class="s" x="522" y="114" width="58" height="100"/>
+            <!-- MI --><polygon class="s" points="522,66 598,66 600,78 582,102 580,114 522,114"/>
+            <!-- OH --><rect class="s" x="580" y="80" width="78" height="100"/>
+            <!-- AL --><rect class="s" x="520" y="284" width="66" height="92"/>
+            <!-- GA --><rect class="s" x="584" y="258" width="80" height="100"/>
+            <!-- SC --><polygon class="s" points="584,220 664,220 672,262 632,282 584,258"/>
+            <!-- NC --><polygon class="s" points="580,192 696,184 704,212 672,262 584,220"/>
+            <!-- WV+VA --><polygon class="s" points="578,142 666,142 680,152 696,184 584,192 560,188 558,166"/>
+            <!-- FL --><polygon class="s" points="520,376 662,358 665,392 648,432 622,462 580,472 560,462 532,442 520,422"/>
+            <!-- NE states block --><polygon class="s" points="627,62 760,0 760,162 665,162 627,142"/>
+            <!-- MD+NJ --><polygon class="s" points="627,142 665,142 666,192 648,202 644,190 627,186"/>
+            <!-- DE KEY (tiny, with callout) -->
+            <rect class="s key de" id="de-shape" x="648" y="156" width="18" height="30" onmouseenter="selectState('de')" onclick="go('de')"/>
+            <line class="de-line" x1="666" y1="163" x2="708" y2="128"/>
+            <rect class="de-badge" x="696" y="112" width="54" height="28" rx="8" style="fill:#ebd4e0;stroke:#fff;stroke-width:1.5"/>
+            <text class="de-badge-txt" x="723" y="131">DE ★</text>
+
+            <!-- Labels for non-key states -->
+            <text class="map-lbl" x="46" y="62">WA</text>
+            <text class="map-lbl" x="46" y="122">OR</text>
+            <text class="map-lbl" x="44" y="268">CA</text>
+            <text class="map-lbl" x="136" y="198">NV</text>
+            <text class="map-lbl" x="130" y="100">ID</text>
+            <text class="map-lbl" x="186" y="50">MT</text>
+            <text class="map-lbl" x="166" y="198">UT</text>
+            <text class="map-lbl" x="168" y="318">AZ</text>
+            <text class="map-lbl" x="318" y="40">ND</text>
+            <text class="map-lbl" x="318" y="110">SD</text>
+            <text class="map-lbl" x="326" y="177">NE</text>
+            <text class="map-lbl" x="330" y="242">KS</text>
+            <text class="map-lbl" x="340" y="308">OK</text>
+            <text class="map-lbl" x="338" y="405">TX</text>
+            <text class="map-lbl" x="416" y="52">MN</text>
+            <text class="map-lbl" x="418" y="136">IA</text>
+            <text class="map-lbl" x="420" y="212">MO</text>
+            <text class="map-lbl" x="422" y="290">AR</text>
+            <text class="map-lbl" x="418" y="362">LA</text>
+            <text class="map-lbl" x="496" y="60">WI</text>
+            <text class="map-lbl" x="488" y="176">IL</text>
+            <text class="map-lbl" x="486" y="300">MS</text>
+            <text class="map-lbl" x="522" y="272">TN</text>
+            <text class="map-lbl" x="520" y="216">KY</text>
+            <text class="map-lbl" x="550" y="166">IN</text>
+            <text class="map-lbl" x="556" y="102">MI</text>
+            <text class="map-lbl" x="617" y="132">OH</text>
+            <text class="map-lbl" x="552" y="336">AL</text>
+            <text class="map-lbl" x="622" y="310">GA</text>
+            <text class="map-lbl" x="638" y="246">SC</text>
+            <text class="map-lbl" x="640" y="210">NC</text>
+            <text class="map-lbl" x="618" y="170">VA</text>
+            <text class="map-lbl" x="595" y="422">FL</text>
+            <text class="map-lbl" x="697" y="80">NY</text>
+            <text class="map-lbl" x="688" y="154">PA</text>
+
+            <!-- KEY STATE LABELS (bold, colored) -->
+            <text class="map-key-lbl" x="220" y="135" style="fill:#5a9fd4">WY</text>
+            <text class="map-key-lbl" x="246" y="210" style="fill:#2a9a68">CO</text>
+            <text class="map-key-lbl" x="241" y="298" style="fill:#3a5aaa">NM</text>
+          </svg>
+        </div>
+
+        <!-- DETAIL PANEL -->
+        <div class="map-detail" id="map-detail">
+          <div class="md-placeholder">
+            <div class="md-icon">🗺</div>
+            <div>Survolez un État sur la carte<br>pour voir ses atouts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <div class="inner" style="min-height:auto;padding-top:32px">
+        <div class="cmp-wrap" style="overflow-x:auto">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th>Critère</th>
+                <th>Nouveau-Mexique</th>
+                <th>Colorado</th>
+                <th>Wyoming</th>
+                <th>Delaware</th>
+                <th>Californie</th>
+                <th>Floride</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Anonymat</td><td><span class="cmp-star">★★★</span> Total</td><td><span class="cmp-star">★</span> Limité</td><td><span class="cmp-star">★★</span> Bon</td><td><span class="cmp-star">★</span> Standard</td><td><span class="cmp-star">★</span> Limité</td><td><span class="cmp-star">★</span> Standard</td></tr>
+              <tr><td>Délai création</td><td>5–7 jours</td><td><strong>24 heures</strong></td><td>3–5 jours</td><td>2–3 jours</td><td>10 jours</td><td>10 jours</td></tr>
+              <tr><td>Crypto / DAO</td><td>Favorable</td><td>Favorable</td><td><strong>Optimal — DAO légales</strong></td><td>Standard</td><td>Favorable</td><td>Favorable</td></tr>
+              <tr><td>Levée de fonds</td><td>Non adapté</td><td>Possible</td><td>Possible</td><td><strong>Standard VC</strong></td><td><strong>Optimal</strong></td><td>Possible</td></tr>
+              <tr><td>Impôt d'État</td><td>Aucun</td><td>Faible</td><td>Aucun</td><td>Faible</td><td>8,84 %</td><td><strong>Aucun</strong></td></tr>
+              <tr><td>Coût annuel État</td><td>$50</td><td>$50</td><td>$60</td><td>$300+</td><td>$800+</td><td>$138</td></tr>
+              <tr><td>Idéal pour</td><td>Freelances · Créateurs</td><td>E-commerce · SaaS</td><td>Crypto · Web3</td><td>Startups · VC</td><td>Marques · Tech</td><td>Nomades · Finance</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="i-cta">
+          <div><h3>Pas sûr du bon État ?</h3><p>15 min d'entretien — on identifie ensemble la bonne juridiction.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button>
+        </div>
+      </div>
+      <div class="admin-bar">
+        <div class="an-section">§9 — Carte des États + Tableau comparatif</div>
+        <div class="an-pillars"><span class="an-p cp">Compétence ✓</span><span class="an-p si">Simplicité ✓</span><span class="an-p cf">Confiance ✓</span></div>
+        <div class="an-emotion"><strong>Émotion cible</strong>Expertise visible — "ils connaissent vraiment les nuances, je peux leur faire confiance"<div class="an-critique">⚠ Section la plus forte en termes de démonstration d'expertise — mais trop tardive. La décision d'État est un moment clé du parcours client : doit intervenir plus tôt. Section MANQUANTE : Socle d'Excellence (Équipe + Infrastructure + Réseau Bancaire).</div></div>
+        <div class="an-status solid">SOLIDE — À REMONTER</div>
+      </div>
+
+      <div class="admin-bar" style="border-top:1.5px dashed rgba(180,50,50,.4);background:repeating-linear-gradient(-45deg,rgba(180,50,50,.04),rgba(180,50,50,.04) 5px,transparent 5px,transparent 14px)">
+        <div class="an-section" style="color:rgba(180,50,50,.6)">⚠ SECTIONS MANQUANTES</div>
+        <div class="an-emotion" style="flex:1">
+          <strong style="color:rgba(180,50,50,.7)">Non implémentées — gaps critiques vs site actuel</strong>
+          <div class="an-critique">🔴 <b>Socle d'Excellence</b> — Équipe (Christophe + CPA IRS + 11 collab.), Infrastructure (portail client), Réseau bancaire (5 fintechs). Pilier Compétence actuellement à 0 sur la homepage.</div>
+          <div class="an-critique" style="margin-top:4px">🔴 <b>Formation gratuite</b> — 2e chemin de conversion pour les 50% de visiteurs tièdes. Absent = perte directe de leads nurturables.</div>
+          <div class="an-critique" style="margin-top:4px">🟠 <b>§10 Double CTA final</b> — Deux options égales créent de l'hésitation. Hiérarchiser : primaire (Calendly) nettement dominant.</div>
+        </div>
+        <div class="an-status warn">ABSENT</div>
       </div>
     </div>
 
-    <!-- ── AUDIENCE ── -->
-    <div class="section" id="audience">
-      <div class="section-tag">02 — Audience</div>
-      <h2>À qui on parle</h2>
-
-      <p>La précision de l'audience définit tout : le copy, le design, les arguments, le ton.
-      Un site qui parle à tout le monde ne parle à personne.</p>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Dimension</th><th>Profil</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Âge</td><td>32–52 ans</td></tr>
-            <tr><td>Revenus</td><td>CA 80K–500K€/an</td></tr>
-            <tr><td>Statut</td><td>Consultant, freelance, fondateur SaaS, e-commerce, créateur de contenu</td></tr>
-            <tr><td>Géographie</td><td>France principalement, Belgique, Suisse, Monaco</td></tr>
-            <tr><td>Douleur</td><td>Charge fiscale perçue comme disproportionnée et bloquante pour leur croissance</td></tr>
-            <tr><td>Niveau d'info</td><td>A entendu parler de la LLC, connaît vaguement le principe, cherche la preuve que c'est viable</td></tr>
-            <tr><td>Méfiance</td><td>Forte — c'est du légal/fiscal. La légitimité doit être prouvée, pas affirmée.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Les 3 objections à détruire</h3>
-
-      <div class="glass-rule">
-        <div class="gr-icon gr-no">⚖️</div>
-        <div class="gr-content">
-          <strong>Objection #1 — "C'est légal ?"</strong>
-          <span>La plus bloquante. Doit être adressée dans le Hero et dans les Value Props. Réponse : "100% légal · Conforme OCDE · Exercé depuis 2014."</span>
+    <!-- STATE template -->
+    <div class="pv" id="pv-state">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb" id="st-crumb"></div>
+        <h1 class="i-h1" id="st-h1"></h1>
+        <p class="i-sub" id="st-sub"></p>
+        <div class="cards-grid" id="st-cards"></div>
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:12px">Le processus de création</div>
+          <div class="process-steps">
+            <div class="process-step"><div class="ps-num a-chrome">1</div><div class="ps-content"><div class="ps-title">Entretien découverte — 15 min</div><div class="ps-desc">On valide que cet État correspond à votre situation, votre profil et vos objectifs.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">2</div><div class="ps-content"><div class="ps-title">Préparation du dossier — J+1 à J+3</div><div class="ps-desc">Votre chargé d'affaires constitue le dossier d'immatriculation et les documents légaux.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">3</div><div class="ps-content"><div class="ps-title">Immatriculation Secretary of State — J+14</div><div class="ps-desc">Dépôt officiel, obtention de l'EIN IRS, transmission des documents dans votre portail.</div></div></div>
+          </div>
         </div>
-      </div>
-
-      <div class="glass-rule">
-        <div class="gr-icon gr-no">🤔</div>
-        <div class="gr-content">
-          <strong>Objection #2 — "Est-ce que ces gens sont vraiment compétents ?"</strong>
-          <span>Réponse par la spécificité : chiffres précis, noms d'états, délais exacts, partenaires nommés (Mercury, Relay, Secretary of State).</span>
+        <div class="confort-teaser" style="margin-bottom:24px" onclick="go('offres')">
+          <div>
+            <div class="ct-label">Étape suivante</div>
+            <div class="ct-title">Choisir votre offre</div>
+            <div class="ct-desc">Pack LLC $997 · Pack Premium $1 597 — comparatif côte à côte</div>
+          </div>
+          <div class="ct-arrow">Voir les offres →</div>
         </div>
+        <div class="i-cta"><div><h3>Cet État vous correspond ?</h3><p>15 min — on confirme le bon choix pour votre situation.</p></div><button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button></div>
       </div>
+    </div>
 
-      <div class="glass-rule">
-        <div class="gr-icon gr-no">💡</div>
-        <div class="gr-content">
-          <strong>Objection #3 — "Est-ce que ça vaut le coup pour MOI ?"</strong>
-          <span>Réponse par la personnalisation : le Savings Estimator transforme "0% d'impôts" en "+39 000€/an pour toi". L'ancrage chiffré déclenche la conversion.</span>
+    <!-- OFFRES — Pack comparison (merged) -->
+    <div class="pv" id="pv-offres">
+      <div class="inner" style="min-height:auto;padding-bottom:36px">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('creer')" style="cursor:pointer">Créer ma LLC</span><span class="bc-sep">›</span><strong>Nos offres</strong></div>
+        <h1 class="i-h1">Deux offres,<br><em>un seul objectif.</em></h1>
+        <p class="i-sub">LLC créée en 14 jours dans les deux cas. La différence : est-ce que votre compte bancaire US est ouvert en même temps ?</p>
+
+        <div class="pack-grid">
+          <!-- Pack LLC -->
+          <div class="pack-col a-card">
+            <div class="pack-name">Pack LLC</div>
+            <div class="pack-price">$997<span> USD</span></div>
+            <div class="pack-tagline">Création complète · Sans le banking</div>
+            <ul class="pack-list">
+              <li class="pl-yes">LLC immatriculée en 14 jours</li>
+              <li class="pl-yes">EIN IRS obtenu</li>
+              <li class="pl-yes">Documents légaux (modèles fournis)</li>
+              <li class="pl-yes">Chargé d'affaires dédié</li>
+              <li class="pl-yes">2 entretiens inclus / an</li>
+              <li class="pl-yes">Portail client sécurisé</li>
+              <li class="pl-no">Compte bancaire US</li>
+              <li class="pl-no">Carte Visa pro</li>
+            </ul>
+            <button class="pack-cta-sec" onclick="go('cal')">Choisir le Pack LLC</button>
+            <p class="pack-note">Idéal si vous gérez le banking séparément</p>
+          </div>
+
+          <!-- Pack Premium -->
+          <div class="pack-col pack-col-premium a-card">
+            <div class="pack-rec-badge a-badge">Recommandé</div>
+            <div class="pack-name">Pack Premium</div>
+            <div class="pack-price">$1 597<span> USD</span></div>
+            <div class="pack-tagline">Création + compte bancaire ouvert</div>
+            <ul class="pack-list">
+              <li class="pl-yes">LLC immatriculée en 14 jours</li>
+              <li class="pl-yes">EIN IRS obtenu</li>
+              <li class="pl-yes">Documents légaux (modèles fournis)</li>
+              <li class="pl-yes">Chargé d'affaires dédié</li>
+              <li class="pl-yes">2 entretiens inclus / an</li>
+              <li class="pl-yes">Portail client sécurisé</li>
+              <li class="pl-highlight">Compte Mercury ou Relay ouvert</li>
+              <li class="pl-highlight">Carte Visa pro multi-devises</li>
+            </ul>
+            <button class="pack-cta-main" onclick="go('cal')">Choisir le Pack Premium</button>
+            <p class="pack-savings">Économie : $600 vs achat séparé du banking</p>
+          </div>
+        </div>
+
+        <!-- Aide au choix -->
+        <div class="pack-helper">
+          <div class="pack-helper-h">Comment choisir ?</div>
+          <div class="ph-grid">
+            <div class="ph-col">
+              <div class="ph-col-label">Pack LLC si vous…</div>
+              Avez déjà un compte étranger compatible (Wise, PayPal, etc.) · Souhaitez choisir vous-même votre banque US · N'avez pas besoin d'un compte US immédiatement
+            </div>
+            <div class="ph-col rec">
+              <div class="ph-col-label" style="color:var(--blue)">Pack Premium si vous…</div>
+              Voulez être opérationnel dès la création · Cherchez à facturer en dollars immédiatement · Souhaitez une solution clé en main sans étape supplémentaire
+            </div>
+          </div>
+        </div>
+
+        <!-- Ce qui est inclus -->
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:16px">Ce qui est inclus dans les deux packs</div>
+          <div class="process-steps">
+            <div class="process-step"><div class="ps-num a-chrome">1</div><div class="ps-content"><div class="ps-title">Entretien découverte + choix de l'État</div><div class="ps-desc">15 min avec votre chargé d'affaires pour choisir la bonne juridiction selon votre profil.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">2</div><div class="ps-content"><div class="ps-title">Immatriculation LLC + EIN IRS</div><div class="ps-desc">Dépôt auprès du Secretary of State, obtention de l'EIN, rédaction des documents légaux.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">3</div><div class="ps-content"><div class="ps-title">Accès au portail client sécurisé</div><div class="ps-desc">Tous vos documents en ligne, suivi de dossier en temps réel, 2 entretiens annuels inclus.</div></div></div>
+            <div class="process-step"><div class="ps-num a-chrome">4</div><div class="ps-content"><div class="ps-title">Pack Premium uniquement — Compte bancaire ouvert</div><div class="ps-desc">Mercury ou Relay ouvert dans la foulée. Carte Visa pro. Vous facturez en dollars dès J+14.</div></div></div>
+          </div>
+        </div>
+
+        <!-- Option Confort teaser -->
+        <div class="confort-teaser" onclick="go('gestion')">
+          <div>
+            <div class="ct-label">Add-on disponible après création</div>
+            <div class="ct-title">Option Confort</div>
+            <div class="ct-desc">Domiciliation · Veille fiscale · Rappels échéances · Support mail illimité</div>
+          </div>
+          <div class="ct-arrow">Sur devis →</div>
+        </div>
+
+        <div class="i-cta">
+          <div><h3>Besoin d'un conseil avant de choisir ?</h3><p>15 min — on vous aide à identifier la bonne formule.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Entretien gratuit →</button>
         </div>
       </div>
     </div>
 
-    <!-- ── ARCHITECTURE ── -->
-    <div class="section" id="architecture">
-      <div class="section-tag">03 — Architecture</div>
-      <h2>Structure complète du site</h2>
+    <!-- BANKING — comparison page -->
+    <div class="pv" id="pv-fintech">
+      <div class="inner" style="min-height:auto;padding-bottom:36px">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><span onclick="go('home')" style="cursor:pointer">Services</span><span class="bc-sep">›</span><strong>Compte bancaire USA</strong></div>
+        <h1 class="i-h1">Compte bancaire USA</h1>
+        <p class="i-sub">Deux options selon votre situation. La fintech si vous démarrez et voulez aller vite. La banque physique si vous visez un ancrage institutionnel durable aux États-Unis.</p>
 
-      <p>Chaque page a un rôle unique dans le parcours. Pas de pages orphelines, pas de contenu sans objectif.</p>
+        <!-- ══ VAULT SHIELD ARTEFACT ══ -->
+        <div class="vault-shield">
+          <h2 class="vault-shield-title">Le Bouclier Juridique<br>comme Arme de Vente Massive</h2>
+          <div class="vault-shield-body">
+            <div class="vault-shield-panel vault-side-weak">
+              <div class="vsp-label">Leur Faiblesse</div>
+              <p class="vsp-text">Les concurrents opèrent en zone grise, risquent le blocage URSSAF/IRS, et vendent du rêve.</p>
+            </div>
+            <div class="vault-shield-center">
+              <img src="vault-door.png" alt="Coffre-fort" class="vault-door-img" onerror="this.style.display='none';document.querySelector('.vault-door-css').style.display='flex'">
+              <div class="vault-door-css" style="display:none">
+                <div class="vd-ring vd-r1"><div class="vd-ring vd-r2"><div class="vd-ring vd-r3"><div class="vd-hub">
+                  <div class="vd-spoke vd-s1"></div><div class="vd-spoke vd-s2"></div><div class="vd-spoke vd-s3"></div>
+                </div></div></div></div>
+                <div class="vd-glow"></div>
+              </div>
+            </div>
+            <div class="vault-shield-panel vault-side-force">
+              <div class="vsp-label vsp-label-force">Votre Force (Le Bouclier)</div>
+              <p class="vsp-text">Vos Conditions Générales de Vente bétonnées, vos juristes, et votre conformité réelle.</p>
+            </div>
+          </div>
+        </div>
 
-      <h3>Pages primaires — conversion directe</h3>
-      <div class="page-grid">
-        <div class="page-card primary">
-          <div class="page-tag">Homepage</div>
-          <h4>/</h4>
-          <p>Porte d'entrée. Capte l'attention, pose l'autorité, qualifie le visiteur, déclenche le premier clic.</p>
-          <div class="page-goal">Déclencher l'appel gratuit</div>
-        </div>
-        <div class="page-card primary">
-          <div class="page-tag">Contact</div>
-          <h4>/contact</h4>
-          <p>Page de conversion finale. Formulaire court, réassurance, disponibilité, zéro friction.</p>
-          <div class="page-goal">Obtenir le formulaire rempli</div>
-        </div>
-        <div class="page-card primary">
-          <div class="page-tag">Créer une LLC</div>
-          <h4>/creer-llc</h4>
-          <p>Page éducative + comparative. Compare les 4 états, explique le processus, pousse vers le contact.</p>
-          <div class="page-goal">Qualifier l'intention → Contact</div>
-        </div>
-        <div class="page-card primary">
-          <div class="page-tag">Tarifs</div>
-          <h4>/tarifs</h4>
-          <p>Page de décision. Présente les offres de façon claire. Diminue la friction financière.</p>
-          <div class="page-goal">Lever l'objection prix → Contact</div>
-        </div>
-      </div>
+        <div class="pack-grid">
+          <!-- Fintech -->
+          <div class="pack-col pack-col-premium a-card">
+            <div class="pack-rec-badge a-badge">Recommandé</div>
+            <div class="pack-name">Banque en ligne (Fintech)</div>
+            <div class="pack-price">dès $600<span> USD</span></div>
+            <div class="pack-tagline">Mercury · Relay · 100% à distance</div>
+            <ul class="pack-list">
+              <li class="pl-yes">100% à distance, pas de déplacement</li>
+              <li class="pl-yes">Compte ouvert en 48h–7 jours</li>
+              <li class="pl-highlight">Multi-devises, carte Visa/Mastercard</li>
+              <li class="pl-yes">Compatible Stripe, PayPal, Wise</li>
+              <li class="pl-yes">Dépôt initial faible</li>
+              <li class="pl-highlight">Inclus dans le Pack Premium</li>
+            </ul>
+            <button class="pack-cta-main" onclick="go('cal-banking')">Ouvrir mon compte Fintech →</button>
+            <p class="pack-savings">Inclus dans le Pack Premium ($1 597)</p>
+          </div>
 
-      <h3>Pages secondaires — autorité & SEO</h3>
-      <div class="page-grid">
-        <div class="page-card">
-          <div class="page-tag">Services</div>
-          <h4>/services/*</h4>
-          <p>Pack LLC · Comptabilité · Fiscalité · Compte bancaire. Détail de l'offre, preuve d'expertise.</p>
-          <div class="page-goal">Renforcer la crédibilité</div>
+          <!-- Banque physique -->
+          <div class="pack-col a-card">
+            <div class="pack-name">Banque physique USA</div>
+            <div class="pack-price" style="font-size:28px">Sur devis</div>
+            <div class="pack-tagline">Bank of America · Chase · Wells Fargo</div>
+            <ul class="pack-list">
+              <li class="pl-no">Déplacement en agence US obligatoire</li>
+              <li class="pl-no">Délai d'ouverture 2–3 mois</li>
+              <li class="pl-yes">Accès aux financements et crédits US</li>
+              <li class="pl-yes">Stabilité institutionnelle</li>
+              <li class="pl-yes">Relations bancaires long terme</li>
+              <li class="pl-no">Dépôt initial important requis</li>
+            </ul>
+            <button class="pack-cta-sec" onclick="go('cal-banking')">Demander un devis →</button>
+            <p class="pack-note">Idéal pour les entreprises établies avec besoin de crédit US</p>
+          </div>
         </div>
-        <div class="page-card">
-          <div class="page-tag">À propos</div>
-          <h4>/a-propos</h4>
-          <p>L'équipe, l'histoire, les partenaires. Humanise le cabinet. Répond à "qui sont ces gens ?"</p>
-          <div class="page-goal">Construire la confiance humaine</div>
-        </div>
-        <div class="page-card">
-          <div class="page-tag">Blog</div>
-          <h4>/blog</h4>
-          <p>Contenu SEO long-terme. Capture les recherches informatives. Nourrit l'autorité organique.</p>
-          <div class="page-goal">Trafic SEO + autorité thématique</div>
-        </div>
-        <div class="page-card">
-          <div class="page-tag">Légal</div>
-          <h4>/mentions-legales · /cgv · /confidentialite</h4>
-          <p>Conformité RGPD et légale. Signal de sérieux. Pas de design fancy nécessaire.</p>
-          <div class="page-goal">Conformité + réassurance</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ── FUNNELS ── -->
-    <div class="section" id="funnels">
-      <div class="section-tag">04 — Conversion</div>
-      <h2>Parcours & funnels</h2>
+        <!-- Comment choisir -->
+        <div class="pack-helper">
+          <div class="pack-helper-h">Comment choisir ?</div>
+          <div class="ph-grid">
+            <div class="ph-col rec">
+              <div class="ph-col-label" style="color:var(--blue)">Fintech si vous…</div>
+              Démarrez votre activité · Voulez aller vite · N'avez pas besoin de crédit US · Facturez en ligne (Stripe, PayPal, Wise)
+            </div>
+            <div class="ph-col">
+              <div class="ph-col-label">Banque physique si vous…</div>
+              Avez besoin d'un financement US · Cherchez des relations institutionnelles durables · Envisagez un établissement physique aux USA
+            </div>
+          </div>
+        </div>
 
-      <p>Trois types de visiteurs arrivent sur le site. Trois parcours différents. Un seul objectif final.</p>
+        <!-- Process steps fintech -->
+        <div class="process-steps-wrap" style="background:rgba(255,255,255,.5);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:12px">3 étapes pour ouvrir votre compte Fintech</div>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="ps-num a-chrome">1</div>
+              <div class="ps-content">
+                <div class="ps-title">Entretien 15 min — on analyse votre profil</div>
+                <div class="ps-desc">On identifie la meilleure solution (Mercury, Relay ou autre) selon votre activité, votre volume et vos intégrations requises.</div>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num a-chrome">2</div>
+              <div class="ps-content">
+                <div class="ps-title">Constitution du dossier — on prépare tout</div>
+                <div class="ps-desc">Votre chargé d'affaires rassemble les documents requis par la fintech et soumet votre dossier en votre nom.</div>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num a-chrome">3</div>
+              <div class="ps-content">
+                <div class="ps-title">Compte ouvert — vous recevez votre IBAN US et votre carte</div>
+                <div class="ps-desc">Accès au dashboard en ligne, carte Visa pro envoyée, intégrations activées. Vous facturez en dollars dès J+7.</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <h3>Parcours 1 — Le décideur rapide (20% des visiteurs)</h3>
-      <p>Connaît déjà la LLC, cherche le prestataire. Veut être rassuré rapidement et agir.</p>
-      <div class="funnel">
-        <div class="funnel-step">
-          <div class="funnel-num">1</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Hero — lecture du headline</div>
-            <div class="funnel-desc">Valide que c'est bien de la LLC française → continue</div>
-          </div>
-          <div class="funnel-kpi">&lt; 5 sec</div>
-        </div>
-        <div class="funnel-step">
-          <div class="funnel-num">2</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Stats bar — scan des chiffres</div>
-            <div class="funnel-desc">10 ans d'expertise, 500+ clients → signal de crédibilité suffisant</div>
-          </div>
-          <div class="funnel-kpi">10 sec</div>
-        </div>
-        <div class="funnel-step highlight">
-          <div class="funnel-num">3</div>
-          <div class="funnel-body">
-            <div class="funnel-title">CTA Hero — clic direct</div>
-            <div class="funnel-desc">Entretien gratuit 15 min → formulaire contact</div>
-          </div>
-          <div class="funnel-kpi">Conversion</div>
-        </div>
-      </div>
-
-      <h3>Parcours 2 — Le chercheur qualifié (50% des visiteurs)</h3>
-      <p>Intéressé mais pas encore convaincu. Doit être éduqué et personnalisé.</p>
-      <div class="funnel">
-        <div class="funnel-step">
-          <div class="funnel-num">1</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Hero → Value Props</div>
-            <div class="funnel-desc">Comprend les avantages de la LLC vs SARL</div>
-          </div>
-        </div>
-        <div class="funnel-step">
-          <div class="funnel-num">2</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Savings Estimator</div>
-            <div class="funnel-desc">Personnalise l'économie potentielle (+39K€/an pour lui) → moment émotionnel</div>
-          </div>
-        </div>
-        <div class="funnel-step">
-          <div class="funnel-num">3</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Teaser cards → /creer-llc</div>
-            <div class="funnel-desc">Explore les juridictions et le processus</div>
-          </div>
-        </div>
-        <div class="funnel-step highlight">
-          <div class="funnel-num">4</div>
-          <div class="funnel-body">
-            <div class="funnel-title">CTA Final ou Testimonials → Contact</div>
-            <div class="funnel-desc">Convaincu par les preuves sociales + processus clair</div>
-          </div>
-          <div class="funnel-kpi">Conversion</div>
-        </div>
-      </div>
-
-      <h3>Parcours 3 — Le sceptique informé (30% des visiteurs)</h3>
-      <p>A des doutes légaux ou fiscaux. Doit être rassuré par la légitimité et l'expertise.</p>
-      <div class="funnel">
-        <div class="funnel-step">
-          <div class="funnel-num">1</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Homepage → /a-propos</div>
-            <div class="funnel-desc">Cherche qui est derrière le cabinet, depuis combien de temps</div>
-          </div>
-        </div>
-        <div class="funnel-step">
-          <div class="funnel-num">2</div>
-          <div class="funnel-body">
-            <div class="funnel-title">/blog → Articles thématiques</div>
-            <div class="funnel-desc">Valide l'expertise sur des sujets fiscaux précis</div>
-          </div>
-        </div>
-        <div class="funnel-step">
-          <div class="funnel-num">3</div>
-          <div class="funnel-body">
-            <div class="funnel-title">Testimonials (spécifiques)</div>
-            <div class="funnel-desc">Pairs dans la même situation = preuve irréfutable</div>
-          </div>
-        </div>
-        <div class="funnel-step highlight">
-          <div class="funnel-num">4</div>
-          <div class="funnel-body">
-            <div class="funnel-title">/contact direct</div>
-            <div class="funnel-desc">Enfin convaincu de la légitimité → appel pour validation</div>
-          </div>
-          <div class="funnel-kpi">Conversion</div>
+        <div class="i-cta">
+          <div><h3>Appel banking dédié</h3><p>Conseil personnalisé · Fintech ou physique — on analyse ensemble.</p></div>
+          <button class="i-cta-btn" onclick="go('cal-banking')">Appel gratuit →</button>
         </div>
       </div>
     </div>
 
-    <!-- ── CTA HIERARCHY ── -->
-    <div class="section" id="cta-hierarchy">
-      <div class="section-tag">05 — CTAs</div>
-      <h2>Hiérarchie des appels à l'action</h2>
+    <!-- GESTION & MAINTENANCE -->
+    <div class="pv" id="pv-gestion">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><span onclick="go('home')" style="cursor:pointer">Accueil</span><span class="bc-sep">›</span><span onclick="go('home')" style="cursor:pointer">Services</span><span class="bc-sep">›</span><strong>Gestion &amp; Maintenance</strong></div>
+        <h1 class="i-h1">Gérez votre LLC<br><em>sans y penser.</em></h1>
+        <p class="i-sub">Pour les entrepreneurs qui ont déjà une LLC et souhaitent déléguer les obligations courantes.</p>
 
-      <p>Chaque page ne peut avoir qu'un seul CTA primaire. Les CTAs secondaires accompagnent, ils ne distraient pas.</p>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Niveau</th><th>Label</th><th>Usage</th><th>Style</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="pill pill-crit">Primaire</span></td>
-              <td><strong>Entretien gratuit — 15 min</strong></td>
-              <td>Hero, CTA Final — une seule fois par page max</td>
-              <td>Rouge solid, pleine largeur mobile</td>
-            </tr>
-            <tr>
-              <td><span class="pill pill-nav">Secondaire</span></td>
-              <td><strong>Voir comment ça marche →</strong></td>
-              <td>Accompagne le CTA primaire pour les hésitants</td>
-              <td>Ghost/transparent, border subtil</td>
-            </tr>
-            <tr>
-              <td><span class="pill pill-nav">Tertiaire</span></td>
-              <td><strong>Comparer les états →</strong></td>
-              <td>Navigation vers pages de contenu</td>
-              <td>Lien texte avec arrow</td>
-            </tr>
-            <tr>
-              <td><span class="pill pill-done">Nav</span></td>
-              <td><strong>Prendre rendez-vous</strong></td>
-              <td>Header — toujours visible</td>
-              <td>Navy solid, header uniquement</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout">
-        <p><strong>Règle :</strong> Ne jamais avoir deux CTAs primaires sur la même page au même niveau de scroll. Le visiteur doit toujours savoir quoi faire — pas choisir entre deux actions.</p>
-      </div>
-    </div>
-
-    <!-- ── FRAMEWORK ── -->
-    <div class="section" id="framework">
-      <div class="section-tag">06 — Méthodologie</div>
-      <h2>Framework 3 Questions × 3 Lentilles</h2>
-
-      <p>Avant de toucher le code d'une section ou d'une page, répondre aux 3 questions. Ensuite passer la réponse dans les 3 lentilles. Sans ce filtre : on fait du design. Avec ce filtre : on fait de la performance.</p>
-
-      <h3>Les 3 questions</h3>
-      <div class="framework">
-        <div class="framework-card">
-          <div class="num">01 — Objectif</div>
-          <h4>Que veut-on obtenir ?</h4>
-          <p>Quelle action précise le visiteur doit-il prendre à cet endroit de la page ? Une seule réponse possible.</p>
+        <!-- Option Confort -->
+        <div class="gestion-block">
+          <div class="gestion-block-h">Option Confort — abonnement</div>
+          <div class="gestion-block-sub">Idéal pour les clients existants qui veulent déléguer l'administratif. Prix sur devis.</div>
+          <div class="cards-grid">
+            <div class="card a-card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Registered Agent + domiciliation</div><div class="card-p">Adresse commerciale US autorisée · Scan 5 courriers/an</div></div>
+            <div class="card a-card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Veille &amp; rappels</div><div class="card-p">Rappels d'échéances fiscales · Veille juridique et fiscale</div></div>
+            <div class="card a-card"><div class="card-tag" style="color:#2a5090">Inclus</div><div class="card-h">Support mail illimité</div><div class="card-p">Réponse sous 48h · Interlocuteur francophone dédié</div></div>
+          </div>
         </div>
-        <div class="framework-card">
-          <div class="num">02 — Pourquoi</div>
-          <h4>Pourquoi c'est critique ici ?</h4>
-          <p>À quel stade du parcours se trouve-t-il ? Quelle objection est active dans son esprit en ce moment ?</p>
-        </div>
-        <div class="framework-card">
-          <div class="num">03 — Comment</div>
-          <h4>Par quel mécanisme ?</h4>
-          <p>Quel levier précis (émotionnel, rationnel, social) active la décision ? Pas "une belle section" — un mécanisme.</p>
-        </div>
-      </div>
 
-      <h3>Les 3 lentilles d'exécution</h3>
-      <div class="lenses">
-        <div class="lens-card lens-copy">
-          <div class="lens-label">Lentille 1</div>
-          <h4>Copywriting</h4>
-          <ul>
-            <li>La promesse est-elle chiffrée et spécifique ?</li>
-            <li>Le visiteur se reconnaît-il en 3 secondes ?</li>
-            <li>Les objections implicites sont-elles adressées ?</li>
-            <li>Le CTA est-il possessif et actionnable ?</li>
-            <li>Y a-t-il de la tension dans chaque headline ?</li>
-          </ul>
+        <div class="i-cta i-cta-dark" style="margin-bottom:32px;">
+          <div><h3>Option Confort — tarif sur devis</h3><p>Abonnement annuel · Tarif selon la complexité de votre situation</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Obtenir un devis →</button>
         </div>
-        <div class="lens-card lens-visual">
-          <div class="lens-label">Lentille 2</div>
-          <h4>Visual Narrative</h4>
-          <ul>
-            <li>L'œil est-il guidé vers l'action ?</li>
-            <li>La section crée-t-elle un moment émotionnel distinct ?</li>
-            <li>Le contraste inter-sections maintient-il l'attention ?</li>
-            <li>Les animations servent-elles la narration ?</li>
-            <li>Le visiteur sait-il intuitivement où regarder ensuite ?</li>
-          </ul>
+
+        <!-- Prestations à la carte -->
+        <div class="gestion-block">
+          <div class="gestion-block-h">Prestations à la carte</div>
+          <div class="gestion-block-sub">Services ponctuels facturés à l'acte.</div>
+          <div class="presta-grid">
+            <div class="presta-item"><div class="presta-name">Annual Report</div><div class="presta-price">dès $299</div></div>
+            <div class="presta-item"><div class="presta-name">Operating Agreement</div><div class="presta-price">dès $600</div></div>
+            <div class="presta-item"><div class="presta-name">Certificate of Good Standing</div><div class="presta-price">dès $100</div></div>
+            <div class="presta-item"><div class="presta-name">Banking Member Resolution</div><div class="presta-price">dès $135</div></div>
+            <div class="presta-item"><div class="presta-name">Gestion Pilotée LLC (1 an)</div><div class="presta-price">$399</div></div>
+            <div class="presta-item"><div class="presta-name">Dissolution de LLC</div><div class="presta-price">dès $699</div></div>
+            <div class="presta-item"><div class="presta-name">Modifications capitalistiques</div><div class="presta-price">dès $1 100</div></div>
+            <div class="presta-item"><div class="presta-name">Rédaction CGV/CGU/PC (RGPD)</div><div class="presta-price">~$1 200</div></div>
+            <div class="presta-item"><div class="presta-name">Identification dépenses déductibles</div><div class="presta-price">dès $400</div></div>
+          </div>
         </div>
-        <div class="lens-card lens-auth">
-          <div class="lens-label">Lentille 3</div>
-          <h4>Autorité High-End</h4>
-          <ul>
-            <li>Chiffres précis (≠ chiffres ronds = marketing)</li>
-            <li>Noms réels, références vérifiables</li>
-            <li>Craft : spacing, typographie, micro-détails</li>
-            <li>Absence de promesses non sourcées</li>
-            <li>Sobriété comme signal de confiance</li>
-          </ul>
+
+        <div style="background:rgba(255,255,255,.5);border-radius:16px;padding:20px 24px;border:1px solid rgba(255,255,255,.8);margin-bottom:24px">
+          <div class="section-h3" style="margin-bottom:8px">Pour les clients existants</div>
+          <p style="font-size:13px;color:rgba(14,30,56,.5);line-height:1.6">Ces prestations sont disponibles pour tout entrepreneur ayant déjà une LLC — qu'elle ait été créée avec nous ou non. Notre CPA agréé IRS reprend votre dossier et assure la conformité.</p>
+        </div>
+
+        <div class="i-cta">
+          <div><h3>Vous avez déjà une LLC ?</h3><p>On reprend votre dossier et on prend en charge la gestion courante.</p></div>
+          <button class="i-cta-btn" onclick="go('cal')">Discuter de ma situation →</button>
         </div>
       </div>
     </div>
 
-    <!-- ── SECTIONS ── -->
-    <div class="section" id="sections">
-      <div class="section-tag">07 — Analyse homepage</div>
-      <h2>Chaque section sous le microscope</h2>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Section</th><th>Objectif</th><th>Mécanisme clé</th><th>Action copy</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Hero</strong></td>
-              <td>Stopper, promettre, déclencher</td>
-              <td>Split layout + "0%" glass panel + fond brumeux + CTA bleu</td>
-              <td>✓ Fond misty blue-gray · glass blanc chrome · "100% légal" visible</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>Stats bar</strong></td>
-              <td>Valider la promesse en 5s</td>
-              <td>Chiffres géants, transition depuis hero</td>
-              <td>✓ "15M€ économisés" · "500+ sociétés" · gradient misty</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>Value Props</strong></td>
-              <td>Détruire l'alternative SARL</td>
-              <td>Ghost numbers + dark bg + tension copy + hover glass</td>
-              <td>✓ "Personne ne peut vous chercher" · "14 jours" · hover border bleu</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>Savings Estimator</strong></td>
-              <td>Personnaliser la promesse</td>
-              <td>Chiffre personnel = ancrage émotionnel</td>
-              <td>Titre → "Votre note fiscale vs votre LLC"</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>Teaser Cards</strong></td>
-              <td>Capturer 2 profils d'acheteurs</td>
-              <td>Card recherche + Card achat — contraste fort</td>
-              <td>Card 1 plus provocateur sur le coût du mauvais choix</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>States Map</strong></td>
-              <td>Démontrer l'expertise geo</td>
-              <td>Interactivité + spécificité par état</td>
-              <td>Nommer les avantages uniques (NM=anonymat, WY=crypto)</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>Process (4 étapes)</strong></td>
-              <td>Désarmer "comment ça marche"</td>
-              <td>Timeline animée + délais précis</td>
-              <td>Copy actuel solide</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>Testimonials</strong></td>
-              <td>Proof sociale chiffrée</td>
-              <td>Pairs + montants + contexte métier</td>
-              <td>Ajouter contexte TNS/statut + avant/après</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-            <tr>
-              <td><strong>CTA Final</strong></td>
-              <td>Dernier filet de conversion</td>
-              <td>Photo forte + faible engagement</td>
-              <td>Copy actuel solide</td>
-              <td><span class="pill pill-done">Fait</span></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- GENERIC pages (filled by JS) -->
+    <div class="pv" id="pv-generic">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb" id="g-crumb"></div>
+        <h1 class="i-h1" id="g-h1"></h1>
+        <p class="i-sub" id="g-sub"></p>
+        <div class="cards-grid" id="g-cards"></div>
+        <div style="margin-top:8px;padding:20px 24px;background:rgba(42,80,144,.05);border-radius:14px;border:1px solid rgba(42,80,144,.1);margin-bottom:24px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#2a5090;margin-bottom:6px">CPA agréé IRS</div>
+          <p style="font-size:13px;color:rgba(14,30,56,.6);line-height:1.6">Toutes nos prestations fiscales sont réalisées et signées par notre CPA agréé IRS. Votre protection en cas de contrôle ou redressement.</p>
+        </div>
+        <div class="i-cta"><div><h3>Une question sur ce service ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
     </div>
 
-    <!-- ── GLASSMORPHISM ── -->
-    <div class="section" id="glassmorphism">
-      <div class="section-tag">08 — Design System</div>
-      <h2>Doctrine glassmorphism</h2>
-
-      <p>Le glassmorphism n'est pas un style — c'est un outil narratif. Utilisé partout, il perd tout sens. Utilisé stratégiquement, il crée les moments premium de la page.</p>
-
-      <div class="callout">
-        <p><strong>Doctrine révisée (v2) :</strong> Le glass fonctionne sur fond clair <em>uniquement avec</em> : chrome border visible, blur 24–32px, shadow layered. C'est le « Liquid Glass » Apple Vision Pro. Sur fond blanc uni plat sans texture = invisible. Le fond doit avoir une texture / couleur (brume bleue) pour que le verre soit visible.</p>
-      </div>
-
-      <h3>Design tokens — Palette officielle</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Token</th><th>Valeur</th><th>Usage</th></tr></thead>
-          <tbody>
-            <tr><td><strong>BG principal</strong></td><td><code>#eef3f9 → #f2f6fb</code></td><td>Hero, sections claires, PageHeader</td></tr>
-            <tr><td><strong>BG dark</strong></td><td><code>#0f1e38 / #0a1628</code></td><td>Value Props, Estimator, Timeline</td></tr>
-            <tr><td><strong>Text primary</strong></td><td><code>#0e1e38</code></td><td>Tous les titres + corps sur fond clair</td></tr>
-            <tr><td><strong>Text muted</strong></td><td><code>#0e1e38/50</code></td><td>Sous-titres, descriptions</td></tr>
-            <tr><td><strong>Accent deep</strong></td><td><code>#2a5090 / #1a3a6a</code></td><td>CTAs primaires, liens actifs</td></tr>
-            <tr><td><strong>Accent mid</strong></td><td><code>#4a80b8 / #6aabde</code></td><td>Icônes, badges, accents visuels</td></tr>
-            <tr><td><strong>Glass card (clair)</strong></td><td><code>rgba(255,255,255,0.78–0.92)</code></td><td>Cards sur fond brumeux</td></tr>
-            <tr><td><strong>Chrome border</strong></td><td><code>rgba(255,255,255,0.88–0.95)</code></td><td>1px top-shine sur toutes les glass cards</td></tr>
-            <tr><td><strong>Zéro rouge</strong></td><td><code>❌ #c0392b</code></td><td>Banni. Le rouge = direct response. On est premium.</td></tr>
-          </tbody>
-        </table>
+    <!-- À PROPOS -->
+    <div class="pv" id="pv-apropos">
+      <div class="inner">
+        <div class="back-btn" onclick="goBack()"><span class="back-arrow">←</span> Retour</div>
+        <div class="i-crumb"><strong>À propos</strong></div>
+        <h1 class="i-h1">Cabinet franco-américain<br><em>depuis 2014</em></h1>
+        <p class="i-sub">500+ sociétés créées. 15M€ d'économies générées. CPA agréé IRS. Une équipe franco-américaine à Miami et Paris.</p>
+        <div class="cards-grid">
+          <div class="card a-card"><div class="card-tag" style="color:#2a5090">Notre différence</div><div class="card-h">CPA agréé IRS</div><div class="card-p">L'un des rares cabinets francophones avec un CPA agréé IRS qui signe personnellement les déclarations.</div></div>
+          <div class="card a-card"><div class="card-tag" style="color:#1a7850">10 ans</div><div class="card-h">500+ LLC · 15M€</div><div class="card-p">500+ sociétés créées depuis 2014. 15M€ d'économies générées. Chargé dédié pour chaque dossier.</div></div>
+        </div>
       </div>
 
-      <div class="glass-rule">
-        <div class="gr-icon gr-ok">✓</div>
-        <div class="gr-content">
-          <strong>Hero "0%" panel</strong>
-          <span>backdrop-blur 24px · bg white/8% · border chrome animé · shadow layered profonde. C'est le premier signal premium — doit être impeccable.</span>
+      <!-- Balance — La différence qui compte -->
+      <div class="section pq-section" id="pq-sec">
+        <div class="section-tag" style="text-align:center">Pourquoi nous</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">La différence qui compte.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 52px;max-width:480px">Deux options pour créer votre LLC américaine.<br>Une seule qui vous protège vraiment.</p>
+
+        <div class="pq-wrap">
+
+          <!-- Colonne gauche — Les autres -->
+          <div class="pq-col pq-col-left">
+            <div class="pq-heading pq-heading-cold">Les autres</div>
+            <div class="pq-cards">
+              <div class="pq-card pq-card-bad"><div class="pqc-h">Enregistrement</div><div class="pqc-tag">LLC uniquement</div></div>
+              <div class="pq-card pq-card-bad"><div class="pqc-h">Aucun CPA</div><div class="pqc-tag">Pas de signature IRS</div></div>
+              <div class="pq-card pq-card-bad"><div class="pqc-h">Support générique</div><div class="pqc-tag">Non spécialisé</div></div>
+              <div class="pq-card pq-card-bad"><div class="pqc-h">Obligations fiscales</div><div class="pqc-tag">Gestion en solo</div></div>
+              <div class="pq-card pq-card-bad"><div class="pqc-h">90% marketing</div><div class="pqc-tag">10% expertise réelle</div></div>
+            </div>
+            <div class="pq-badge pq-badge-cold">~$200</div>
+          </div>
+
+          <!-- Centre — Balance -->
+          <div class="pq-scale-wrap" id="pq-scale-wrap">
+            <div class="pq-shaft"></div>
+            <div class="pq-base"></div>
+            <div class="pq-pivot"></div>
+            <div class="pq-beam" id="pq-beam">
+              <div class="pq-arm pq-arm-l" id="pq-arm-l">
+                <div class="pq-chains"><i></i><i></i><i></i></div>
+                <div class="pq-bowl pq-bowl-cold"></div>
+              </div>
+              <div class="pq-arm pq-arm-r" id="pq-arm-r">
+                <div class="pq-chains"><i></i><i></i><i></i></div>
+                <div class="pq-bowl pq-bowl-warm"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colonne droite — MA SOCIÉTÉ US -->
+          <div class="pq-col pq-col-right">
+            <div class="pq-heading pq-heading-warm">MA SOCIÉTÉ US</div>
+            <div class="pq-cards">
+              <div class="pq-card pq-card-good"><div class="pqc-h">Accompagnement A à Z</div><div class="pqc-tag">Création · banque · déclaration</div></div>
+              <div class="pq-card pq-card-good"><div class="pqc-h">CPA agréé IRS</div><div class="pqc-tag">Signe chaque déclaration</div></div>
+              <div class="pq-card pq-card-good"><div class="pqc-h">Spécialiste certifié</div><div class="pqc-tag">Non-résidents étrangers</div></div>
+              <div class="pq-card pq-card-good"><div class="pqc-h">Depuis 2014</div><div class="pqc-tag">Cabinet franco-américain</div></div>
+              <div class="pq-card pq-card-good"><div class="pqc-h">Chargé dédié</div><div class="pqc-tag">Portail sécurisé inclus</div></div>
+            </div>
+            <div class="pq-badge pq-badge-warm">dès $997</div>
+          </div>
+
         </div>
       </div>
-      <div class="glass-rule">
-        <div class="gr-icon gr-ok">✓</div>
-        <div class="gr-content">
-          <strong>Savings Estimator card</strong>
-          <span>backdrop-blur 32px sur gradient bg · border lumineux · LE moment glassmorphism de la page. Ici le visiteur reçoit son chiffre personnel.</span>
-        </div>
-      </div>
-      <div class="glass-rule">
-        <div class="gr-icon gr-ctx">◐</div>
-        <div class="gr-content">
-          <strong>Value Props — hover uniquement</strong>
-          <span>Au hover, border bleu s'allume. Pas de glass permanent — les cartes dark doivent avoir de la solidité.</span>
-        </div>
-      </div>
-      <div class="glass-rule">
-        <div class="gr-icon gr-ctx">◐</div>
-        <div class="gr-content">
-          <strong>States Map cards</strong>
-          <span>Glass existant sur fond clair — renforcer le chrome border et augmenter le blur pour plus de définition.</span>
-        </div>
-      </div>
-      <div class="glass-rule">
-        <div class="gr-icon gr-no">✗</div>
-        <div class="gr-content">
-          <strong>Boutons CTA — jamais de glass</strong>
-          <span>Les éléments d'action doivent être solides et sans ambiguïté. Glass = hésitation. Bouton = certitude.</span>
-        </div>
-      </div>
-      <div class="glass-rule">
-        <div class="gr-icon gr-no">✗</div>
-        <div class="gr-content">
-          <strong>Stats bar — garder blanc pur</strong>
-          <span>Le contraste blanc/chiffres navy est sa force. Ne pas glassmorphiser — casser ce contraste serait une erreur.</span>
-        </div>
+
+      <div class="inner" style="padding-top:0">
+        <div class="i-cta"><div><h3>Prêt à créer votre LLC ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
     </div>
 
-    <!-- ── COPY ── -->
-    <div class="section" id="copy">
-      <div class="section-tag">09 — Copy</div>
-      <h2>Principes de copywriting</h2>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Principe</th><th>Règle</th><th>Anti-pattern</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Spécificité</strong></td>
-              <td>Chiffres précis : "14 jours", "39 000€/an", "11 experts"</td>
-              <td>"Rapide", "économique", "de qualité"</td>
-            </tr>
-            <tr>
-              <td><strong>Tension</strong></td>
-              <td>Chaque headline doit avoir un enjeu ou une douleur latente</td>
-              <td>"Nos services", "Notre approche", "Découvrez"</td>
-            </tr>
-            <tr>
-              <td><strong>Ciblage</strong></td>
-              <td>Le visiteur doit se reconnaître en 3 secondes</td>
-              <td>Copy générique qui parle à tout le monde</td>
-            </tr>
-            <tr>
-              <td><strong>Possessif</strong></td>
-              <td>CTAs possessifs : "mon", "ma", "votre"</td>
-              <td>"En savoir plus", "Cliquez ici", "Contactez-nous"</td>
-            </tr>
-            <tr>
-              <td><strong>Preuve</strong></td>
-              <td>Chaque claim doit être étayé (chiffre, témoignage, partenaire)</td>
-              <td>"Leader", "Meilleur", "Expert" sans preuve</td>
-            </tr>
-            <tr>
-              <td><strong>Légalité</strong></td>
-              <td>"100% légal · Conforme OCDE · Depuis 2014" visible en above-the-fold</td>
-              <td>Promettre l'optimisation sans adresser la légitimité</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- CAL -->
+    <div class="pv" id="pv-cal">
+      <div class="cal-wrap"><div class="cal-card">
+        <div class="cal-icon">📅</div>
+        <h2 class="cal-h">Réserver votre entretien</h2>
+        <p class="cal-p">15 min · Gratuit · Sans engagement<br>Expert franco-américain</p>
+        <div class="cal-url">→ calendly.com/ypls/decouverte-site</div>
+        <div class="cal-mock">Widget Calendly dans la vraie implémentation.</div>
+      </div></div>
+    </div>
+    <div class="pv" id="pv-cal-banking">
+      <div class="cal-wrap"><div class="cal-card">
+        <div class="cal-icon">🏦</div>
+        <h2 class="cal-h">Appel banking gratuit</h2>
+        <p class="cal-p">Conseil sur votre solution bancaire US.<br>Fintech ou banque physique.</p>
+        <div class="cal-url">→ calendly.com/ypls/entretien-telephonique-compte-bancaire</div>
+        <div class="cal-mock">Widget Calendly dédié banking.</div>
+      </div></div>
     </div>
 
-    <!-- ── ROADMAP ── -->
-    <div class="section" id="roadmap">
-      <div class="section-tag">10 — Exécution</div>
-      <h2>Roadmap</h2>
+  </div><!-- /page-frame -->
 
-      <h3>Sprint 1 — Above the fold <span class="pill pill-done" style="margin-left:8px">Livré</span></h3>
-      <div style="margin: 16px 0 32px;">
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Hero redesign</div>
-            <span class="pill pill-done">Fait</span>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-chrome"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="MA SOCIÉTÉ US" class="footer-logo">
+          <p class="footer-tagline">Cabinet franco-américain spécialisé dans la création et la gestion de sociétés aux États-Unis. Marque déposée Yes Please LLC. Profession comptable et juridique réglementée.</p>
+          <div class="footer-socials">
+            <span class="footer-social">YouTube</span>
+            <span class="footer-social">Facebook</span>
+            <span class="footer-social">Instagram</span>
           </div>
-          <div class="rr-desc">Pivot complet : fond brumeux bleu-gris (#eef3f9), glass blanc chrome sur fond clair, panel "0%" liquid glass, CTA bleu gradient. Zéro rouge.</div>
         </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Stats bar copy</div>
-            <span class="pill pill-done">Fait</span>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <div class="footer-col-label">Services</div>
+            <ul>
+              <li onclick="go('offres')">Pack LLC — $997</li>
+              <li onclick="go('offres')">Pack Premium — $1 597</li>
+              <li onclick="go('fintech')">Compte bancaire USA</li>
+              <li onclick="go('gestion')">Déclaration LLC</li>
+              <li onclick="go('gestion')">Gestion & Maintenance</li>
+              <li onclick="go('tarifs')">Tous les tarifs</li>
+            </ul>
           </div>
-          <div class="rr-desc">"15M€ d'économies générées" · "500+ sociétés créées" · transition gradient depuis hero.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Value Props copy</div>
-            <span class="pill pill-done">Fait</span>
+          <div class="footer-col">
+            <div class="footer-col-label">Cabinet</div>
+            <ul>
+              <li onclick="go('apropos')">À propos</li>
+              <li onclick="go('creer')">Créer ma LLC</li>
+              <li onclick="go('blog')">Blog</li>
+              <li onclick="go('cal')">Contact</li>
+              <li>Portail client ↗</li>
+            </ul>
           </div>
-          <div class="rr-desc">Tension maximale : "Personne ne peut vous chercher" · "14 jours chrono" · "Mercury" nommé · hover glass border bleu.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Estimator dark + glass</div>
-            <span class="pill pill-done">Fait</span>
+          <div class="footer-col">
+            <div class="footer-col-label">Légal</div>
+            <ul>
+              <li>Mentions légales</li>
+              <li>CGV</li>
+              <li>Confidentialité</li>
+            </ul>
           </div>
-          <div class="rr-desc">Fond dark #060e1c + glass card blur 32px + titre "Votre note fiscale France vs. votre LLC." + slider refait pour dark.</div>
+          <div class="footer-col">
+            <div class="footer-col-label">Contact</div>
+            <ul>
+              <li>contact@ma-societe-us.com</li>
+              <li onclick="go('cal')">Réserver un entretien →</li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      <h3>Sprint 2 — Design pivot global <span class="pill pill-done" style="margin-left:8px">Livré</span></h3>
-      <div style="margin: 16px 0 32px;">
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">StatesMap refonte</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">Calquée sur référence image : fond brumeux, états bleu profond type verre d'eau, cards centrées large state name, lignes droites fines.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Palette cohérente</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">Zéro rouge sur tout le site. Accent : #2a5090 / #4a80b8. Testimonials → fond clair glass. Navbar toujours visible.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Teaser cards copy</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">"Le mauvais état coûte jusqu'à 12 000€/an" · "Opérationnel en 14 jours. Garanti." · arrière navy gradient bleu.</div>
-        </div>
-      </div>
-
-      <h3>Sprint 3 — Pages internes <span class="pill pill-done" style="margin-left:8px">Livré</span></h3>
-      <div style="margin: 16px 0 32px;">
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">/creer-llc</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">Hero dark → 6 avantages → comparatif 4 états glass → processus 4 étapes → FAQ accordion → CTA. Zéro rouge, palette cohérente.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">/tarifs</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">3 offres glass (Essentiel/Premium/Pilotée) · prestations complémentaires · garanties · CTA. Palette bleue cohérente.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">/contact</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">Hero strip dark · form 3 champs glass card · réassurance · info colonne · CTA téléphone. Zéro friction.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">/a-propos</div>
-            <span class="pill pill-done">Fait</span>
-          </div>
-          <div class="rr-desc">Hero dark · histoire + valeurs · stats glass · équipe + partenaires. Humanise l'autorité du cabinet.</div>
-        </div>
-      </div>
-
-      <h3>Sprint 4 — À venir</h3>
-      <div style="margin: 16px 0;">
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">StatesMap lignes</div>
-            <span class="pill pill-wip">En cours</span>
-          </div>
-          <div class="rr-desc">Lignes connecteurs état → carte plus visibles et élégantes. Version mobile du layout états.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">/services/*</div>
-            <span class="pill pill-todo">À faire</span>
-          </div>
-          <div class="rr-desc">4 pages services : LLC, Comptabilité, Fiscalité, Compte bancaire. Contenu SEO + conversion. Migrer des Harvey colors vers nouvelle palette.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Blog</div>
-            <span class="pill pill-todo">À faire</span>
-          </div>
-          <div class="rr-desc">Layout articles. SEO. Glass cards sur fond brumeux pour les previews.</div>
-        </div>
-        <div class="roadmap-row">
-          <div class="rr-left">
-            <div class="rr-name">Footer</div>
-            <span class="pill pill-todo">À faire</span>
-          </div>
-          <div class="rr-desc">Vérifier cohérence palette. Lien vers la doc stratégique interne.</div>
-        </div>
-      </div>
+      <div class="footer-bottom">Copyright 2026 — YES PLEASE LLC. Tous droits réservés.</div>
     </div>
+  </footer>
+</div><!-- /browser-wrap -->
 
-  </div><!-- /content -->
-</div><!-- /main -->
+<!-- ANALYSIS -->
+<div class="analysis-toggle" onclick="toggleAn()">
+  <span class="at-lbl">↓ Analyse comparée — 7 options de navigation testées</span>
+  <span class="at-arr" id="atarr">▾</span>
+</div>
+<div class="analysis" id="anlys">
+  <h2 class="an-h">Comparaison — 7 options + option retenue</h2>
+  <p class="an-sub">Score /10 pondéré · Clarté offre ×2 · Autorité premium ×2 · Accès Banking ×1.5 · Conversion ×1.5 · SEO ×1 · Mobile ×1</p>
+  <div class="opts">
+    <div class="opt"><div class="oid">A</div><div><div class="on2">Flat 4 items</div><div class="oitems">LLC · Services · À propos · Blog</div></div><div><div class="opro">Simple, mobile-first</div><div class="ocon">Banking et Déclaration invisibles</div></div><div class="overdict">Cache l'offre. Clients banking perdus.</div><div><div class="oscore lo">5.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">B</div><div><div class="on2">Flat 6 items</div><div class="oitems">LLC · Banking · Décl · E2 · Tarifs · Contact</div></div><div><div class="opro">Tout visible directement</div><div class="ocon">Surcharge, register cheap</div></div><div class="overdict">Dilue l'autorité. Ressemble à un comparateur.</div><div><div class="oscore lo">6.2</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">C</div><div><div class="on2">Dropdown classique</div><div class="oitems">LLC ▾ · Services ▾ · Tarifs · Blog</div></div><div><div class="opro">Familier, bon SEO</div><div class="ocon">Visuellement daté</div></div><div class="overdict">Correct, zéro signal premium.</div><div><div class="oscore mi">6.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">D</div><div><div class="on2">Tab navigation</div><div class="oitems">[ LLC ] [ Banking ] [ Décl ] [ E2 ]</div></div><div><div class="opro">Clarté absolue</div><div class="ocon">Register SaaS, pas cabinet</div></div><div class="overdict">Ressemble à une app. Mauvais signal autorité.</div><div><div class="oscore lo">5.4</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">E</div><div><div class="on2">Mega dropdown 2 col.</div><div class="oitems">LLC ▾ · Services ▾ (Création|Gestion+Banking)</div></div><div><div class="opro">Premium visuellement</div><div class="ocon">Banking noyé dans Gestion · LLC ▾ sans contenu</div></div><div class="overdict">Bien. LLC vide + banking mal servi.</div><div><div class="oscore mi">7.2</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">F</div><div><div class="on2">Sidebar + drawer</div><div class="oitems">Hamburger → drawer latéral desktop</div></div><div><div class="opro">Moderne mobile</div><div class="ocon">Contre-intuitif desktop</div></div><div class="overdict">Mobile OK, desktop non.</div><div><div class="oscore lo">5.1</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">G</div><div><div class="on2">Progressive disclosure</div><div class="oitems">Hero → scroll → anchor nav</div></div><div><div class="opro">Storytelling immersif</div><div class="ocon">Navigation directe impossible</div></div><div class="overdict">Landing page, pas site multi-services.</div><div><div class="oscore mi">6.9</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt"><div class="oid">H</div><div><div class="on2">Mega 3 col. · Services surchargé</div><div class="oitems">LLC (vide) · Services ▾ (Création|Gestion|Banking)</div></div><div><div class="opro">Banking visible en colonne</div><div class="ocon">LLC sans dropdown · Services trop lourd</div></div><div class="overdict">Incohérent. LLC vide ne fait rien.</div><div><div class="oscore mi">7.8</div><div class="oscore-l">/10</div></div></div>
+    <div class="opt rec"><div class="oid r">★</div><div><div class="on2">Créer ma LLC ▾ + Services ▾</div><span class="obadge">Version testée ici</span><div class="oitems" style="margin-top:5px;font-weight:500">LLC ▾ (Offres|États) · Services ▾ (Banking|Gestion) · À propos · Blog</div></div><div><div class="opro">LLC ▾ : 2 offres + 4 États avec argument</div><div class="opro" style="margin-top:3px">Services ▾ : Banking + toute la Gestion — rien de skippé</div><div class="opro" style="margin-top:3px">2 dropdowns équilibrés, cohérents, aérés</div><div class="ocon">2 dropdowns à implémenter (vs 1)</div></div><div class="overdict r">Architecture par intention visiteur. Aucun service skippé. Propre, premium, cohérent.</div><div><div class="oscore hi">9.2</div><div class="oscore-l">/10</div></div></div>
+  </div>
+</div>
 
 <script>
-  // Progress bar
-  window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    document.getElementById('progress').style.width = pct + '%';
+// ─── Data ───────────────────────────────────────────
+const urls = {
+  home:'ma-societe-us.com', creer:'ma-societe-us.com/creer-llc',
+  'pack-llc':'ma-societe-us.com/creer-llc/pack-llc',
+  'pack-premium':'ma-societe-us.com/creer-llc/pack-premium',
+  nm:'ma-societe-us.com/creer-llc/nouveau-mexique',
+  co:'ma-societe-us.com/creer-llc/colorado',
+  wy:'ma-societe-us.com/creer-llc/wyoming',
+  de:'ma-societe-us.com/creer-llc/delaware',
+  fintech:'ma-societe-us.com/services/compte-bancaire',
+  bphysique:'ma-societe-us.com/services/compte-bancaire',
+  decl:'ma-societe-us.com/services/declaration-llc',
+  confort:'ma-societe-us.com/services/option-confort',
+  e2:'ma-societe-us.com/services/visa-e2',
+  presta:'ma-societe-us.com/tarifs',
+  tarifs:'ma-societe-us.com/tarifs',
+  apropos:'ma-societe-us.com/a-propos',
+  blog:'ma-societe-us.com/blog',
+  cal:'ma-societe-us.com/contact',
+  'cal-banking':'ma-societe-us.com/contact/banking',
+};
+
+const states = {
+  nm:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Nouveau-Mexique</strong>', h1:'LLC au Nouveau-Mexique<br><em>Anonymat total</em>', sub:"Votre nom n'apparaît dans aucun registre public américain. Idéal pour les entrepreneurs discrets.", cards:[{l:'Avantage clé',h:'0 registre public',p:"Ni votre nom ni votre adresse dans les registres du Nouveau-Mexique."},{l:'Avantage',h:'Pas de rapport annuel',p:"Aucun rapport annuel requis. Administration minimale."},{l:'Idéal pour',h:'Votre profil',p:"Consultant · Coach · Prestataire de services · Entrepreneurs discrets."}]},
+  co:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Colorado</strong>', h1:'LLC au Colorado<br><em>En 24 heures</em>', sub:"Le délai le plus rapide des États-Unis. Une opportunité urgente ? La LLC Colorado est prête en un jour ouvré.", cards:[{l:'Avantage clé',h:'Traitement en 24h',p:"Le Secretary of State du Colorado traite les immatriculations en 24h ouvrées."},{l:'Fiscalité',h:'Pas de franchise tax',p:"Aucune taxe annuelle fixe. Impôt étatique plafonné à 4.4%."},{l:'Idéal pour',h:'Votre profil',p:"E-commerce · SaaS · Freelance digital · Prestataire pressé."}]},
+  wy:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Wyoming</strong>', h1:'LLC au Wyoming<br><em>Pro-crypto &amp; Web3</em>', sub:"L'État le plus favorable aux actifs numériques aux USA. Crypto, NFT, DAO — reconnus légalement.", cards:[{l:'Avantage clé',h:'DAOs reconnues légalement',p:"1er État à légiférer sur les DAO. Structure robuste pour tout projet Web3."},{l:'Fiscalité',h:'0% impôt crypto étatique',p:"Le Wyoming ne taxe pas les plus-values crypto au niveau étatique."},{l:'Idéal pour',h:'Votre profil',p:"Trader crypto · DeFi · NFT · Projets blockchain."}]},
+  de:{ crumb:'<span>Créer ma LLC</span><span class="bc-sep">›</span><strong>Delaware</strong>', h1:'LLC au Delaware<br><em>Levée de fonds</em>', sub:"68% des Fortune 500 incorporées au Delaware. Le signal qu'attendent les investisseurs.", cards:[{l:'Avantage clé',h:'Référence des investisseurs',p:"Les VC exigent souvent une structure Delaware. Indispensable pour lever des fonds en Amérique."},{l:'Juridique',h:'Court of Chancery',p:"Tribunal spécialisé en droit des sociétés, le plus expérimenté du monde."},{l:'Idéal pour',h:'Votre profil',p:"Startup · SaaS · Entrepreneurs ciblant des investisseurs américains."}]},
+};
+
+const generics = {
+  decl:{ crumb:'Services / <strong>Déclaration LLC</strong>', h1:'Déclaration LLC<br><em>dès $800</em>', sub:'CPA agréé IRS qui signe personnellement. Protection contre redressement IRS. Guide déclaration française inclus.', cards:[{t:'#2a5090',l:'Différenciant',h:'CPA agréé IRS',p:"Notre CPA signe personnellement chaque déclaration. Pas un prestataire offshore."},{t:'#1a7850',l:'Inclus',h:'Guide déclaration française',p:"Optimisation fiscale des deux côtés de l'Atlantique. Comment déclarer vos revenus LLC en France."}]},
+  confort:{ crumb:'Services / <strong>Option Confort</strong>', h1:'Option Confort<br><em>Domiciliation & Veille</em>', sub:'Registered Agent + adresse commerciale + scan courriers + rappels échéances + veille fiscale + support mail 48h.', cards:[{t:'#1a7850',l:'Inclus',h:'Domiciliation complète',p:"Adresse commerciale + Registered Agent + scan 5 courriers/an."},{t:'#2a5090',l:'Inclus',h:'Veille &amp; rappels',p:"Rappels automatiques des échéances. Support mail réponse 48h."}]},
+  e2:{ crumb:'Services / <strong>Visa E2</strong>', h1:'Visa E2<br><em>Immigration USA</em>', sub:"Immigrer aux USA par l'entrepreneuriat. Taux de succès quasi 100%. 150 000 Français aux USA.", cards:[{t:'#2a5090',l:'Service complet',h:'A à Z visa E2',p:"Business plan + dossier + avocat immigration + préparation entretien + suivi ambassade."},{t:'#1a7850',l:'Chiffres clés',h:'~100% de succès',p:"10+ ans d'expérience visa E2. Pas de déplacement US requis pendant le traitement."}]},
+  presta:{ crumb:'Services / <strong>Prestations additionnelles</strong>', h1:'Prestations\nadditionnelles', sub:'Annual report, Operating Agreement, Certificate of Good Standing, dissolution, CGV/CGU, modifications capitalistiques.', cards:[{t:'#2a5090',l:'Maintenance',h:'Annual Report — $299',p:"Obligatoire dans certains États pour maintenir la LLC en règle."},{t:'#1a7850',l:'Juridique',h:'Operating Agreement — $600',p:"Document fondateur qui régit le fonctionnement de votre LLC."},{t:'#a05a14',l:'Dissolution',h:'Dissolution — $699',p:"Fermeture propre et légale de votre LLC aux États-Unis."}]},
+  apropos:{ crumb:'<strong>À propos</strong>', h1:'Cabinet franco-américain<br><em>depuis 2014</em>', sub:"500+ sociétés créées. 15M€ d'économies générées. CPA agréé IRS. Une équipe franco-américaine à Miami et Paris.", cards:[{t:'#2a5090',l:'Notre différence',h:'CPA agréé IRS',p:"L'un des rares cabinets francophones avec un CPA agréé IRS qui signe personnellement les déclarations."},{t:'#1a7850',l:'10 ans',h:'500+ LLC · 15M€',p:"500+ sociétés créées depuis 2014. 15M€ d'économies générées. Chargé dédié pour chaque dossier."}]},
+  blog:{ crumb:'<strong>Blog</strong>', h1:'Blog<br><em>Ressources & Guides</em>', sub:"Tout savoir sur la LLC américaine, la fiscalité franco-américaine et l'immigration entrepreneuriale.", cards:[{t:'#2a5090',l:'Populaire',h:'LLC et fiscalité française',p:"Comment déclarer vos revenus d'une LLC américaine en France. Guide complet 2026."},{t:'#1a7850',l:'Guide',h:'Quel État choisir ?',p:"NM vs CO vs WY vs DE — comparaison complète."}]},
+  bphysique:{ crumb:'Services / Banking / <strong>Banque physique</strong>', h1:'Banque physique USA<br><em>Stabilité institutionnelle</em>', sub:'Pour les entreprises nécessitant crédit, financement ou relations institutionnelles. Délai 2-3 mois.', cards:[{t:'#a05a14',l:'Avantage',h:'Accès aux financements',p:"Crédits commerciaux, lignes de crédit, relations bancaires long terme."},{t:'#2a5090',l:'À noter',h:'Déplacement requis',p:"Rendez-vous physique en agence US obligatoire. Dépôt initial important. Délai 2-3 mois."}]},
+  tarifs:{ crumb:'<strong>Tarifs</strong>', h1:'Tous nos tarifs', sub:'Pack LLC $997 · Pack Premium $1 597 · Déclaration LLC dès $800 · Banking dès $600 · Prestations dès $100.', cards:[{t:'#2a5090',l:'Création',h:'Pack LLC — $997',p:"LLC + EIN + documents légaux + chargé dédié + portail client"},{t:'#1a7850',l:'Création + Banking',h:'Pack Premium — $1 597',p:"Tout le Pack LLC + compte Mercury ouvert. Carte Visa incluse."},{t:'#a05a14',l:'Gestion',h:'Déclaration LLC — dès $800',p:"CPA agréé IRS · Signature personnelle · Guide FR"},{t:'#2a5090',l:'Gestion',h:'Confort · E2 · Prestations',p:"Domiciliation · Visa E2 · Annual report · CGV · Dissolution"}]},
+};
+
+// ─── State ──────────────────────────────────────────
+let openDD = null;
+let pageHistory = ['home'];
+
+function goBack() {
+  if (pageHistory.length > 1) {
+    pageHistory.pop();
+    const prev = pageHistory[pageHistory.length - 1];
+    showPage(prev, true);
+    updateBackBtns();
+  }
+}
+function updateBackBtns() {
+  const show = pageHistory.length > 1;
+  document.querySelectorAll('.back-btn').forEach(b => b.style.display = show ? 'flex' : 'none');
+}
+
+const HP_STATES = {
+  nm: {
+    name: 'Nouveau-Mexique', abbr: 'NM', tag: 'Anonymat total',
+    color: '#1a3a6a', colorBg: '#dce8f5',
+    pitch: 'La juridiction la plus discrète des USA. Aucun registre public des associés — votre identité reste confidentielle.',
+    perks: ['Aucun registre public des associés','Identité du fondateur 100% protégée','Frais de création parmi les plus bas des USA','Idéal pour les activités digitales et e-commerce'],
+    highlight: 'Anonymat', timing: '14 jours', page: 'nm'
+  },
+  co: {
+    name: 'Colorado', abbr: 'CO', tag: 'LLC en 24 heures',
+    color: '#1a3a6a', colorBg: '#dce8f5',
+    pitch: 'La LLC la plus rapide à obtenir. Opérationnelle en moins de 24h, avec un environnement fiscal très favorable.',
+    perks: ['Immatriculation express en moins de 24h','Environnement business pro-entrepreneur','Taxes d\'État compétitives','Idéal pour freelances et startups en croissance'],
+    highlight: 'Rapidité', timing: '24 heures', page: 'co'
+  },
+  wy: {
+    name: 'Wyoming', abbr: 'WY', tag: 'Pro-crypto & Web3',
+    color: '#1a3a6a', colorBg: '#dce8f5',
+    pitch: 'Le seul État américain à avoir légalisé les DAO. Protection maximale des actifs crypto et patrimoine personnel.',
+    perks: ['DAO (organisations crypto) juridiquement reconnues','Actifs crypto légalement protégés','Aucune taxe d\'État sur le revenu','Idéal pour projets Web3 et blockchain'],
+    highlight: 'Crypto/DAO', timing: '14 jours', page: 'wy'
+  },
+  de: {
+    name: 'Delaware', abbr: 'DE', tag: 'Standard levée de fonds',
+    color: '#1a3a6a', colorBg: '#dce8f5',
+    pitch: 'La référence mondiale pour les VC et investisseurs. Si vous levez des fonds, le Delaware est un standard incontournable.',
+    perks: ['Référence n°1 pour les investisseurs et VC','Tribunal spécialisé (Court of Chancery)','Structure optimale pour lever des fonds','Idéal pour startups visant une levée ou une IPO'],
+    highlight: 'Levée fonds', timing: '14 jours', page: 'de'
+  },
+  ca: {
+    name: 'Californie', abbr: 'CA', tag: 'Marques & Tech premium',
+    color: '#1a3a6a', colorBg: '#dce8f5',
+    pitch: 'La plus grande économie des USA. Le choix stratégique pour les marques premium, le media, la tech et les entreprises à forte croissance.',
+    perks: ['Écosystème VC et investisseurs au niveau mondial','Prestige de la Silicon Valley pour vos clients','Accès direct aux marchés financiers américains','Idéal pour les marques digitales et startups tech'],
+    highlight: 'Tech & Prestige', timing: '10 jours', page: 'ca'
+  },
+  fl: {
+    name: 'Floride', abbr: 'FL', tag: 'Zéro impôt d\'État',
+    color: '#1a3a6a', colorBg: '#dce8f5',
+    pitch: 'Pas d\'impôt sur le revenu des particuliers. Un paradis fiscal légal pour les entrepreneurs en croissance rapide.',
+    perks: ['Aucun impôt sur le revenu des particuliers','Fiscalité parmi les plus favorables des USA','Hub international Miami — accès Amérique Latine','Idéal pour e-commerce, finance et entrepreneurs nomades'],
+    highlight: 'Zéro impôt', timing: '10 jours', page: 'fl'
+  }
+};
+
+let activeHpState = 'nm';
+let hpPanelTimer = null;
+
+/* ── Hero map interactivity ── */
+const hmKeyPaths = {};
+
+function hmActivate(key) {
+  document.querySelectorAll('.hm-ann').forEach(el => {
+    const k = el.id.replace('hm-ann-', '');
+    el.classList.toggle('hm-active', k === key);
+    el.classList.toggle('hm-dimmed', k !== key);
+  });
+  Object.entries(hmKeyPaths).forEach(([k, el]) => {
+    el.classList.toggle('hm-state-active', k === key);
+    el.classList.toggle('hm-state-dimmed', k !== key);
+    el.setAttribute('stroke-width', k === key ? '2.5' : '1.2');
+  });
+}
+
+function hmReset() {
+  document.querySelectorAll('.hm-ann').forEach(el => el.classList.remove('hm-active', 'hm-dimmed'));
+  Object.values(hmKeyPaths).forEach(el => {
+    el.classList.remove('hm-state-active', 'hm-state-dimmed');
+    el.setAttribute('stroke-width', '1.2');
+  });
+}
+
+function _hpMapActivate(key) {
+  const map = document.getElementById('us-map-hp');
+  if (!map) return;
+  map.classList.add('has-hover');
+  map.querySelectorAll('.key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-hp');
+  if (el) el.classList.add('active');
+}
+
+function _hpPanelUpdate(key, animate) {
+  if (!HP_STATES[key]) return;
+  const d = HP_STATES[key];
+  // Tabs
+  document.querySelectorAll('.hp-stab').forEach(t => t.classList.remove('sel'));
+  const tab = document.getElementById('stab-' + key);
+  if (tab) tab.classList.add('sel');
+  // Liquid callout cards
+  document.querySelectorAll('.hp-co').forEach(c => c.classList.remove('sel'));
+  const coCard = document.getElementById('lq-' + key);
+  if (coCard) coCard.classList.add('sel');
+  const inner = document.getElementById('hd-inner');
+  if (!inner) return;
+  const doUpdate = () => {
+    document.getElementById('hd-abbr').textContent = d.abbr;
+    document.getElementById('hd-abbr').style.background = d.colorBg;
+    document.getElementById('hd-abbr').style.color = d.color;
+    document.getElementById('hd-tag').textContent = d.tag;
+    document.getElementById('hd-name').textContent = d.name;
+    document.getElementById('hd-pitch').textContent = d.pitch;
+    document.getElementById('hd-highlight').textContent = d.highlight;
+    document.getElementById('hd-highlight').style.color = d.color;
+    document.getElementById('hd-perks').innerHTML = d.perks.map(p =>
+      `<div class="hd-perk"><span class="hd-perk-check" style="background:${d.color}">✓</span>${p}</div>`
+    ).join('');
+    const cta = document.getElementById('hd-cta');
+    cta.style.background = `linear-gradient(135deg, ${d.color}dd, ${d.color})`;
+    cta.textContent = `Créer ma LLC au ${d.name} →`;
+    cta.onclick = () => go(d.page);
+    inner.classList.remove('fade');
+    inner.classList.add('in');
+    setTimeout(() => inner.classList.remove('in'), 250);
+  };
+  if (animate) {
+    inner.classList.add('fade');
+    clearTimeout(hpPanelTimer);
+    hpPanelTimer = setTimeout(doUpdate, 130);
+  } else {
+    doUpdate();
+  }
+}
+
+/* Hover: highlight map only (quick preview) */
+function hpHover(key) {
+  _hpMapActivate(key);
+}
+
+/* Click (or tab click): lock selection + update panel */
+function hpSelect(key) {
+  if (!HP_STATES[key]) return;
+  const changed = activeHpState !== key;
+  activeHpState = key;
+  _hpMapActivate(key);
+  _hpPanelUpdate(key, changed);
+}
+
+/* Mouse leaves map area: restore locked selection */
+function hpMapLeave() {
+  if (activeHpState) {
+    _hpMapActivate(activeHpState);
+  } else {
+    const map = document.getElementById('us-map-hp');
+    if (map) { map.classList.remove('has-hover'); map.querySelectorAll('.key').forEach(el => el.classList.remove('active')); }
+  }
+}
+function hpLeave() { /* individual state leave — handled by map container */ }
+
+function toggleDD(id) {
+  openDD === id ? closeAll() : openDD_(id);
+}
+function openDD_(id) {
+  closeAll(false);
+  openDD = id;
+  document.getElementById('dd-' + id).classList.add('show');
+  document.getElementById('backdrop').classList.add('show');
+  document.getElementById('nl-' + id).classList.add('dd-active');
+}
+function closeAll(resetOpen = true) {
+  document.querySelectorAll('.dd-panel').forEach(p => p.classList.remove('show'));
+  document.getElementById('backdrop').classList.remove('show');
+  document.querySelectorAll('.nl').forEach(l => l.classList.remove('dd-active'));
+  document.querySelectorAll('.dd-offer.hl,.dd-state.hl,.dd-service.hl').forEach(e => e.classList.remove('hl'));
+  if (resetOpen) openDD = null;
+}
+
+function prev(key, el) {
+  document.querySelectorAll('.dd-offer.hl,.dd-state.hl,.dd-service.hl').forEach(e => e.classList.remove('hl'));
+  el.classList.add('hl');
+  showPage(key, false);
+}
+
+function go(key) {
+  closeAll();
+  if (pageHistory[pageHistory.length - 1] !== key) pageHistory.push(key);
+  showPage(key, true);
+  updateBackBtns();
+}
+
+function showPage(key, updateNav) {
+  document.querySelectorAll('.pv').forEach(v => v.classList.remove('on'));
+
+  if (updateNav) {
+    document.querySelectorAll('.nl').forEach(l => l.classList.remove('active'));
+    if (['creer','pack-llc','pack-premium','offres','nm','co','wy','de'].includes(key)) document.getElementById('nl-llc').classList.add('active');
+    else if (['fintech','bphysique','decl','confort','e2','presta','gestion','tarifs','cal-banking'].includes(key)) document.getElementById('nl-svc').classList.add('active');
+    else if (key === 'apropos') document.getElementById('nl-apropos').classList.add('active');
+    else if (key === 'blog') document.getElementById('nl-blog').classList.add('active');
+  }
+
+  if (key === 'home') { document.getElementById('pv-home').classList.add('on'); }
+  else if (key === 'creer') { document.getElementById('pv-creer').classList.add('on'); }
+  else if (key === 'pack-llc' || key === 'offres') { document.getElementById('pv-offres').classList.add('on'); }
+  else if (key === 'pack-premium') { document.getElementById('pv-offres').classList.add('on'); }
+  else if (key === 'gestion') { document.getElementById('pv-gestion').classList.add('on'); }
+  else if (key === 'fintech') { document.getElementById('pv-fintech').classList.add('on'); }
+  else if (key === 'cal') { document.getElementById('pv-cal').classList.add('on'); }
+  else if (key === 'cal-banking') { document.getElementById('pv-cal-banking').classList.add('on'); }
+  else if (states[key]) {
+    const s = states[key];
+    document.getElementById('st-crumb').innerHTML = s.crumb;
+    document.getElementById('st-h1').innerHTML = s.h1;
+    document.getElementById('st-sub').textContent = s.sub;
+    document.getElementById('st-cards').innerHTML = s.cards.map(c => `<div class="card a-card"><div class="card-tag">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    document.getElementById('pv-state').classList.add('on');
+  } else if (key === 'apropos') {
+    document.getElementById('pv-apropos').classList.add('on');
+  } else if (generics[key]) {
+    const g = generics[key];
+    document.getElementById('g-crumb').innerHTML = g.crumb;
+    document.getElementById('g-h1').innerHTML = g.h1.replace('\n','<br>');
+    document.getElementById('g-sub').textContent = g.sub;
+    document.getElementById('g-cards').innerHTML = g.cards.map(c => `<div class="card a-card"><div class="card-tag">${c.l}</div><div class="card-h">${c.h}</div><div class="card-p">${c.p}</div></div>`).join('');
+    document.getElementById('pv-generic').classList.add('on');
+  } else { document.getElementById('pv-home').classList.add('on'); }
+}
+
+function toggleAn() {
+  const a = document.getElementById('anlys'), arr = document.getElementById('atarr');
+  const open = a.classList.toggle('open');
+  arr.classList.toggle('open', open);
+  if (open) setTimeout(() => a.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+function msTab(el, goAnalysis) {
+  dpActivate(el);
+  if (goAnalysis) {
+    document.getElementById('anlys').classList.add('open');
+    document.getElementById('atarr').classList.add('open');
+    setTimeout(() => document.getElementById('anlys').scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+function initTimelineMobile() {
+  if (window.innerWidth > 768) return;
+  const wrap = document.getElementById('tl-wrap');
+  if (!wrap) return;
+
+  // Inject beam elements
+  const track = document.createElement('div');
+  track.className = 'tl-beam-track';
+  const fill = document.createElement('div');
+  fill.className = 'tl-beam-fill';
+  wrap.appendChild(track); wrap.appendChild(fill);
+
+  const steps = Array.from(wrap.querySelectorAll('.tl-step'));
+
+  // IntersectionObserver — fade+slide each step in
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('tl-visible'); });
+  }, { threshold: 0.25 });
+  steps.forEach(s => obs.observe(s));
+
+  // Scroll — smoothly draw the beam
+  function updateBeam() {
+    const wrapRect = wrap.getBoundingClientRect();
+    const trigger = window.innerHeight * 0.70;
+    const progress = Math.min(1, Math.max(0, (trigger - wrapRect.top) / wrapRect.height));
+    const totalH = wrapRect.height - 46;
+    fill.style.height = Math.max(0, progress * totalH) + 'px';
+  }
+  window.addEventListener('scroll', updateBeam, { passive: true });
+  updateBeam();
+}
+
+async function buildHeroMap() {
+  const container = document.getElementById('hm-map-svg');
+  if (!container) return;
+
+  const theme = document.documentElement.getAttribute('data-theme') || 'liquid';
+  const TC = {
+    liquid: {
+      grad0: 'rgba(80,130,200,.72)', grad1: 'rgba(42,80,144,.42)',
+      stroke: 'rgba(42,80,144,.52)', strokeH: 'rgba(42,80,144,.92)',
+      bgFill: 'rgba(42,80,144,.04)', bgStroke: 'rgba(42,80,144,.09)', glow: true
+    },
+    dark: {
+      grad0: 'rgba(225,190,105,.78)', grad1: 'rgba(160,130,60,.44)',
+      stroke: 'rgba(225,190,105,.5)', strokeH: 'rgba(225,190,105,.9)',
+      bgFill: 'rgba(244,242,238,.055)', bgStroke: 'rgba(244,242,238,.12)', glow: false
+    },
+    vault: {
+      grad0: 'rgba(160,120,68,.72)', grad1: 'rgba(100,70,28,.44)',
+      stroke: 'rgba(120,88,48,.52)', strokeH: 'rgba(120,88,48,.9)',
+      bgFill: 'rgba(100,70,28,.05)', bgStroke: 'rgba(100,70,28,.10)', glow: true
+    }
+  };
+  const c = TC[theme] || TC.liquid;
+
+  const FIPS = { '56':'wy','08':'co','35':'nm','10':'de','06':'ca','12':'fl' };
+
+  let topo;
+  try {
+    topo = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json());
+  } catch(e) { return; }
+
+  const geojson = topojson.feature(topo, topo.objects.states);
+  const W = 900, H = 380;
+  const proj = d3.geoAlbersUsa().fitSize([W, H], geojson);
+  const pathGen = d3.geoPath(proj);
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('id', 'hm-svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.cssText = 'display:block;width:100%;height:auto';
+
+  const defs = document.createElementNS(NS, 'defs');
+  defs.innerHTML = `
+    <filter id="hm-state-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="hm-state-grad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%"   stop-color="${c.grad0}"/>
+      <stop offset="100%" stop-color="${c.grad1}"/>
+    </radialGradient>`;
+  svg.appendChild(defs);
+
+  // West→East stagger order for intro animation
+  const HM_STAGGER = { ca:0, wy:1, nm:2, co:3, de:4, fl:5 };
+
+  const centroids = {};
+  const allPaths = [], keyPaths = [];
+
+  geojson.features.forEach(feat => {
+    const fips = String(feat.id).padStart(2,'0');
+    const key = FIPS[fips];
+    const d = pathGen(feat);
+    if (!d) return;
+    const el = document.createElementNS(NS, 'path');
+    el.setAttribute('d', d);
+    if (key) {
+      el.setAttribute('data-key', key);
+      el.setAttribute('fill', 'url(#hm-state-grad)');
+      el.setAttribute('stroke', c.stroke);
+      el.setAttribute('stroke-width', '1.2');
+      if (c.glow) el.setAttribute('filter', 'url(#hm-state-glow)');
+      el.classList.add('hm-state-path');
+      el.style.cursor = 'pointer';
+      // Intro animation: staggered west→east
+      const sIdx = HM_STAGGER[key] ?? 0;
+      el.style.animation = `hm-state-in 1.1s ease-out ${0.3 + sIdx * 0.14}s both`;
+      hmKeyPaths[key] = el;
+      el.addEventListener('mouseenter', () => hmActivate(key));
+      el.addEventListener('mouseleave', () => hmReset());
+      el.addEventListener('click', () => go(key));
+      const ct = pathGen.centroid(feat);
+      if (ct && !isNaN(ct[0])) centroids[key] = ct;
+      keyPaths.push(el);
+    } else {
+      el.setAttribute('fill', c.bgFill);
+      el.setAttribute('stroke', c.bgStroke);
+      el.setAttribute('stroke-width', '0.4');
+      allPaths.push(el);
+    }
   });
 
-  // Active nav item
-  const sections = document.querySelectorAll('.section[id]');
-  const navItems = document.querySelectorAll('.nav-item[href^="#"]');
+  allPaths.forEach(p => svg.appendChild(p));
+  keyPaths.forEach(p => svg.appendChild(p));
 
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navItems.forEach(n => n.classList.remove('active'));
-        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
+
+  container.appendChild(svg);
+
+  // Draw connecting lines after layout
+  requestAnimationFrame(() => {
+    setTimeout(() => _drawHeroLines(centroids, W, H), 60);
+  });
+}
+
+function _drawHeroLines(centroids, W, H) {
+  const lineSvg = document.getElementById('hm-lines-svg');
+  const mapSvg  = document.getElementById('hm-svg');
+  const outer   = document.getElementById('hm-map-bg');
+  if (!lineSvg || !mapSvg || !outer) return;
+
+  const outerRect = outer.getBoundingClientRect();
+  const mapRect   = mapSvg.getBoundingClientRect();
+  if (!outerRect.width || !mapRect.width) return;
+
+  const theme = document.documentElement.getAttribute('data-theme') || 'liquid';
+  const LC = {
+    liquid: { line: 'rgba(42,80,144,.55)', cDot: 'rgba(42,80,144,.42)', sRing: 'rgba(42,80,144,.16)', sDot: 'rgba(42,80,144,.62)' },
+    dark:   { line: 'rgba(225,190,105,.58)', cDot: 'rgba(225,190,105,.48)', sRing: 'rgba(225,190,105,.20)', sDot: 'rgba(225,190,105,.70)' },
+    vault:  { line: 'rgba(120,88,48,.55)', cDot: 'rgba(120,88,48,.42)', sRing: 'rgba(120,88,48,.16)', sDot: 'rgba(120,88,48,.62)' }
+  };
+  const lc = LC[theme] || LC.liquid;
+
+  // Scale factors: SVG coords → screen → outer-relative
+  const scaleX = mapRect.width  / W;
+  const scaleY = mapRect.height / H;
+  const mapOffX = mapRect.left - outerRect.left;
+  const mapOffY = mapRect.top  - outerRect.top;
+
+  lineSvg.setAttribute('viewBox', `0 0 ${outerRect.width} ${outerRect.height}`);
+
+  const annMap = { wy:'hm-ann-wy', co:'hm-ann-co', ca:'hm-ann-ca', de:'hm-ann-de', nm:'hm-ann-nm', fl:'hm-ann-fl' };
+  const edgeMap = { wy:'right', co:'left', ca:'right', de:'left', nm:'right', fl:'left' };
+
+  Object.entries(centroids).forEach(([key, [cx, cy]]) => {
+    const annId = annMap[key];
+    if (!annId) return;
+    const ann = document.getElementById(annId);
+    if (!ann) return;
+
+    const aRect = ann.getBoundingClientRect();
+    const edge  = edgeMap[key] || 'right';
+
+    const ax = edge === 'right'
+      ? aRect.right  - outerRect.left
+      : aRect.left   - outerRect.left;
+    const ay = (aRect.top + aRect.bottom) / 2 - outerRect.top;
+
+    const sx = cx * scaleX + mapOffX;
+    const sy = cy * scaleY + mapOffY;
+
+    const NS2 = 'http://www.w3.org/2000/svg';
+
+    // Line stagger: lines draw after states, west→east
+    const lineOrder = { ca:0, wy:1, nm:2, co:3, de:4, fl:5 };
+    const lIdx = lineOrder[key] ?? 0;
+    const lineDelay = 1.4 + lIdx * 0.12;
+    const cardDelay = lineDelay + 0.55;
+
+    const path = document.createElementNS(NS2, 'path');
+    path.setAttribute('d', `M ${ax} ${ay} L ${sx} ${ay} L ${sx} ${sy}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', lc.line);
+    path.setAttribute('stroke-width', '1.2');
+    path.setAttribute('stroke-linecap', 'round');
+    lineSvg.appendChild(path);
+    // Draw animation — must be after append so getTotalLength works
+    requestAnimationFrame(() => {
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      path.style.animation = `hm-line-draw 0.75s ease-in-out ${lineDelay}s forwards`;
     });
-  }, { rootMargin: '-20% 0px -60% 0px' });
 
-  sections.forEach(s => obs.observe(s));
+    const cardDot = document.createElementNS(NS2, 'circle');
+    cardDot.setAttribute('cx', ax); cardDot.setAttribute('cy', ay);
+    cardDot.setAttribute('r', '2.5');
+    cardDot.setAttribute('fill', lc.cDot);
+    cardDot.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both`;
+    lineSvg.appendChild(cardDot);
+
+    const dotOuter = document.createElementNS(NS2, 'circle');
+    dotOuter.setAttribute('cx', sx); dotOuter.setAttribute('cy', sy); dotOuter.setAttribute('r', '5');
+    dotOuter.setAttribute('fill', lc.sRing);
+    dotOuter.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both`;
+    lineSvg.appendChild(dotOuter);
+
+    const dot = document.createElementNS(NS2, 'circle');
+    dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '2.5');
+    dot.setAttribute('fill', lc.sDot);
+    dot.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both, hm-dot-pulse 2s ease-in-out ${cardDelay + 0.5}s infinite`;
+    lineSvg.appendChild(dot);
+
+    // Annotation card appears after its line finishes
+    const annEl = document.getElementById('hm-ann-' + key);
+    if (annEl) annEl.style.animation = `hm-card-in 0.65s ease-out ${cardDelay}s both`;
+  });
+}
+
+async function buildUSMap() {
+  const W = 1200, H = 460;   /* taller: ~305px at 800px viewport */
+  const FIPS_MAP = {'35':'nm','08':'co','56':'wy','10':'de','06':'ca','12':'fl'};
+
+  let topo;
+  try {
+    topo = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r => r.json());
+  } catch(e) { return; }
+
+  const geojson = topojson.feature(topo, topo.objects.states);
+  const projection = d3.geoAlbersUsa().fitSize([W, H], geojson);
+  const pathGen = d3.geoPath(projection);
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('id', 'us-map-hp');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.cssText = 'display:block;width:100%';
+  svg.addEventListener('mouseleave', hpMapLeave);
+
+  const initTheme = document.documentElement.getAttribute('data-theme') || 'liquid';
+  const initC = MAP_COLORS[initTheme] || MAP_COLORS.liquid;
+
+  const bg = document.createElementNS(NS, 'rect');
+  bg.setAttribute('width', W); bg.setAttribute('height', H); bg.setAttribute('fill', initC.bg);
+  svg.appendChild(bg);
+
+  const defs = document.createElementNS(NS, 'defs');
+  defs.innerHTML = `
+    <radialGradient id="fog-hp" cx="50%" cy="50%" r="52%">
+      <stop offset="55%" stop-color="${initC.fogFrom}" stop-opacity="0"/>
+      <stop offset="100%" stop-color="${initC.fogTo}" stop-opacity="1"/>
+    </radialGradient>`;
+  svg.appendChild(defs);
+
+  const bgGroup = document.createElementNS(NS, 'g');
+  bgGroup.style.pointerEvents = 'none';
+  const keyGroup = document.createElementNS(NS, 'g');
+  const centroids = {};
+
+  geojson.features.forEach(feat => {
+    const fips = String(feat.id).padStart(2, '0');
+    const key = FIPS_MAP[fips];
+    const d = pathGen(feat);
+    if (!d) return;
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', d);
+    if (key) {
+      path.setAttribute('class', `key ${key}`);
+      path.setAttribute('id', `${key}-hp`);
+      path.addEventListener('mouseenter', () => hpHover(key));
+      path.addEventListener('click', () => hpSelect(key));
+      const c = pathGen.centroid(feat);
+      if (c && !isNaN(c[0])) centroids[key] = c;
+      keyGroup.appendChild(path);
+    } else {
+      path.setAttribute('fill', initC.stateFill);
+      path.setAttribute('stroke', initC.stateStroke);
+      path.setAttribute('stroke-width', '0.8');
+      bgGroup.appendChild(path);
+    }
+  });
+
+  svg.appendChild(bgGroup);
+  svg.appendChild(keyGroup);
+
+  const lblGroup = document.createElementNS(NS, 'g');
+  lblGroup.style.pointerEvents = 'none';
+  Object.entries(centroids).forEach(([key, [cx, cy]]) => {
+    const s = HP_STATES[key];
+    const t = document.createElementNS(NS, 'text');
+    t.setAttribute('class', 'kl');
+    t.setAttribute('x', cx); t.setAttribute('y', cy + 4);
+    t.setAttribute('fill', s.color + 'cc');
+    t.textContent = s.abbr;
+    lblGroup.appendChild(t);
+  });
+  svg.appendChild(lblGroup);
+
+  const fog = document.createElementNS(NS, 'rect');
+  fog.setAttribute('width', W); fog.setAttribute('height', H);
+  fog.setAttribute('fill', 'url(#fog-hp)');
+  fog.style.pointerEvents = 'none';
+  svg.appendChild(fog);
+
+  const container = document.getElementById('hp-map-container');
+  if (container) container.appendChild(svg);
+  _hpMapActivate(activeHpState);
+  _hpPanelUpdate(activeHpState, false);
+}
+
+// Reset map hover when mouse leaves the map panel
+document.addEventListener('DOMContentLoaded', () => {
+  // Annotations OFF par défaut
+  document.body.classList.add('admin-hidden');
+
+  const panel = document.querySelector('.map-panel');
+  if (panel) panel.addEventListener('mouseleave', () => {
+    const map = document.querySelector('#pv-creer .us-map');
+    if (map) map.classList.remove('has-hover');
+    document.querySelectorAll('#pv-creer .us-map .key').forEach(el => el.classList.remove('active'));
+    const detail = document.getElementById('map-detail');
+    if (detail) detail.innerHTML = '<div class="md-placeholder"><div class="md-icon">🗺</div><div>Survolez un État sur la carte<br>pour voir ses atouts</div></div>';
+  });
+  buildUSMap();
+  buildHeroMap();
+  window.addEventListener('resize', () => {
+    const lineSvg = document.getElementById('hm-lines-svg');
+    if (lineSvg) lineSvg.innerHTML = '';
+    // centroids sont dans la closure de buildHeroMap — on ne peut pas les redessiner facilement
+    // pour l'instant laisser vide au resize
+  });
+  initTimelineMobile();
+
+  // ── Section Lock Overlay — inject une seule fois au chargement ──
+  document.querySelectorAll('[data-lockable]').forEach(section => {
+    section.classList.add('lockable', 'locked'); // verrouillé par défaut en mode démo
+    const lbl = section.dataset.lockLabel || 'Section';
+    const overlay = document.createElement('div');
+    overlay.className = 'section-lock';
+    overlay.innerHTML = `
+      <div class="sl-card">
+        <svg class="sl-lock-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="11" width="16" height="11" rx="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 11V7.5a4 4 0 018 0V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="16.5" r="1.5" fill="currentColor"/>
+        </svg>
+        <div class="sl-divider"></div>
+        <div class="sl-label">${lbl}</div>
+      </div>`;
+    section.appendChild(overlay);
+  });
+});
+
+const stateDetails = {
+  wy: { name:'Wyoming', label:'Pro-Crypto & Web3', tag:'DAO légalisées', tagBg:'#dce8f5', tagColor:'#1a3a6a', accent:'#1a3a6a',
+    tagline:'La juridiction la plus favorable aux actifs numériques',
+    desc:'Le Wyoming est le seul État américain à reconnaître légalement les DAO. Réglementation crypto-native, confidentialité renforcée, frais parmi les plus bas.',
+    feats:['DAO légalement reconnues (loi 2021)','Aucun impôt sur les revenus des LLC','Confidentialité : gérant non public','Frais annuels : $60/an'] },
+  co: { name:'Colorado', label:'LLC en 24 Heures', tag:'Opérationnelle en 24h', tagBg:'#dce8f5', tagColor:'#1a3a6a', accent:'#1a3a6a',
+    tagline:'Le délai de traitement le plus rapide des États-Unis',
+    desc:'Le Colorado propose un service de traitement accéléré permettant d\'immatriculer votre LLC en moins de 24h ouvrées. Idéal pour lancer vite.',
+    feats:['LLC opérationnelle en moins de 24h','Écosystème startup dynamique (Denver)','Frais d\'État : $50/an','Idéal pour e-commerce et SaaS'] },
+  nm: { name:'Nouveau-Mexique', label:'Anonymat Total', tag:'0 registre public', tagBg:'#dce8f5', tagColor:'#1a3a6a', accent:'#1a3a6a',
+    tagline:'Votre identité n\'apparaît dans aucun registre public américain',
+    desc:'Au Nouveau-Mexique, ni les gérants ni les associés n\'ont l\'obligation d\'apparaître dans les documents publics. Le maximum d\'anonymat disponible aux USA.',
+    feats:['Gérant et associés non publics','Pas de registered agent public','Frais d\'État parmi les plus bas ($50)','Idéal pour freelances et créateurs de contenu'] },
+  de: { name:'Delaware', label:'Levée de Fonds', tag:'Référence VC', tagBg:'#dce8f5', tagColor:'#1a3a6a', accent:'#1a3a6a',
+    tagline:'Le standard des investisseurs américains et Fortune 500',
+    desc:'68% des sociétés Fortune 500 et la quasi-totalité des startups levant des fonds aux USA s\'incorporent au Delaware. Signal immédiat pour les investisseurs.',
+    feats:['Standard des fonds VC américains','Court of Chancery — tribunal spécialisé','Structure C-Corp possible','Indispensable pour lever des fonds aux USA'] },
+  ca: { name:'Californie', label:'Marques & Tech Premium', tag:'Silicon Valley', tagBg:'#dce8f5', tagColor:'#1a3a6a', accent:'#1a3a6a',
+    tagline:'Le prestige de la Silicon Valley pour vos clients',
+    desc:'La Californie offre l\'écosystème tech le plus développé au monde. Idéal pour les marques premium, les médias et les entreprises à forte croissance internationale.',
+    feats:['Accès aux fonds VC de la Silicon Valley','Prestige et crédibilité internationale','Marchés financiers américains en direct','Idéal pour marques, tech et créateurs premium'] },
+  fl: { name:'Floride', label:'Zéro Impôt d\'État', tag:'Paradis fiscal légal', tagBg:'#dce8f5', tagColor:'#1a3a6a', accent:'#1a3a6a',
+    tagline:'Aucun impôt sur le revenu des particuliers',
+    desc:'La Floride n\'a pas d\'impôt sur le revenu des particuliers. Hub international de Miami, accès direct à l\'Amérique Latine. Fiscalité ultra-favorable aux entrepreneurs.',
+    feats:['Aucun impôt sur le revenu des particuliers','Frais annuels compétitifs ($138/an)','Hub international Miami — accès LatAm','Idéal pour e-commerce, finance, nomades digitaux'] },
+};
+
+function selectState(key) {
+  const map = document.querySelector('#pv-creer .us-map');
+  if (map) map.classList.add('has-hover');
+  document.querySelectorAll('#pv-creer .us-map .key').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(key + '-shape');
+  if (el) el.classList.add('active');
+  const d = stateDetails[key];
+  if (!d) return;
+  document.getElementById('map-detail').innerHTML = `
+    <div class="md-label">${d.label}</div>
+    <div class="md-name">${d.name}</div>
+    <span class="md-tag">${d.tag}</span>
+    <div class="md-tagline">${d.tagline}</div>
+    <div class="md-desc">${d.desc}</div>
+    <div class="md-features">${d.feats.map(f=>`<div class="md-feat"><span class="md-feat-arrow">›</span><span>${f}</span></div>`).join('')}</div>
+    <button class="md-cta" onclick="go('${key}')">Créer ma LLC au ${d.name} →</button>
+  `;
+}
+
+/* ── Design control bar ── */
+// Font URLs par thème
+const THEME_FONTS = {
+  liquid: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap',
+  dark:   'https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap',
+  vault:  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap',
+};
+
+// Couleurs de la carte SVG par thème — les fills sont des attributs SVG, pas CSS
+const MAP_COLORS = {
+  liquid: {
+    bg:          'none',                       // transparent — CSS section gradient shows through
+    fogFrom:     'rgba(236,242,248,0)',
+    fogTo:       'rgba(236,242,248,1)',
+    stateFill:   'rgba(185,200,222,0.38)',
+    stateStroke: 'rgba(255,255,255,0.9)',
+    labelFill:   null,
+  },
+  dark: {
+    bg:          '#080808',
+    fogFrom:     'rgba(8,8,8,0)',
+    fogTo:       'rgba(8,8,8,1)',
+    stateFill:   'rgba(244,242,238,.07)',
+    stateStroke: 'rgba(244,242,238,.14)',
+    labelFill:   'rgba(244,242,238,.38)',
+  },
+  vault: {
+    bg:          '#ede8e0',
+    fogFrom:     'rgba(242,237,230,0)',
+    fogTo:       'rgba(242,237,230,1)',
+    stateFill:   'rgba(200,195,188,0.45)',
+    stateStroke: 'rgba(255,255,255,0.85)',
+    labelFill:   'rgba(28,32,40,0.45)',
+  },
+};
+
+// Repaint la carte SVG quand on change de thème
+function repaintHpMap(theme) {
+  const svg = document.getElementById('us-map-hp');
+  if (!svg) return;
+  const c = MAP_COLORS[theme] || MAP_COLORS.liquid;
+
+  // Fond rectangulaire
+  const bgRect = svg.querySelector('rect');
+  if (bgRect) bgRect.setAttribute('fill', c.bg);
+
+  // Gradient fog
+  const fogStop0 = svg.querySelector('#fog-hp stop:first-child');
+  const fogStop1 = svg.querySelector('#fog-hp stop:last-child');
+  if (fogStop0) { fogStop0.setAttribute('stop-color', c.fogFrom); fogStop0.setAttribute('stop-opacity', '0'); }
+  if (fogStop1) { fogStop1.setAttribute('stop-color', c.fogTo);   fogStop1.setAttribute('stop-opacity', '1'); }
+
+  // Tous les paths sans classe = états de fond
+  svg.querySelectorAll('path:not([class])').forEach(p => {
+    p.setAttribute('fill', c.stateFill);
+    p.setAttribute('stroke', c.stateStroke);
+  });
+
+  // Labels des états clés
+  if (c.labelFill) {
+    svg.querySelectorAll('.kl').forEach(t => t.setAttribute('fill', c.labelFill));
+  } else {
+    // Restaure les couleurs natives (liquid)
+    svg.querySelectorAll('.kl').forEach(t => {
+      const key = t.textContent?.toLowerCase();
+      const state = Object.values(HP_STATES).find(s => s.abbr === t.textContent);
+      if (state) t.setAttribute('fill', state.color + 'cc');
+    });
+  }
+}
+
+// ── Section Lock helpers ──────────────────────────────────────
+function toggleLockAll(btn) {
+  const sections = document.querySelectorAll('.lockable');
+  const isLocked = btn.classList.contains('on');
+  sections.forEach(s => s.classList.toggle('locked', !isLocked));
+  btn.classList.toggle('on', !isLocked);
+  btn.innerHTML = isLocked ? '<span class="dp-emoji">🔓</span> Déverrouiller tout' : '<span class="dp-emoji">🔒</span> Tout verrouiller';
+}
+
+function unlockSection(unlockBtn) {
+  unlockBtn.closest('.lockable').classList.remove('locked');
+  // Si plus aucune section verrouillée, réinitialiser le bouton du panel
+  const remaining = document.querySelectorAll('.lockable.locked').length;
+  if (remaining === 0) {
+    const dpLock = document.getElementById('dp-lock-btn');
+    if (dpLock) { dpLock.classList.remove('on'); dpLock.innerHTML = '<span class="dp-emoji">🔒</span> Verrouiller sections'; }
+  }
+}
+
+// ── Design Panel helpers ──────────────────────────────────────
+// Activate a dp-btn and deactivate its siblings within .dp-btns
+function dpActivate(btn) {
+  if (!btn) return;
+  const group = btn.closest('.dp-btns');
+  if (group) group.querySelectorAll('.dp-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// Toggle annotations
+function toggleAnnot(btn) {
+  const hidden = document.body.classList.toggle('admin-hidden');
+  btn.textContent = hidden ? 'OFF' : 'ON';
+  btn.classList.toggle('on', !hidden);
+}
+
+// Minimize / maximize panel
+function toggleDP() {
+  const body = document.getElementById('dp-body');
+  const minBtn = document.getElementById('dp-min-btn');
+  const panel = document.getElementById('dp');
+  const isMin = panel.classList.toggle('dp-minimized');
+  minBtn.textContent = isMin ? '+' : '−';
+}
+
+// Draggable panel
+(function initDrag() {
+  const panel = document.getElementById('dp');
+  const bar   = document.getElementById('dp-bar');
+  let dragging = false, ox = 0, oy = 0;
+
+  bar.addEventListener('mousedown', e => {
+    if (e.target.closest('.dp-min-btn')) return;
+    dragging = true;
+    // Switch from CSS right/bottom anchoring to left/top absolute
+    const rect = panel.getBoundingClientRect();
+    panel.style.right  = 'auto';
+    panel.style.bottom = 'auto';
+    panel.style.left   = rect.left + 'px';
+    panel.style.top    = rect.top  + 'px';
+    ox = e.clientX - rect.left;
+    oy = e.clientY - rect.top;
+    panel.style.transition = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    let nx = e.clientX - ox;
+    let ny = e.clientY - oy;
+    // Clamp to viewport
+    nx = Math.max(0, Math.min(nx, window.innerWidth  - panel.offsetWidth));
+    ny = Math.max(0, Math.min(ny, window.innerHeight - panel.offsetHeight));
+    panel.style.left = nx + 'px';
+    panel.style.top  = ny + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    panel.style.transition = '';
+  });
+})();
+
+// Theme switcher — swap CSS + fonts + data-theme + maps
+function setTheme(name, btn) {
+  document.getElementById('theme-css').href = 'css/' + name + '.css';
+  document.documentElement.setAttribute('data-theme', name);
+  const fontUrl = THEME_FONTS[name];
+  if (fontUrl) document.getElementById('theme-fonts').href = fontUrl;
+  repaintHpMap(name);
+  // Rebuild hero map with theme-aware colors
+  const hm = document.getElementById('hm-map-svg');
+  const ls = document.getElementById('hm-lines-svg');
+  if (hm) hm.innerHTML = '';
+  if (ls) ls.innerHTML = '';
+  if (hm) buildHeroMap();
+  dpActivate(btn);
+}
+
+/* ── Balance scale scroll animation ── */
+(function() {
+  const sec   = document.getElementById('pq-sec');
+  const beam  = document.getElementById('pq-beam');
+  const armL  = document.getElementById('pq-arm-l');
+  const armR  = document.getElementById('pq-arm-r');
+  if (!sec || !beam) return;
+
+  let fired = false;
+  const io = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !fired) {
+      fired = true;
+      setTimeout(function() {
+        beam.style.transform = 'translateX(-50%) rotate(13deg)';
+        if (armL) armL.style.transform = 'translateY(-14px)';
+        if (armR) armR.style.transform = 'translateY(14px)';
+      }, 300);
+    }
+  }, { threshold: 0.35 });
+  io.observe(sec);
+})();
 </script>
-
 </body>
+
 </html>

@@ -1,5 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/structure.html" }
-  ]
+  "cleanUrls": true
 }
