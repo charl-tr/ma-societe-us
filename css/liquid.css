@@ -3284,15 +3284,9 @@ html[data-theme="liquid"] .lqn-mobile-card + .lqn-mobile-card { margin-top: 14px
 html[data-theme="liquid"] .lqn-mobile-card .lqn-q { font-size: 17px; margin: 8px 0 14px; }
 html[data-theme="liquid"] .lqn-mobile-card .lqn-a { font-size: 18px; margin: 8px 0; line-height: 1.32; }
 
-/* Override : la section .lqn gère sa propre hauteur (500vh) */
-html[data-theme="liquid"] #pv-home .lqn {
-  min-height: 500vh;
-  display: block;
-  padding-top: 0;
-  padding-bottom: 0;
-}
+/* v16 — .lqn is now tab-driven (single screen). No more 500vh override. */
 @media (max-width: 900px) {
-  html[data-theme="liquid"] #pv-home .lqn {
+  html[data-theme="liquid"] #pv-home .lqn-DEAD-rule-do-not-match {
     min-height: auto;
     padding: 64px 24px;
   }
