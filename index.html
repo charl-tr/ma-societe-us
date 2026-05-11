@@ -473,23 +473,50 @@
 
         <div class="lqn-stage" id="lqn-stage">
 
-          <!-- LEFT col : counter + question + answer -->
+          <!-- LEFT col : structured legal document — 3 zones -->
           <div class="lqn-content">
-            <div class="lqn-counter" id="lqn-counter">L'idée reçue n°<span>01</span> · 05</div>
-            <h3 class="lqn-q" id="lqn-q">«&nbsp;Détenir une LLC en étant résident français serait illégal.&nbsp;»</h3>
 
-            <div class="lqn-verdict">
-              <span class="lqn-verdict-non">NON.</span>
-              <span class="lqn-verdict-rule"></span>
+            <!-- Pager pill -->
+            <div class="lqn-counter" id="lqn-counter">
+              <span class="lqn-counter-icon" aria-hidden="true"></span>
+              L'idée reçue&nbsp;<span class="lqn-counter-num">01</span>&nbsp;sur 05
             </div>
 
-            <p class="lqn-a" id="lqn-a">Convention franco-américaine du 31 août 1994 — parfaitement légal pour tout résident français.</p>
+            <!-- Zone 1 : l'accusation (la question) -->
+            <div class="lqn-zone lqn-zone-accusation">
+              <div class="lqn-zone-eyebrow">L'accusation</div>
+              <h3 class="lqn-q" id="lqn-q">«&nbsp;Détenir une LLC en étant résident français serait illégal.&nbsp;»</h3>
+            </div>
 
+            <!-- Zone 2 : le verdict (NON + answer) — chrome card -->
+            <article class="lqn-verdict-card">
+              <header class="lqn-verdict-head">
+                <div class="lqn-verdict-eye">Le verdict du cabinet</div>
+                <div class="lqn-verdict-date">Cabinet · 2014–2026</div>
+              </header>
+
+              <div class="lqn-verdict-non-wrap">
+                <span class="lqn-verdict-non">Non.</span>
+                <span class="lqn-verdict-rule"></span>
+              </div>
+
+              <p class="lqn-a" id="lqn-a">Convention franco-américaine du 31 août 1994 — parfaitement légal pour tout résident français.</p>
+            </article>
+
+            <!-- Zone 3 : référence légale — citation card -->
             <div class="lqn-source">
-              <span class="lqn-source-label" id="lqn-source-label">Référence</span>
-              <span class="lqn-source-cite" id="lqn-source">Convention bilatérale · 1994</span>
-              <span class="lqn-source-extra" id="lqn-cite">Traité fiscal bilatéral ratifié · Conforme OCDE</span>
+              <div class="lqn-source-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M8 1.5v3.5M3 5h10M4 5l-1.5 5.5M12 5l1.5 5.5M2.5 10.5h3M10.5 10.5h3M5 13.5h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="lqn-source-body">
+                <span class="lqn-source-label" id="lqn-source-label">Référence légale</span>
+                <span class="lqn-source-cite" id="lqn-source">Convention bilatérale · 1994</span>
+                <span class="lqn-source-extra" id="lqn-cite">Traité fiscal bilatéral ratifié · Conforme OCDE</span>
+              </div>
             </div>
+
           </div>
 
           <!-- RIGHT col : Big chrome NON stamp (persistent anchor) -->
@@ -2740,7 +2767,7 @@ function setTheme(name, btn) {
   const $sec = document.getElementById('lqn-section');
   const $stage = $sec?.querySelector('.lqn-stage');
   const $counter = document.getElementById('lqn-counter');
-  const $counterNum = $counter?.querySelector('span');
+  const $counterNum = $counter?.querySelector('.lqn-counter-num');
   const $q = document.getElementById('lqn-q');
   const $a = document.getElementById('lqn-a');
   const $src = document.getElementById('lqn-source');
