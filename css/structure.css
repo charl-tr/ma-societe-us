@@ -277,7 +277,7 @@ body {
 
 /* ══ BROWSER / PAGE FRAME ══ */
 .browser-wrap { }
-.page-frame { min-height: calc(100vh - 40px - 64px); overflow: hidden; position: relative; }
+.page-frame { min-height: calc(100vh - 40px - 64px); position: relative; overflow-x: clip; }
 .pv { display: none; }
 .pv.on { display: block; animation: pvIn .28s ease; }
 @keyframes pvIn {

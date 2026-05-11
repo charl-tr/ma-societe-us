@@ -535,40 +535,62 @@
         <div class="an-emotion"><strong>Émotion cible</strong>Soulagement — "je ne risque rien, c'est parfaitement légal"<div class="an-critique">⚠ Ton encyclopédique (sources juridiques citées). Doit sonner comme un avocat qui vous parle, pas une FAQ corporate. La 6e carte CTA est bonne.</div></div>
         <div class="an-status solid">SOLIDE</div>
       </div>
-      <!-- §4 PROCESS — Clean 4-step chrome stepper -->
-      <section class="lqp" data-lockable data-lock-label="Processus">
-        <div class="lqp-head">
-          <div class="lqp-tag">Le processus</div>
-          <h2 class="lqp-h2">De l'idée à votre LLC opérationnelle, en quatre étapes.</h2>
-          <p class="lqp-lede">Un processus rodé depuis 2014. Vous n'avez rien à gérer — votre chargé d'affaires s'occupe de tout.</p>
-        </div>
+      <!-- §4 PROCESS — Scroll-driven 4-step experience -->
+      <section class="lqps" id="lqps-section" data-lockable data-lock-label="Processus">
+        <div class="lqps-sticky">
 
-        <ol class="lqp-grid">
-          <li class="lqp-step">
-            <div class="lqp-num">01</div>
-            <div class="lqp-meta">Gratuit · 15 min</div>
-            <h3 class="lqp-h3">Entretien découverte</h3>
-            <p class="lqp-p">Un CPA agréé IRS comprend votre activité, votre fiscalité et la structure cible la plus adaptée.</p>
-          </li>
-          <li class="lqp-step">
-            <div class="lqp-num">02</div>
-            <div class="lqp-meta">NM · CO · WY · DE · CA · FL</div>
-            <h3 class="lqp-h3">Choix de l'État</h3>
-            <p class="lqp-p">Recommandation argumentée selon votre activité, l'anonymat recherché et la fiscalité optimale.</p>
-          </li>
-          <li class="lqp-step">
-            <div class="lqp-num">03</div>
-            <div class="lqp-meta">Sous 14 jours</div>
-            <h3 class="lqp-h3">Immatriculation et EIN</h3>
-            <p class="lqp-p">LLC enregistrée, EIN obtenu, documents légaux livrés dans votre espace client sécurisé.</p>
-          </li>
-          <li class="lqp-step">
-            <div class="lqp-num">04</div>
-            <div class="lqp-meta">100 % à distance</div>
-            <h3 class="lqp-h3">Compte bancaire ouvert</h3>
-            <p class="lqp-p">Mercury, Relay ou Chase NY — carte de paiement incluse, encaissement Stripe et PayPal immédiat.</p>
-          </li>
-        </ol>
+          <div class="lqps-head">
+            <div class="section-tag">Le processus</div>
+            <h2 class="section-h2">De l'idée à votre LLC opérationnelle,<br><em>en quatre étapes.</em></h2>
+          </div>
+
+          <div class="lqps-stage">
+            <!-- LEFT : step detail -->
+            <div class="lqps-left">
+              <div class="lqps-counter" id="lqps-counter">Étape 01 · 04</div>
+              <div class="lqps-meta" id="lqps-meta">Gratuit · 15 minutes</div>
+              <h3 class="lqps-title" id="lqps-title">Entretien découverte</h3>
+              <p class="lqps-desc" id="lqps-desc">Un CPA agréé IRS comprend votre activité, votre fiscalité, et définit la structure cible la mieux adaptée à votre projet.</p>
+              <div class="lqps-detail" id="lqps-detail">
+                <span class="lqps-detail-tick"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5L11 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span>Aucun engagement · agenda en ligne</span>
+              </div>
+            </div>
+
+            <!-- RIGHT : visual timeline -->
+            <div class="lqps-right">
+              <div class="lqps-timeline">
+                <div class="lqps-track">
+                  <div class="lqps-progress" id="lqps-progress"></div>
+                </div>
+
+                <div class="lqps-nodes">
+                  <div class="lqps-node" data-i="0">
+                    <div class="lqps-node-dot"></div>
+                    <div class="lqps-node-day">J&nbsp;0</div>
+                    <div class="lqps-node-label">Découverte</div>
+                  </div>
+                  <div class="lqps-node" data-i="1">
+                    <div class="lqps-node-dot"></div>
+                    <div class="lqps-node-day">J&nbsp;1-3</div>
+                    <div class="lqps-node-label">Cadrage État</div>
+                  </div>
+                  <div class="lqps-node" data-i="2">
+                    <div class="lqps-node-dot"></div>
+                    <div class="lqps-node-day">J&nbsp;4-14</div>
+                    <div class="lqps-node-label">LLC + EIN</div>
+                  </div>
+                  <div class="lqps-node" data-i="3">
+                    <div class="lqps-node-dot"></div>
+                    <div class="lqps-node-day">J&nbsp;14+</div>
+                    <div class="lqps-node-label">Banking</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <div class="admin-bar">
@@ -577,91 +599,127 @@
         <div class="an-emotion"><strong>Émotion cible</strong>Tranquillité — "je n'ai rien à gérer, ils s'occupent de tout"<div class="an-critique">⚠ L'équipe est invisible dans le process. Qui fait l'étape 1 ? L'étape 3 ? Le chargé d'affaires dédié est le différenciant clé — il doit apparaître ici.</div></div>
         <div class="an-status draft">BROUILLON</div>
       </div>
-      <!-- §8 TÉMOIGNAGES — Chrome cards, résultats numériques en exergue -->
+      <!-- §8 TÉMOIGNAGES — Social proof bundle (stats wall + featured + reviews) -->
       <section class="lqt" data-lockable data-lock-label="Témoignages">
         <div class="lqt-head">
-          <div class="section-tag">Études de cas</div>
-          <h2 class="section-h2">Cinq cents entrepreneurs<br><em>déjà installés.</em></h2>
-          <p class="section-sub">Trois trajectoires françaises vers les États-Unis. Chiffres réels, dossiers vérifiés.</p>
+          <div class="section-tag">Preuve sociale</div>
+          <h2 class="section-h2">La confiance ne se déclare pas.<br><em>Elle se compte.</em></h2>
         </div>
 
-        <div class="lqt-grid">
-
-          <!-- Card 1 : Antoine -->
-          <article class="lqt-card">
-            <div class="lqt-card-flag">
-              <span class="lqt-card-state">New Mexico</span>
-              <span class="lqt-card-sep">·</span>
-              <span class="lqt-card-date">12 mars 2026</span>
-            </div>
-            <div class="lqt-card-result">
-              <span class="lqt-card-result-val">12&nbsp;jours</span>
-              <span class="lqt-card-result-lbl">LLC opérationnelle</span>
-            </div>
-            <p class="lqt-card-quote">«&nbsp;En 12 jours, ma LLC était opérationnelle. Mercury ouvert, EIN reçu, Operating Agreement signé. Le chargé d'affaires connaissait mon dossier par cœur à chaque appel.&nbsp;»</p>
-            <footer class="lqt-card-foot">
-              <div class="lqt-card-av" aria-hidden="true">
-                <span>AR</span>
-              </div>
-              <div>
-                <div class="lqt-card-name">Antoine R.</div>
-                <div class="lqt-card-role">Consultant indépendant · Paris</div>
-              </div>
-            </footer>
-          </article>
-
-          <!-- Card 2 : Sophie -->
-          <article class="lqt-card">
-            <div class="lqt-card-flag">
-              <span class="lqt-card-state">Florida</span>
-              <span class="lqt-card-sep">·</span>
-              <span class="lqt-card-date">04 nov. 2025</span>
-            </div>
-            <div class="lqt-card-result">
-              <span class="lqt-card-result-val">15&nbsp;000&nbsp;$</span>
-              <span class="lqt-card-result-lbl">encaissés le premier mois</span>
-            </div>
-            <p class="lqt-card-quote">«&nbsp;Je craignais la complexité fiscale. Le cabinet a tout cadré, sources juridiques à l'appui. Aujourd'hui j'encaisse mes clients US en dollars, sans frottement.&nbsp;»</p>
-            <footer class="lqt-card-foot">
-              <div class="lqt-card-av" aria-hidden="true">
-                <span>SM</span>
-              </div>
-              <div>
-                <div class="lqt-card-name">Sophie M.</div>
-                <div class="lqt-card-role">E-commerçante · Lyon → marché US</div>
-              </div>
-            </footer>
-          </article>
-
-          <!-- Card 3 : Thomas -->
-          <article class="lqt-card">
-            <div class="lqt-card-flag">
-              <span class="lqt-card-state">Wyoming</span>
-              <span class="lqt-card-sep">·</span>
-              <span class="lqt-card-date">07 fév. 2026</span>
-            </div>
-            <div class="lqt-card-result">
-              <span class="lqt-card-result-val">DAO&nbsp;LLC</span>
-              <span class="lqt-card-result-lbl">structure crypto-ready</span>
-            </div>
-            <p class="lqt-card-quote">«&nbsp;De vraies conversations à chaque étape, pas de formulaire anonyme. Le choix du Wyoming pour ma DAO était la bonne recommandation — l'équipe a anticipé toutes les questions IRS.&nbsp;»</p>
-            <footer class="lqt-card-foot">
-              <div class="lqt-card-av" aria-hidden="true">
-                <span>TK</span>
-              </div>
-              <div>
-                <div class="lqt-card-name">Thomas K.</div>
-                <div class="lqt-card-role">Fondateur Web3 · Bordeaux</div>
-              </div>
-            </footer>
-          </article>
-
+        <!-- STATS WALL : 4 KPIs visibles d'un coup d'œil -->
+        <div class="lqt-stats">
+          <div class="lqt-stat">
+            <span class="lqt-stat-val">500<span class="lqt-stat-sup">+</span></span>
+            <span class="lqt-stat-lbl">Entrepreneurs accompagnés</span>
+          </div>
+          <div class="lqt-stat-sep"></div>
+          <div class="lqt-stat">
+            <span class="lqt-stat-val">15 M€</span>
+            <span class="lqt-stat-lbl">d'économies fiscales générées</span>
+          </div>
+          <div class="lqt-stat-sep"></div>
+          <div class="lqt-stat">
+            <span class="lqt-stat-val">10 ans</span>
+            <span class="lqt-stat-lbl">d'expertise franco-américaine</span>
+          </div>
+          <div class="lqt-stat-sep"></div>
+          <div class="lqt-stat">
+            <span class="lqt-stat-val">4,9<span class="lqt-stat-sup">/5</span></span>
+            <span class="lqt-stat-lbl">sur 312 avis vérifiés</span>
+          </div>
         </div>
 
-        <div class="lqt-foot">
-          <span class="lqt-foot-meta">500 entrepreneurs depuis 2014 · 4,9&nbsp;/&nbsp;5 sur 312 avis vérifiés</span>
+        <!-- FEATURED REVIEW : grand format avec photo placeholder + quote -->
+        <article class="lqt-featured">
+          <div class="lqt-featured-quote-wrap">
+            <div class="lqt-featured-mark">"</div>
+            <p class="lqt-featured-quote">En 12 jours, ma LLC au Nouveau-Mexique était opérationnelle : Mercury ouvert, EIN reçu, Operating Agreement signé. Le chargé d'affaires connaissait mon dossier par cœur à chaque appel — pas un formulaire en ligne, un vrai cabinet.</p>
+            <div class="lqt-featured-author">
+              <div class="lqt-featured-av"><span>AR</span></div>
+              <div class="lqt-featured-meta">
+                <div class="lqt-featured-name">Antoine R.</div>
+                <div class="lqt-featured-role">Consultant indépendant · Paris &rarr; Nouveau-Mexique LLC</div>
+              </div>
+            </div>
+          </div>
+          <div class="lqt-featured-result">
+            <div class="lqt-featured-result-eye">Résultat</div>
+            <div class="lqt-featured-result-val">12 jours</div>
+            <div class="lqt-featured-result-sub">de l'entretien à la LLC opérationnelle</div>
+            <div class="lqt-featured-result-rule"></div>
+            <div class="lqt-featured-result-extras">
+              <div class="lqt-featured-result-row">
+                <span>EIN obtenu</span>
+                <span>J&nbsp;+&nbsp;8</span>
+              </div>
+              <div class="lqt-featured-result-row">
+                <span>Compte Mercury</span>
+                <span>J&nbsp;+&nbsp;10</span>
+              </div>
+              <div class="lqt-featured-result-row">
+                <span>Opérationnelle</span>
+                <span>J&nbsp;+&nbsp;12</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- MINI REVIEWS : 4 cards compactes avec rating -->
+        <div class="lqt-mini-grid">
+          <div class="lqt-mini">
+            <div class="lqt-mini-stars">★★★★★</div>
+            <p class="lqt-mini-quote">«&nbsp;15&nbsp;000&nbsp;$ encaissés le premier mois, sans frottement fiscal. Le cabinet a tout cadré, sources juridiques à l'appui.&nbsp;»</p>
+            <div class="lqt-mini-foot">
+              <span class="lqt-mini-name">Sophie M.</span>
+              <span class="lqt-mini-role">E-commerçante · Lyon</span>
+            </div>
+          </div>
+          <div class="lqt-mini">
+            <div class="lqt-mini-stars">★★★★★</div>
+            <p class="lqt-mini-quote">«&nbsp;De vraies conversations à chaque étape. Le Wyoming pour ma DAO crypto — l'équipe a anticipé toutes les questions IRS.&nbsp;»</p>
+            <div class="lqt-mini-foot">
+              <span class="lqt-mini-name">Thomas K.</span>
+              <span class="lqt-mini-role">Fondateur Web3 · Bordeaux</span>
+            </div>
+          </div>
+          <div class="lqt-mini">
+            <div class="lqt-mini-stars">★★★★★</div>
+            <p class="lqt-mini-quote">«&nbsp;CPA agréé IRS qui signe mes déclarations en personne. Cinq ans après la création, ils sont toujours mon point de référence US.&nbsp;»</p>
+            <div class="lqt-mini-foot">
+              <span class="lqt-mini-name">Élise V.</span>
+              <span class="lqt-mini-role">SaaS · Lyon → Delaware</span>
+            </div>
+          </div>
+          <div class="lqt-mini">
+            <div class="lqt-mini-stars">★★★★★</div>
+            <p class="lqt-mini-quote">«&nbsp;Pack Empire : CFO fractionné dédié, visa E2 obtenu, multi-LLC. Le cabinet est devenu ma DAF externalisée US.&nbsp;»</p>
+            <div class="lqt-mini-foot">
+              <span class="lqt-mini-name">Camille L.</span>
+              <span class="lqt-mini-role">Tech founder · Toulouse → Californie</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOGO WALL : ils nous ont fait confiance -->
+        <div class="lqt-logos">
+          <div class="lqt-logos-label">Ils ont structuré leur LLC US avec nous</div>
+          <div class="lqt-logos-row">
+            <span class="lqt-logo">Atelier&nbsp;Saint-Honoré</span>
+            <span class="lqt-logos-dot"></span>
+            <span class="lqt-logo">Compagnie&nbsp;Lumière</span>
+            <span class="lqt-logos-dot"></span>
+            <span class="lqt-logo">Maison&nbsp;Bleue</span>
+            <span class="lqt-logos-dot"></span>
+            <span class="lqt-logo">Côte&nbsp;d'Argent</span>
+            <span class="lqt-logos-dot"></span>
+            <span class="lqt-logo">Champlain&nbsp;Studio</span>
+            <span class="lqt-logos-dot"></span>
+            <span class="lqt-logo">Pacific&nbsp;Ridge</span>
+          </div>
         </div>
       </section>
+
+        <!-- (ancien grid 3 cards supprimé, remplacé par stats wall + featured + mini-grid + logo wall ci-dessus) -->
 
       <div class="admin-bar">
         <div class="an-section">§8 — Témoignages</div>
@@ -2746,6 +2804,90 @@ function setTheme(name, btn) {
       if (ratio > 0.04) $hint.classList.add('lqn-hint-hidden');
       else              $hint.classList.remove('lqn-hint-hidden');
     }
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { update(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+  update();
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROCESS SCROLLER — 4 steps scroll-driven
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+(() => {
+  const steps = [
+    { meta: 'Gratuit · 15 minutes', title: 'Entretien découverte', desc: "Un CPA agréé IRS comprend votre activité, votre fiscalité, et définit la structure cible la mieux adaptée à votre projet.", detail: "Aucun engagement · agenda en ligne" },
+    { meta: 'NM · CO · WY · DE · CA · FL', title: "Choix de l'État", desc: "Recommandation argumentée selon votre activité, l'anonymat recherché et l'optimisation fiscale franco-américaine.", detail: "6 juridictions couvertes" },
+    { meta: 'Sous 14 jours', title: 'Immatriculation et EIN', desc: "LLC enregistrée auprès du Secretary of State, EIN obtenu auprès de l'IRS, documents légaux livrés dans votre espace client.", detail: "Documents originaux US-side" },
+    { meta: '100 % à distance', title: 'Compte bancaire ouvert', desc: "Mercury, Relay, Wise ou Chase NY selon votre profil — carte de paiement incluse, encaissement Stripe et PayPal opérationnel.", detail: "Carte Visa/Mastercard livrée à votre adresse FR" }
+  ];
+
+  const $sec = document.getElementById('lqps-section');
+  const $stage = $sec?.querySelector('.lqps-stage');
+  const $counter = document.getElementById('lqps-counter');
+  const $meta = document.getElementById('lqps-meta');
+  const $title = document.getElementById('lqps-title');
+  const $desc = document.getElementById('lqps-desc');
+  const $prog = document.getElementById('lqps-progress');
+  const $nodes = $sec?.querySelectorAll('.lqps-node');
+  if (!$sec || !$stage) return;
+
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = matchMedia('(max-width: 900px)').matches;
+  if (isMobile) return; // mobile shows static cards via CSS fallback (no scroll-jacking)
+
+  const pad = n => String(n).padStart(2, '0');
+  let currentIdx = -1;
+
+  function render(idx) {
+    if (idx === currentIdx) return;
+    const s = steps[idx];
+
+    if (reducedMotion) {
+      $counter.textContent = `Étape ${pad(idx+1)} · 04`;
+      $meta.textContent = s.meta;
+      $title.textContent = s.title;
+      $desc.textContent = s.desc;
+      $prog.style.height = ((idx + 1) / steps.length * 100) + '%';
+      $nodes.forEach((n, i) => {
+        n.classList.toggle('lqps-node-active', i === idx);
+        n.classList.toggle('lqps-node-done', i < idx);
+      });
+      currentIdx = idx;
+      return;
+    }
+
+    $stage.classList.add('lqps-swapping');
+    setTimeout(() => {
+      $counter.textContent = `Étape ${pad(idx+1)} · 04`;
+      $meta.textContent = s.meta;
+      $title.textContent = s.title;
+      $desc.textContent = s.desc;
+      $prog.style.height = ((idx + 1) / steps.length * 100) + '%';
+      $nodes.forEach((n, i) => {
+        n.classList.toggle('lqps-node-active', i === idx);
+        n.classList.toggle('lqps-node-done', i < idx);
+      });
+      requestAnimationFrame(() => $stage.classList.remove('lqps-swapping'));
+      currentIdx = idx;
+    }, 380);
+  }
+
+  function update() {
+    const rect = $sec.getBoundingClientRect();
+    const total = $sec.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    const scrolled = Math.min(Math.max(-rect.top, 0), total);
+    const ratio = scrolled / total;
+    const idx = Math.min(Math.floor(ratio * steps.length), steps.length - 1);
+    render(idx);
   }
 
   let ticking = false;
