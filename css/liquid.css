@@ -1401,20 +1401,50 @@ html[data-theme="liquid"] .hm-logo-badge {
   font-family: 'Inter', sans-serif;
   letter-spacing: .12em;
 }
-html[data-theme="liquid"] .hm-eyebrow { margin-bottom: 28px; }
+html[data-theme="liquid"] .hm-eyebrow {
+  margin-bottom: 32px;
+  animation: lqHeroFadeIn .9s ease-out 0.1s both;
+}
 html[data-theme="liquid"] .hm-ey-line {
-  flex: 0 0 48px;
+  flex: 0 0 36px;
   height: 1px;
-  background: linear-gradient(90deg, rgba(42,80,144,.6), rgba(42,80,144,0));
+  background: linear-gradient(90deg, rgba(42,80,144,.55), rgba(42,80,144,0));
+}
+html[data-theme="liquid"] .hm-ey-line-r {
+  background: linear-gradient(270deg, rgba(42,80,144,.55), rgba(42,80,144,0));
+  flex: 1;
+  max-width: 80px;
 }
 html[data-theme="liquid"] .hm-ey-text {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: .2em;
+  letter-spacing: .22em;
   text-transform: uppercase;
-  color: rgba(42,80,144,.65);
+  color: rgba(42,80,144,.72);
   opacity: 1;
+}
+
+/* Hero entry animations */
+@keyframes lqHeroFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes lqShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+html[data-theme="liquid"] .hm-h1 {
+  animation: lqHeroFadeIn 1.0s ease-out 0.25s both;
+}
+html[data-theme="liquid"] .hm-sub {
+  animation: lqHeroFadeIn 1.0s ease-out 0.45s both;
+}
+html[data-theme="liquid"] .hm-stats {
+  animation: lqHeroFadeIn 1.0s ease-out 0.6s both;
+}
+html[data-theme="liquid"] .hm-cta-block {
+  animation: lqHeroFadeIn 1.0s ease-out 0.75s both;
 }
 
 /* Headline XXL éditorial — Fraunces variable */
@@ -1508,6 +1538,9 @@ html[data-theme="liquid"] .hm-cta-btn {
   font-weight: 600;
   letter-spacing: .005em;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   background: linear-gradient(135deg, #0d1c35 0%, #1a3a6a 50%, #0d1c35 100%);
   color: #fff;
   border-radius: 40px;
@@ -1516,6 +1549,11 @@ html[data-theme="liquid"] .hm-cta-btn {
     0 8px 24px rgba(13,28,53,.28),
     0 2px 6px rgba(13,28,53,.15);
 }
+html[data-theme="liquid"] .hm-cta-arrow {
+  display: inline-block;
+  transition: transform .25s cubic-bezier(.34,1.4,.64,1);
+  font-weight: 400;
+}
 html[data-theme="liquid"] .hm-cta-btn:hover {
   background: linear-gradient(135deg, #1a3a6a 0%, #2a5090 50%, #1a3a6a 100%);
   box-shadow:
@@ -1523,6 +1561,9 @@ html[data-theme="liquid"] .hm-cta-btn:hover {
     0 12px 36px rgba(13,28,53,.36),
     0 4px 10px rgba(13,28,53,.2);
   transform: translateY(-2px);
+}
+html[data-theme="liquid"] .hm-cta-btn:hover .hm-cta-arrow {
+  transform: translateX(6px);
 }
 html[data-theme="liquid"] .hm-legal {
   font-family: 'Inter', sans-serif;

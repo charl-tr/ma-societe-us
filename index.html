@@ -325,6 +325,7 @@
             <div class="hm-eyebrow">
               <span class="hm-ey-line"></span>
               <span class="hm-ey-text">Cabinet franco-américain · CPA agréé IRS</span>
+              <span class="hm-ey-line hm-ey-line-r"></span>
             </div>
             <h1 class="hm-h1">Votre société américaine,<br><em>sans aucun impôt.</em></h1>
             <p class="hm-sub">Créez votre LLC aux États-Unis en 14 jours. 100 % à distance, accompagné par un CPA agréé qui signe personnellement vos déclarations.</p>
@@ -336,7 +337,10 @@
               <div class="hm-stat"><div class="hm-sv">10<span class="hm-su"> ans</span></div><div class="hm-sl">d'expertise</div></div>
             </div>
             <div class="hm-cta-block">
-              <button class="hm-cta-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
+              <button class="hm-cta-btn" onclick="go('cal')">
+                <span>Réserver mon entretien gratuit</span>
+                <span class="hm-cta-arrow">→</span>
+              </button>
               <span class="hm-legal">Sans engagement · 15 min · Conforme OCDE</span>
             </div>
           </div>
@@ -1769,7 +1773,7 @@ function _drawHeroLines(centroids, W, H) {
 
   const theme = document.documentElement.getAttribute('data-theme') || 'liquid';
   const LC = {
-    liquid: { line: 'rgba(42,80,144,.55)', cDot: 'rgba(42,80,144,.42)', sRing: 'rgba(42,80,144,.16)', sDot: 'rgba(42,80,144,.62)' },
+    liquid: { line: 'rgba(42,80,144,.72)', cDot: 'rgba(42,80,144,.7)', sRing: 'rgba(42,80,144,.25)', sDot: 'rgba(42,80,144,.85)' },
     dark:   { line: 'rgba(225,190,105,.58)', cDot: 'rgba(225,190,105,.48)', sRing: 'rgba(225,190,105,.20)', sDot: 'rgba(225,190,105,.70)' },
     vault:  { line: 'rgba(120,88,48,.55)', cDot: 'rgba(120,88,48,.42)', sRing: 'rgba(120,88,48,.16)', sDot: 'rgba(120,88,48,.62)' }
   };
@@ -1815,7 +1819,7 @@ function _drawHeroLines(centroids, W, H) {
     path.setAttribute('d', `M ${ax} ${ay} L ${sx} ${ay} L ${sx} ${sy}`);
     path.setAttribute('fill', 'none');
     path.setAttribute('stroke', lc.line);
-    path.setAttribute('stroke-width', '1.2');
+    path.setAttribute('stroke-width', '1.6');
     path.setAttribute('stroke-linecap', 'round');
     lineSvg.appendChild(path);
     // Draw animation — must be after append so getTotalLength works
