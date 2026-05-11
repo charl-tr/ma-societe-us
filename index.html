@@ -96,8 +96,8 @@
   </div>
   <button class="nav-cta" onclick="go('cal')">Réserver mon entretien gratuit</button>
 
-  <!-- MON ESPACE — mockup démo -->
-  <div class="nav-space" onclick="this.classList.toggle('open')" title="Mon espace client">
+  <!-- MON ESPACE — mockup démo (masqué pour le prototype public) -->
+  <div class="nav-space" style="display:none" onclick="this.classList.toggle('open')" title="Mon espace client">
     <div class="ns-avatar">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="10" cy="7.5" r="3" stroke="currentColor" stroke-width="1.5"/>
@@ -143,14 +143,19 @@
           <span class="dch-tag">Démarrer</span>
         </div>
         <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
-          <div class="ddo-row"><span class="ddo-name">Pack LLC</span><span class="ddo-price">$997</span></div>
-          <div class="ddo-desc">LLC en 14 jours · EIN · Chargé dédié · Portail client</div>
-          <span class="ddo-pill pill-b">Le plus populaire</span>
+          <div class="ddo-row"><span class="ddo-name">Founder</span><span class="ddo-price">$3 997</span></div>
+          <div class="ddo-desc">LLC + EIN + Banking + Tax filing 1 an · 4 consults · ITIN structuré</div>
+          <span class="ddo-pill pill-b">Cœur de marché</span>
         </div>
         <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
-          <div class="ddo-row"><span class="ddo-name">Pack Premium</span><span class="ddo-price">$1 597</span></div>
-          <div class="ddo-desc">LLC + compte Mercury ouvert · Carte Visa incluse</div>
-          <span class="ddo-pill pill-g">Recommandé</span>
+          <div class="ddo-row"><span class="ddo-name">Scale 360°</span><span class="ddo-price">$9 990<span style="font-size:11px;opacity:.6">/an</span></span></div>
+          <div class="ddo-desc">Founder + Chase NY + Bookkeeping + Tax planning + 12 consults</div>
+          <span class="ddo-pill pill-g">Récurrent annuel</span>
+        </div>
+        <div class="dd-offer" onmouseenter="prev('offres',this)" onclick="go('offres')">
+          <div class="ddo-row"><span class="ddo-name">Empire</span><span class="ddo-price">$24 990<span style="font-size:11px;opacity:.6">/an</span></span></div>
+          <div class="ddo-desc">Scale + Visa E2/L1 + Multi-LLC + CFO fractionné + Concierge légal</div>
+          <span class="ddo-pill pill-a">Élite · 18 clients/an</span>
         </div>
         <div class="dd-tarifs" onclick="go('tarifs');closeAll()">→ Voir tous les tarifs</div>
       </div>
@@ -594,45 +599,71 @@
         <div class="an-emotion"><strong>Émotion cible</strong>Projection — "si eux l'ont fait, moi aussi je peux"<div class="an-critique">⚠ Témoignages trop génériques (pas de photos réelles, résultats peu spécifiques). "15 000$ encaissés le 1er mois" de Sophie est le seul avec un chiffre concret — c'est le modèle à suivre pour tous. Avatars générés = signal de faiblesse.</div></div>
         <div class="an-status missing">PLACEHOLDER</div>
       </div>
-      <!-- §6 OFFRES APERÇU -->
+      <!-- §6 OFFRES APERÇU — 3 tiers Founder / Scale / Empire -->
       <div class="offers-section" data-lockable data-lock-label="Offres">
-        <div class="section-tag" style="text-align:center">Nos offres</div>
-        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">Deux packs, un seul objectif :<br>votre LLC opérationnelle.</h2>
-        <p class="section-sub" style="text-align:center;margin:0 auto 40px">Pas de frais cachés. Pas de mauvaise surprise.</p>
-        <div class="offers-preview-grid">
+        <div class="section-tag" style="text-align:center">Architecture trois tiers</div>
+        <h2 class="section-h2" style="text-align:center;margin:0 auto 10px">Trois niveaux, une seule promesse :<br>vous propulser aux États-Unis.</h2>
+        <p class="section-sub" style="text-align:center;margin:0 auto 40px">Du <em>cœur de marché</em> au <em>concierge sur-mesure</em>. Chaque tier inclut intégralement le précédent.</p>
+        <div class="offers-preview-grid offers-preview-grid-3">
+
           <div class="op-card a-card" onclick="go('offres')">
-            <div class="op-name">Pack LLC</div>
-            <div class="op-price">$997<span> USD</span></div>
-            <div class="op-tagline">LLC créée en 14 jours · EIN inclus · Chargé dédié</div>
+            <div class="op-card-header">
+              <div class="op-name">Founder</div>
+              <div class="op-tier-badge">Tier 1 · Cœur de marché</div>
+            </div>
+            <div class="op-price">$3 997<span> USD</span></div>
+            <div class="op-tagline">Lancer une LLC tout-inclus, sans rien gérer.</div>
             <div class="op-features">
-              <div class="op-feat">LLC immatriculée sous 14 jours</div>
-              <div class="op-feat">EIN (numéro fiscal US) obtenu</div>
-              <div class="op-feat">Documents légaux (Operating Agreement)</div>
-              <div class="op-feat">Chargé d'affaires dédié (2 entretiens/an)</div>
-              <div class="op-feat">Portail client sécurisé</div>
+              <div class="op-feat">LLC immatriculée + EIN + ITIN structuré</div>
+              <div class="op-feat">Banking Mercury / Revolut + Wise</div>
+              <div class="op-feat">Tax filing 1 an inclus</div>
+              <div class="op-feat">Annual Report + Mailbox 12 mois</div>
+              <div class="op-feat">4 consults stratégiques avec un CPA</div>
+              <div class="op-feat">IRS audit defense année 1</div>
             </div>
             <button class="op-btn op-btn-secondary" onclick="go('offres')">En savoir plus</button>
           </div>
+
           <div class="op-card featured a-card" onclick="go('offres')">
             <div class="op-card-header">
-              <div class="op-name">Pack Premium</div>
+              <div class="op-name">Scale 360°</div>
               <div class="op-rec-badge a-badge">Recommandé</div>
             </div>
-            <div class="op-price">$1 597<span> USD</span></div>
-            <div class="op-tagline">Tout le Pack LLC + compte bancaire US ouvert</div>
+            <div class="op-price">$9 990<span> /an</span></div>
+            <div class="op-tagline">Founder + récurrence + Chase NY + Bookkeeping.</div>
             <div class="op-features">
-              <div class="op-feat">Tout ce qui est inclus dans Pack LLC</div>
-              <div class="op-feat extra">Compte bancaire US ouvert (Mercury/Relay)</div>
-              <div class="op-feat extra">Carte Visa ou Mastercard incluse</div>
-              <div class="op-feat extra">Compatible Stripe, PayPal, Shopify</div>
-              <div class="op-feat extra">100% à distance — aucun déplacement</div>
+              <div class="op-feat">Tout ce qui est inclus dans <strong>Founder</strong></div>
+              <div class="op-feat extra">Banking Chase NY (rdv physique inclus)</div>
+              <div class="op-feat extra">Bookkeeping mensuelle automatisée</div>
+              <div class="op-feat extra">Tax planning annuel + Sales Tax US/OSS</div>
+              <div class="op-feat extra">12 consults stratégiques · auto-renew</div>
+              <div class="op-feat extra">IRS audit defense permanente</div>
             </div>
-            <button class="op-btn op-btn-primary" onclick="go('offres')">Choisir ce pack</button>
+            <button class="op-btn op-btn-primary" onclick="go('offres')">Choisir Scale</button>
           </div>
+
+          <div class="op-card op-card-elite a-card" onclick="go('offres')">
+            <div class="op-card-header">
+              <div class="op-name">Empire</div>
+              <div class="op-tier-badge op-tier-badge-elite">Tier 3 · Élite</div>
+            </div>
+            <div class="op-price">$24 990<span> /an</span></div>
+            <div class="op-tagline">Concierge légal + Visa E2/L1 + CFO dédié.</div>
+            <div class="op-features">
+              <div class="op-feat">Tout ce qui est inclus dans <strong>Scale</strong></div>
+              <div class="op-feat extra">ITIN structuré + adresse multi-usage premium</div>
+              <div class="op-feat extra">Visa E2 / L1 inclus</div>
+              <div class="op-feat extra">Multi-LLC (jusqu'à 5 entités)</div>
+              <div class="op-feat extra">CFO fractionné dédié + Hotline 4 h</div>
+              <div class="op-feat extra">Concierge légal · 18 clients/an max</div>
+            </div>
+            <button class="op-btn op-btn-secondary" onclick="go('offres')">Entrer en lice</button>
+          </div>
+
         </div>
         <p class="offers-link">
-          Vous avez besoin d'un service spécifique ?
-          <a onclick="go('gestion')">Voir toutes les prestations →</a>
+          Une question spécifique ou un cas particulier ?
+          <a onclick="go('cal')">Réservez un entretien gratuit →</a>
         </p>
       </div>
 
