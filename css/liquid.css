@@ -4,13 +4,18 @@
    ════════════════════════════════════════ */
 
 /* ── FONT TOKENS — Liquid Glass ── */
-/* Playfair Display (headings éditoriaux) + Space Grotesk (UI/labels) + DM Sans (corps) */
+/* Fraunces variable (headings éditoriaux, optical sizing) + Inter (UI/body unifié) */
 html[data-theme="liquid"] {
-  --font-heading:   'Playfair Display', 'Georgia', serif;
+  --font-heading:   'Fraunces', 'Georgia', serif;
   --font-head:      var(--font-heading);
-  --font-ui:        'Space Grotesk', system-ui, sans-serif;
-  --font-body:      'DM Sans', system-ui, sans-serif;
+  --font-ui:        'Inter', system-ui, sans-serif;
+  --font-body:      'Inter', system-ui, sans-serif;
   --font-label:     var(--font-ui);
+}
+
+/* Fraunces optical sizing defaults — soft, modern editorial */
+html[data-theme="liquid"] {
+  font-feature-settings: "ss01", "ss02", "kern";
 }
 
 /* ── Playfair Display — titres éditoriaux ── */
@@ -35,7 +40,7 @@ html[data-theme="liquid"] .testi-quote,
 html[data-theme="liquid"] .gestion-block-h,
 html[data-theme="liquid"] .an-h,
 html[data-theme="liquid"] .i-h1 {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Fraunces', 'Georgia', serif;
 }
 
 /* ── Space Grotesk — UI, labels, nav ── */
@@ -53,7 +58,7 @@ html[data-theme="liquid"] .dp-title,
 html[data-theme="liquid"] .dp-lbl,
 html[data-theme="liquid"] .dp-btn,
 html[data-theme="liquid"] .stat-lbl {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 /* ── Stat values — Playfair italic pour les chiffres ── */
@@ -62,7 +67,7 @@ html[data-theme="liquid"] .pb-num,
 html[data-theme="liquid"] .pgi-val,
 html[data-theme="liquid"] .op-price,
 html[data-theme="liquid"] .pack-price {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Fraunces', 'Georgia', serif;
 }
 
 /* ── COLOR TOKENS ── */
@@ -270,7 +275,7 @@ html[data-theme="liquid"] .hero-ey-line {
   background: linear-gradient(90deg, rgba(42,80,144,.55), rgba(42,80,144,0));
 }
 html[data-theme="liquid"] .hero-ey-text {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: .08em;
@@ -309,14 +314,14 @@ html[data-theme="liquid"] .hero-cred-icon {
   opacity: .75;
 }
 html[data-theme="liquid"] .hero-cred-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Fraunces', serif;
   font-size: 14px;
   font-weight: 500;
   color: #0e1e38;
   line-height: 1.3;
 }
 html[data-theme="liquid"] .hero-cred-role {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 11.5px;
   color: rgba(14,30,56,.4);
   margin-top: 2px;
@@ -333,7 +338,7 @@ html[data-theme="liquid"] .hero-btns {
 html[data-theme="liquid"] .hero-cta-p {
   padding: 15px 30px;
   font-size: 15px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   letter-spacing: .01em;
   border-radius: 10px;
@@ -353,7 +358,7 @@ html[data-theme="liquid"] .panel-big {
   text-align: center;
 }
 html[data-theme="liquid"] .pb-num {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Fraunces', serif;
   font-size: 96px;
   font-weight: 700;
   line-height: 1;
@@ -366,7 +371,7 @@ html[data-theme="liquid"] .pb-num span {
   vertical-align: middle;
 }
 html[data-theme="liquid"] .pb-lbl {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
@@ -387,7 +392,7 @@ html[data-theme="liquid"] .pg-item {
   text-align: center;
 }
 html[data-theme="liquid"] .pgi-val {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Fraunces', serif;
   font-size: 23px;
   font-weight: 600;
   color: #0e1e38;
@@ -399,7 +404,7 @@ html[data-theme="liquid"] .pgi-unit {
   color: rgba(14,30,56,.5);
 }
 html[data-theme="liquid"] .pgi-lbl {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 10.5px;
   font-weight: 500;
   color: rgba(14,30,56,.36);
@@ -689,11 +694,11 @@ html[data-theme="liquid"] .op-card.featured {
 .op-rec-badge { background: linear-gradient(135deg, #1a3a6a, #2a5090); color: #fff; }
 /* Liquid Glass — typography raffinée pour les offres */
 html[data-theme="liquid"] .op-name {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500; letter-spacing: .22em; color: rgba(14,30,56,.38);
 }
 html[data-theme="liquid"] .op-price {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-weight: 400; font-style: italic; color: var(--navy);
   letter-spacing: -.02em;
 }
@@ -701,11 +706,11 @@ html[data-theme="liquid"] .op-price span {
   font-style: normal; font-weight: 300; color: rgba(14,30,56,.32);
 }
 html[data-theme="liquid"] .op-tagline {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-style: italic; color: rgba(14,30,56,.45);
 }
 html[data-theme="liquid"] .op-feat {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 13.5px; color: rgba(14,30,56,.68);
 }
 .op-name { color: rgba(14,30,56,.4); }
@@ -912,7 +917,7 @@ html[data-theme="liquid"] .hco-abbr {
 
 /* Nom de l'État — serif élégant, centre */
 html[data-theme="liquid"] .hco-name {
-  font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  font-family: 'Fraunces', 'Georgia', serif;
   font-size: 15px;
   font-weight: 500;
   font-style: normal;
@@ -1096,7 +1101,7 @@ html[data-theme="liquid"] .admin-bar {
 }
 html[data-theme="liquid"] .an-section {
   color: rgba(14,30,56,.38);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .08em;
@@ -1295,7 +1300,7 @@ html[data-theme="liquid"] .pq-card {
   box-shadow: 0 2px 12px rgba(14,30,56,.06), 0 1px 3px rgba(14,30,56,.04);
 }
 html[data-theme="liquid"] .pqc-h {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Fraunces', 'Georgia', serif;
   color: #0d1c35;
 }
 html[data-theme="liquid"] .pqc-tag {
@@ -1306,33 +1311,117 @@ html[data-theme="liquid"] .pqc-tag {
 html[data-theme="liquid"] .pq-card-bad .pqc-h  { color: rgba(14,30,56,.4); }
 html[data-theme="liquid"] .pq-card-bad .pqc-tag { color: rgba(14,30,56,.28); }
 
+/* ══ PAGE BACKGROUND — stratified depth ══ */
+html[data-theme="liquid"] body {
+  background:
+    radial-gradient(ellipse 900px 600px at 88% -10%, rgba(74,144,226,.12), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 8% 105%, rgba(26,58,106,.08), transparent 55%),
+    linear-gradient(168deg, #f8fafc 0%, #eef3f9 50%, #f4f7fb 100%);
+  background-attachment: fixed;
+}
+html[data-theme="liquid"] body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  opacity: .35;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.15  0 0 0 0 0.25  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+html[data-theme="liquid"] .pv { position: relative; z-index: 1; }
+
 /* ══ HERO MAP — Liquid Glass ══ */
+html[data-theme="liquid"] .hero-map { min-height: 96vh; }
 html[data-theme="liquid"] .hm-bg {
-  background: linear-gradient(160deg, #f7f9fc 0%, #f3f7fb 55%, #f0f5fa 100%);
+  background:
+    radial-gradient(ellipse 600px 400px at 75% 35%, rgba(74,144,226,.10), transparent 65%),
+    linear-gradient(160deg, rgba(247,249,252,.5) 0%, rgba(243,247,251,.3) 55%, rgba(240,245,250,.2) 100%);
 }
 html[data-theme="liquid"] .hm-fade-l {
-  background: linear-gradient(to right, #f5f8fc, rgba(245,248,252,0));
+  background: linear-gradient(to right, rgba(248,250,252,.92), rgba(245,248,252,0));
 }
 html[data-theme="liquid"] .hm-fade-t {
-  background: linear-gradient(to bottom, #f7f9fc, rgba(247,249,252,0));
+  background: linear-gradient(to bottom, rgba(247,249,252,.85), rgba(247,249,252,0));
 }
 html[data-theme="liquid"] .hm-fade-b {
-  background: linear-gradient(to top, #f0f5fa, rgba(240,245,250,0));
+  background: linear-gradient(to top, rgba(240,245,250,.85), rgba(240,245,250,0));
 }
 html[data-theme="liquid"] .hm-logo-badge {
   background: rgba(42,80,144,.06);
-  color: rgba(42,80,144,.65);
-  border: 1px solid rgba(42,80,144,.12);
+  color: rgba(42,80,144,.7);
+  border: 1px solid rgba(42,80,144,.14);
+  font-family: 'Inter', sans-serif;
+  letter-spacing: .12em;
 }
+html[data-theme="liquid"] .hm-eyebrow { margin-bottom: 28px; }
 html[data-theme="liquid"] .hm-ey-line {
-  background: linear-gradient(90deg, rgba(42,80,144,.5), rgba(42,80,144,0));
+  flex: 0 0 48px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(42,80,144,.6), rgba(42,80,144,0));
 }
-html[data-theme="liquid"] .hm-h1 { color: #1a3a6a; }
-html[data-theme="liquid"] .hm-h1 em { color: #3a72b8; font-style: italic; }
-html[data-theme="liquid"] .hm-sub { color: rgba(26,58,106,.58); }
-html[data-theme="liquid"] .hm-sv { color: #1a3a6a; }
-html[data-theme="liquid"] .hm-sl { color: rgba(26,58,106,.48); }
-html[data-theme="liquid"] .hm-stat-sep { background: rgba(14,30,56,.15); }
+html[data-theme="liquid"] .hm-ey-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(42,80,144,.65);
+  opacity: 1;
+}
+
+/* Headline XXL éditorial — Fraunces variable */
+html[data-theme="liquid"] .hm-h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(56px, 7.5vw, 116px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
+  line-height: 0.98;
+  letter-spacing: -.035em;
+  margin-bottom: 28px;
+  color: #0d1c35;
+}
+html[data-theme="liquid"] .hm-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 0;
+  background: linear-gradient(135deg, #2a5090 0%, #4a90e2 55%, #2a5090 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #2a5090; /* fallback */
+}
+
+/* Sub-headline */
+html[data-theme="liquid"] .hm-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  max-width: 480px;
+  margin-bottom: 44px;
+  color: rgba(13,28,53,.62);
+  opacity: 1;
+}
+
+/* Stats hero */
+html[data-theme="liquid"] .hm-sv {
+  font-family: 'Fraunces', Georgia, serif;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  font-weight: 500;
+  color: #0d1c35;
+  font-size: 38px;
+}
+html[data-theme="liquid"] .hm-sl {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(13,28,53,.45);
+  opacity: 1;
+}
+html[data-theme="liquid"] .hm-stat-sep {
+  background: linear-gradient(to bottom, transparent, rgba(13,28,53,.18), transparent);
+}
 /* Annotation cards — chrome glass identique aux hp-co callouts */
 html[data-theme="liquid"] .hm-ann-card {
   background: var(--lq-chrome-fill-el) padding-box,
@@ -1347,7 +1436,7 @@ html[data-theme="liquid"] .hm-ann.hm-active .hm-ann-card {
   box-shadow: 0 10px 40px rgba(42,80,144,.22), 0 2px 10px rgba(42,80,144,.12);
 }
 html[data-theme="liquid"] .hm-ann-state {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   color: #0d1c35;
   font-weight: 500;
 }
@@ -1357,13 +1446,33 @@ html[data-theme="liquid"] .hm-ann-tag {
   color: rgba(14,30,56,.5);
 }
 html[data-theme="liquid"] .hm-cta-btn {
-  background: #0e1e38; color: #fff;
-  box-shadow: 0 4px 24px rgba(14,30,56,.22);
+  padding: 17px 34px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: .005em;
+  background: linear-gradient(135deg, #0d1c35 0%, #1a3a6a 50%, #0d1c35 100%);
+  color: #fff;
+  border-radius: 40px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.15) inset,
+    0 8px 24px rgba(13,28,53,.28),
+    0 2px 6px rgba(13,28,53,.15);
 }
 html[data-theme="liquid"] .hm-cta-btn:hover {
-  background: #1a3055;
-  box-shadow: 0 8px 32px rgba(14,30,56,.3);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #1a3a6a 0%, #2a5090 50%, #1a3a6a 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.2) inset,
+    0 12px 36px rgba(13,28,53,.36),
+    0 4px 10px rgba(13,28,53,.2);
+  transform: translateY(-2px);
+}
+html[data-theme="liquid"] .hm-legal {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  color: rgba(13,28,53,.45);
+  letter-spacing: .03em;
+  opacity: 1;
 }
 
 /* ══ CTA FINAL — Liquid theme ══ */
