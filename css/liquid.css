@@ -3263,3 +3263,256 @@ html[data-theme="liquid"] #pv-home .lqn {
     padding: 64px 24px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   TÉMOIGNAGES .lqt — Études de cas, résultats numériques exergue
+   ═══════════════════════════════════════════════════════════ */
+html[data-theme="liquid"] .lqt {
+  padding: 120px 56px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,.5) 100%);
+}
+html[data-theme="liquid"] #pv-home .lqt {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+html[data-theme="liquid"] .lqt-head {
+  max-width: 780px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+html[data-theme="liquid"] .lqt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+html[data-theme="liquid"] .lqt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 30px 28px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255,255,255,.99) 0%, rgba(248,252,255,.97) 100%) padding-box,
+              var(--chrome-us) border-box;
+  border: 2px solid transparent;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.92) inset,
+    0 18px 48px rgba(13,28,53,.08),
+    0 6px 14px rgba(13,28,53,.05);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s cubic-bezier(.4,0,.2,1);
+}
+html[data-theme="liquid"] .lqt-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 28px 60px rgba(13,28,53,.14),
+    0 10px 22px rgba(13,28,53,.08);
+}
+
+/* Flag : State + date — institutional header */
+html[data-theme="liquid"] .lqt-card-flag {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(42,80,144,.7);
+  margin-bottom: 24px;
+}
+html[data-theme="liquid"] .lqt-card-sep { color: rgba(13,28,53,.28); }
+html[data-theme="liquid"] .lqt-card-date {
+  color: rgba(13,28,53,.42);
+  font-feature-settings: 'tnum';
+}
+
+/* RESULT — the proof number, the wow */
+html[data-theme="liquid"] .lqt-card-result {
+  padding: 20px 24px;
+  margin-bottom: 22px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(42,80,144,.05) 0%, rgba(42,80,144,.02) 100%);
+  border-left: 2px solid rgba(42,80,144,.5);
+}
+html[data-theme="liquid"] .lqt-card-result-val {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 30px;
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  letter-spacing: -.025em;
+  line-height: 1;
+  color: #0a1730;
+  margin-bottom: 6px;
+}
+html[data-theme="liquid"] .lqt-card-result-lbl {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .03em;
+  color: rgba(13,28,53,.55);
+}
+
+/* Quote */
+html[data-theme="liquid"] .lqt-card-quote {
+  flex: 1;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15.5px;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "opsz" 96, "SOFT" 60;
+  line-height: 1.5;
+  letter-spacing: -.003em;
+  color: rgba(13,28,53,.74);
+  margin: 0 0 26px;
+}
+
+/* Footer : avatar + name */
+html[data-theme="liquid"] .lqt-card-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(13,28,53,.06);
+}
+html[data-theme="liquid"] .lqt-card-av {
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, rgba(245,250,255,.98) 0%, rgba(225,235,250,.94) 100%) padding-box,
+              var(--chrome-us) border-box;
+  border: 1.5px solid transparent;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: #1a3a6a;
+}
+html[data-theme="liquid"] .lqt-card-av span { display: inline-block; }
+html[data-theme="liquid"] .lqt-card-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  color: #0a1730;
+}
+html[data-theme="liquid"] .lqt-card-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(13,28,53,.5);
+  margin-top: 2px;
+}
+
+html[data-theme="liquid"] .lqt-foot {
+  margin-top: 36px;
+  text-align: center;
+}
+html[data-theme="liquid"] .lqt-foot-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: rgba(13,28,53,.42);
+}
+
+@media (max-width: 1100px) {
+  html[data-theme="liquid"] .lqt-grid { grid-template-columns: 1fr 1fr; }
+  html[data-theme="liquid"] .lqt-grid > :last-child { grid-column: 1 / -1; max-width: 540px; justify-self: center; }
+}
+@media (max-width: 720px) {
+  html[data-theme="liquid"] .lqt { padding: 64px 24px; }
+  html[data-theme="liquid"] #pv-home .lqt { min-height: auto; }
+  html[data-theme="liquid"] .lqt-grid { grid-template-columns: 1fr; }
+  html[data-theme="liquid"] .lqt-grid > :last-child { grid-column: auto; max-width: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OFFRES — Hierarchy d'attention vers Scale (le tier recommandé)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Scale (featured) — scale up légèrement + chrome shadow plus puissant */
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-card.featured {
+  transform: scale(1.04);
+  z-index: 2;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 32px 64px rgba(13,28,53,.18),
+    0 12px 24px rgba(13,28,53,.12),
+    0 2px 6px rgba(13,28,53,.06) !important;
+}
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-card.featured:hover {
+  transform: scale(1.04) translateY(-3px);
+}
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-card:not(.featured) {
+  opacity: .96;
+}
+
+/* Le badge "Recommandé" — plus distinctif */
+html[data-theme="liquid"] .op-rec-badge {
+  background: linear-gradient(135deg, #1a3a6a 0%, #2a5090 100%) !important;
+  color: #fff !important;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: .16em;
+  font-size: 9.5px;
+  padding: 5px 12px;
+  box-shadow: 0 4px 12px rgba(42,80,144,.28);
+}
+
+/* Bouton primary Scale — pop */
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-card.featured .op-btn-primary {
+  background: linear-gradient(135deg, #0a1730 0%, #1a3a6a 60%, #0a1730 100%);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: .005em;
+  padding: 14px;
+  font-size: 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.16) inset,
+    0 6px 18px rgba(10,23,48,.28);
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+}
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-card.featured .op-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.2) inset,
+    0 10px 26px rgba(10,23,48,.36);
+}
+
+/* Boutons secondary — sobres */
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-btn-secondary {
+  background: transparent;
+  color: rgba(13,28,53,.72);
+  border: 1px solid rgba(13,28,53,.16);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all .2s;
+}
+html[data-theme="liquid"] #pv-home .offers-preview-grid-3 .op-btn-secondary:hover {
+  background: rgba(13,28,53,.04);
+  border-color: rgba(13,28,53,.32);
+  color: #0a1730;
+}
+
+/* Empire tier — accent rouge subtil sur le price (touche FR/US) */
+html[data-theme="liquid"] .op-card-elite .op-price {
+  position: relative;
+}
+html[data-theme="liquid"] .op-card-elite .op-price::after {
+  content: '·';
+  margin: 0 6px 0 8px;
+  color: rgba(191,10,48,.45);
+  font-weight: 700;
+}
