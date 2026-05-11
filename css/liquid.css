@@ -2025,3 +2025,71 @@ html[data-theme="liquid"] .lqh-proof-row:not(:last-child)::after {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(13,28,53,.06), transparent);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   HOMEPAGE SECTIONS — chaque section ≥ 92vh sur desktop
+   Plus de strips fines. Contenu vertical centré.
+   ═══════════════════════════════════════════════════════════ */
+
+html[data-theme="liquid"] #pv-home .lqh,
+html[data-theme="liquid"] #pv-home .lqm,
+html[data-theme="liquid"] #pv-home > .pv > .section,
+html[data-theme="liquid"] #pv-home .section[data-lockable],
+html[data-theme="liquid"] #pv-home .timeline-section,
+html[data-theme="liquid"] #pv-home .offers-section,
+html[data-theme="liquid"] #pv-home .hp-cta-final {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Override : la map elle-même reste flex layout */
+html[data-theme="liquid"] #pv-home .lqm {
+  display: block;
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+/* Légalité 5×NON : centre vertical + grid avec respiration */
+html[data-theme="liquid"] #pv-home .section[data-lock-label="Légalité"] .non-grid {
+  max-width: 1100px;
+  margin: 40px auto 0;
+}
+
+/* Timeline : centre vertical et respiration */
+html[data-theme="liquid"] #pv-home .timeline-section .timeline-wrap {
+  margin-top: 56px;
+}
+
+/* Offres : centrer */
+html[data-theme="liquid"] #pv-home .offers-section .offers-preview-grid-3 {
+  margin-top: 56px;
+}
+
+/* Témoignages */
+html[data-theme="liquid"] #pv-home .section[data-lock-label="Témoignages"] .testi-grid {
+  margin-top: 56px;
+}
+
+/* CTA Final */
+html[data-theme="liquid"] #pv-home .hp-cta-final {
+  margin: 0 32px 64px;
+  border-radius: 32px;
+}
+
+/* Mobile : pas de min-height 92vh, ça casse l'UX */
+@media (max-width: 720px) {
+  html[data-theme="liquid"] #pv-home .lqh,
+  html[data-theme="liquid"] #pv-home .lqm,
+  html[data-theme="liquid"] #pv-home .section,
+  html[data-theme="liquid"] #pv-home .timeline-section,
+  html[data-theme="liquid"] #pv-home .offers-section,
+  html[data-theme="liquid"] #pv-home .hp-cta-final {
+    min-height: auto;
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+}
