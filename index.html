@@ -462,71 +462,90 @@
       <!-- §2 STATS BAR — SUPPRIMÉE (redondante avec lqh-trust-line + lqh-quote) -->
       <!-- §9 CARTE DES ÉTATS — REMPLACÉE par .lqm fold 2 (cf. hero) -->
 
-      <!-- §3 LÉGALITÉ — Scroll-driven sticky experience (5 objections debunkées) -->
+      <!-- §3 LÉGALITÉ — Tab-driven (user agency, no scroll trap) -->
       <section class="lqn" id="lqn-section" data-lockable data-lock-label="Légalité">
-        <div class="lqn-sticky">
 
-          <div class="lqn-head">
-            <div class="section-tag">Légalité</div>
-            <h2 class="section-h2">Cinq idées reçues.<br>Cinq fois <em>non.</em></h2>
-            <p class="section-sub">Chaque objection des résidents français — réfutée par le droit, la convention bilatérale et la pratique du cabinet depuis 2014.</p>
-          </div>
+        <div class="lqn-head">
+          <div class="section-tag">Légalité</div>
+          <h2 class="section-h2">Cinq idées reçues.<br>Cinq fois <em>non.</em></h2>
+          <p class="section-sub">Chaque objection des résidents français — réfutée par le droit, la convention bilatérale et dix ans de pratique du cabinet.</p>
+        </div>
 
-          <div class="lqn-stage">
-            <!-- LEFT : counter + question -->
-            <div class="lqn-left">
-              <div class="lqn-counter" id="lqn-counter">01 · 05</div>
-              <div class="lqn-q-label">L'idée reçue</div>
-              <div class="lqn-q" id="lqn-q">Détenir une LLC en étant résident français est illégal.</div>
+        <div class="lqn-stage" id="lqn-stage">
+
+          <!-- LEFT col : counter + question + answer -->
+          <div class="lqn-content">
+            <div class="lqn-counter" id="lqn-counter">L'idée reçue n°<span>01</span> · 05</div>
+            <h3 class="lqn-q" id="lqn-q">«&nbsp;Détenir une LLC en étant résident français serait illégal.&nbsp;»</h3>
+
+            <div class="lqn-verdict">
+              <span class="lqn-verdict-non">NON.</span>
+              <span class="lqn-verdict-rule"></span>
             </div>
 
-            <!-- CENTER : Big chrome NON stamp -->
-            <div class="lqn-stamp-wrap" aria-hidden="true">
-              <div class="lqn-stamp" id="lqn-stamp">
-                <svg viewBox="0 0 200 200" width="100%" height="100%">
-                  <defs>
-                    <linearGradient id="lqn-grad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%"  stop-color="#dceaff"/>
-                      <stop offset="22%" stop-color="#5e88c8"/>
-                      <stop offset="45%" stop-color="#c8ccd4"/>
-                      <stop offset="62%" stop-color="#b04050"/>
-                      <stop offset="85%" stop-color="#6e9ad8"/>
-                      <stop offset="100%" stop-color="#dceaff"/>
-                    </linearGradient>
-                  </defs>
-                  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#lqn-grad)" stroke-width="3"/>
-                  <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(42,80,144,.22)" stroke-width="0.6"/>
-                  <text x="100" y="60"  text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" font-weight="700" letter-spacing="3" fill="#1a3a6a">CABINET FRANCO-AMÉRICAIN</text>
-                  <text x="100" y="118" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="58" font-weight="500" fill="#0a1730">non</text>
-                  <text x="100" y="156" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" font-weight="700" letter-spacing="3" fill="#1a3a6a">CPA · IRS · 1994 · OCDE</text>
-                </svg>
-              </div>
-            </div>
+            <p class="lqn-a" id="lqn-a">Convention franco-américaine du 31 août 1994 — parfaitement légal pour tout résident français.</p>
 
-            <!-- RIGHT : answer + legal source -->
-            <div class="lqn-right">
-              <div class="lqn-a-label" id="lqn-source">Convention bilatérale · 1994</div>
-              <div class="lqn-a" id="lqn-a">Convention franco-américaine du 31 août 1994 — parfaitement légal pour tout résident français.</div>
-              <div class="lqn-cite" id="lqn-cite">Traité fiscal bilatéral ratifié · Conforme OCDE</div>
+            <div class="lqn-source">
+              <span class="lqn-source-label" id="lqn-source-label">Référence</span>
+              <span class="lqn-source-cite" id="lqn-source">Convention bilatérale · 1994</span>
+              <span class="lqn-source-extra" id="lqn-cite">Traité fiscal bilatéral ratifié · Conforme OCDE</span>
             </div>
           </div>
 
-          <!-- Progress -->
-          <div class="lqn-progress" aria-hidden="true">
-            <span class="lqn-dot" data-i="0"></span>
-            <span class="lqn-dot" data-i="1"></span>
-            <span class="lqn-dot" data-i="2"></span>
-            <span class="lqn-dot" data-i="3"></span>
-            <span class="lqn-dot" data-i="4"></span>
-          </div>
-
-          <!-- Scroll hint at first frame -->
-          <div class="lqn-hint" id="lqn-hint">
-            <span>Faites défiler pour suivre l'argumentaire</span>
-            <svg viewBox="0 0 10 14" width="10" height="14"><path d="M5 1v12M2 10l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <!-- RIGHT col : Big chrome NON stamp (persistent anchor) -->
+          <div class="lqn-stamp-wrap" aria-hidden="true">
+            <div class="lqn-stamp" id="lqn-stamp">
+              <svg viewBox="0 0 200 200" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="lqn-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"  stop-color="#dceaff"/>
+                    <stop offset="22%" stop-color="#5e88c8"/>
+                    <stop offset="45%" stop-color="#c8ccd4"/>
+                    <stop offset="62%" stop-color="#b04050"/>
+                    <stop offset="85%" stop-color="#6e9ad8"/>
+                    <stop offset="100%" stop-color="#dceaff"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="100" r="92" fill="none" stroke="url(#lqn-grad)" stroke-width="3"/>
+                <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(42,80,144,.22)" stroke-width="0.6"/>
+                <text x="100" y="60"  text-anchor="middle" font-family="Inter, sans-serif" font-size="8.5" font-weight="700" letter-spacing="3" fill="#1a3a6a">CABINET FRANCO-AMÉRICAIN</text>
+                <text x="100" y="118" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="58" font-weight="500" fill="#0a1730">non</text>
+                <text x="100" y="156" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" font-weight="700" letter-spacing="3" fill="#1a3a6a">CPA · IRS · 1994 · OCDE</text>
+              </svg>
+            </div>
           </div>
 
         </div>
+
+        <!-- Tabs : interactive navigation (click to jump) -->
+        <nav class="lqn-tabs" aria-label="Naviguer entre les cinq idées reçues">
+          <button class="lqn-tab lqn-tab-active" data-i="0" type="button">
+            <span class="lqn-tab-num">01</span>
+            <span class="lqn-tab-label">Légalité</span>
+            <span class="lqn-tab-bar"><span class="lqn-tab-fill"></span></span>
+          </button>
+          <button class="lqn-tab" data-i="1" type="button">
+            <span class="lqn-tab-num">02</span>
+            <span class="lqn-tab-label">Requalification</span>
+            <span class="lqn-tab-bar"><span class="lqn-tab-fill"></span></span>
+          </button>
+          <button class="lqn-tab" data-i="2" type="button">
+            <span class="lqn-tab-num">03</span>
+            <span class="lqn-tab-label">Fraude fiscale</span>
+            <span class="lqn-tab-bar"><span class="lqn-tab-fill"></span></span>
+          </button>
+          <button class="lqn-tab" data-i="3" type="button">
+            <span class="lqn-tab-num">04</span>
+            <span class="lqn-tab-label">Impôt américain</span>
+            <span class="lqn-tab-bar"><span class="lqn-tab-fill"></span></span>
+          </button>
+          <button class="lqn-tab" data-i="4" type="button">
+            <span class="lqn-tab-num">05</span>
+            <span class="lqn-tab-label">Rémunérations</span>
+            <span class="lqn-tab-bar"><span class="lqn-tab-fill"></span></span>
+          </button>
+        </nav>
+
       </section>
 
       <div class="admin-bar">
@@ -2681,7 +2700,7 @@ function setTheme(name, btn) {
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════
-     LÉGALITÉ — Sticky scroll-driven update of the 5 objections
+     LÉGALITÉ v2 — Tab-driven (click + auto-advance + pause hover)
      ══════════════════════════════════════════════════════════════ -->
 <script>
 (() => {
@@ -2718,102 +2737,87 @@ function setTheme(name, btn) {
     }
   ];
 
-  const $sec     = document.getElementById('lqn-section');
-  const $sticky  = $sec?.querySelector('.lqn-sticky');
-  const $stage   = $sec?.querySelector('.lqn-stage');
-  const $count   = document.getElementById('lqn-counter');
-  const $q       = document.getElementById('lqn-q');
-  const $a       = document.getElementById('lqn-a');
-  const $src     = document.getElementById('lqn-source');
-  const $cite    = document.getElementById('lqn-cite');
-  const $hint    = document.getElementById('lqn-hint');
-  const $dots    = $sec?.querySelectorAll('.lqn-dot');
-  if (!$sec || !$sticky || !$stage) return;
+  const $sec = document.getElementById('lqn-section');
+  const $stage = $sec?.querySelector('.lqn-stage');
+  const $counter = document.getElementById('lqn-counter');
+  const $counterNum = $counter?.querySelector('span');
+  const $q = document.getElementById('lqn-q');
+  const $a = document.getElementById('lqn-a');
+  const $src = document.getElementById('lqn-source');
+  const $cite = document.getElementById('lqn-cite');
+  const $tabs = $sec?.querySelectorAll('.lqn-tab');
+  if (!$sec || !$stage || !$tabs?.length) return;
 
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = matchMedia('(max-width: 900px)').matches;
-
-  // Mobile fallback : show all 5 stacked
-  if (isMobile) {
-    $stage.outerHTML = objections.map((o, i) => `
-      <div class="lqn-mobile-card">
-        <div class="lqn-counter">${String(i+1).padStart(2,'0')} · 05</div>
-        <div class="lqn-q-label">L'idée reçue</div>
-        <div class="lqn-q" style="opacity:1;transform:none;filter:none">« ${o.q} »</div>
-        <div class="lqn-a-label" style="opacity:1;transform:none;filter:none">${o.source}</div>
-        <div class="lqn-a" style="opacity:1;transform:none;filter:none">${o.a}</div>
-        <div class="lqn-cite" style="opacity:1;transform:none;filter:none">${o.cite}</div>
-      </div>
-    `).join('');
-    return;
-  }
-
+  const AUTO_MS = 6000;
   const pad = n => String(n).padStart(2, '0');
   let currentIdx = 0;
+  let autoTimer = null;
+  let isHovering = false;
 
-  function render(idx) {
+  function render(idx, { silent = false } = {}) {
     if (idx === currentIdx) return;
     const o = objections[idx];
 
-    if (reducedMotion) {
-      $count.textContent = `${pad(idx+1)} · ${pad(objections.length)}`;
+    const apply = () => {
+      if ($counterNum) $counterNum.textContent = pad(idx+1);
+      else $counter.textContent = `L'idée reçue n°${pad(idx+1)} · ${pad(objections.length)}`;
       $q.textContent = `« ${o.q} »`;
       $a.textContent = o.a;
       $src.textContent = o.source;
       $cite.textContent = o.cite;
+      $tabs.forEach((t, i) => t.classList.toggle('lqn-tab-active', i === idx));
       currentIdx = idx;
-      return;
-    }
+    };
+
+    if (reducedMotion || silent) { apply(); return; }
 
     $stage.classList.add('lqn-swapping');
     setTimeout(() => {
-      $count.textContent = `${pad(idx+1)} · ${pad(objections.length)}`;
-      $q.textContent = `« ${o.q} »`;
-      $a.textContent = o.a;
-      $src.textContent = o.source;
-      $cite.textContent = o.cite;
-      $dots.forEach((d, i) => {
-        d.classList.remove('lqn-dot-active', 'lqn-dot-done');
-        if (i < idx) d.classList.add('lqn-dot-done');
-        else if (i === idx) d.classList.add('lqn-dot-active');
-      });
+      apply();
       requestAnimationFrame(() => $stage.classList.remove('lqn-swapping'));
-      currentIdx = idx;
-    }, 460);
+    }, 320);
   }
 
-  // Init dots
-  $dots.forEach((d, i) => {
-    if (i === 0) d.classList.add('lqn-dot-active');
+  function next() { render((currentIdx + 1) % objections.length); }
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    if (reducedMotion) return;
+    autoTimer = setInterval(() => { if (!isHovering) next(); }, AUTO_MS);
+  }
+  function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
+
+  // Tabs : click to jump
+  $tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      const i = parseInt(t.dataset.i, 10);
+      render(i);
+      // Restart auto cycle from now
+      startAuto();
+    });
   });
 
-  // Init Q with quotes
-  $q.textContent = `« ${objections[0].q} »`;
+  // Pause on hover anywhere in section
+  $sec.addEventListener('mouseenter', () => { isHovering = true; });
+  $sec.addEventListener('mouseleave', () => { isHovering = false; });
 
-  function update() {
-    const rect = $sec.getBoundingClientRect();
-    const total = $sec.offsetHeight - window.innerHeight;
-    if (total <= 0) return;
-    const scrolled = Math.min(Math.max(-rect.top, 0), total);
-    const ratio = scrolled / total;
-    // Map ratio (0..1) to index (0..4) with smooth boundaries
-    const idx = Math.min(Math.floor(ratio * objections.length), objections.length - 1);
-    render(idx);
-
-    if ($hint) {
-      if (ratio > 0.04) $hint.classList.add('lqn-hint-hidden');
-      else              $hint.classList.remove('lqn-hint-hidden');
-    }
+  // Start when section enters viewport
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) startAuto();
+        else stopAuto();
+      });
+    }, { threshold: 0.3 });
+    io.observe($sec);
+  } else {
+    startAuto();
   }
 
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => { update(); ticking = false; });
-      ticking = true;
-    }
-  }, { passive: true });
-  update();
+  // Initial state — render index 0 with quotes/format
+  currentIdx = -1;
+  render(0, { silent: true });
 })();
 </script>
 
