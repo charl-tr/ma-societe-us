@@ -1528,8 +1528,16 @@ function hmActivate(key) {
   Object.entries(hmKeyPaths).forEach(([k, el]) => {
     el.classList.toggle('hm-state-active', k === key);
     el.classList.toggle('hm-state-dimmed', k !== key);
-    el.setAttribute('stroke-width', k === key ? '2.5' : '1.2');
+    el.setAttribute('stroke-width', k === key ? '2.5' : '1.0');
   });
+  // Connection lines & dots dim/emphasis
+  const lineSvg = document.getElementById('hm-lines-svg');
+  if (lineSvg) {
+    lineSvg.classList.add('hm-has-active');
+    lineSvg.querySelectorAll('[data-key]').forEach(el => {
+      el.classList.toggle('hm-line-active', el.getAttribute('data-key') === key);
+    });
+  }
 }
 
 function hmReset() {
@@ -1538,6 +1546,11 @@ function hmReset() {
     el.classList.remove('hm-state-active', 'hm-state-dimmed');
     el.setAttribute('stroke-width', '1.2');
   });
+  const lineSvg = document.getElementById('hm-lines-svg');
+  if (lineSvg) {
+    lineSvg.classList.remove('hm-has-active');
+    lineSvg.querySelectorAll('[data-key]').forEach(el => el.classList.remove('hm-line-active'));
+  }
 }
 
 function _hpMapActivate(key) {
@@ -1898,6 +1911,7 @@ function _drawHeroLines(centroids, W, H) {
     path.setAttribute('stroke', lc.line);
     path.setAttribute('stroke-width', '1.6');
     path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('data-key', key);
     lineSvg.appendChild(path);
     // Draw animation — must be after append so getTotalLength works
     requestAnimationFrame(() => {
@@ -1911,18 +1925,21 @@ function _drawHeroLines(centroids, W, H) {
     cardDot.setAttribute('cx', ax); cardDot.setAttribute('cy', ay);
     cardDot.setAttribute('r', '2.5');
     cardDot.setAttribute('fill', lc.cDot);
+    cardDot.setAttribute('data-key', key);
     cardDot.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both`;
     lineSvg.appendChild(cardDot);
 
     const dotOuter = document.createElementNS(NS2, 'circle');
     dotOuter.setAttribute('cx', sx); dotOuter.setAttribute('cy', sy); dotOuter.setAttribute('r', '5');
     dotOuter.setAttribute('fill', lc.sRing);
+    dotOuter.setAttribute('data-key', key);
     dotOuter.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both`;
     lineSvg.appendChild(dotOuter);
 
     const dot = document.createElementNS(NS2, 'circle');
     dot.setAttribute('cx', sx); dot.setAttribute('cy', sy); dot.setAttribute('r', '2.5');
     dot.setAttribute('fill', lc.sDot);
+    dot.setAttribute('data-key', key);
     dot.style.animation = `hm-card-in 0.3s ease-out ${cardDelay}s both, hm-dot-pulse 2s ease-in-out ${cardDelay + 0.5}s infinite`;
     lineSvg.appendChild(dot);
 
