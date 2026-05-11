@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3003,
       "autoPort": true
+    },
+    {
+      "name": "nav-demo",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/Users/charlesterrier/ma-societe-us/.claude/worktrees/gh-pages"],
+      "port": 8765,
+      "autoPort": false
     }
   ]
 }
