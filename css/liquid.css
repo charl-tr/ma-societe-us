@@ -144,23 +144,51 @@ html[data-theme="liquid"] body {
 }
 
 html[data-theme="liquid"] .navbar {
-  background: rgba(247,249,252,0.94);
-  backdrop-filter: blur(24px) saturate(1.6) brightness(1.04);
-  -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.04);
+  height: 76px;
+  padding: 0 56px;
+  background: rgba(248,250,253,0.82);
+  backdrop-filter: blur(28px) saturate(1.8) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8) brightness(1.05);
   border-bottom: 1px solid rgba(26,42,64,0.06);
-  box-shadow: 0 1px 0 rgba(255,255,255,.8), 0 2px 16px rgba(80,120,180,0.05);
+  box-shadow: 0 1px 0 rgba(255,255,255,.9), 0 4px 24px rgba(80,120,180,0.06);
 }
+html[data-theme="liquid"] .nav-logo img { height: 48px; }
 
-html[data-theme="liquid"] .nl { color: rgba(14,30,56,.68); }
+html[data-theme="liquid"] .nl {
+  color: rgba(14,30,56,.72);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .005em;
+  padding: 8px 14px;
+}
 html[data-theme="liquid"] .nl:hover,
-html[data-theme="liquid"] .nl.active { color: #0e1e38; }
+html[data-theme="liquid"] .nl.active { color: #0d1c35; }
 html[data-theme="liquid"] .nl.active::after { background: var(--blue); }
 html[data-theme="liquid"] .nl.dd-active { color: var(--navy); background: rgba(14,30,56,.05); }
 
 html[data-theme="liquid"] .nav-cta {
-  background: linear-gradient(135deg,#1a3a6a,#2a5090);
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .005em;
+  padding: 11px 22px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #0d1c35 0%, #1a3a6a 60%, #0d1c35 100%);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(42,80,144,0.25);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.18) inset,
+    0 6px 20px rgba(13,28,53,.28),
+    0 2px 6px rgba(13,28,53,.14);
+  transition: all .2s;
+}
+html[data-theme="liquid"] .nav-cta:hover {
+  background: linear-gradient(135deg, #1a3a6a 0%, #2a5090 60%, #1a3a6a 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.22) inset,
+    0 10px 28px rgba(13,28,53,.36),
+    0 3px 8px rgba(13,28,53,.18);
+  transform: translateY(-1px);
 }
 
 /* Floating design panel */
@@ -1314,23 +1342,24 @@ html[data-theme="liquid"] .pq-card-bad .pqc-tag { color: rgba(14,30,56,.28); }
 /* ══ PAGE BACKGROUND — stratified depth ══ */
 html[data-theme="liquid"] body {
   background:
-    radial-gradient(ellipse 900px 600px at 88% -10%, rgba(74,144,226,.12), transparent 60%),
-    radial-gradient(ellipse 700px 500px at 8% 105%, rgba(26,58,106,.08), transparent 55%),
-    linear-gradient(168deg, #f8fafc 0%, #eef3f9 50%, #f4f7fb 100%);
+    radial-gradient(ellipse 1100px 700px at 92% -8%, rgba(74,144,226,.22), transparent 62%),
+    radial-gradient(ellipse 800px 600px at 4% 102%, rgba(26,58,106,.14), transparent 58%),
+    radial-gradient(ellipse 600px 400px at 50% 50%, rgba(180,200,230,.08), transparent 70%),
+    linear-gradient(168deg, #f6f9fd 0%, #e9eff7 50%, #f1f5fb 100%);
   background-attachment: fixed;
 }
 html[data-theme="liquid"] body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0;
   pointer-events: none;
-  opacity: .35;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.15  0 0 0 0 0.25  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: .55;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.12  0 0 0 0 0.22  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   mix-blend-mode: multiply;
 }
 html[data-theme="liquid"] .pv { position: relative; z-index: 1; }
 
 /* ══ HERO MAP — Liquid Glass ══ */
-html[data-theme="liquid"] .hero-map { min-height: 96vh; }
+html[data-theme="liquid"] .hero-map { min-height: 92vh; padding: 24px 0; }
 html[data-theme="liquid"] .hm-bg {
   background:
     radial-gradient(ellipse 600px 400px at 75% 35%, rgba(74,144,226,.10), transparent 65%),
@@ -1371,13 +1400,14 @@ html[data-theme="liquid"] .hm-ey-text {
 /* Headline XXL éditorial — Fraunces variable */
 html[data-theme="liquid"] .hm-h1 {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(56px, 7.5vw, 116px);
+  font-size: clamp(48px, 5.4vw, 80px);
   font-weight: 400;
   font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
-  line-height: 0.98;
-  letter-spacing: -.035em;
-  margin-bottom: 28px;
+  line-height: 1.04;
+  letter-spacing: -.028em;
+  margin-bottom: 24px;
   color: #0d1c35;
+  max-width: none;
 }
 html[data-theme="liquid"] .hm-h1 em {
   font-style: italic;
@@ -1424,10 +1454,16 @@ html[data-theme="liquid"] .hm-stat-sep {
 }
 /* Annotation cards — chrome glass identique aux hp-co callouts */
 html[data-theme="liquid"] .hm-ann-card {
-  background: var(--lq-chrome-fill-el) padding-box,
+  background: linear-gradient(160deg, #ffffff 0%, #f5fafe 100%) padding-box,
               var(--lq-chrome-border) border-box;
   border: 2px solid transparent;
-  box-shadow: var(--lq-chrome-shadow-el);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 18px 48px rgba(13,28,53,.22),
+    0 6px 16px rgba(13,28,53,.12),
+    0 2px 4px rgba(13,28,53,.08);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
 }
@@ -1446,11 +1482,12 @@ html[data-theme="liquid"] .hm-ann-tag {
   color: rgba(14,30,56,.5);
 }
 html[data-theme="liquid"] .hm-cta-btn {
-  padding: 17px 34px;
+  padding: 16px 30px;
   font-family: 'Inter', sans-serif;
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: .005em;
+  white-space: nowrap;
   background: linear-gradient(135deg, #0d1c35 0%, #1a3a6a 50%, #0d1c35 100%);
   color: #fff;
   border-radius: 40px;
