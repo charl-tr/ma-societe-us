@@ -307,13 +307,15 @@
 
           </div>
 
-          <!-- ── COL DROITE : Artéfact "Certificate of Formation" en chrome ── -->
+          <!-- ── COL DROITE : Artéfact "Certificate of Formation" — cycle animé ── -->
           <div class="lqh-right">
-            <article class="lqh-cert" aria-label="Exemple de certificat de formation">
+            <article class="lqh-cert" id="lqh-cert" aria-label="Exemples de certificats de formation">
+
+              <div class="lqh-cert-shimmer" aria-hidden="true"></div>
 
               <div class="lqh-cert-top">
                 <div class="lqh-cert-eyebrow">United States of America</div>
-                <div class="lqh-cert-state">State of New Mexico</div>
+                <div class="lqh-cert-state" id="cert-state">State of New Mexico</div>
               </div>
 
               <div class="lqh-cert-rule"></div>
@@ -323,23 +325,23 @@
               <div class="lqh-cert-rows">
                 <div class="lqh-cert-row">
                   <span class="lqh-cert-k">Entity</span>
-                  <span class="lqh-cert-v">Atelier Saint-Honoré LLC</span>
+                  <span class="lqh-cert-v" id="cert-entity" data-cell>Atelier Saint-Honoré LLC</span>
                 </div>
                 <div class="lqh-cert-row">
                   <span class="lqh-cert-k">Jurisdiction</span>
-                  <span class="lqh-cert-v">New Mexico · Filed</span>
+                  <span class="lqh-cert-v" id="cert-jurisdiction" data-cell>New Mexico · Filed</span>
                 </div>
                 <div class="lqh-cert-row">
                   <span class="lqh-cert-k">EIN</span>
-                  <span class="lqh-cert-v" style="font-feature-settings:'tnum'">88-3142559</span>
+                  <span class="lqh-cert-v" id="cert-ein" data-cell style="font-feature-settings:'tnum'">88-3142559</span>
                 </div>
                 <div class="lqh-cert-row">
                   <span class="lqh-cert-k">Member</span>
-                  <span class="lqh-cert-v">Antoine R. · Paris, France</span>
+                  <span class="lqh-cert-v" id="cert-member" data-cell>Antoine R. · Paris, France</span>
                 </div>
                 <div class="lqh-cert-row">
                   <span class="lqh-cert-k">Filed on</span>
-                  <span class="lqh-cert-v" style="font-feature-settings:'tnum'">12 · 03 · 2026</span>
+                  <span class="lqh-cert-v" id="cert-filed" data-cell style="font-feature-settings:'tnum'">12 · 03 · 2026</span>
                 </div>
               </div>
 
@@ -369,6 +371,13 @@
                   <div class="lqh-cert-sig-name">Cabinet franco-américain</div>
                 </div>
               </footer>
+
+              <!-- Indicator + progress bar -->
+              <div class="lqh-cert-pager">
+                <span class="lqh-cert-count" id="cert-count">01 · 06</span>
+                <span class="lqh-cert-progress"><span class="lqh-cert-progress-fill" id="cert-progress"></span></span>
+                <span class="lqh-cert-label">Dossiers récents</span>
+              </div>
 
             </article>
           </div>
@@ -2231,6 +2240,121 @@ function setTheme(name, btn) {
     }
   }, { threshold: 0.35 });
   io.observe(sec);
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     CERTIFICATE CYCLE — 6 LLCs across US, ultra-premium stagger
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+(() => {
+  const certs = [
+    { entity: 'Atelier Saint-Honoré LLC',  state: 'State of New Mexico',  juris: 'New Mexico · Filed',  ein: '88-3142559', member: 'Antoine R. · Paris, France',     filed: '12 · 03 · 2026' },
+    { entity: 'Compagnie Lumière LLC',     state: 'State of Wyoming',     juris: 'Wyoming · Filed',     ein: '92-4087114', member: 'Thomas K. · Bordeaux, France',  filed: '07 · 02 · 2026' },
+    { entity: 'Maison Bleue LLC',          state: 'State of Delaware',    juris: 'Delaware · Filed',    ein: '95-8763421', member: 'Élise V. · Lyon, France',       filed: '21 · 01 · 2026' },
+    { entity: "Côte d'Argent LLC",         state: 'State of Florida',     juris: 'Florida · Filed',     ein: '87-6291345', member: 'Sophie M. · Marseille, France', filed: '04 · 11 · 2025' },
+    { entity: 'Champlain Studio LLC',      state: 'State of Colorado',    juris: 'Colorado · Filed',    ein: '89-2156077', member: 'Jules B. · Nantes, France',     filed: '18 · 10 · 2025' },
+    { entity: 'Pacific Ridge LLC',         state: 'State of California',  juris: 'California · Filed',  ein: '93-5419802', member: 'Camille L. · Toulouse, France', filed: '02 · 09 · 2025' },
+  ];
+
+  const $state  = document.getElementById('cert-state');
+  const $entity = document.getElementById('cert-entity');
+  const $juris  = document.getElementById('cert-jurisdiction');
+  const $ein    = document.getElementById('cert-ein');
+  const $member = document.getElementById('cert-member');
+  const $filed  = document.getElementById('cert-filed');
+  const $count  = document.getElementById('cert-count');
+  const $prog   = document.getElementById('cert-progress');
+  const $card   = document.getElementById('lqh-cert');
+  if (!$card) return;
+
+  const cells = [$entity, $juris, $ein, $member, $filed];
+  const CYCLE_MS = 5200;
+  const FADE_OUT_MS = 220;
+  const FADE_IN_MS  = 280;
+  const STAGGER_MS  = 70;
+
+  let idx = 0;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const pad = n => String(n).padStart(2, '0');
+
+  function applyData(d) {
+    $state.textContent  = d.state;
+    $entity.textContent = d.entity;
+    $juris.textContent  = d.juris;
+    $ein.textContent    = d.ein;
+    $member.textContent = d.member;
+    $filed.textContent  = d.filed;
+    $count.textContent  = `${pad(idx+1)} · ${pad(certs.length)}`;
+  }
+
+  function stepTo(nextIdx) {
+    const d = certs[nextIdx];
+    if (reducedMotion) { idx = nextIdx; applyData(d); return; }
+
+    $state.classList.add('cert-fade-out');
+    $card.classList.add('cert-cycling');
+    cells.forEach((cell, i) => {
+      setTimeout(() => cell.classList.add('cert-fade-out'), i * STAGGER_MS);
+    });
+
+    const swapAt = FADE_OUT_MS + (cells.length - 1) * STAGGER_MS;
+    setTimeout(() => {
+      idx = nextIdx;
+      applyData(d);
+      $state.classList.remove('cert-fade-out');
+      $state.classList.add('cert-fade-in');
+      cells.forEach((cell, i) => {
+        cell.classList.remove('cert-fade-out');
+        setTimeout(() => cell.classList.add('cert-fade-in'), i * STAGGER_MS);
+      });
+    }, swapAt);
+
+    const totalDur = swapAt + FADE_IN_MS + (cells.length - 1) * STAGGER_MS;
+    setTimeout(() => {
+      cells.forEach(c => c.classList.remove('cert-fade-in'));
+      $state.classList.remove('cert-fade-in');
+      $card.classList.remove('cert-cycling');
+    }, totalDur);
+  }
+
+  function tick() { stepTo((idx + 1) % certs.length); }
+
+  let progAnim;
+  function resetProgress() {
+    if (!$prog) return;
+    $prog.style.transition = 'none';
+    $prog.style.width = '0%';
+    requestAnimationFrame(() => {
+      $prog.style.transition = `width ${CYCLE_MS}ms linear`;
+      $prog.style.width = '100%';
+    });
+  }
+
+  let started = false;
+  function start() {
+    if (started) return;
+    started = true;
+    resetProgress();
+    progAnim = setInterval(() => { tick(); resetProgress(); }, CYCLE_MS);
+  }
+  function stop() {
+    started = false;
+    clearInterval(progAnim);
+  }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting ? start() : stop());
+    }, { threshold: 0.25 });
+    io.observe($card);
+  } else {
+    start();
+  }
+
+  $card.addEventListener('mouseenter', stop);
+  $card.addEventListener('mouseleave', start);
 })();
 </script>
 </body>
