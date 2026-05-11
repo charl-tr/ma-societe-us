@@ -273,6 +273,10 @@
            Conservation : DA chrome card (cf. state cards) appliquée au témoignage
            ═══════════════════════════════════════════════════ -->
       <section class="lqh" id="hv-main">
+        <!-- Ambient chrome lens — anchors the eye, no grain -->
+        <div class="lqh-orb" aria-hidden="true"></div>
+        <div class="lqh-orb-inner" aria-hidden="true"></div>
+
         <div class="lqh-grid">
 
           <!-- ── COL GAUCHE : éditorial sobre ── -->
@@ -310,6 +314,12 @@
           <!-- ── COL DROITE : Artéfact "Certificate of Formation" — cycle animé ── -->
           <div class="lqh-right">
             <article class="lqh-cert" id="lqh-cert" aria-label="Exemples de certificats de formation">
+
+              <!-- Live indicator -->
+              <div class="lqh-cert-live" aria-hidden="false">
+                <span class="lqh-cert-live-dot"></span>
+                <span class="lqh-cert-live-txt">4 LLC enregistrées cette semaine</span>
+              </div>
 
               <div class="lqh-cert-shimmer" aria-hidden="true"></div>
 
@@ -694,16 +704,66 @@
         <div class="an-status warn">À REPOSITIONNER</div>
       </div>
 
-      <!-- §8 CTA FINAL -->
-      <div class="hp-cta-final">
-        <div class="hp-cta-final-inner">
-          <div class="section-tag" style="color:rgba(255,255,255,.5)">Prochaine étape</div>
-          <h2 class="hp-cta-final-h">Votre LLC en 14 jours.<br>L'entretien est gratuit.</h2>
-          <p class="hp-cta-final-sub">15 minutes avec un expert. Sans engagement. On définit ensemble la meilleure structure pour vous.</p>
-          <button class="hp-cta-final-btn" onclick="go('cal')">Réserver mon entretien gratuit →</button>
-          <p class="hp-cta-final-legal">Conforme OCDE · CPA agréé IRS · 500+ clients depuis 2014</p>
+      <!-- §8 CTA FINAL — Chrome scheduling card (DA cohérente) -->
+      <section class="lqc">
+        <div class="lqc-inner">
+
+          <div class="lqc-head">
+            <div class="section-tag">Prochaine étape</div>
+            <h2 class="section-h2">Quinze minutes <em>pour clarifier</em><br>votre structure américaine.</h2>
+            <p class="section-sub">Un entretien gratuit avec un CPA agréé IRS. On définit ensemble l'État, la structure et le calendrier. Sans engagement.</p>
+          </div>
+
+          <article class="lqc-card" aria-label="Réservation d'un entretien">
+            <div class="lqc-card-shimmer" aria-hidden="true"></div>
+
+            <header class="lqc-card-head">
+              <div class="lqc-card-eye">Entretien découverte</div>
+              <div class="lqc-card-title">15 minutes · gratuit · sans engagement</div>
+            </header>
+
+            <div class="lqc-card-rule"></div>
+
+            <ul class="lqc-card-list">
+              <li class="lqc-card-li">
+                <span class="lqc-card-tick" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Analyse de votre activité et choix de l'État optimal</span>
+              </li>
+              <li class="lqc-card-li">
+                <span class="lqc-card-tick" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Cadrage fiscal franco-américain (convention 1994)</span>
+              </li>
+              <li class="lqc-card-li">
+                <span class="lqc-card-tick" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>Devis sur mesure : LLC, banking, déclarations</span>
+              </li>
+            </ul>
+
+            <div class="lqc-card-rule"></div>
+
+            <footer class="lqc-card-foot">
+              <button class="lqc-card-cta" onclick="go('cal')">
+                <span>Réserver mon entretien</span>
+                <span class="lqc-card-arrow">→</span>
+              </button>
+              <div class="lqc-card-meta">
+                <span class="lqc-card-dot"></span>
+                Prochain créneau · sous 48 h
+              </div>
+            </footer>
+          </article>
+
+          <div class="lqc-trust">
+            CPA agréé IRS · Cabinet franco-américain · Conforme OCDE · 500 entrepreneurs depuis 2014
+          </div>
         </div>
-      </div>
+      </section>
 
     </div>
 

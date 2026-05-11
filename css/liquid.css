@@ -2652,3 +2652,283 @@ html[data-theme="liquid"] .lqh-cert-label {
   html[data-theme="liquid"] .lqh-cert.cert-cycling .lqh-cert-shimmer { animation: none !important; opacity: 0 !important; }
   html[data-theme="liquid"] .lqh-cert-progress-fill { transition: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO STUNNING — Ambient chrome lens + perspective + live
+   ═══════════════════════════════════════════════════════════ */
+
+/* Make hero a positioning context for the orb */
+html[data-theme="liquid"] .lqh {
+  position: relative;
+  overflow: hidden;
+  perspective: 1800px;
+}
+
+/* Chrome lens orb — soft, ambient, between hero left & right */
+html[data-theme="liquid"] .lqh-orb {
+  position: absolute;
+  top: 50%; right: -120px;
+  transform: translateY(-50%);
+  width: 760px; height: 760px;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.92) 0%, rgba(220,232,255,.55) 22%, transparent 50%),
+    radial-gradient(circle at 70% 75%, rgba(60,120,230,.18) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(110,160,240,.10) 0%, rgba(200,80,95,.04) 55%, transparent 75%);
+  filter: blur(2px);
+  opacity: .85;
+  z-index: 1;
+  animation: lqOrbDrift 22s ease-in-out infinite;
+}
+html[data-theme="liquid"] .lqh-orb-inner {
+  position: absolute;
+  top: 50%; right: 6%;
+  transform: translateY(-50%);
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.5), transparent 60%);
+  z-index: 2;
+  animation: lqOrbDrift 17s ease-in-out infinite reverse;
+}
+@keyframes lqOrbDrift {
+  0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
+  50%      { transform: translateY(-48%) translateX(-22px) scale(1.04); }
+}
+
+/* Make sure grid sits above orb */
+html[data-theme="liquid"] .lqh-grid { position: relative; z-index: 5; }
+
+/* 3D perspective tilt on the certificate */
+html[data-theme="liquid"] .lqh-right {
+  perspective: 2000px;
+  perspective-origin: 30% 50%;
+}
+html[data-theme="liquid"] .lqh-cert {
+  transform: rotateY(-3.5deg) rotateX(2deg) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.4,0,.2,1), box-shadow .6s ease;
+}
+html[data-theme="liquid"] .lqh-cert:hover {
+  transform: rotateY(-1.5deg) rotateX(1deg) translateZ(0) scale(1.01);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 40px 80px rgba(13,28,53,.16),
+    0 14px 28px rgba(13,28,53,.10),
+    0 2px 6px rgba(13,28,53,.06);
+}
+
+/* Live indicator */
+html[data-theme="liquid"] .lqh-cert-live {
+  position: absolute;
+  top: 14px; right: 14px;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 10px 5px 9px;
+  border-radius: 16px;
+  background: rgba(42,80,144,.06);
+  border: 1px solid rgba(42,80,144,.14);
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: rgba(42,80,144,.78);
+  z-index: 5;
+}
+html[data-theme="liquid"] .lqh-cert-live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #2a5090;
+  box-shadow: 0 0 0 0 rgba(42,80,144,.5);
+  animation: lqLivePulse 2.2s ease-in-out infinite;
+}
+@keyframes lqLivePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(42,80,144,.5); }
+  50%      { box-shadow: 0 0 0 7px rgba(42,80,144,0); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CTA FINAL .lqc — Chrome scheduling card (DA cohérente)
+   Remplace l'ancien .hp-cta-final dark.
+   ═══════════════════════════════════════════════════════════ */
+html[data-theme="liquid"] .lqc {
+  position: relative;
+  padding: 120px 56px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,.6) 100%);
+  overflow: hidden;
+}
+html[data-theme="liquid"] .lqc::before {
+  content: '';
+  position: absolute;
+  bottom: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(110,160,240,.14) 0%, transparent 60%);
+  pointer-events: none;
+}
+html[data-theme="liquid"] .lqc-inner {
+  position: relative; z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+html[data-theme="liquid"] .lqc-head { margin-bottom: 48px; }
+
+html[data-theme="liquid"] .lqc-card {
+  position: relative;
+  text-align: left;
+  border-radius: 22px;
+  padding: 32px 36px 28px;
+  background: linear-gradient(160deg, rgba(255,255,255,.98) 0%, rgba(248,252,255,.97) 100%) padding-box,
+              var(--chrome-us) border-box;
+  border: 2px solid transparent;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 28px 64px rgba(13,28,53,.12),
+    0 10px 22px rgba(13,28,53,.07),
+    0 2px 6px rgba(13,28,53,.04);
+  overflow: hidden;
+}
+html[data-theme="liquid"] .lqc-card-shimmer {
+  position: absolute;
+  top: 0; bottom: 0; left: -40%;
+  width: 35%;
+  background: linear-gradient(95deg, transparent 0%, rgba(255,255,255,.45) 50%, transparent 100%);
+  filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transform: skewX(-12deg);
+}
+html[data-theme="liquid"] .lqc-card:hover .lqc-card-shimmer {
+  animation: certShimmer 1.4s cubic-bezier(.6,0,.4,1) forwards;
+}
+
+html[data-theme="liquid"] .lqc-card-head { margin-bottom: 18px; }
+html[data-theme="liquid"] .lqc-card-eye {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(42,80,144,.65);
+  margin-bottom: 6px;
+}
+html[data-theme="liquid"] .lqc-card-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  font-variation-settings: "opsz" 96, "SOFT" 40;
+  letter-spacing: -.012em;
+  color: #0a1730;
+}
+
+html[data-theme="liquid"] .lqc-card-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(13,28,53,.12), transparent);
+  margin: 0;
+}
+
+html[data-theme="liquid"] .lqc-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+html[data-theme="liquid"] .lqc-card-li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(13,28,53,.7);
+}
+html[data-theme="liquid"] .lqc-card-tick {
+  flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(42,80,144,.1);
+  border: 1px solid rgba(42,80,144,.22);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #2a5090;
+  margin-top: 1px;
+}
+html[data-theme="liquid"] .lqc-card-tick svg { width: 10px; height: 10px; }
+
+html[data-theme="liquid"] .lqc-card-foot {
+  margin-top: 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+html[data-theme="liquid"] .lqc-card-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 26px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: .005em;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  border-radius: 40px;
+  background: #0a1730;
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.12) inset,
+    0 6px 20px rgba(10,23,48,.24),
+    0 2px 6px rgba(10,23,48,.14);
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+}
+html[data-theme="liquid"] .lqc-card-cta:hover {
+  background: #14264a;
+  transform: translateY(-1px);
+}
+html[data-theme="liquid"] .lqc-card-arrow {
+  transition: transform .22s cubic-bezier(.34,1.4,.64,1);
+}
+html[data-theme="liquid"] .lqc-card-cta:hover .lqc-card-arrow {
+  transform: translateX(4px);
+}
+html[data-theme="liquid"] .lqc-card-meta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .005em;
+  color: rgba(13,28,53,.55);
+}
+html[data-theme="liquid"] .lqc-card-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #2a5090;
+  box-shadow: 0 0 0 3px rgba(42,80,144,.18);
+  animation: lqLivePulse 2.4s ease-in-out infinite;
+}
+
+html[data-theme="liquid"] .lqc-trust {
+  margin-top: 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: rgba(13,28,53,.42);
+}
+
+/* Forced height for full-screen sections */
+html[data-theme="liquid"] #pv-home .lqc {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Neutralize old hp-cta-final styles for compat */
+html[data-theme="liquid"] #pv-home .hp-cta-final { display: none !important; }
+
+@media (max-width: 720px) {
+  html[data-theme="liquid"] .lqh-orb,
+  html[data-theme="liquid"] .lqh-orb-inner { display: none; }
+  html[data-theme="liquid"] .lqh-cert { transform: none; }
+  html[data-theme="liquid"] .lqh-cert-live { position: static; margin-bottom: 14px; }
+  html[data-theme="liquid"] .lqc { padding: 64px 24px; }
+  html[data-theme="liquid"] #pv-home .lqc { min-height: auto; }
+  html[data-theme="liquid"] .lqc-card-foot { flex-direction: column; align-items: stretch; }
+}
