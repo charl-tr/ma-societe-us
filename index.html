@@ -96,36 +96,11 @@
   </div>
   <button class="nav-cta" onclick="go('cal')">Réserver mon entretien gratuit</button>
 
-  <!-- MON ESPACE — mockup démo (masqué pour le prototype public) -->
-  <div class="nav-space" style="display:none" onclick="this.classList.toggle('open')" title="Mon espace client">
-    <div class="ns-avatar">
-      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="10" cy="7.5" r="3" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M3.5 17c0-3.314 2.91-6 6.5-6s6.5 2.686 6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <span class="ns-label">Mon espace</span>
-    <svg class="ns-chev" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <!-- Dropdown mock -->
-    <div class="ns-dropdown">
-      <div class="ns-dd-header">
-        <div class="ns-dd-avatar-lg">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <div>
-          <div class="ns-dd-name">Client Demo</div>
-          <div class="ns-dd-email">demo@ma-societe.us</div>
-        </div>
-      </div>
-      <div class="ns-dd-sep"></div>
-      <div class="ns-dd-item">📋 Mon dossier LLC</div>
-      <div class="ns-dd-item">📄 Mes documents</div>
-      <div class="ns-dd-item">📅 Mes rendez-vous</div>
-      <div class="ns-dd-item">💬 Support</div>
-      <div class="ns-dd-sep"></div>
-      <div class="ns-dd-item ns-dd-logout">Déconnexion</div>
-    </div>
-  </div>
+  <!-- MON ESPACE — bouton compact qui navigue vers pv-espace -->
+  <button class="lqn-mes" type="button" onclick="go('espace')">
+    <span class="lqn-mes-avatar" aria-hidden="true">A</span>
+    <span class="lqn-mes-label">Mon espace</span>
+  </button>
 
 </nav>
 
@@ -597,36 +572,55 @@
               </div>
             </div>
 
-            <!-- RIGHT : visual timeline -->
+            <!-- RIGHT : premium sidebar with chrome card per step -->
             <div class="lqps-right">
-              <div class="lqps-timeline">
-                <div class="lqps-track">
-                  <div class="lqps-progress" id="lqps-progress"></div>
+              <nav class="lqps-sidebar" aria-label="Étapes du processus">
+                <div class="lqps-sidebar-head">
+                  <span class="lqps-sidebar-eye">Étapes</span>
+                  <span class="lqps-sidebar-count"><span id="lqps-sidebar-current">01</span> sur 04</span>
                 </div>
 
-                <div class="lqps-nodes">
-                  <div class="lqps-node" data-i="0">
-                    <div class="lqps-node-dot"></div>
-                    <div class="lqps-node-day">J&nbsp;0</div>
-                    <div class="lqps-node-label">Découverte</div>
+                <div class="lqps-sidebar-rail">
+                  <div class="lqps-sidebar-track">
+                    <span class="lqps-sidebar-fill" id="lqps-progress"></span>
                   </div>
-                  <div class="lqps-node" data-i="1">
-                    <div class="lqps-node-dot"></div>
-                    <div class="lqps-node-day">J&nbsp;1-3</div>
-                    <div class="lqps-node-label">Cadrage État</div>
-                  </div>
-                  <div class="lqps-node" data-i="2">
-                    <div class="lqps-node-dot"></div>
-                    <div class="lqps-node-day">J&nbsp;4-14</div>
-                    <div class="lqps-node-label">LLC + EIN</div>
-                  </div>
-                  <div class="lqps-node" data-i="3">
-                    <div class="lqps-node-dot"></div>
-                    <div class="lqps-node-day">J&nbsp;14+</div>
-                    <div class="lqps-node-label">Banking</div>
-                  </div>
+
+                  <ol class="lqps-items">
+                    <li class="lqps-item" data-i="0">
+                      <span class="lqps-item-dot"></span>
+                      <div class="lqps-item-body">
+                        <div class="lqps-item-day">J&nbsp;0 · 15 min</div>
+                        <div class="lqps-item-name">Entretien découverte</div>
+                        <div class="lqps-item-tag">Gratuit · sans engagement</div>
+                      </div>
+                    </li>
+                    <li class="lqps-item" data-i="1">
+                      <span class="lqps-item-dot"></span>
+                      <div class="lqps-item-body">
+                        <div class="lqps-item-day">J&nbsp;1 – 3</div>
+                        <div class="lqps-item-name">Cadrage de l'État</div>
+                        <div class="lqps-item-tag">NM · CO · WY · DE · CA · FL</div>
+                      </div>
+                    </li>
+                    <li class="lqps-item" data-i="2">
+                      <span class="lqps-item-dot"></span>
+                      <div class="lqps-item-body">
+                        <div class="lqps-item-day">J&nbsp;4 – 14</div>
+                        <div class="lqps-item-name">Immatriculation et EIN</div>
+                        <div class="lqps-item-tag">Documents originaux US-side</div>
+                      </div>
+                    </li>
+                    <li class="lqps-item" data-i="3">
+                      <span class="lqps-item-dot"></span>
+                      <div class="lqps-item-body">
+                        <div class="lqps-item-day">J&nbsp;14+</div>
+                        <div class="lqps-item-name">Banking opérationnel</div>
+                        <div class="lqps-item-tag">Mercury · Relay · Chase NY</div>
+                      </div>
+                    </li>
+                  </ol>
                 </div>
-              </div>
+              </nav>
             </div>
           </div>
 
@@ -1591,6 +1585,209 @@
       <div class="inner" style="padding-top:0">
         <div class="i-cta"><div><h3>Prêt à créer votre LLC ?</h3><p>Entretien découverte · Gratuit · Sans engagement</p></div><button class="i-cta-btn" onclick="go('cal')">Réserver →</button></div>
       </div>
+    </div>
+
+    <!-- MON ESPACE — Client dashboard mockup -->
+    <div class="pv" id="pv-espace">
+      <section class="lqes">
+
+        <!-- Header -->
+        <header class="lqes-head">
+          <div class="lqes-greeting">
+            <div class="lqes-tag">Espace client · sécurisé</div>
+            <h1 class="lqes-hello">Bonjour, <em>Antoine.</em></h1>
+            <p class="lqes-sub">Votre dossier LLC est en cours. Voici l'état complet, mis à jour ce matin par votre chargé d'affaires.</p>
+          </div>
+          <div class="lqes-user">
+            <div class="lqes-user-av">AR</div>
+            <div class="lqes-user-meta">
+              <div class="lqes-user-name">Antoine Rousseau</div>
+              <div class="lqes-user-email">antoine.r@atelier-sh.fr</div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Grid 8/4 -->
+        <div class="lqes-grid">
+
+          <!-- LEFT col -->
+          <div class="lqes-main">
+
+            <!-- BIG status card : LLC progress -->
+            <article class="lqes-status">
+              <header class="lqes-status-head">
+                <div>
+                  <div class="lqes-status-eye">Dossier #ATL-2026-003 · New Mexico</div>
+                  <h3 class="lqes-status-title">Atelier&nbsp;Saint-Honoré&nbsp;LLC</h3>
+                </div>
+                <div class="lqes-status-stage">
+                  <span class="lqes-status-dot"></span>
+                  En cours de constitution
+                </div>
+              </header>
+
+              <!-- Progress timeline -->
+              <div class="lqes-timeline">
+                <div class="lqes-track"><span class="lqes-track-fill" style="width:62%"></span></div>
+                <div class="lqes-nodes">
+                  <div class="lqes-node lqes-node-done">
+                    <div class="lqes-node-dot"></div>
+                    <div class="lqes-node-day">J 0</div>
+                    <div class="lqes-node-name">Entretien</div>
+                  </div>
+                  <div class="lqes-node lqes-node-done">
+                    <div class="lqes-node-dot"></div>
+                    <div class="lqes-node-day">J 2</div>
+                    <div class="lqes-node-name">État&nbsp;choisi</div>
+                  </div>
+                  <div class="lqes-node lqes-node-active">
+                    <div class="lqes-node-dot"></div>
+                    <div class="lqes-node-day">J 8</div>
+                    <div class="lqes-node-name">Immatriculation</div>
+                  </div>
+                  <div class="lqes-node">
+                    <div class="lqes-node-dot"></div>
+                    <div class="lqes-node-day">J 10</div>
+                    <div class="lqes-node-name">EIN&nbsp;reçu</div>
+                  </div>
+                  <div class="lqes-node">
+                    <div class="lqes-node-dot"></div>
+                    <div class="lqes-node-day">J 14</div>
+                    <div class="lqes-node-name">Mercury&nbsp;ouvert</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stats row -->
+              <div class="lqes-stats">
+                <div class="lqes-stat">
+                  <div class="lqes-stat-val">62&nbsp;%</div>
+                  <div class="lqes-stat-lbl">Dossier complété</div>
+                </div>
+                <div class="lqes-stat-sep"></div>
+                <div class="lqes-stat">
+                  <div class="lqes-stat-val">J +6</div>
+                  <div class="lqes-stat-lbl">Avant LLC opérationnelle</div>
+                </div>
+                <div class="lqes-stat-sep"></div>
+                <div class="lqes-stat">
+                  <div class="lqes-stat-val">3 / 4</div>
+                  <div class="lqes-stat-lbl">Documents fournis</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Documents card -->
+            <article class="lqes-card">
+              <header class="lqes-card-head">
+                <h3 class="lqes-card-title">Documents du dossier</h3>
+                <a class="lqes-card-link">Tout voir →</a>
+              </header>
+              <ul class="lqes-doc-list">
+                <li class="lqes-doc">
+                  <span class="lqes-doc-icon">PDF</span>
+                  <div class="lqes-doc-body">
+                    <div class="lqes-doc-name">Operating Agreement · Atelier Saint-Honoré LLC</div>
+                    <div class="lqes-doc-meta">Signé · 14 mars 2026 · 14 pages</div>
+                  </div>
+                  <span class="lqes-doc-stat lqes-doc-stat-ok">Signé</span>
+                </li>
+                <li class="lqes-doc">
+                  <span class="lqes-doc-icon">PDF</span>
+                  <div class="lqes-doc-body">
+                    <div class="lqes-doc-name">Articles of Organization · NM SOS</div>
+                    <div class="lqes-doc-meta">Déposé · 12 mars 2026 · 3 pages</div>
+                  </div>
+                  <span class="lqes-doc-stat lqes-doc-stat-ok">Déposé</span>
+                </li>
+                <li class="lqes-doc">
+                  <span class="lqes-doc-icon">FORM</span>
+                  <div class="lqes-doc-body">
+                    <div class="lqes-doc-name">SS-4 · Demande EIN auprès de l'IRS</div>
+                    <div class="lqes-doc-meta">Soumis · 10 mars 2026 · en traitement</div>
+                  </div>
+                  <span class="lqes-doc-stat lqes-doc-stat-pending">En cours</span>
+                </li>
+                <li class="lqes-doc">
+                  <span class="lqes-doc-icon">PDF</span>
+                  <div class="lqes-doc-body">
+                    <div class="lqes-doc-name">Mailbox 12 mois · NM Mail Forwarding</div>
+                    <div class="lqes-doc-meta">Activé · 09 mars 2026</div>
+                  </div>
+                  <span class="lqes-doc-stat lqes-doc-stat-ok">Actif</span>
+                </li>
+              </ul>
+            </article>
+          </div>
+
+          <!-- RIGHT col -->
+          <aside class="lqes-side">
+
+            <!-- Next steps -->
+            <article class="lqes-card lqes-card-side">
+              <header class="lqes-card-head">
+                <h3 class="lqes-card-title">Prochaines étapes</h3>
+              </header>
+              <ol class="lqes-next">
+                <li class="lqes-next-item">
+                  <span class="lqes-next-tick"></span>
+                  <div>
+                    <div class="lqes-next-h">Réception du certificat EIN</div>
+                    <div class="lqes-next-m">Estimé J +2 · 19 mars 2026</div>
+                  </div>
+                </li>
+                <li class="lqes-next-item">
+                  <span class="lqes-next-tick"></span>
+                  <div>
+                    <div class="lqes-next-h">Validation Operating Agreement</div>
+                    <div class="lqes-next-m">À signer dans l'espace client</div>
+                  </div>
+                </li>
+                <li class="lqes-next-item">
+                  <span class="lqes-next-tick"></span>
+                  <div>
+                    <div class="lqes-next-h">Ouverture compte Mercury</div>
+                    <div class="lqes-next-m">Calendrier ouvert · 25 mars 2026</div>
+                  </div>
+                </li>
+              </ol>
+            </article>
+
+            <!-- Chargé d'affaires card -->
+            <article class="lqes-card lqes-card-side lqes-charge">
+              <div class="lqes-charge-eye">Votre chargé d'affaires</div>
+              <div class="lqes-charge-row">
+                <div class="lqes-charge-av">JM</div>
+                <div>
+                  <div class="lqes-charge-name">Julien M.</div>
+                  <div class="lqes-charge-title">CPA agréé IRS · 8 ans cabinet</div>
+                </div>
+              </div>
+              <div class="lqes-charge-actions">
+                <button class="lqes-btn lqes-btn-primary" type="button">
+                  Réserver un appel
+                  <svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6m0 0L5 2m3 3L5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="lqes-btn lqes-btn-secondary" type="button">Envoyer un message</button>
+              </div>
+            </article>
+
+            <!-- Support card -->
+            <article class="lqes-card lqes-card-side lqes-support">
+              <div class="lqes-support-eye">Support · réponse sous 4h ouvré</div>
+              <div class="lqes-support-msg">
+                Une question fiscale, légale ou bancaire ? Réponse de votre CPA, garantie sous 4h ouvré.
+              </div>
+              <button class="lqes-btn lqes-btn-ghost" type="button">Ouvrir un ticket</button>
+            </article>
+
+          </aside>
+        </div>
+
+        <p class="lqes-foot">
+          Espace prototype — la version production donnera l'accès complet à vos documents, signatures électroniques (DocuSign), réservation de calendrier (Calendly), messagerie sécurisée et coffre-fort numérique.
+        </p>
+      </section>
     </div>
 
     <!-- CAL -->
@@ -2861,7 +3058,8 @@ function setTheme(name, btn) {
   const $title = document.getElementById('lqps-title');
   const $desc = document.getElementById('lqps-desc');
   const $prog = document.getElementById('lqps-progress');
-  const $nodes = $sec?.querySelectorAll('.lqps-node');
+  const $sidebarCurrent = document.getElementById('lqps-sidebar-current');
+  const $items = $sec?.querySelectorAll('.lqps-item');
   if (!$sec || !$stage) return;
 
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2871,39 +3069,44 @@ function setTheme(name, btn) {
   const pad = n => String(n).padStart(2, '0');
   let currentIdx = -1;
 
+  function apply(idx) {
+    const s = steps[idx];
+    $counter.textContent = `Étape ${pad(idx+1)} · 04`;
+    $meta.textContent = s.meta;
+    $title.textContent = s.title;
+    $desc.textContent = s.desc;
+    $prog.style.height = ((idx + 1) / steps.length * 100) + '%';
+    if ($sidebarCurrent) $sidebarCurrent.textContent = pad(idx+1);
+    $items.forEach((n, i) => {
+      n.classList.toggle('lqps-item-active', i === idx);
+      n.classList.toggle('lqps-item-done', i < idx);
+    });
+  }
+
   function render(idx) {
     if (idx === currentIdx) return;
-    const s = steps[idx];
 
-    if (reducedMotion) {
-      $counter.textContent = `Étape ${pad(idx+1)} · 04`;
-      $meta.textContent = s.meta;
-      $title.textContent = s.title;
-      $desc.textContent = s.desc;
-      $prog.style.height = ((idx + 1) / steps.length * 100) + '%';
-      $nodes.forEach((n, i) => {
-        n.classList.toggle('lqps-node-active', i === idx);
-        n.classList.toggle('lqps-node-done', i < idx);
-      });
-      currentIdx = idx;
-      return;
-    }
+    if (reducedMotion) { apply(idx); currentIdx = idx; return; }
 
     $stage.classList.add('lqps-swapping');
     setTimeout(() => {
-      $counter.textContent = `Étape ${pad(idx+1)} · 04`;
-      $meta.textContent = s.meta;
-      $title.textContent = s.title;
-      $desc.textContent = s.desc;
-      $prog.style.height = ((idx + 1) / steps.length * 100) + '%';
-      $nodes.forEach((n, i) => {
-        n.classList.toggle('lqps-node-active', i === idx);
-        n.classList.toggle('lqps-node-done', i < idx);
-      });
+      apply(idx);
       requestAnimationFrame(() => $stage.classList.remove('lqps-swapping'));
       currentIdx = idx;
-    }, 380);
+    }, 280);
   }
+
+  // Click on sidebar items → jump
+  $items.forEach(it => {
+    it.addEventListener('click', () => {
+      const i = parseInt(it.dataset.i, 10);
+      // Compute scrollY to bring section to this frame
+      const total = $sec.offsetHeight - window.innerHeight;
+      const ratioMid = (i + 0.5) / steps.length;
+      const target = $sec.offsetTop + Math.floor(ratioMid * total);
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    });
+  });
 
   function update() {
     const rect = $sec.getBoundingClientRect();
