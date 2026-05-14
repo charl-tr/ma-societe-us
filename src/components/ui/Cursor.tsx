@@ -1,68 +1,64 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export function Cursor() {
-  const [visible, setVisible] = useState(false);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [hovering, setHovering] = useState(false);
-
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const sx = useSpring(x, { stiffness: 200, damping: 22, mass: 0.5 });
-  const sy = useSpring(y, { stiffness: 200, damping: 22, mass: 0.5 });
+  const pos = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-      if (!visible) setVisible(true);
-    };
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    const onEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("a, button, [data-cursor='hover']")) {
-        setHovering(true);
+    let rafId: number;
+    let cx = -100, cy = -100;
+
+    const animate = () => {
+      cx += (pos.current.x - cx) * 0.18;
+      cy += (pos.current.y - cy) * 0.18;
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
       }
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+
+    const onMove = (e: MouseEvent) => {
+      pos.current = { x: e.clientX, y: e.clientY };
     };
 
-    const onLeave = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("a, button, [data-cursor='hover']")) {
-        setHovering(false);
-      }
+    const onOver = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      if (t.closest("a, button, [data-cursor]")) setHovering(true);
+    };
+    const onOut = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      if (t.closest("a, button, [data-cursor]")) setHovering(false);
     };
 
-    window.addEventListener("mousemove", move);
-    document.addEventListener("mouseover", onEnter);
-    document.addEventListener("mouseout", onLeave);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseover", onOver, { passive: true });
+    document.addEventListener("mouseout", onOut, { passive: true });
+
     return () => {
-      window.removeEventListener("mousemove", move);
-      document.removeEventListener("mouseover", onEnter);
-      document.removeEventListener("mouseout", onLeave);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseout", onOut);
     };
-  }, [visible, x, y]);
-
-  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
-    return null;
-  }
+  }, []);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full mix-blend-difference"
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full mix-blend-difference will-change-transform"
       style={{
-        x: sx,
-        y: sy,
-        translateX: "-50%",
-        translateY: "-50%",
+        width: hovering ? 36 : 10,
+        height: hovering ? 36 : 10,
+        background: "rgba(255,255,255,0.88)",
+        transition: "width 0.22s cubic-bezier(0.22,1,0.36,1), height 0.22s cubic-bezier(0.22,1,0.36,1)",
       }}
-      animate={{
-        width: hovering ? 40 : 10,
-        height: hovering ? 40 : 10,
-        backgroundColor: hovering ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.75)",
-        opacity: visible ? 1 : 0,
-      }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
     />
   );
 }

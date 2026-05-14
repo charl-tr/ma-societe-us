@@ -6,12 +6,13 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 interface MagneticButtonProps {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   href?: string;
   strength?: number;
   onClick?: () => void;
 }
 
-export function MagneticButton({ children, className = "", href, strength = 0.35, onClick }: MagneticButtonProps) {
+export function MagneticButton({ children, className = "", style, href, strength = 0.35, onClick }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -53,7 +54,7 @@ export function MagneticButton({ children, className = "", href, strength = 0.35
         onMouseLeave={handleMouseLeave}
         className="inline-flex"
       >
-        <a href={href} className={className} onClick={onClick}>
+        <a href={href} className={className} style={style} onClick={onClick}>
           {children}
         </a>
       </motion.div>
@@ -68,7 +69,7 @@ export function MagneticButton({ children, className = "", href, strength = 0.35
       onMouseLeave={handleMouseLeave}
       className="inline-flex"
     >
-      <button className={className} onClick={onClick}>
+      <button className={className} style={style} onClick={onClick}>
         {children}
       </button>
     </motion.div>

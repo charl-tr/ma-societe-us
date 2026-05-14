@@ -12,7 +12,7 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function PageHeader({ title, subtitle, eyebrow }: PageHeaderProps) {
   return (
-    <section className="noise relative pt-32 lg:pt-44 pb-20 lg:pb-28 overflow-hidden">
+    <section className="relative pt-32 lg:pt-44 pb-20 lg:pb-28 overflow-hidden">
       {/* Dark atmospheric background — echoes the Hero */}
       <div className="absolute inset-0 bg-[#070f1e]" />
 

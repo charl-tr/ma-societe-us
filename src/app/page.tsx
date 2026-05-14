@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { Hero } from "@/components/hero/Hero";
 import { StatesMap } from "@/components/sections/StatesMap";
-import { ScrollTimeline } from "@/components/sections/ScrollTimeline";
+import { ProcessParallax } from "@/components/sections/ProcessParallax";
 import { CTASection } from "@/components/sections/CTASection";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
@@ -278,8 +278,8 @@ export default function HomePage() {
       {/* ─── States Map — glassmorphism ─── */}
       <StatesMap />
 
-      {/* ─── Process steps — scroll timeline ─── */}
-      <ScrollTimeline />
+      {/* ─── Process steps — sticky parallax ─── */}
+      <ProcessParallax />
 
       {/* ─── CTA Strip #2 — credible, not fake urgency ─── */}
       <motion.section
