@@ -125,14 +125,18 @@ export default function HomePage() {
         className="py-10 lg:py-16"
       >
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/50 mb-4">
+          <p className="text-[11px] uppercase tracking-[0.28em] text-[#2a5090]/45 mb-4">
             Pourquoi passer à la LLC
           </p>
           <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-semibold leading-[1.1] tracking-[-0.02em] max-w-2xl mb-8 text-[#1a2a40]"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-normal leading-[1.08] max-w-2xl mb-8 text-[#0c1830]"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "clamp(1.9rem,4vw,3.2rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
-            Ce que votre SARL ou SAS ne pourra jamais vous offrir.
+            Ce que votre SARL ou SAS<br className="hidden sm:block" /> ne pourra jamais vous offrir.
           </h2>
 
           <motion.div
@@ -219,8 +223,12 @@ export default function HomePage() {
                   4 juridictions
                 </p>
                 <h3
-                  className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold tracking-tight mb-3 text-[#1a2a40] whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="font-normal leading-[1.12] mb-3 text-[#0c1830] whitespace-pre-line"
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "clamp(1.4rem,2.4vw,2rem)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   {"Le bon état,\nc'est des milliers d'euros\nde différence."}
                 </h3>
@@ -245,8 +253,12 @@ export default function HomePage() {
                   Pack tout inclus
                 </p>
                 <h3
-                  className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold tracking-tight mb-3 text-white whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="font-normal leading-[1.12] mb-3 text-white whitespace-pre-line"
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "clamp(1.4rem,2.4vw,2rem)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   {"Vous signez.\nOn fait le reste."}
                 </h3>
@@ -300,12 +312,16 @@ export default function HomePage() {
         style={{ background: "linear-gradient(180deg, rgba(220,228,240,0.4), rgba(237,241,246,0.2))" }}
       >
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#1a2a40]/25 mb-2 text-center">
+          <p className="text-[11px] uppercase tracking-[0.28em] text-[#1a2a40]/22 mb-3 text-center">
             Ce qu&apos;ils en disent
           </p>
           <h2
-            className="text-[clamp(1.4rem,2.5vw,2rem)] font-semibold tracking-tight text-[#1a2a40] text-center mb-8"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-normal text-[#0c1830] text-center mb-10 leading-tight"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "clamp(1.7rem,3vw,2.6rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
             Ils ont créé leur LLC avec nous.
           </h2>

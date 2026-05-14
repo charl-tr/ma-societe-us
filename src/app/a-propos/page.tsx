@@ -21,8 +21,8 @@ export default function AProposPage() {
                 Notre histoire
               </p>
               <h2
-                className="text-[clamp(1.5rem,3vw,2.2rem)] font-normal leading-[1.15] tracking-tight mb-8"
-                style={{ fontFamily: "var(--font-heading)" }}
+                className="font-normal leading-[1.1] mb-8"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)", letterSpacing: "-0.01em" }}
               >
                 Plus de 10 ans au service des entrepreneurs francophones aux USA.
               </h2>
