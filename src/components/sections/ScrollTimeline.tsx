@@ -72,7 +72,7 @@ export function ScrollTimeline() {
   }, [handleScroll]);
 
   return (
-    <section className="relative bg-[#0a1628] text-white py-16 lg:py-24 overflow-hidden">
+    <section className="noise relative bg-[#0a1628] text-white py-16 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-5xl px-6 lg:px-10">
         {/* Header */}
         <div className="mb-16 lg:mb-20 text-center">
@@ -80,8 +80,12 @@ export function ScrollTimeline() {
             Comment ça marche
           </p>
           <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] leading-[1.1] font-bold tracking-tight mx-auto max-w-xl"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-normal leading-[1.08] mx-auto max-w-xl text-white"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "clamp(1.8rem,3.8vw,3rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
             Votre LLC créée en 4&nbsp;étapes.
           </h2>
@@ -152,8 +156,12 @@ export function ScrollTimeline() {
                       {step.label}
                     </p>
                     <h3
-                      className="text-[18px] lg:text-[20px] font-semibold leading-snug mb-2"
-                      style={{ fontFamily: "var(--font-heading)" }}
+                      className="font-normal leading-snug mb-2"
+                      style={{
+                        fontFamily: "var(--font-cormorant)",
+                        fontSize: "clamp(1.25rem,2vw,1.5rem)",
+                        letterSpacing: "-0.005em",
+                      }}
                     >
                       {step.title}
                     </h3>

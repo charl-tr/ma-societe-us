@@ -6,6 +6,7 @@ import { Hero } from "@/components/hero/Hero";
 import { StatesMap } from "@/components/sections/StatesMap";
 import { ScrollTimeline } from "@/components/sections/ScrollTimeline";
 import { CTASection } from "@/components/sections/CTASection";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
 
 /* ─── Glass panel utility ─── */
@@ -150,7 +151,7 @@ export default function HomePage() {
               <motion.div
                 key={prop.title}
                 variants={fadeUp}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,40,104,0.09)", transition: { type: "spring", stiffness: 400, damping: 25 } }}
                 className={`rounded-xl overflow-hidden transition-all duration-300 ${glass.cardHover}`}
               >
                 {/* Chrome bar */}
@@ -191,12 +192,12 @@ export default function HomePage() {
           >
             Prêt à diviser votre note fiscale ?
           </p>
-          <a
+          <MagneticButton
             href="/contact"
             className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[14px] font-medium bg-white text-[#0a1628] shadow-[0_4px_16px_rgba(255,255,255,0.15)] hover:bg-white/90 transition-all"
           >
             Entretien gratuit — 15 min →
-          </a>
+          </MagneticButton>
         </div>
       </motion.section>
 
@@ -293,12 +294,12 @@ export default function HomePage() {
           <p className="text-[14px] text-[#1a2a40]/60 text-center sm:text-left">
             <span className="font-semibold text-[#1a2a40]">500+ entrepreneurs</span> nous ont déjà fait confiance. À votre tour ?
           </p>
-          <a
+          <MagneticButton
             href="/contact"
             className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[14px] font-medium bg-[#0a1628] text-white hover:bg-[#1a2a40] transition-all shadow-[0_4px_16px_rgba(10,22,40,0.15)]"
           >
             Parler à un expert →
-          </a>
+          </MagneticButton>
         </div>
       </motion.section>
 
@@ -337,6 +338,7 @@ export default function HomePage() {
               <motion.div
                 key={t.author}
                 variants={fadeUp}
+                whileHover={{ y: -5, transition: { type: "spring", stiffness: 400, damping: 28 } }}
                 className="rounded-xl overflow-hidden"
               >
                 <div className="h-[2px]" style={{ background: glass.chrome }} />

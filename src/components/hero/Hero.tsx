@@ -1,56 +1,103 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
 import { HERO } from "@/lib/constants";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* Scroll-based content fade + slight upward drift */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.55], [0, -40]);
+
+  /* Mouse parallax for gradient orbs */
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const orb1X = useSpring(useTransform(mouseX, [-1, 1], [-28, 28]), { stiffness: 60, damping: 20 });
+  const orb1Y = useSpring(useTransform(mouseY, [-1, 1], [-20, 20]), { stiffness: 60, damping: 20 });
+  const orb2X = useSpring(useTransform(mouseX, [-1, 1], [22, -22]), { stiffness: 45, damping: 18 });
+  const orb2Y = useSpring(useTransform(mouseY, [-1, 1], [18, -18]), { stiffness: 45, damping: 18 });
+  const orb3X = useSpring(useTransform(mouseX, [-1, 1], [-14, 14]), { stiffness: 35, damping: 15 });
+  const orb3Y = useSpring(useTransform(mouseY, [-1, 1], [-10, 10]), { stiffness: 35, damping: 15 });
+
+  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    const { width, height } = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX / width) * 2 - 1);
+    mouseY.set((e.clientY / height) * 2 - 1);
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
   return (
-    <section className="relative min-h-dvh min-h-[600px] max-h-[1100px] flex flex-col overflow-hidden">
-      {/* Abstract background — US color codes */}
+    <section
+      ref={sectionRef}
+      className="noise relative min-h-dvh min-h-[600px] max-h-[1100px] flex flex-col overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Abstract background */}
       <div className="absolute inset-0 bg-[#0a1628]" />
 
-      {/* Animated gradient orbs */}
-      <div
-        className="absolute w-[800px] h-[800px] rounded-full opacity-30 blur-[120px]"
+      {/* Animated gradient orbs — mouse parallax */}
+      <motion.div
+        className="absolute w-[800px] h-[800px] rounded-full opacity-30 blur-[120px] pointer-events-none"
         style={{
           background: "radial-gradient(circle, #1e56a0 0%, transparent 70%)",
           top: "-20%",
           right: "-15%",
+          x: orb1X,
+          y: orb1Y,
           animation: "float1 20s ease-in-out infinite",
         }}
       />
-      <div
-        className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-[100px]"
+      <motion.div
+        className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-[100px] pointer-events-none"
         style={{
           background: "radial-gradient(circle, #c0392b 0%, transparent 70%)",
           bottom: "-10%",
           left: "-10%",
+          x: orb2X,
+          y: orb2Y,
           animation: "float2 25s ease-in-out infinite",
         }}
       />
-      <div
-        className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-[80px]"
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-[80px] pointer-events-none"
         style={{
           background: "radial-gradient(circle, #ffffff 0%, transparent 60%)",
           top: "30%",
           left: "40%",
+          x: orb3X,
+          y: orb3Y,
           animation: "float3 18s ease-in-out infinite",
         }}
       />
 
       {/* Subtle grid texture */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
 
-      {/* Content — centered, conversion-first */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 lg:px-10">
+      {/* Content — centered, conversion-first, fades on scroll */}
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 lg:px-10"
+      >
         {/* Trust badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,25 +129,25 @@ export function Hero() {
           {HERO.subline}
         </motion.p>
 
-        {/* Double CTA */}
+        {/* Double CTA — magnetic */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6, ease }}
           className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
-          <a
+          <MagneticButton
             href="/contact"
             className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-[15px] font-medium transition-all duration-300 bg-gradient-to-r from-[#c0392b] to-[#a02020] text-white hover:shadow-[0_8px_32px_rgba(192,57,43,0.45)] shadow-[0_4px_24px_rgba(192,57,43,0.35)]"
           >
             {HERO.cta}
-          </a>
-          <a
+          </MagneticButton>
+          <MagneticButton
             href="/services/pack-llc"
             className="inline-flex items-center px-6 py-3.5 text-[14px] text-white/55 hover:text-white border border-white/[0.1] rounded-full hover:border-white/25 transition-all bg-white/[0.04] backdrop-blur-sm"
           >
             {HERO.ctaSecondary}
-          </a>
+          </MagneticButton>
         </motion.div>
 
         {/* Trust micro-copy */}
@@ -112,13 +159,14 @@ export function Hero() {
         >
           Gratuit · Sans engagement · Réponse sous 24h
         </motion.p>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
+        style={{ opacity: contentOpacity }}
         className="relative z-10 flex justify-center pb-5"
       >
         <motion.button
