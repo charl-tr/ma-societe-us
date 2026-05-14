@@ -114,6 +114,33 @@ export function Hero() {
         </motion.p>
       </div>
 
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="relative z-10 flex justify-center pb-5"
+      >
+        <motion.button
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          onClick={() => document.getElementById("juridictions")?.scrollIntoView({ behavior: "smooth" })}
+          className="flex flex-col items-center gap-1.5 group"
+          aria-label="Défiler vers le bas"
+        >
+          <span className="text-[10px] uppercase tracking-[0.28em] text-white/18 group-hover:text-white/35 transition-colors duration-300">
+            Découvrir
+          </span>
+          <div className="w-5 h-8 rounded-full border border-white/12 flex items-start justify-center pt-1.5 group-hover:border-white/22 transition-colors duration-300">
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+              className="w-[3px] h-2.5 rounded-full bg-white/28"
+            />
+          </div>
+        </motion.button>
+      </motion.div>
+
       {/* Bottom bar — states with flags */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
