@@ -77,6 +77,40 @@ export const STATES: StateInfo[] = [
     ],
     cons: ["Franchise Tax annuelle", "Plus adapté aux C-Corps"],
   },
+  {
+    name: "Floride",
+    slug: "floride",
+    abbr: "FL",
+    tagline: "Zéro impôt sur le revenu — fiscalité optimale",
+    fips: "12",
+    icon: "sun",
+    description:
+      "La Floride ne prélève aucun impôt sur le revenu des particuliers, ce qui en fait l'une des structures les plus attractives pour les entrepreneurs digitaux. Son environnement business-friendly, sa croissance démographique record et son hub tech émergent à Miami en font un état d'avenir. Création rapide, coûts réduits.",
+    pros: [
+      "Pas d'impôt sur le revenu d'état",
+      "Création LLC rapide et économique",
+      "Hub tech Miami en plein essor",
+      "Marché en forte croissance",
+    ],
+    cons: ["Sales tax applicable selon activité"],
+  },
+  {
+    name: "Californie",
+    slug: "californie",
+    abbr: "CA",
+    tagline: "La puissance économique numéro 1 mondiale",
+    fips: "06",
+    icon: "star",
+    description:
+      "La Californie est la 5ème économie mondiale et le berceau mondial de la tech. Pour les entrepreneurs qui visent les investisseurs institutionnels, les VCs de la Silicon Valley ou un prestige maximum sur le marché américain, la CA LLC est le choix stratégique. À réserver aux structures ambitieuses prêtes à absorber la franchise tax.",
+    pros: [
+      "Prestige institutionnel maximum",
+      "Accès direct aux VCs et investisseurs",
+      "Écosystème tech mondial (Silicon Valley)",
+      "Marché consommateur le plus grand des USA",
+    ],
+    cons: ["Franchise tax $800/an minimum", "Impôt d'état élevé (8.84% corporate)"],
+  },
 ];
 
 export function getStateBySlug(slug: string): StateInfo | undefined {
