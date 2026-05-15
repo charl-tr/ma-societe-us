@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "lenis/dist/lenis.css";
-
 @theme inline {
   --font-sans: var(--font-body);
   --font-serif: var(--font-cormorant, var(--font-heading));
@@ -36,10 +34,6 @@ img {
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* Custom cursor — hide system cursor on desktop */
-@media (pointer: fine) {
-  * { cursor: none !important; }
-}
 
 /* Chrome glass utility used across components */
 .glass-chrome {

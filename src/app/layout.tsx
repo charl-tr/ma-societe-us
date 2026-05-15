@@ -3,8 +3,6 @@ import { Space_Grotesk, DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SmoothScroll } from "@/components/layout/SmoothScroll";
-import { Cursor } from "@/components/ui/Cursor";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -41,12 +39,9 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${spaceGrotesk.variable} ${dmSans.variable} ${cormorant.variable} h-full`}>
       <body className="min-h-full">
-        <SmoothScroll>
-          <Cursor />
           <Navbar />
           {children}
           <Footer />
-        </SmoothScroll>
       </body>
     </html>
   );
