@@ -6,6 +6,9 @@ import { Hero } from "@/components/hero/Hero";
 import { StatesMap } from "@/components/sections/StatesMap";
 import { ProcessParallax } from "@/components/sections/ProcessParallax";
 import { CTASection } from "@/components/sections/CTASection";
+import { TaxBalance } from "@/components/sections/TaxBalance";
+import { SavingsCalculator } from "@/components/sections/SavingsCalculator";
+import { CompareVault } from "@/components/sections/CompareVault";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
 
@@ -176,6 +179,9 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      {/* ─── Tax Balance — SARL vs LLC chrome scales ─── */}
+      <TaxBalance />
+
       {/* ─── CTA Strip #1 — dark, conversion push ─── */}
       <motion.section
         variants={fadeUp}
@@ -200,6 +206,9 @@ export default function HomePage() {
           </MagneticButton>
         </div>
       </motion.section>
+
+      {/* ─── Savings Calculator — interactive revenue slider ─── */}
+      <SavingsCalculator />
 
       {/* ─── Teaser cards — differentiated glass panels ─── */}
       <motion.section
@@ -277,6 +286,9 @@ export default function HomePage() {
 
       {/* ─── States Map — glassmorphism ─── */}
       <StatesMap />
+
+      {/* ─── Compare Vault — competitor weaknesses vs MSUS strengths ─── */}
+      <CompareVault />
 
       {/* ─── Process steps — sticky parallax ─── */}
       <ProcessParallax />
