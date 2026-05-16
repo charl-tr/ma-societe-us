@@ -1,20 +1,13 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { useInView, motion, useSpring, useMotionValue, animate } from "framer-motion";
+import { useInView, motion, useScroll, useTransform, animate } from "framer-motion";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const FRANCE_RATE = 0.45;
 const LLC_RATE = 0.12;
-
-function formatEuros(n: number): string {
-  return (
-    Math.round(n)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " €/an"
-  );
-}
+const MAX_REVENUE = 500000;
 
 function formatRevenue(n: number): string {
   return (
@@ -53,6 +46,7 @@ function AnimatedNumber({ value }: { value: number }) {
 
 export function SavingsCalculator() {
   const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [revenue, setRevenue] = useState(150000);
 
@@ -60,26 +54,37 @@ export function SavingsCalculator() {
   const llcTax = revenue * LLC_RATE;
   const savings = revenue * (FRANCE_RATE - LLC_RATE);
 
-  // Bar height percentages (max bar height = 70% of container)
-  const maxBarH = 260; // px
-  const franceBarH = FRANCE_RATE * maxBarH * (1 / FRANCE_RATE); // always full
-  const llcBarH = (LLC_RATE / FRANCE_RATE) * maxBarH;
+  // Bar heights scale with revenue — both bars animate with slider AND on entrance
+  const maxBarH = 260;
+  const franceBarH = isInView ? Math.round((revenue / MAX_REVENUE) * maxBarH) : 0;
+  const llcBarH = isInView
+    ? Math.round(((revenue * LLC_RATE) / (MAX_REVENUE * FRANCE_RATE)) * maxBarH)
+    : 0;
 
-  const franceBarActual = maxBarH;
-  const llcBarActual = Math.round((LLC_RATE / FRANCE_RATE) * maxBarH);
+  // Savings tooltip value (shows above slider thumb)
+  const savingsFormatted = Math.round(savings)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  // Section scroll parallax for background orbs
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+
+  // Slider thumb position percentage
+  const sliderPct = ((revenue - 50000) / (500000 - 50000)) * 100;
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       className="relative overflow-hidden py-24 px-4"
       style={{ background: "#060e20" }}
     >
-      {/* Background orbs */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      >
-        <div
+      {/* Background orbs with parallax */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <motion.div
           className="absolute rounded-full"
           style={{
             width: 600,
@@ -89,9 +94,10 @@ export function SavingsCalculator() {
             background:
               "radial-gradient(circle, rgba(29,78,216,0.12) 0%, transparent 70%)",
             filter: "blur(40px)",
+            y: bgY,
           }}
         />
-        <div
+        <motion.div
           className="absolute rounded-full"
           style={{
             width: 500,
@@ -101,11 +107,12 @@ export function SavingsCalculator() {
             background:
               "radial-gradient(circle, rgba(14,40,120,0.18) 0%, transparent 70%)",
             filter: "blur(60px)",
+            y: bgY,
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div ref={ref} className="relative z-10 max-w-4xl mx-auto">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -154,7 +161,7 @@ export function SavingsCalculator() {
             <div
               className="absolute top-0 left-0 h-full rounded-full"
               style={{
-                width: `${((revenue - 50000) / (500000 - 50000)) * 100}%`,
+                width: `${sliderPct}%`,
                 background: "linear-gradient(90deg, #0e2878, #1d4ed8)",
                 transition: "width 0.1s",
               }}
@@ -169,19 +176,54 @@ export function SavingsCalculator() {
               className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
               style={{ margin: 0 }}
             />
+            {/* Savings tooltip above thumb */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                left: `calc(${sliderPct}% - 10px)`,
+                bottom: "calc(100% + 10px)",
+                transition: "left 0.1s",
+              }}
+            >
+              <div
+                className="relative px-2 py-1 rounded-lg text-xs font-semibold text-white whitespace-nowrap"
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  background: "rgba(29,78,216,0.85)",
+                  border: "1px solid rgba(29,78,216,0.5)",
+                  boxShadow: "0 2px 8px rgba(29,78,216,0.3)",
+                }}
+              >
+                Économie&nbsp;: {savingsFormatted}&nbsp;€
+                {/* Tooltip caret */}
+                <span
+                  className="absolute"
+                  style={{
+                    bottom: -5,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 0,
+                    height: 0,
+                    borderLeft: "5px solid transparent",
+                    borderRight: "5px solid transparent",
+                    borderTop: "5px solid rgba(29,78,216,0.85)",
+                  }}
+                />
+              </div>
+            </div>
             {/* Thumb indicator */}
             <div
               className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-[#1d4ed8] bg-white shadow-lg"
               style={{
-                left: `calc(${((revenue - 50000) / (500000 - 50000)) * 100}% - 10px)`,
+                left: `calc(${sliderPct}% - 10px)`,
                 transition: "left 0.1s",
                 boxShadow: "0 0 0 4px rgba(29,78,216,0.2)",
               }}
             />
           </div>
           <div className="flex justify-between mt-2">
-            <span style={{ fontFamily: "var(--font-body)" }} className="text-xs text-[#3a5a7c]">50 000 €</span>
-            <span style={{ fontFamily: "var(--font-body)" }} className="text-xs text-[#3a5a7c]">500 000 €</span>
+            <span style={{ fontFamily: "var(--font-body)" }} className="text-xs text-[#3a5a7c]">50&nbsp;000&nbsp;€</span>
+            <span style={{ fontFamily: "var(--font-body)" }} className="text-xs text-[#3a5a7c]">500&nbsp;000&nbsp;€</span>
           </div>
         </motion.div>
 
@@ -203,9 +245,11 @@ export function SavingsCalculator() {
                 className="absolute inset-0 rounded-t-xl"
                 style={{ background: "rgba(255,255,255,0.04)" }}
               />
+              {/* Gap indicator bracket (top of LLC bar to top of France bar) */}
               <motion.div
                 className="relative w-full rounded-t-xl"
-                animate={{ height: franceBarActual }}
+                initial={{ height: 0 }}
+                animate={{ height: franceBarH }}
                 transition={{ duration: 0.6, ease: EASE }}
                 style={{
                   background: "linear-gradient(180deg, #8b1a1a 0%, #c0392b 100%)",
@@ -269,9 +313,46 @@ export function SavingsCalculator() {
                 className="absolute inset-0 rounded-t-xl"
                 style={{ background: "rgba(255,255,255,0.04)" }}
               />
+              {/* Gap indicator — dotted line from LLC bar top to France bar top */}
+              {franceBarH > llcBarH && (
+                <div
+                  className="absolute pointer-events-none z-10"
+                  style={{
+                    bottom: llcBarH,
+                    left: 0,
+                    right: 0,
+                  }}
+                >
+                  {/* Dotted horizontal bracket line */}
+                  <div
+                    style={{
+                      borderTop: "2px dashed rgba(100,200,100,0.45)",
+                      width: "100%",
+                      position: "relative",
+                    }}
+                  >
+                    {/* "Économies" label */}
+                    <span
+                      className="absolute text-[10px] font-semibold text-green-400 whitespace-nowrap"
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        top: -18,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        background: "rgba(6,14,32,0.7)",
+                        padding: "1px 5px",
+                        borderRadius: 4,
+                      }}
+                    >
+                      ↑ Économies
+                    </span>
+                  </div>
+                </div>
+              )}
               <motion.div
                 className="relative w-full rounded-t-xl"
-                animate={{ height: llcBarActual }}
+                initial={{ height: 0 }}
+                animate={{ height: llcBarH }}
                 transition={{ duration: 0.6, ease: EASE }}
                 style={{
                   background: "linear-gradient(180deg, #0e2878 0%, #1d4ed8 100%)",
@@ -345,10 +426,7 @@ export function SavingsCalculator() {
                 "radial-gradient(ellipse at 50% 0%, rgba(29,78,216,0.22) 0%, transparent 70%)",
             }}
           />
-          <div
-            className="relative"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
+          <div className="relative" style={{ fontFamily: "var(--font-body)" }}>
             <p className="text-[#7ca0cc] text-sm uppercase tracking-widest mb-2">
               Vous économiseriez
             </p>

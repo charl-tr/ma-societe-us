@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useInView, motion } from "framer-motion";
+import { useInView, motion, useScroll, useTransform } from "framer-motion";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -20,7 +20,7 @@ const strengths = [
 ];
 
 // --- Vault SVG ---
-function VaultDoor({ open }: { open: boolean }) {
+function VaultDoor({ open, isInView }: { open: boolean; isInView: boolean }) {
   return (
     <svg
       viewBox="0 0 300 320"
@@ -71,6 +71,14 @@ function VaultDoor({ open }: { open: boolean }) {
           <stop offset="100%" stopColor="#90b8d8" />
         </linearGradient>
 
+        {/* Shimmer gradient for frame border */}
+        <linearGradient id="vault-shimmer" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="rgba(255,255,255,0.0)" />
+          <stop offset="40%" stopColor="rgba(255,255,255,0.7)" />
+          <stop offset="60%" stopColor="rgba(200,230,255,0.5)" />
+          <stop offset="100%" stopColor="rgba(255,255,255,0.0)" />
+        </linearGradient>
+
         <filter id="glow-filter" x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="8" result="blur" />
           <feMerge>
@@ -91,6 +99,23 @@ function VaultDoor({ open }: { open: boolean }) {
         stroke="rgba(180,210,245,0.7)"
         strokeWidth={2}
       />
+
+      {/* Shimmer sweep on frame border when inView */}
+      <rect
+        x={20}
+        y={20}
+        width={260}
+        height={280}
+        rx={20}
+        fill="none"
+        stroke="url(#vault-shimmer)"
+        strokeWidth={3}
+        style={{
+          opacity: isInView ? 1 : 0,
+          transition: "opacity 0.6s ease 0.8s",
+        }}
+      />
+
       {/* Frame inner bevel */}
       <rect
         x={30}
@@ -125,7 +150,7 @@ function VaultDoor({ open }: { open: boolean }) {
         </>
       )}
 
-      {/* ── Vault door (scales/skews on open) ── */}
+      {/* ── Vault door (scales/skews on open) — NO gears inside ── */}
       <g
         style={{
           transformOrigin: "260px 160px",
@@ -169,23 +194,9 @@ function VaultDoor({ open }: { open: boolean }) {
 
         {/* ── Central handle assembly ── */}
         {/* Outer ring */}
-        <circle
-          cx={150}
-          cy={160}
-          r={52}
-          fill="none"
-          stroke="url(#vault-handle)"
-          strokeWidth={5}
-        />
+        <circle cx={150} cy={160} r={52} fill="none" stroke="url(#vault-handle)" strokeWidth={5} />
         {/* Inner ring */}
-        <circle
-          cx={150}
-          cy={160}
-          r={38}
-          fill="rgba(220,236,255,0.6)"
-          stroke="rgba(160,200,240,0.7)"
-          strokeWidth={2}
-        />
+        <circle cx={150} cy={160} r={38} fill="rgba(220,236,255,0.6)" stroke="rgba(160,200,240,0.7)" strokeWidth={2} />
         {/* Cross bars */}
         <line
           x1={150 - 38}
@@ -228,42 +239,42 @@ function VaultDoor({ open }: { open: boolean }) {
         <circle cx={150} cy={160} r={14} fill="url(#vault-gear)" />
         <circle cx={150} cy={160} r={8} fill="url(#vault-handle)" />
         <circle cx={150} cy={160} r={3} fill="rgba(200,225,255,0.9)" />
-
-        {/* Corner gear circles */}
-        {[
-          { cx: 72, cy: 82 },
-          { cx: 228, cy: 82 },
-          { cx: 72, cy: 238 },
-          { cx: 228, cy: 238 },
-        ].map((g, i) => (
-          <g
-            key={i}
-            style={{
-              transformOrigin: `${g.cx}px ${g.cy}px`,
-              animation: open ? `spin${i % 2 === 0 ? "Cw" : "Ccw"} 4s linear infinite` : "none",
-            }}
-          >
-            <circle
-              cx={g.cx}
-              cy={g.cy}
-              r={18}
-              fill="none"
-              stroke="url(#vault-gear)"
-              strokeWidth={3}
-              strokeDasharray="7 4"
-            />
-            <circle
-              cx={g.cx}
-              cy={g.cy}
-              r={8}
-              fill="url(#vault-gear)"
-              stroke="rgba(160,200,240,0.6)"
-              strokeWidth={1.5}
-            />
-            <circle cx={g.cx} cy={g.cy} r={3} fill="rgba(220,240,255,0.8)" />
-          </g>
-        ))}
       </g>
+
+      {/* ── Corner gears — OUTSIDE door group, always at correct positions ── */}
+      {([
+        { cx: 72, cy: 82 },
+        { cx: 228, cy: 82 },
+        { cx: 72, cy: 238 },
+        { cx: 228, cy: 238 },
+      ] as const).map((g, i) => (
+        <g
+          key={i}
+          style={{
+            transformOrigin: `${g.cx}px ${g.cy}px`,
+            animation: open ? `spin${i % 2 === 0 ? "Cw" : "Ccw"} 4s linear infinite` : "none",
+          }}
+        >
+          <circle
+            cx={g.cx}
+            cy={g.cy}
+            r={18}
+            fill="none"
+            stroke="url(#vault-gear)"
+            strokeWidth={3}
+            strokeDasharray="7 4"
+          />
+          <circle
+            cx={g.cx}
+            cy={g.cy}
+            r={8}
+            fill="url(#vault-gear)"
+            stroke="rgba(160,200,240,0.6)"
+            strokeWidth={1.5}
+          />
+          <circle cx={g.cx} cy={g.cy} r={3} fill="rgba(220,240,255,0.8)" />
+        </g>
+      ))}
 
       <style>{`
         @keyframes spinCw  { from { transform: rotate(0deg);   } to { transform: rotate(360deg);  } }
@@ -360,36 +371,43 @@ function CompareCard({
 
 export function CompareVault() {
   const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  // Section scroll parallax for the center background orb
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const orbY = useTransform(scrollYProgress, [0, 1], [-24, 24]);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       className="relative overflow-hidden py-24 px-4"
       style={{
         background: "linear-gradient(180deg, #eaf3fc 0%, #f5f9ff 100%)",
       }}
     >
       {/* Subtle background texture */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      >
-        <div
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <motion.div
           className="absolute rounded-full"
           style={{
             width: 700,
             height: 700,
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -50%)",
+            x: "-50%",
+            y: orbY,
+            marginTop: "-350px",
             background:
               "radial-gradient(circle, rgba(29,78,216,0.04) 0%, transparent 70%)",
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <div ref={ref} className="relative z-10 max-w-5xl mx-auto">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -445,12 +463,7 @@ export function CompareVault() {
             </div>
 
             {/* Vault SVG */}
-            <div
-              className="w-full"
-              style={{
-                perspective: "800px",
-              }}
-            >
+            <div className="w-full" style={{ perspective: "800px" }}>
               <motion.div
                 animate={
                   isInView
@@ -460,7 +473,7 @@ export function CompareVault() {
                 transition={{ duration: 1.0, delay: 0.3, ease: EASE }}
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <VaultDoor open={isInView} />
+                <VaultDoor open={isInView} isInView={isInView} />
               </motion.div>
             </div>
 
@@ -497,7 +510,7 @@ export function CompareVault() {
           />
         </div>
 
-        {/* Bottom trust bar */}
+        {/* Bottom trust bar — glass-chrome border */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -514,9 +527,11 @@ export function CompareVault() {
               key={i}
               className="text-center py-5 px-4 rounded-xl"
               style={{
-                background: "rgba(255,255,255,0.7)",
-                border: "1px solid rgba(29,78,216,0.1)",
+                background:
+                  "rgba(255,255,255,0.6) padding-box, linear-gradient(135deg, rgba(200,220,245,0.8) 0%, rgba(255,255,255,0.9) 50%, rgba(180,210,240,0.7) 100%) border-box",
+                border: "1px solid transparent",
                 backdropFilter: "blur(8px)",
+                boxShadow: "0 2px 16px rgba(29,78,216,0.06)",
               }}
             >
               <div
