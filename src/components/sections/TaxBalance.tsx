@@ -77,17 +77,24 @@ export function TaxBalance() {
     offset: ["start 85%", "center 25%"],
   });
 
+  // Track target separately so RAF doesn't close over stale scroll value
+  const targetRef = useRef(0);
+
+  useEffect(() => {
+    const unsub = scrollYProgress.on("change", (v) => {
+      targetRef.current = Math.max(0, Math.min(MAX_TILT, v * MAX_TILT));
+    });
+    return unsub;
+  }, [scrollYProgress]);
+
   useEffect(() => {
     let animId: number;
-    let curTilt = 0, curVel = 0, targetTilt = 0;
-
-    const unsub = scrollYProgress.on("change", (v) => {
-      targetTilt = Math.max(0, Math.min(MAX_TILT, v * MAX_TILT));
-    });
+    let curTilt = 0, curVel = 0;
 
     function tick() {
+      const target = targetRef.current;
       // Spring force
-      const accel = ((targetTilt - curTilt) * K - curVel * C) / M;
+      const accel = ((target - curTilt) * K - curVel * C) / M;
       curVel += accel * DT;
       curTilt += curVel * DT;
       curTilt = Math.max(-3, Math.min(MAX_TILT + 4, curTilt));
@@ -95,15 +102,22 @@ export function TaxBalance() {
       const g = scaleGeo(curTilt);
       const t = Math.max(0, Math.min(1, curTilt / MAX_TILT));
 
-      // Arm
-      if (armRef.current)
-        armRef.current.style.transform = `rotate(${curTilt}deg)`;
+      // ── SVG attribute transforms — immune to React reconciliation ──
+      // Arm: rotate(angle, cx, cy) is native SVG, no CSS needed
+      armRef.current?.setAttribute(
+        "transform",
+        `rotate(${curTilt.toFixed(3)}, ${PX}, ${PY})`
+      );
 
-      // Pans
-      if (lPanRef.current)
-        lPanRef.current.style.transform = `translate(${g.lP.x - G0.lP.x}px,${g.lP.y - G0.lP.y}px)`;
-      if (rPanRef.current)
-        rPanRef.current.style.transform = `translate(${g.rP.x - G0.rP.x}px,${g.rP.y - G0.rP.y}px)`;
+      // Pans: translate via SVG attribute
+      lPanRef.current?.setAttribute(
+        "transform",
+        `translate(${(g.lP.x - G0.lP.x).toFixed(2)}, ${(g.lP.y - G0.lP.y).toFixed(2)})`
+      );
+      rPanRef.current?.setAttribute(
+        "transform",
+        `translate(${(g.rP.x - G0.rP.x).toFixed(2)}, ${(g.rP.y - G0.rP.y).toFixed(2)})`
+      );
 
       // Chains
       g.lC.forEach((d, i) => lCRefs.current[i]?.setAttribute("d", d));
@@ -121,8 +135,8 @@ export function TaxBalance() {
     }
 
     animId = requestAnimationFrame(tick);
-    return () => { unsub(); cancelAnimationFrame(animId); };
-  }, [scrollYProgress]);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   return (
     <section
@@ -335,17 +349,17 @@ export function TaxBalance() {
               <circle cx={PX-6} cy={PY-6} r={8} fill="rgba(255,255,255,.65)" />
               <circle cx={PX} cy={PY} r={27} fill="none" stroke="rgba(140,208,255,.15)" strokeWidth={2} />
 
-              {/* Arm — imperative rotation */}
-              <g ref={armRef} style={{ transformOrigin:`${PX}px ${PY}px`, transform:"rotate(0deg)" }}>
+              {/* Arm — SVG attribute transform, updated by RAF */}
+              <g ref={armRef}>
                 {/* Bar */}
                 <rect
                   x={PX-AL-13} y={PY-8} width={(AL+13)*2} height={16} rx={8}
                   fill="url(#tb2-arm)" filter="url(#tb2-armFx)"
                 />
-                {/* Chrome sweep highlight */}
+                {/* Highlight stripe (SVG, not CSS background) */}
                 <rect
                   x={PX-AL+18} y={PY-5} width={(AL-18)*2} height={3} rx={1.5}
-                  className="tb-sweep"
+                  fill="rgba(255,255,255,0.42)"
                 />
                 {/* Tip caps */}
                 <circle cx={PX-AL} cy={PY} r={12} fill="url(#tb2-arm)" />
@@ -365,8 +379,8 @@ export function TaxBalance() {
                   stroke="rgba(155,208,252,.78)" strokeWidth={i===1?3:2} fill="none" strokeLinecap="round" />
               ))}
 
-              {/* Left pan (France — heavy) */}
-              <g ref={lPanRef} style={{ transform:"translate(0px,0px)" }}>
+              {/* Left pan (France — heavy) — SVG attribute transform */}
+              <g ref={lPanRef}>
                 <ellipse ref={lGlowRef} cx={G0.lP.x} cy={G0.lP.y+28} rx={PRX+55} ry={46} fill="url(#tb2-glowL)" style={{ opacity:.25 }} />
                 <ellipse cx={G0.lP.x} cy={G0.lP.y} rx={PRX} ry={PRY} fill="url(#tb2-panL)" stroke="rgba(240,130,100,.8)" strokeWidth={2.5} filter="url(#tb2-dropL)" />
                 <ellipse cx={G0.lP.x} cy={G0.lP.y-8} rx={PRX-13} ry={PRY-9} fill="none" stroke="rgba(255,215,198,.62)" strokeWidth={1.5} />
@@ -379,8 +393,8 @@ export function TaxBalance() {
                 ))}
               </g>
 
-              {/* Right pan (LLC — light) */}
-              <g ref={rPanRef} style={{ transform:"translate(0px,0px)" }}>
+              {/* Right pan (LLC — light) — SVG attribute transform */}
+              <g ref={rPanRef}>
                 <ellipse ref={rGlowRef} cx={G0.rP.x} cy={G0.rP.y+28} rx={PRX+55} ry={46} fill="url(#tb2-glowR)" style={{ opacity:.15 }} />
                 <ellipse cx={G0.rP.x} cy={G0.rP.y} rx={PRX} ry={PRY} fill="url(#tb2-panR)" stroke="rgba(70,175,255,.78)" strokeWidth={2.5} filter="url(#tb2-dropR)" />
                 <ellipse cx={G0.rP.x} cy={G0.rP.y-8} rx={PRX-13} ry={PRY-9} fill="none" stroke="rgba(165,230,255,.62)" strokeWidth={1.5} />
