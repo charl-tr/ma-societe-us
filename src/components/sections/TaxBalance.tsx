@@ -1,439 +1,460 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { motion, useScroll } from "framer-motion";
 
-const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+// ── Spring physics constants ──────────────────────────────
+const K = 55, C = 11, M = 1.0; // stiffness, damping, mass
+const DT = 1 / 60;
 
-// ── Geometry ──────────────────────────────────────────────
-const PIVOT_X = 400, PIVOT_Y = 195;
-const ARM_LEN = 190, CHAIN_LEN = 88, SPREAD = 82;
-const PAN_RX = 90, PAN_RY = 22;
-const MAX_TILT = 22;
+// ── Scale geometry ────────────────────────────────────────
+const PX = 400, PY = 205;          // pivot centre
+const AL = 185, CL = 92, SP = 86;  // arm, chain, spread
+const PRX = 90, PRY = 23;          // pan radii
+const MAX_TILT = 24;               // degrees
 
-function computeGeo(deg: number) {
-  const a = deg * (Math.PI / 180);
-  const c = Math.cos(a), s = Math.sin(a);
-  const lTip = { x: PIVOT_X - ARM_LEN * c, y: PIVOT_Y + ARM_LEN * s };
-  const rTip = { x: PIVOT_X + ARM_LEN * c, y: PIVOT_Y - ARM_LEN * s };
-  const lPan = { x: lTip.x, y: lTip.y + CHAIN_LEN };
-  const rPan = { x: rTip.x, y: rTip.y + CHAIN_LEN };
-  const fmt = (n: number) => n.toFixed(1);
+function scaleGeo(deg: number) {
+  const r = (deg * Math.PI) / 180;
+  const c = Math.cos(r), s = Math.sin(r);
+  const lT = { x: PX - AL * c, y: PY + AL * s };
+  const rT = { x: PX + AL * c, y: PY - AL * s };
+  const lP = { x: lT.x, y: lT.y + CL };
+  const rP = { x: rT.x, y: rT.y + CL };
+  const f = (n: number) => n.toFixed(2);
   return {
-    lTip, rTip, lPan, rPan,
-    lChains: [
-      `M${fmt(lTip.x)} ${fmt(lTip.y)} L${fmt(lPan.x - SPREAD)} ${fmt(lPan.y)}`,
-      `M${fmt(lTip.x)} ${fmt(lTip.y)} L${fmt(lPan.x)} ${fmt(lPan.y)}`,
-      `M${fmt(lTip.x)} ${fmt(lTip.y)} L${fmt(lPan.x + SPREAD)} ${fmt(lPan.y)}`,
+    lP, rP,
+    lC: [
+      `M${f(lT.x)} ${f(lT.y)} L${f(lP.x - SP)} ${f(lP.y)}`,
+      `M${f(lT.x)} ${f(lT.y)} L${f(lP.x)} ${f(lP.y)}`,
+      `M${f(lT.x)} ${f(lT.y)} L${f(lP.x + SP)} ${f(lP.y)}`,
     ],
-    rChains: [
-      `M${fmt(rTip.x)} ${fmt(rTip.y)} L${fmt(rPan.x - SPREAD)} ${fmt(rPan.y)}`,
-      `M${fmt(rTip.x)} ${fmt(rTip.y)} L${fmt(rPan.x)} ${fmt(rPan.y)}`,
-      `M${fmt(rTip.x)} ${fmt(rTip.y)} L${fmt(rPan.x + SPREAD)} ${fmt(rPan.y)}`,
+    rC: [
+      `M${f(rT.x)} ${f(rT.y)} L${f(rP.x - SP)} ${f(rP.y)}`,
+      `M${f(rT.x)} ${f(rT.y)} L${f(rP.x)} ${f(rP.y)}`,
+      `M${f(rT.x)} ${f(rT.y)} L${f(rP.x + SP)} ${f(rP.y)}`,
     ],
   };
 }
 
-const G0 = computeGeo(0); // neutral positions
+const G0 = scaleGeo(0);
+
+// ── Character reveal animation ────────────────────────────
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+function CharReveal({ text, delay = 0, color }: { text: string; delay?: number; color: string }) {
+  return (
+    <span className="inline-flex overflow-hidden" aria-label={text}>
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          initial={{ y: "110%", opacity: 0 }}
+          whileInView={{ y: "0%", opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: delay + i * 0.06, ease: EASE }}
+          style={{ color, display: "inline-block" }}
+        >
+          {ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export function TaxBalance() {
   const sectionRef = useRef<HTMLElement>(null);
-  const armRef     = useRef<SVGGElement>(null);
-  const lPanRef    = useRef<SVGGElement>(null);
-  const rPanRef    = useRef<SVGGElement>(null);
-  const lCRefs     = useRef<(SVGPathElement | null)[]>([null, null, null]);
-  const rCRefs     = useRef<(SVGPathElement | null)[]>([null, null, null]);
+  const svgWrapRef  = useRef<HTMLDivElement>(null);
+  const armRef      = useRef<SVGGElement>(null);
+  const lPanRef     = useRef<SVGGElement>(null);
+  const rPanRef     = useRef<SVGGElement>(null);
+  const lGlowRef    = useRef<SVGEllipseElement>(null);
+  const rGlowRef    = useRef<SVGEllipseElement>(null);
+  const lCRefs      = useRef<(SVGPathElement | null)[]>([null, null, null]);
+  const rCRefs      = useRef<(SVGPathElement | null)[]>([null, null, null]);
+  const ptcRef      = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 90%", "center 30%"],
+    offset: ["start 85%", "center 25%"],
   });
 
-  const tP = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  useEffect(() => {
+    let animId: number;
+    let curTilt = 0, curVel = 0, targetTilt = 0;
 
-  useMotionValueEvent(tP, "change", (p) => {
-    const geo = computeGeo(p * MAX_TILT);
-    if (armRef.current)
-      armRef.current.style.transform = `rotate(${p * MAX_TILT}deg)`;
-    if (lPanRef.current)
-      lPanRef.current.style.transform = `translate(${geo.lPan.x - G0.lPan.x}px,${geo.lPan.y - G0.lPan.y}px)`;
-    if (rPanRef.current)
-      rPanRef.current.style.transform = `translate(${geo.rPan.x - G0.rPan.x}px,${geo.rPan.y - G0.rPan.y}px)`;
-    geo.lChains.forEach((d, i) => lCRefs.current[i]?.setAttribute("d", d));
-    geo.rChains.forEach((d, i) => rCRefs.current[i]?.setAttribute("d", d));
-  });
+    const unsub = scrollYProgress.on("change", (v) => {
+      targetTilt = Math.max(0, Math.min(MAX_TILT, v * MAX_TILT));
+    });
+
+    function tick() {
+      // Spring force
+      const accel = ((targetTilt - curTilt) * K - curVel * C) / M;
+      curVel += accel * DT;
+      curTilt += curVel * DT;
+      curTilt = Math.max(-3, Math.min(MAX_TILT + 4, curTilt));
+
+      const g = scaleGeo(curTilt);
+      const t = Math.max(0, Math.min(1, curTilt / MAX_TILT));
+
+      // Arm
+      if (armRef.current)
+        armRef.current.style.transform = `rotate(${curTilt}deg)`;
+
+      // Pans
+      if (lPanRef.current)
+        lPanRef.current.style.transform = `translate(${g.lP.x - G0.lP.x}px,${g.lP.y - G0.lP.y}px)`;
+      if (rPanRef.current)
+        rPanRef.current.style.transform = `translate(${g.rP.x - G0.rP.x}px,${g.rP.y - G0.rP.y}px)`;
+
+      // Chains
+      g.lC.forEach((d, i) => lCRefs.current[i]?.setAttribute("d", d));
+      g.rC.forEach((d, i) => rCRefs.current[i]?.setAttribute("d", d));
+
+      // Glow intensity driven by tilt progress
+      if (lGlowRef.current) lGlowRef.current.style.opacity = String(0.25 + t * 0.65);
+      if (rGlowRef.current) rGlowRef.current.style.opacity = String(0.15 + t * 0.55);
+
+      // Particles appear when tilted > 60%
+      if (ptcRef.current)
+        ptcRef.current.style.opacity = String(t > 0.6 ? Math.min(1, (t - 0.6) / 0.4) : 0);
+
+      animId = requestAnimationFrame(tick);
+    }
+
+    animId = requestAnimationFrame(tick);
+    return () => { unsub(); cancelAnimationFrame(animId); };
+  }, [scrollYProgress]);
 
   return (
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-24"
-      style={{ background: "linear-gradient(160deg, #070f22 0%, #0c1830 55%, #091424 100%)" }}
+      style={{ background: "linear-gradient(160deg,#060e1e 0%,#0b1828 55%,#070e1c 100%)" }}
     >
-      {/* Background atmosphere */}
+      <style>{`
+        @keyframes tb-float {
+          0%,100% { transform: translateY(0px) }
+          50%      { transform: translateY(-9px) }
+        }
+        @keyframes tb-sweep {
+          0%   { background-position: -300% center }
+          100% { background-position: 300% center }
+        }
+        @keyframes tb-ptc {
+          0%   { transform: translateY(0)   scale(1);   opacity: .8 }
+          100% { transform: translateY(-90px) scale(.15); opacity: 0 }
+        }
+        @keyframes tb-pulse {
+          0%,100% { opacity:.35 }
+          50%      { opacity:.65 }
+        }
+        .tb-float { animation: tb-float 5s ease-in-out infinite }
+        .tb-sweep {
+          background: linear-gradient(90deg,
+            transparent 0%, rgba(255,255,255,.55) 40%,
+            rgba(210,238,255,.45) 55%, transparent 100%
+          );
+          background-size: 200% 100%;
+          animation: tb-sweep 3.5s linear infinite;
+        }
+        .tb-ptc { animation: tb-ptc 2.2s ease-out infinite }
+      `}</style>
+
+      {/* Atmospheric BG orbs */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute rounded-full" style={{ width: 700, height: 700, top: "10%", left: "50%", transform: "translateX(-50%)", background: "radial-gradient(circle, rgba(30,80,200,0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
-        <div className="absolute rounded-full" style={{ width: 400, height: 400, bottom: "0%", left: "10%", background: "radial-gradient(circle, rgba(220,70,50,0.06) 0%, transparent 70%)", filter: "blur(50px)" }} />
-        <div className="absolute rounded-full" style={{ width: 400, height: 400, bottom: "0%", right: "10%", background: "radial-gradient(circle, rgba(50,140,255,0.06) 0%, transparent 70%)", filter: "blur(50px)" }} />
+        <div className="absolute rounded-full" style={{ width:700,height:700,top:"5%",left:"50%",transform:"translateX(-50%)",background:"radial-gradient(circle,rgba(30,90,220,.06) 0%,transparent 70%)",filter:"blur(70px)" }} />
+        <div className="absolute rounded-full" style={{ width:360,height:360,bottom:"0%",left:"8%",background:"radial-gradient(circle,rgba(230,70,50,.05) 0%,transparent 70%)",filter:"blur(50px)" }} />
+        <div className="absolute rounded-full" style={{ width:360,height:360,bottom:"0%",right:"8%",background:"radial-gradient(circle,rgba(50,150,255,.05) 0%,transparent 70%)",filter:"blur(50px)" }} />
       </div>
 
       {/* Heading */}
       <motion.div
-        className="text-center mb-16 px-4 relative z-10"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: EASE }}
+        className="text-center mb-14 px-4 relative z-10"
+        initial={{ opacity:0, y:22 }}
+        whileInView={{ opacity:1, y:0 }}
+        viewport={{ once:true }}
+        transition={{ duration:.7, ease:EASE }}
       >
-        <p className="text-[11px] uppercase tracking-[0.28em] text-white/30 mb-3" style={{ fontFamily: "var(--font-body)" }}>
+        <p className="text-[11px] uppercase tracking-[.28em] text-white/30 mb-3" style={{fontFamily:"var(--font-body)"}}>
           France vs États-Unis
         </p>
-        <h2
-          className="font-semibold text-white leading-tight"
-          style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4.5vw,3.4rem)" }}
-        >
+        <h2 className="font-semibold text-white leading-tight" style={{fontFamily:"var(--font-cormorant)",fontSize:"clamp(2rem,4.5vw,3.4rem)"}}>
           Pourquoi vous payez trop&nbsp;?
         </h2>
-        <p className="mt-2 text-white/35 text-sm italic" style={{ fontFamily: "var(--font-body)" }}>
-          Faites défiler — la balance bascule en temps réel
+        <p className="mt-2 text-white/30 text-sm italic" style={{fontFamily:"var(--font-body)"}}>
+          Faites défiler — la balance bascule avec la physique réelle
         </p>
       </motion.div>
 
-      {/* 3-column layout */}
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-[1fr_500px_1fr] gap-10 items-center relative z-10">
+      {/* 3-column */}
+      <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1fr_480px_1fr] gap-10 items-center relative z-10">
 
         {/* ── Left: France ── */}
         <motion.div
           className="flex flex-col gap-5 md:text-right order-2 md:order-1"
-          initial={{ opacity: 0, x: -32 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+          initial={{ opacity:0, x:-36 }}
+          whileInView={{ opacity:1, x:0 }}
+          viewport={{ once:true }}
+          transition={{ duration:.9, delay:.15, ease:EASE }}
         >
           <div>
-            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-2" style={{ fontFamily: "var(--font-body)" }}>
-              SARL / SAS France
-            </p>
+            <p className="text-[10px] uppercase tracking-[.25em] text-white/30 mb-2" style={{fontFamily:"var(--font-body)"}}>SARL / SAS France</p>
             <div
-              className="font-bold text-[#f56550] leading-none"
-              style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(4rem,8vw,6.5rem)", textShadow: "0 0 60px rgba(240,90,70,0.35)" }}
+              className="font-bold leading-none"
+              style={{ fontFamily:"var(--font-heading)", fontSize:"clamp(4.5rem,9vw,7rem)", textShadow:"0 0 80px rgba(240,80,55,.4),0 0 24px rgba(240,80,55,.2)" }}
             >
-              45%
+              <CharReveal text="45%" delay={.3} color="#f56045" />
             </div>
-            <p className="text-white/35 text-sm mt-2" style={{ fontFamily: "var(--font-body)" }}>
-              de charges & impôts
-            </p>
+            <p className="text-white/35 text-sm mt-2" style={{fontFamily:"var(--font-body)"}}>de charges & impôts</p>
           </div>
           <ul className="flex flex-col gap-2.5">
-            {["Charges sociales 40%+", "Impôt sur les bénéfices", "Comptabilité annuelle"].map((item) => (
-              <li key={item} className="flex items-center md:justify-end gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#f56550]/60 flex-shrink-0 md:order-2" />
-                <span className="text-[13px] text-white/35 md:order-1" style={{ fontFamily: "var(--font-body)" }}>{item}</span>
-              </li>
+            {["Charges sociales 40%+","Impôt sur les bénéfices","Comptabilité annuelle obligatoire"].map((item,i) => (
+              <motion.li
+                key={item}
+                className="flex items-center md:justify-end gap-2.5"
+                initial={{ opacity:0, x:-16 }}
+                whileInView={{ opacity:1, x:0 }}
+                viewport={{ once:true }}
+                transition={{ delay:.4+i*.1, ease:EASE }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f56045]/60 flex-shrink-0 md:order-2" />
+                <span className="text-[13px] text-white/35 md:order-1" style={{fontFamily:"var(--font-body)"}}>{item}</span>
+              </motion.li>
             ))}
           </ul>
-          <div
-            className="md:self-end px-4 py-2 rounded-full text-[12px] font-semibold text-[#f56550] border border-[#f56550]/25 bg-[#f56550]/08"
-            style={{ fontFamily: "var(--font-heading)" }}
+          <motion.div
+            className="md:self-end px-4 py-2 rounded-full text-[12px] font-semibold text-[#f56045] border border-[#f56045]/25 bg-[#f56045]/[.07]"
+            style={{fontFamily:"var(--font-heading)"}}
+            initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} transition={{ delay:.7 }}
           >
             Lourd & pénalisant
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* ── Center: Chrome Scale SVG ── */}
-        <motion.div
-          className="w-full order-1 md:order-2"
-          initial={{ opacity: 0, scale: 0.94 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.0, ease: EASE }}
-        >
-          <svg
-            viewBox="0 0 800 490"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full"
-            style={{ filter: "drop-shadow(0 20px 60px rgba(0,10,40,0.6))" }}
+        {/* ── Center: SVG ── */}
+        <div ref={svgWrapRef} className="w-full order-1 md:order-2 relative">
+          {/* Floating particles (LLC side) */}
+          <div
+            ref={ptcRef}
+            className="pointer-events-none absolute z-20"
+            style={{ right:"8%", top:"38%", opacity:0, transition:"opacity .4s" }}
           >
-            <defs>
-              <linearGradient id="tb-pole" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#1e3a5a" />
-                <stop offset="20%" stopColor="#4a7aaa" />
-                <stop offset="50%" stopColor="#d0e8ff" />
-                <stop offset="75%" stopColor="#3a6090" />
-                <stop offset="100%" stopColor="#1a3050" />
-              </linearGradient>
-              <linearGradient id="tb-arm" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="rgba(220,242,255,0.98)" />
-                <stop offset="40%" stopColor="rgba(160,210,250,0.92)" />
-                <stop offset="100%" stopColor="rgba(70,120,180,0.80)" />
-              </linearGradient>
-              <radialGradient id="tb-pivot" cx="35%" cy="30%" r="65%">
-                <stop offset="0%" stopColor="#e8f6ff" />
-                <stop offset="60%" stopColor="#90c0e8" />
-                <stop offset="100%" stopColor="#3a6090" />
-              </radialGradient>
-              <radialGradient id="tb-panL" cx="30%" cy="28%" r="70%">
-                <stop offset="0%" stopColor="#fff5f2" />
-                <stop offset="45%" stopColor="#e8b0a0" />
-                <stop offset="100%" stopColor="#904030" />
-              </radialGradient>
-              <radialGradient id="tb-panR" cx="30%" cy="28%" r="70%">
-                <stop offset="0%" stopColor="#f0f8ff" />
-                <stop offset="45%" stopColor="#90c8f0" />
-                <stop offset="100%" stopColor="#2060b0" />
-              </radialGradient>
-              <linearGradient id="tb-base" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#3a6080" />
-                <stop offset="50%" stopColor="#7aaac8" />
-                <stop offset="100%" stopColor="#1a3050" />
-              </linearGradient>
-              <radialGradient id="tb-glowL" cx="50%" cy="30%" r="60%">
-                <stop offset="0%" stopColor="rgba(240,90,60,0.55)" />
-                <stop offset="100%" stopColor="rgba(240,90,60,0)" />
-              </radialGradient>
-              <radialGradient id="tb-glowR" cx="50%" cy="30%" r="60%">
-                <stop offset="0%" stopColor="rgba(60,160,255,0.50)" />
-                <stop offset="100%" stopColor="rgba(60,160,255,0)" />
-              </radialGradient>
-              <filter id="tb-dropL" x="-40%" y="-20%" width="180%" height="200%">
-                <feDropShadow dx="0" dy="12" stdDeviation="16" floodColor="rgba(240,80,50,0.5)" />
-              </filter>
-              <filter id="tb-dropR" x="-40%" y="-20%" width="180%" height="200%">
-                <feDropShadow dx="0" dy="12" stdDeviation="16" floodColor="rgba(50,140,255,0.45)" />
-              </filter>
-              <filter id="tb-armFx" x="-5%" y="-40%" width="110%" height="180%">
-                <feDropShadow dx="0" dy="6" stdDeviation="8" floodColor="rgba(0,10,40,0.6)" />
-              </filter>
-            </defs>
+            {([5,7,4,6,5,8,4] as const).map((sz,i) => (
+              <div
+                key={i}
+                className="tb-ptc absolute rounded-full bg-[#60c0ff]"
+                style={{
+                  width: sz, height: sz,
+                  left: (i%3)*18 - 18,
+                  top: Math.floor(i/3)*18,
+                  animationDelay:`${i*.28}s`,
+                  animationDuration:`${1.8+i*.18}s`,
+                  opacity:.8,
+                }}
+              />
+            ))}
+          </div>
 
-            {/* ── Base ── */}
-            <ellipse cx={400} cy={466} rx={115} ry={17} fill="url(#tb-base)" opacity={0.95} />
-            <ellipse cx={400} cy={466} rx={82} ry={10} fill="none" stroke="rgba(100,180,255,0.25)" strokeWidth={1.5} />
-            <rect x={386} y={438} width={28} height={30} rx={6} fill="url(#tb-base)" />
-
-            {/* ── Pole ── */}
-            <rect x={388} y={24} width={24} height={418} rx={10} fill="url(#tb-pole)" />
-            <rect x={393} y={28} width={7} height={408} rx={3} fill="rgba(220,240,255,0.18)" />
-            {/* Pole cap */}
-            <circle cx={400} cy={24} r={15} fill="url(#tb-pivot)" />
-            <circle cx={400} cy={24} r={7} fill="rgba(255,255,255,0.65)" />
-
-            {/* ── Pivot sphere ── */}
-            <circle cx={PIVOT_X} cy={PIVOT_Y} r={20} fill="url(#tb-pivot)" filter="url(#tb-armFx)" />
-            <circle cx={PIVOT_X - 6} cy={PIVOT_Y - 6} r={7} fill="rgba(255,255,255,0.68)" />
-            <circle cx={PIVOT_X} cy={PIVOT_Y} r={24} fill="none" stroke="rgba(140,200,255,0.18)" strokeWidth={2} />
-
-            {/* ── Arm — imperative rotation ── */}
-            <g
-              ref={armRef}
-              style={{ transformOrigin: `${PIVOT_X}px ${PIVOT_Y}px`, transform: "rotate(0deg)" }}
+          <motion.div
+            className="tb-float"
+            initial={{ opacity:0, scale:.93 }}
+            whileInView={{ opacity:1, scale:1 }}
+            viewport={{ once:true }}
+            transition={{ duration:1.1, ease:EASE }}
+          >
+            <svg
+              viewBox="0 0 800 490"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full"
+              style={{ filter:"drop-shadow(0 24px 70px rgba(0,10,50,.7))" }}
             >
-              <rect
-                x={PIVOT_X - ARM_LEN - 12}
-                y={PIVOT_Y - 8}
-                width={(ARM_LEN + 12) * 2}
-                height={16}
-                rx={8}
-                fill="url(#tb-arm)"
-                filter="url(#tb-armFx)"
-              />
-              {/* Arm tip caps */}
-              <circle cx={PIVOT_X - ARM_LEN} cy={PIVOT_Y} r={11} fill="url(#tb-arm)" />
-              <circle cx={PIVOT_X + ARM_LEN} cy={PIVOT_Y} r={11} fill="url(#tb-arm)" />
-              {/* Arm top highlight */}
-              <rect
-                x={PIVOT_X - ARM_LEN + 15}
-                y={PIVOT_Y - 5}
-                width={(ARM_LEN - 15) * 2}
-                height={3}
-                rx={1.5}
-                fill="rgba(255,255,255,0.40)"
-              />
-            </g>
+              <defs>
+                <linearGradient id="tb2-pole" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%"  stopColor="#1e3a5a" />
+                  <stop offset="22%" stopColor="#4a7aaa" />
+                  <stop offset="50%" stopColor="#d8f0ff" />
+                  <stop offset="78%" stopColor="#3a6090" />
+                  <stop offset="100%" stopColor="#1a3050" />
+                </linearGradient>
+                <linearGradient id="tb2-arm" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stopColor="rgba(230,248,255,.99)" />
+                  <stop offset="40%"  stopColor="rgba(155,215,255,.92)" />
+                  <stop offset="100%" stopColor="rgba(65,120,185,.80)" />
+                </linearGradient>
+                <radialGradient id="tb2-pivot" cx="33%" cy="28%" r="68%">
+                  <stop offset="0%"   stopColor="#eaf8ff" />
+                  <stop offset="58%"  stopColor="#88c2e8" />
+                  <stop offset="100%" stopColor="#305880" />
+                </radialGradient>
+                <radialGradient id="tb2-panL" cx="28%" cy="25%" r="72%">
+                  <stop offset="0%"  stopColor="#fff6f3" />
+                  <stop offset="45%" stopColor="#e8a898" />
+                  <stop offset="100%" stopColor="#8c3828" />
+                </radialGradient>
+                <radialGradient id="tb2-panR" cx="28%" cy="25%" r="72%">
+                  <stop offset="0%"  stopColor="#eef8ff" />
+                  <stop offset="45%" stopColor="#88c8f5" />
+                  <stop offset="100%" stopColor="#1858a8" />
+                </radialGradient>
+                <linearGradient id="tb2-base" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stopColor="#3a6080" />
+                  <stop offset="50%"  stopColor="#7aaccb" />
+                  <stop offset="100%" stopColor="#1a3050" />
+                </linearGradient>
+                <radialGradient id="tb2-glowL" cx="50%" cy="35%" r="55%">
+                  <stop offset="0%"   stopColor="rgba(240,80,50,.7)" />
+                  <stop offset="100%" stopColor="rgba(240,80,50,0)" />
+                </radialGradient>
+                <radialGradient id="tb2-glowR" cx="50%" cy="35%" r="55%">
+                  <stop offset="0%"   stopColor="rgba(50,155,255,.6)" />
+                  <stop offset="100%" stopColor="rgba(50,155,255,0)" />
+                </radialGradient>
+                <filter id="tb2-dropL" x="-40%" y="-20%" width="180%" height="200%">
+                  <feDropShadow dx="0" dy="14" stdDeviation="18" floodColor="rgba(240,70,40,.55)" />
+                </filter>
+                <filter id="tb2-dropR" x="-40%" y="-20%" width="180%" height="200%">
+                  <feDropShadow dx="0" dy="14" stdDeviation="18" floodColor="rgba(40,140,255,.50)" />
+                </filter>
+                <filter id="tb2-armFx" x="-5%" y="-50%" width="110%" height="200%">
+                  <feDropShadow dx="0" dy="7" stdDeviation="9" floodColor="rgba(0,10,50,.65)" />
+                </filter>
+              </defs>
 
-            {/* ── Chains — imperative path updates ── */}
-            {[0, 1, 2].map((i) => (
-              <path
-                key={`lc-${i}`}
-                ref={(el) => { lCRefs.current[i] = el; }}
-                d={G0.lChains[i]}
-                stroke="rgba(160,205,248,0.75)"
-                strokeWidth={i === 1 ? 2.8 : 1.9}
-                fill="none"
-                strokeLinecap="round"
-              />
-            ))}
-            {[0, 1, 2].map((i) => (
-              <path
-                key={`rc-${i}`}
-                ref={(el) => { rCRefs.current[i] = el; }}
-                d={G0.rChains[i]}
-                stroke="rgba(160,205,248,0.75)"
-                strokeWidth={i === 1 ? 2.8 : 1.9}
-                fill="none"
-                strokeLinecap="round"
-              />
-            ))}
+              {/* Base */}
+              <ellipse cx={400} cy={462} rx={120} ry={18} fill="url(#tb2-base)" opacity={.95} />
+              <ellipse cx={400} cy={462} rx={84}  ry={10} fill="none" stroke="rgba(100,185,255,.22)" strokeWidth={1.5} />
+              <rect x={385} y={434} width={30} height={30} rx={7} fill="url(#tb2-base)" />
 
-            {/* ── Left pan — France (heavy, drops) ── */}
-            <g ref={lPanRef} style={{ transform: "translate(0px,0px)" }}>
-              {/* Glow halo */}
-              <ellipse
-                cx={G0.lPan.x}
-                cy={G0.lPan.y + 24}
-                rx={PAN_RX + 50}
-                ry={42}
-                fill="url(#tb-glowL)"
-              />
-              {/* Bowl */}
-              <ellipse
-                cx={G0.lPan.x}
-                cy={G0.lPan.y}
-                rx={PAN_RX}
-                ry={PAN_RY}
-                fill="url(#tb-panL)"
-                stroke="rgba(240,140,110,0.75)"
-                strokeWidth={2}
-                filter="url(#tb-dropL)"
-              />
-              {/* Rim highlight */}
-              <ellipse
-                cx={G0.lPan.x}
-                cy={G0.lPan.y - 7}
-                rx={PAN_RX - 12}
-                ry={PAN_RY - 8}
-                fill="none"
-                stroke="rgba(255,210,195,0.65)"
-                strokeWidth={1.5}
-              />
-              {/* Weight bricks — tax load */}
-              {[
-                { x: G0.lPan.x - 40, y: G0.lPan.y - 16, w: 28, h: 10, op: 0.85 },
-                { x: G0.lPan.x - 14, y: G0.lPan.y - 16, w: 28, h: 10, op: 0.78 },
-                { x: G0.lPan.x + 12, y: G0.lPan.y - 16, w: 28, h: 10, op: 0.70 },
-              ].map((b, i) => (
+              {/* Pole */}
+              <rect x={387} y={22} width={26} height={416} rx={11} fill="url(#tb2-pole)" />
+              <rect x={393} y={26} width={7}  height={406} rx={3.5} fill="rgba(215,245,255,.18)" />
+              <circle cx={400} cy={22} r={16} fill="url(#tb2-pivot)" />
+              <circle cx={400} cy={22} r={8}  fill="rgba(255,255,255,.62)" />
+
+              {/* Pivot sphere */}
+              <circle cx={PX} cy={PY} r={22} fill="url(#tb2-pivot)" filter="url(#tb2-armFx)" />
+              <circle cx={PX-6} cy={PY-6} r={8} fill="rgba(255,255,255,.65)" />
+              <circle cx={PX} cy={PY} r={27} fill="none" stroke="rgba(140,208,255,.15)" strokeWidth={2} />
+
+              {/* Arm — imperative rotation */}
+              <g ref={armRef} style={{ transformOrigin:`${PX}px ${PY}px`, transform:"rotate(0deg)" }}>
+                {/* Bar */}
                 <rect
-                  key={i}
-                  x={b.x} y={b.y} width={b.w} height={b.h} rx={3}
-                  fill={`rgba(210,65,45,${b.op})`}
-                  stroke="rgba(255,100,80,0.30)"
-                  strokeWidth={1}
+                  x={PX-AL-13} y={PY-8} width={(AL+13)*2} height={16} rx={8}
+                  fill="url(#tb2-arm)" filter="url(#tb2-armFx)"
                 />
-              ))}
-              {/* Brick top highlight */}
-              <rect x={G0.lPan.x - 40} y={G0.lPan.y - 16} width={28} height={2.5} rx={1} fill="rgba(255,180,160,0.40)" />
-              <rect x={G0.lPan.x - 14} y={G0.lPan.y - 16} width={28} height={2.5} rx={1} fill="rgba(255,180,160,0.35)" />
-              <rect x={G0.lPan.x + 12} y={G0.lPan.y - 16} width={28} height={2.5} rx={1} fill="rgba(255,180,160,0.30)" />
-            </g>
+                {/* Chrome sweep highlight */}
+                <rect
+                  x={PX-AL+18} y={PY-5} width={(AL-18)*2} height={3} rx={1.5}
+                  className="tb-sweep"
+                />
+                {/* Tip caps */}
+                <circle cx={PX-AL} cy={PY} r={12} fill="url(#tb2-arm)" />
+                <circle cx={PX+AL} cy={PY} r={12} fill="url(#tb2-arm)" />
+                {/* Tip specular dots */}
+                <circle cx={PX-AL-3} cy={PY-4} r={4} fill="rgba(255,255,255,.65)" />
+                <circle cx={PX+AL-3} cy={PY-4} r={4} fill="rgba(255,255,255,.65)" />
+              </g>
 
-            {/* ── Right pan — LLC (light, rises) ── */}
-            <g ref={rPanRef} style={{ transform: "translate(0px,0px)" }}>
-              {/* Glow halo */}
-              <ellipse
-                cx={G0.rPan.x}
-                cy={G0.rPan.y + 24}
-                rx={PAN_RX + 50}
-                ry={42}
-                fill="url(#tb-glowR)"
-              />
-              {/* Bowl */}
-              <ellipse
-                cx={G0.rPan.x}
-                cy={G0.rPan.y}
-                rx={PAN_RX}
-                ry={PAN_RY}
-                fill="url(#tb-panR)"
-                stroke="rgba(80,170,255,0.75)"
-                strokeWidth={2}
-                filter="url(#tb-dropR)"
-              />
-              {/* Rim highlight */}
-              <ellipse
-                cx={G0.rPan.x}
-                cy={G0.rPan.y - 7}
-                rx={PAN_RX - 12}
-                ry={PAN_RY - 8}
-                fill="none"
-                stroke="rgba(170,225,255,0.65)"
-                strokeWidth={1.5}
-              />
-              {/* Check mark — freedom */}
-              <circle cx={G0.rPan.x} cy={G0.rPan.y - 4} r={16} fill="rgba(40,130,255,0.18)" />
-              <path
-                d={`M${G0.rPan.x - 10} ${G0.rPan.y - 3} L${G0.rPan.x - 2} ${G0.rPan.y + 6} L${G0.rPan.x + 12} ${G0.rPan.y - 12}`}
-                stroke="rgba(140,220,255,0.92)"
-                strokeWidth={3}
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </g>
-          </svg>
-        </motion.div>
+              {/* Chains */}
+              {[0,1,2].map((i) => (
+                <path key={`lc-${i}`} ref={(el)=>{ lCRefs.current[i]=el }} d={G0.lC[i]}
+                  stroke="rgba(155,208,252,.78)" strokeWidth={i===1?3:2} fill="none" strokeLinecap="round" />
+              ))}
+              {[0,1,2].map((i) => (
+                <path key={`rc-${i}`} ref={(el)=>{ rCRefs.current[i]=el }} d={G0.rC[i]}
+                  stroke="rgba(155,208,252,.78)" strokeWidth={i===1?3:2} fill="none" strokeLinecap="round" />
+              ))}
+
+              {/* Left pan (France — heavy) */}
+              <g ref={lPanRef} style={{ transform:"translate(0px,0px)" }}>
+                <ellipse ref={lGlowRef} cx={G0.lP.x} cy={G0.lP.y+28} rx={PRX+55} ry={46} fill="url(#tb2-glowL)" style={{ opacity:.25 }} />
+                <ellipse cx={G0.lP.x} cy={G0.lP.y} rx={PRX} ry={PRY} fill="url(#tb2-panL)" stroke="rgba(240,130,100,.8)" strokeWidth={2.5} filter="url(#tb2-dropL)" />
+                <ellipse cx={G0.lP.x} cy={G0.lP.y-8} rx={PRX-13} ry={PRY-9} fill="none" stroke="rgba(255,215,198,.62)" strokeWidth={1.5} />
+                {/* Tax bricks */}
+                {[{x:-42,w:30},{x:-8,w:30},{x:26,w:30}].map((b,i)=>(
+                  <g key={i}>
+                    <rect x={G0.lP.x+b.x} y={G0.lP.y-18} width={b.w} height={12} rx={3} fill={`rgba(210,58,38,${.85-i*.1})`} stroke="rgba(255,90,65,.35)" strokeWidth={1} />
+                    <rect x={G0.lP.x+b.x} y={G0.lP.y-18} width={b.w} height={2.5} rx={1} fill="rgba(255,175,155,.4)" />
+                  </g>
+                ))}
+              </g>
+
+              {/* Right pan (LLC — light) */}
+              <g ref={rPanRef} style={{ transform:"translate(0px,0px)" }}>
+                <ellipse ref={rGlowRef} cx={G0.rP.x} cy={G0.rP.y+28} rx={PRX+55} ry={46} fill="url(#tb2-glowR)" style={{ opacity:.15 }} />
+                <ellipse cx={G0.rP.x} cy={G0.rP.y} rx={PRX} ry={PRY} fill="url(#tb2-panR)" stroke="rgba(70,175,255,.78)" strokeWidth={2.5} filter="url(#tb2-dropR)" />
+                <ellipse cx={G0.rP.x} cy={G0.rP.y-8} rx={PRX-13} ry={PRY-9} fill="none" stroke="rgba(165,230,255,.62)" strokeWidth={1.5} />
+                {/* Check mark */}
+                <circle cx={G0.rP.x} cy={G0.rP.y-4} r={18} fill="rgba(35,130,255,.16)" />
+                <path
+                  d={`M${G0.rP.x-11} ${G0.rP.y-3} L${G0.rP.x-2} ${G0.rP.y+7} L${G0.rP.x+13} ${G0.rP.y-13}`}
+                  stroke="rgba(130,225,255,.95)" strokeWidth={3.5} fill="none" strokeLinecap="round" strokeLinejoin="round"
+                />
+              </g>
+            </svg>
+          </motion.div>
+        </div>
 
         {/* ── Right: LLC ── */}
         <motion.div
           className="flex flex-col gap-5 order-3"
-          initial={{ opacity: 0, x: 32 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+          initial={{ opacity:0, x:36 }}
+          whileInView={{ opacity:1, x:0 }}
+          viewport={{ once:true }}
+          transition={{ duration:.9, delay:.15, ease:EASE }}
         >
           <div>
-            <p className="text-[10px] uppercase tracking-[0.25em] text-white/30 mb-2" style={{ fontFamily: "var(--font-body)" }}>
-              LLC USA
-            </p>
+            <p className="text-[10px] uppercase tracking-[.25em] text-white/30 mb-2" style={{fontFamily:"var(--font-body)"}}>LLC USA</p>
             <div
-              className="font-bold text-[#4db8ff] leading-none"
-              style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(4rem,8vw,6.5rem)", textShadow: "0 0 60px rgba(60,160,255,0.35)" }}
+              className="font-bold leading-none"
+              style={{ fontFamily:"var(--font-heading)", fontSize:"clamp(4.5rem,9vw,7rem)", textShadow:"0 0 80px rgba(50,165,255,.4),0 0 24px rgba(50,165,255,.2)" }}
             >
-              0%*
+              <CharReveal text="0%*" delay={.35} color="#4dbfff" />
             </div>
-            <p className="text-white/35 text-sm mt-2" style={{ fontFamily: "var(--font-body)" }}>
-              d&rsquo;impôt fédéral
-            </p>
+            <p className="text-white/35 text-sm mt-2" style={{fontFamily:"var(--font-body)"}}>d&rsquo;impôt fédéral</p>
           </div>
           <ul className="flex flex-col gap-2.5">
-            {["Pass-through taxation", "Anonymat total garanti", "Aucune obligation comptable locale"].map((item) => (
-              <li key={item} className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4db8ff]/60 flex-shrink-0" />
-                <span className="text-[13px] text-white/35" style={{ fontFamily: "var(--font-body)" }}>{item}</span>
-              </li>
+            {["Pass-through taxation","Anonymat total garanti","Aucune obligation locale"].map((item,i) => (
+              <motion.li
+                key={item}
+                className="flex items-center gap-2.5"
+                initial={{ opacity:0, x:16 }}
+                whileInView={{ opacity:1, x:0 }}
+                viewport={{ once:true }}
+                transition={{ delay:.4+i*.1, ease:EASE }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4dbfff]/60 flex-shrink-0" />
+                <span className="text-[13px] text-white/35" style={{fontFamily:"var(--font-body)"}}>{item}</span>
+              </motion.li>
             ))}
           </ul>
-          <div
-            className="self-start px-4 py-2 rounded-full text-[12px] font-semibold text-[#4db8ff] border border-[#4db8ff]/25 bg-[#4db8ff]/[0.08]"
-            style={{ fontFamily: "var(--font-heading)" }}
+          <motion.div
+            className="self-start px-4 py-2 rounded-full text-[12px] font-semibold text-[#4dbfff] border border-[#4dbfff]/25 bg-[#4dbfff]/[.07]"
+            style={{fontFamily:"var(--font-heading)"}}
+            initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} transition={{ delay:.7 }}
           >
             Léger & optimisé
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Bottom stat badge */}
+      {/* Bottom badge */}
       <motion.div
         className="text-center mt-16 px-4 relative z-10"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+        initial={{ opacity:0, y:16 }}
+        whileInView={{ opacity:1, y:0 }}
+        viewport={{ once:true }}
+        transition={{ duration:.7, delay:.25, ease:EASE }}
       >
         <div
           className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.09)",
-            backdropFilter: "blur(20px)",
-          }}
+          style={{ background:"rgba(255,255,255,.035)", border:"1px solid rgba(255,255,255,.08)", backdropFilter:"blur(20px)" }}
         >
-          <span className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>
-            Jusqu&rsquo;à +45%
-          </span>
-          <span className="text-white/35" style={{ fontFamily: "var(--font-body)" }}>
-            de revenu net disponible
-          </span>
+          <span className="text-2xl font-bold text-white" style={{fontFamily:"var(--font-heading)"}}>Jusqu&rsquo;à +45%</span>
+          <span className="text-white/35" style={{fontFamily:"var(--font-body)"}}>de revenu net disponible</span>
         </div>
-        <p className="mt-3 text-[11px] text-white/20 max-w-lg mx-auto" style={{ fontFamily: "var(--font-body)" }}>
-          *La LLC n&rsquo;est pas imposée au niveau fédéral pour les non-résidents sans activité sur le sol américain. Résultat variable selon votre situation.
+        <p className="mt-3 text-[11px] text-white/20 max-w-lg mx-auto" style={{fontFamily:"var(--font-body)"}}>
+          *Non-résidents sans activité sur le sol américain. Résultat variable selon votre situation.
         </p>
       </motion.div>
     </section>
