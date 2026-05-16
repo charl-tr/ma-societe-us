@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion, useScroll } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
-// ── Spring physics constants ──────────────────────────────
-const K = 55, C = 11, M = 1.0; // stiffness, damping, mass
+// ── Spring physics: underdamped for dramatic overshoot/wobble ─
+const K = 110, C = 8, M = 1.0;
 const DT = 1 / 60;
 
 // ── Scale geometry ────────────────────────────────────────
@@ -61,7 +61,7 @@ function CharReveal({ text, delay = 0, color }: { text: string; delay?: number; 
 }
 
 export function TaxBalance() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef  = useRef<HTMLElement>(null);
   const svgWrapRef  = useRef<HTMLDivElement>(null);
   const armRef      = useRef<SVGGElement>(null);
   const lPanRef     = useRef<SVGGElement>(null);
@@ -72,20 +72,18 @@ export function TaxBalance() {
   const rCRefs      = useRef<(SVGPathElement | null)[]>([null, null, null]);
   const ptcRef      = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 85%", "center 25%"],
-  });
+  // InView trigger — fires reliably when section enters viewport
+  const isInView = useInView(sectionRef, { once: true, margin: "-60px 0px" });
+  const targetRef     = useRef(0);
+  const hasTriggered  = useRef(false);
 
-  // Track target separately so RAF doesn't close over stale scroll value
-  const targetRef = useRef(0);
-
+  // When visible → set target and let spring do the physics
   useEffect(() => {
-    const unsub = scrollYProgress.on("change", (v) => {
-      targetRef.current = Math.max(0, Math.min(MAX_TILT, v * MAX_TILT));
-    });
-    return unsub;
-  }, [scrollYProgress]);
+    if (!isInView || hasTriggered.current) return;
+    hasTriggered.current = true;
+    const t = setTimeout(() => { targetRef.current = MAX_TILT; }, 450);
+    return () => clearTimeout(t);
+  }, [isInView]);
 
   useEffect(() => {
     let animId: number;
@@ -93,11 +91,11 @@ export function TaxBalance() {
 
     function tick() {
       const target = targetRef.current;
-      // Spring force
       const accel = ((target - curTilt) * K - curVel * C) / M;
       curVel += accel * DT;
       curTilt += curVel * DT;
-      curTilt = Math.max(-3, Math.min(MAX_TILT + 4, curTilt));
+      // Allow slight overshoot for wobble feel
+      curTilt = Math.max(-5, Math.min(MAX_TILT + 10, curTilt));
 
       const g = scaleGeo(curTilt);
       const t = Math.max(0, Math.min(1, curTilt / MAX_TILT));
@@ -195,7 +193,7 @@ export function TaxBalance() {
           Pourquoi vous payez trop&nbsp;?
         </h2>
         <p className="mt-2 text-white/30 text-sm italic" style={{fontFamily:"var(--font-body)"}}>
-          Faites défiler — la balance bascule avec la physique réelle
+          La balance bascule en physique réelle dès l&rsquo;affichage
         </p>
       </motion.div>
 
