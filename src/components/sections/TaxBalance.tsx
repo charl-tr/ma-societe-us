@@ -101,10 +101,12 @@ export function TaxBalance() {
       const t = Math.max(0, Math.min(1, curTilt / MAX_TILT));
 
       // ── SVG attribute transforms — immune to React reconciliation ──
-      // Arm: rotate(angle, cx, cy) is native SVG, no CSS needed
+      // scaleGeo: lT.y = PY + AL·sin(θ) → left tip goes DOWN for +θ
+      // SVG rotate(+θ, cx, cy): left tip goes UP (opposite convention)
+      // Negate angle so arm visually matches chain/pan geometry
       armRef.current?.setAttribute(
         "transform",
-        `rotate(${curTilt.toFixed(3)}, ${PX}, ${PY})`
+        `rotate(${(-curTilt).toFixed(3)}, ${PX}, ${PY})`
       );
 
       // Pans: translate via SVG attribute
