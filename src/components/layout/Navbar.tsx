@@ -2,16 +2,23 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_ITEMS } from "@/lib/constants";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
+  // On dark-hero pages (homepage only), start transparent
+  const isDark = isHomePage && !scrolled && !menuOpen;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -19,9 +26,9 @@ export function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(10,22,40,0.06)]"
-            : ""
+          isDark
+            ? ""
+            : "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(10,22,40,0.06)]"
         }`}
       >
         <nav className="flex items-center justify-between px-6 lg:px-10 h-[56px] lg:h-[64px]">
@@ -32,7 +39,7 @@ export function Navbar() {
               width={120}
               height={72}
               className={`h-9 w-auto transition-all duration-500 ${
-                scrolled ? "" : "brightness-[10] saturate-0"
+                isDark ? "brightness-[10] saturate-0" : ""
               }`}
               priority
             />
@@ -44,9 +51,9 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={`text-[13px] tracking-wide transition-colors duration-300 ${
-                  scrolled
-                    ? "text-[#0A1628]/60 hover:text-[#0A1628]"
-                    : "text-white/80 hover:text-white"
+                  isDark
+                    ? "text-white/70 hover:text-white"
+                    : "text-[#0A1628]/55 hover:text-[#0A1628]"
                 }`}
               >
                 {item.label}
@@ -57,22 +64,24 @@ export function Navbar() {
           <div className="hidden lg:flex items-center flex-shrink-0">
             <a
               href="/contact"
-              className="inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-medium transition-all duration-300 bg-[#002868] text-white shadow-[0_4px_20px_rgba(0,40,104,0.25)] hover:bg-[#002868]/90"
+              className={`inline-flex items-center px-6 py-2.5 rounded-full text-[13px] font-medium transition-all duration-300 ${
+                isDark
+                  ? "bg-white/[0.08] text-white border border-white/15 hover:bg-white/15"
+                  : "bg-[#002868] text-white shadow-[0_4px_20px_rgba(0,40,104,0.22)] hover:bg-[#002868]/90"
+              }`}
             >
               Prendre rendez-vous
             </a>
           </div>
 
-          {/* Mobile: CTA + hamburger */}
+          {/* Mobile */}
           <div className="lg:hidden flex items-center gap-3 relative z-50">
             <a
               href="/contact"
               className={`inline-flex items-center px-4 py-1.5 rounded-full text-[12px] font-medium transition-all duration-300 ${
-                menuOpen
+                menuOpen || !isDark
                   ? "bg-[#002868] text-white"
-                  : scrolled
-                    ? "bg-[#002868] text-white"
-                    : "bg-white/10 text-white border border-white/20"
+                  : "bg-white/10 text-white border border-white/20"
               }`}
             >
               RDV gratuit
@@ -82,14 +91,22 @@ export function Navbar() {
               className="w-8 h-8 flex flex-col justify-center items-center gap-1.5"
               aria-label="Menu"
             >
-              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white rotate-45 translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
-              <span className={`block w-5 h-px transition-all duration-300 ${menuOpen ? "bg-white -rotate-45 -translate-y-[3.5px]" : scrolled ? "bg-[#0A1628]" : "bg-white"}`} />
+              <span
+                className={`block w-5 h-px transition-all duration-300 ${
+                  menuOpen ? "bg-white rotate-45 translate-y-[3.5px]" : isDark ? "bg-white" : "bg-[#0A1628]"
+                }`}
+              />
+              <span
+                className={`block w-5 h-px transition-all duration-300 ${
+                  menuOpen ? "bg-white -rotate-45 -translate-y-[3.5px]" : isDark ? "bg-white" : "bg-[#0A1628]"
+                }`}
+              />
             </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile menu — dark, stagger-animated */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div

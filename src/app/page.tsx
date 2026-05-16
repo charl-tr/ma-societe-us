@@ -4,8 +4,12 @@ import { useRef, useEffect } from "react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { Hero } from "@/components/hero/Hero";
 import { StatesMap } from "@/components/sections/StatesMap";
-import { ScrollTimeline } from "@/components/sections/ScrollTimeline";
+import { ProcessParallax } from "@/components/sections/ProcessParallax";
 import { CTASection } from "@/components/sections/CTASection";
+import { TaxBalance } from "@/components/sections/TaxBalance";
+import { SavingsCalculator } from "@/components/sections/SavingsCalculator";
+import { CompareVault } from "@/components/sections/CompareVault";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 import { STATS, TESTIMONIALS, VALUE_PROPS } from "@/lib/constants";
 
 /* ─── Glass panel utility ─── */
@@ -125,14 +129,18 @@ export default function HomePage() {
         className="py-10 lg:py-16"
       >
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#2a5090]/50 mb-4">
+          <p className="text-[11px] uppercase tracking-[0.28em] text-[#2a5090]/45 mb-4">
             Pourquoi passer à la LLC
           </p>
           <h2
-            className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-semibold leading-[1.1] tracking-[-0.02em] max-w-2xl mb-8 text-[#1a2a40]"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-normal leading-[1.08] max-w-2xl mb-8 text-[#0c1830]"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "clamp(1.9rem,4vw,3.2rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
-            Ce que votre SARL ou SAS ne pourra jamais vous offrir.
+            Ce que votre SARL ou SAS<br className="hidden sm:block" /> ne pourra jamais vous offrir.
           </h2>
 
           <motion.div
@@ -146,7 +154,7 @@ export default function HomePage() {
               <motion.div
                 key={prop.title}
                 variants={fadeUp}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,40,104,0.09)", transition: { type: "spring", stiffness: 400, damping: 25 } }}
                 className={`rounded-xl overflow-hidden transition-all duration-300 ${glass.cardHover}`}
               >
                 {/* Chrome bar */}
@@ -171,6 +179,9 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      {/* ─── Tax Balance — SARL vs LLC chrome scales ─── */}
+      <TaxBalance />
+
       {/* ─── CTA Strip #1 — dark, conversion push ─── */}
       <motion.section
         variants={fadeUp}
@@ -187,14 +198,17 @@ export default function HomePage() {
           >
             Prêt à diviser votre note fiscale ?
           </p>
-          <a
+          <MagneticButton
             href="/contact"
             className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[14px] font-medium bg-white text-[#0a1628] shadow-[0_4px_16px_rgba(255,255,255,0.15)] hover:bg-white/90 transition-all"
           >
             Entretien gratuit — 15 min →
-          </a>
+          </MagneticButton>
         </div>
       </motion.section>
+
+      {/* ─── Savings Calculator — interactive revenue slider ─── */}
+      <SavingsCalculator />
 
       {/* ─── Teaser cards — differentiated glass panels ─── */}
       <motion.section
@@ -219,8 +233,12 @@ export default function HomePage() {
                   4 juridictions
                 </p>
                 <h3
-                  className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold tracking-tight mb-3 text-[#1a2a40] whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="font-normal leading-[1.12] mb-3 text-[#0c1830] whitespace-pre-line"
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "clamp(1.4rem,2.4vw,2rem)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   {"Le bon état,\nc'est des milliers d'euros\nde différence."}
                 </h3>
@@ -245,8 +263,12 @@ export default function HomePage() {
                   Pack tout inclus
                 </p>
                 <h3
-                  className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold tracking-tight mb-3 text-white whitespace-pre-line"
-                  style={{ fontFamily: "var(--font-heading)" }}
+                  className="font-normal leading-[1.12] mb-3 text-white whitespace-pre-line"
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "clamp(1.4rem,2.4vw,2rem)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
                   {"Vous signez.\nOn fait le reste."}
                 </h3>
@@ -265,8 +287,11 @@ export default function HomePage() {
       {/* ─── States Map — glassmorphism ─── */}
       <StatesMap />
 
-      {/* ─── Process steps — scroll timeline ─── */}
-      <ScrollTimeline />
+      {/* ─── Compare Vault — competitor weaknesses vs MSUS strengths ─── */}
+      <CompareVault />
+
+      {/* ─── Process steps — sticky parallax ─── */}
+      <ProcessParallax />
 
       {/* ─── CTA Strip #2 — credible, not fake urgency ─── */}
       <motion.section
@@ -281,12 +306,12 @@ export default function HomePage() {
           <p className="text-[14px] text-[#1a2a40]/60 text-center sm:text-left">
             <span className="font-semibold text-[#1a2a40]">500+ entrepreneurs</span> nous ont déjà fait confiance. À votre tour ?
           </p>
-          <a
+          <MagneticButton
             href="/contact"
             className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full text-[14px] font-medium bg-[#0a1628] text-white hover:bg-[#1a2a40] transition-all shadow-[0_4px_16px_rgba(10,22,40,0.15)]"
           >
             Parler à un expert →
-          </a>
+          </MagneticButton>
         </div>
       </motion.section>
 
@@ -300,12 +325,16 @@ export default function HomePage() {
         style={{ background: "linear-gradient(180deg, rgba(220,228,240,0.4), rgba(237,241,246,0.2))" }}
       >
         <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#1a2a40]/25 mb-2 text-center">
+          <p className="text-[11px] uppercase tracking-[0.28em] text-[#1a2a40]/22 mb-3 text-center">
             Ce qu&apos;ils en disent
           </p>
           <h2
-            className="text-[clamp(1.4rem,2.5vw,2rem)] font-semibold tracking-tight text-[#1a2a40] text-center mb-8"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="font-normal text-[#0c1830] text-center mb-10 leading-tight"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "clamp(1.7rem,3vw,2.6rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
             Ils ont créé leur LLC avec nous.
           </h2>
@@ -321,6 +350,7 @@ export default function HomePage() {
               <motion.div
                 key={t.author}
                 variants={fadeUp}
+                whileHover={{ y: -5, transition: { type: "spring", stiffness: 400, damping: 28 } }}
                 className="rounded-xl overflow-hidden"
               >
                 <div className="h-[2px]" style={{ background: glass.chrome }} />

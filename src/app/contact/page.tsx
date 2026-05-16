@@ -20,8 +20,8 @@ export default function ContactPage() {
                 Entretien découverte
               </p>
               <h2
-                className="text-[clamp(1.8rem,3.5vw,40px)] leading-[1.15] font-normal tracking-tight mb-6"
-                style={{ fontFamily: "var(--font-heading)" }}
+                className="font-normal leading-[1.1] mb-6"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.9rem, 3.8vw, 44px)", letterSpacing: "-0.01em" }}
               >
                 Réservez votre consultation
                 <br />
